@@ -1,0 +1,730 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeArchitecturePreference = x86_64;
+		activeBuildConfigurationName = Debug;
+		activeExecutable = E21FB825112D94FD0024B53B /* Executable */;
+		activeTarget = 8D5B49AC048680CD000E48DA /* Sanguino3G */;
+		addToTargets = (
+			8D5B49AC048680CD000E48DA /* Sanguino3G */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = E21FB6C8112D7ACC0024B53B /* Code sense */;
+		executables = (
+			E21FB825112D94FD0024B53B /* Executable */,
+		);
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					365,
+					20,
+					266,
+					266,
+					196,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					1010,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					1001,
+					20,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.XCSCMDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					1126,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_SCM_ColumnID,
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					405,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 307310329;
+			PBXWorkspaceStateSaveDate = 307310329;
+		};
+		perUserProjectItems = {
+			E21FB7A9112D8B7E0024B53B /* PBXTextBookmark */ = E21FB7A9112D8B7E0024B53B /* PBXTextBookmark */;
+			E24F6CA3116F723D00285948 /* PBXTextBookmark */ = E24F6CA3116F723D00285948 /* PBXTextBookmark */;
+			E24F6D2F116F86AD00285948 /* PBXTextBookmark */ = E24F6D2F116F86AD00285948 /* PBXTextBookmark */;
+			E24F6D86116FA64900285948 /* PBXTextBookmark */ = E24F6D86116FA64900285948 /* PBXTextBookmark */;
+			E24F6E35117001DA00285948 /* PBXTextBookmark */ = E24F6E35117001DA00285948 /* PBXTextBookmark */;
+			E24F6EB411702CF400285948 /* PBXTextBookmark */ = E24F6EB411702CF400285948 /* PBXTextBookmark */;
+			E24F6FE2117214D500285948 /* PBXTextBookmark */ = E24F6FE2117214D500285948 /* PBXTextBookmark */;
+			E24F6FE8117214D500285948 /* PBXTextBookmark */ = E24F6FE8117214D500285948 /* PBXTextBookmark */;
+			E24F6FEA117214D500285948 /* PBXTextBookmark */ = E24F6FEA117214D500285948 /* PBXTextBookmark */;
+			E24F6FEC117214D500285948 /* PBXTextBookmark */ = E24F6FEC117214D500285948 /* PBXTextBookmark */;
+			E24F6FF51172155D00285948 /* PBXTextBookmark */ = E24F6FF51172155D00285948 /* PBXTextBookmark */;
+			E24F702911721A7C00285948 /* PlistBookmark */ = E24F702911721A7C00285948 /* PlistBookmark */;
+			E24F705111721E9E00285948 /* PBXTextBookmark */ = E24F705111721E9E00285948 /* PBXTextBookmark */;
+			E24F705A11721EFD00285948 /* PBXTextBookmark */ = E24F705A11721EFD00285948 /* PBXTextBookmark */;
+			E24F70D811723F3100285948 /* PBXTextBookmark */ = E24F70D811723F3100285948 /* PBXTextBookmark */;
+			E24F70DD11723F3100285948 /* PBXTextBookmark */ = E24F70DD11723F3100285948 /* PBXTextBookmark */;
+			E24F70E411723F6000285948 /* PBXTextBookmark */ = E24F70E411723F6000285948 /* PBXTextBookmark */;
+			E24F7107117240DD00285948 /* PBXTextBookmark */ = E24F7107117240DD00285948 /* PBXTextBookmark */;
+			E24F7108117240DD00285948 /* PBXTextBookmark */ = E24F7108117240DD00285948 /* PBXTextBookmark */;
+			E24F717211734F0400285948 /* PBXTextBookmark */ = E24F717211734F0400285948 /* PBXTextBookmark */;
+			E24F717311734F0400285948 /* PBXTextBookmark */ = E24F717311734F0400285948 /* PBXTextBookmark */;
+			E24F717411734F0400285948 /* PBXTextBookmark */ = E24F717411734F0400285948 /* PBXTextBookmark */;
+			E26D94B3114F257100914392 /* PBXTextBookmark */ = E26D94B3114F257100914392 /* PBXTextBookmark */;
+			E279EB7912072D0F00291C5F /* PBXTextBookmark */ = E279EB7912072D0F00291C5F /* PBXTextBookmark */;
+			E279EB7B12072D0F00291C5F /* PBXTextBookmark */ = E279EB7B12072D0F00291C5F /* PBXTextBookmark */;
+			E2A6CEA81250BA0B00F1A69E /* PBXTextBookmark */ = E2A6CEA81250BA0B00F1A69E /* PBXTextBookmark */;
+			E2D0FD65112E04D400900531 /* PBXTextBookmark */ = E2D0FD65112E04D400900531 /* PBXTextBookmark */;
+			E2E6DDAC12512F1800D3043D /* PBXTextBookmark */ = E2E6DDAC12512F1800D3043D /* PBXTextBookmark */;
+			E2F052AD124E3C2A0020AE12 /* PBXTextBookmark */ = E2F052AD124E3C2A0020AE12 /* PBXTextBookmark */;
+			E2FE35D2115A7D9800168F11 /* PBXBookmark */ = E2FE35D2115A7D9800168F11 /* PBXBookmark */;
+		};
+		sourceControlManager = E21FB6C7112D7ACC0024B53B /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	089C167EFE841241C02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {635, 358}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 45}";
+		};
+	};
+	8D5B49AC048680CD000E48DA /* Sanguino3G */ = {
+		activeExec = 0;
+	};
+	E21FB6C7112D7ACC0024B53B /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	E21FB6C8112D7ACC0024B53B /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	E21FB6C9112D7ACC0024B53B /* Sanguino3G.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1060, 693}}";
+			sepNavSelRange = "{1472, 0}";
+			sepNavVisRange = "{0, 1478}";
+		};
+	};
+	E21FB6CA112D7ACC0024B53B /* Sanguino3G.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 2366}}";
+			sepNavSelRange = "{5406, 59}";
+			sepNavVisRange = "{4299, 1790}";
+		};
+	};
+	E21FB7A9112D8B7E0024B53B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C167EFE841241C02AAC07 /* English */;
+		name = "InfoPlist.strings: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 45;
+		vrLoc = 0;
+	};
+	E21FB825112D94FD0024B53B /* Executable */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			YES,
+		);
+		argumentStrings = (
+			"-p$(SRCROOT)/$(BUILD_DIR)/$(CONFIGURATION)",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+			"PBXLSLaunchAction-0" = {
+				PBXLSLaunchAction = 0;
+				PBXLSLaunchStartAction = 1;
+				PBXLSLaunchStdioStyle = 2;
+				PBXLSLaunchStyle = 0;
+				class = PBXLSRunLaunchConfig;
+				commandLineArgs = (
+				);
+				displayName = "Executable Runner";
+				environment = {
+				};
+				identifier = com.apple.Xcode.launch.runConfig;
+				remoteHostInfo = "";
+				startActionInfo = "";
+			};
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		launchableReference = E21FB826112D94FD0024B53B /* Pleasant3D.app */;
+		libgmallocEnabled = 0;
+		name = Executable;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+			"byte-uint8_t--[PacketResponse processBytes:length:]" = 1;
+			"crc-uint8_t--[PacketResponse processBytes:length:]" = 1;
+		};
+	};
+	E21FB826112D94FD0024B53B /* Pleasant3D.app */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = Pleasant3D.app;
+		path = /Applications/Pleasant3D.app;
+		sourceTree = "<absolute>";
+	};
+	E21FB97F112D9FF70024B53B /* P3DPrinterDriverBase.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = P3DPrinterDriverBase.h;
+		path = /Applications/Pleasant3D.app/Contents/Frameworks/P3DCore.framework/Versions/A/Headers/P3DPrinterDriverBase.h;
+		sourceTree = "<absolute>";
+	};
+	E24F6C2E116F5A2000285948 /* SanguinoPrinterOptionsController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1322, 247}}";
+			sepNavSelRange = "{334, 116}";
+			sepNavVisRange = "{0, 455}";
+		};
+	};
+	E24F6C2F116F5A2000285948 /* SanguinoPrinterOptionsController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1369, 630}}";
+			sepNavSelRange = "{328, 0}";
+			sepNavVisRange = "{0, 501}";
+		};
+	};
+	E24F6CA3116F723D00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6C2E116F5A2000285948 /* SanguinoPrinterOptionsController.h */;
+		name = "SanguinoPrinterOptionsController.h: 19";
+		rLen = 0;
+		rLoc = 455;
+		rType = 0;
+		vrLen = 455;
+		vrLoc = 0;
+	};
+	E24F6D2A116F857B00285948 /* StepperFieldEnabledTransformer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1369, 630}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 265}";
+		};
+	};
+	E24F6D2B116F857B00285948 /* StepperFieldEnabledTransformer.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {744, 673}}";
+			sepNavSelRange = "{165, 43}";
+			sepNavVisRange = "{0, 480}";
+		};
+	};
+	E24F6D2F116F86AD00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6D2A116F857B00285948 /* StepperFieldEnabledTransformer.h */;
+		name = "StepperFieldEnabledTransformer.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 265;
+		vrLoc = 0;
+	};
+	E24F6D86116FA64900285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6C2F116F5A2000285948 /* SanguinoPrinterOptionsController.m */;
+		name = "SanguinoPrinterOptionsController.m: 16";
+		rLen = 0;
+		rLoc = 328;
+		rType = 0;
+		vrLen = 501;
+		vrLoc = 0;
+	};
+	E24F6E19116FE62D00285948 /* GCodeParser.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 722}}";
+			sepNavSelRange = "{826, 0}";
+			sepNavVisRange = "{0, 930}";
+		};
+	};
+	E24F6E1A116FE62D00285948 /* GCodeParser.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 11271}}";
+			sepNavSelRange = "{4633, 0}";
+			sepNavVisRange = "{3887, 1499}";
+		};
+	};
+	E24F6E35117001DA00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6D2B116F857B00285948 /* StepperFieldEnabledTransformer.m */;
+		name = "StepperFieldEnabledTransformer.m: 9";
+		rLen = 43;
+		rLoc = 165;
+		rType = 0;
+		vrLen = 480;
+		vrLoc = 0;
+	};
+	E24F6EB411702CF400285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E21FB6C9112D7ACC0024B53B /* Sanguino3G.h */;
+		name = "Sanguino3G.h: 38";
+		rLen = 0;
+		rLoc = 1472;
+		rType = 0;
+		vrLen = 1478;
+		vrLoc = 0;
+	};
+	E24F6FD2117212BF00285948 /* P3DDocumentController.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = P3DDocumentController.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/Classes/P3DDocumentController.m;
+		sourceTree = "<absolute>";
+	};
+	E24F6FE2117214D500285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6FD2117212BF00285948 /* P3DDocumentController.m */;
+		name = "P3DDocumentController.m: 31";
+		rLen = 0;
+		rLoc = 848;
+		rType = 0;
+		vrLen = 1518;
+		vrLoc = 0;
+	};
+	E24F6FE8117214D500285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6FE9117214D500285948 /* P3DToolBase.m */;
+		name = "P3DToolBase.m: 585";
+		rLen = 49;
+		rLoc = 16839;
+		rType = 0;
+		vrLen = 1562;
+		vrLoc = 16004;
+	};
+	E24F6FE9117214D500285948 /* P3DToolBase.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = P3DToolBase.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/subprojects/P3DCore/P3DToolBase.m;
+		sourceTree = "<absolute>";
+	};
+	E24F6FEA117214D500285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6FEB117214D500285948 /* STLPreviewGenerator.m */;
+		name = "STLPreviewGenerator.m: 203";
+		rLen = 56;
+		rLoc = 6144;
+		rType = 0;
+		vrLen = 1748;
+		vrLoc = 5159;
+	};
+	E24F6FEB117214D500285948 /* STLPreviewGenerator.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = STLPreviewGenerator.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/subprojects/STLQuickLook/STLPreviewGenerator.m;
+		sourceTree = "<absolute>";
+	};
+	E24F6FEC117214D500285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6FED117214D500285948 /* FileSaver.m */;
+		name = "FileSaver.m: 195";
+		rLen = 151;
+		rLoc = 6472;
+		rType = 0;
+		vrLen = 1712;
+		vrLoc = 5502;
+	};
+	E24F6FED117214D500285948 /* FileSaver.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = FileSaver.m;
+		path = /Users/zaggo/Develop/Pleasant3D/public/ToolPlugins/FileSaver/FileSaver.m;
+		sourceTree = "<absolute>";
+	};
+	E24F6FF51172155D00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6FF61172155D00285948 /* P3DSerialDevice.m */;
+		name = "P3DSerialDevice.m: 63";
+		rLen = 0;
+		rLoc = 1284;
+		rType = 0;
+		vrLen = 1280;
+		vrLoc = 855;
+	};
+	E24F6FF61172155D00285948 /* P3DSerialDevice.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = P3DSerialDevice.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/subprojects/P3DCore/P3DSerialDevice.m;
+		sourceTree = "<absolute>";
+	};
+	E24F702911721A7C00285948 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D5B49B7048680CD000E48DA /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/zaggo/Develop/Pleasant3D/public/PrinterDriver/Sanguino3G/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	E24F705011721E9E00285948 /* P3DPrintingQueue.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = P3DPrintingQueue.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/subprojects/P3DCore/P3DPrintingQueue.m;
+		sourceTree = "<absolute>";
+	};
+	E24F705111721E9E00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F705211721E9E00285948 /* P3DPrinterDriverBase.m */;
+		name = "P3DPrinterDriverBase.m: 154";
+		rLen = 0;
+		rLoc = 3445;
+		rType = 0;
+		vrLen = 757;
+		vrLoc = 2835;
+	};
+	E24F705211721E9E00285948 /* P3DPrinterDriverBase.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = P3DPrinterDriverBase.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/subprojects/P3DCore/P3DPrinterDriverBase.m;
+		sourceTree = "<absolute>";
+	};
+	E24F705A11721EFD00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F705B11721EFD00285948 /* GCodeDocument.m */;
+		name = "GCodeDocument.m: 41";
+		rLen = 0;
+		rLoc = 972;
+		rType = 0;
+		vrLen = 1491;
+		vrLoc = 314;
+	};
+	E24F705B11721EFD00285948 /* GCodeDocument.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = GCodeDocument.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/Classes/GCodeDocument.m;
+		sourceTree = "<absolute>";
+	};
+	E24F70821172265900285948 /* SanguinoPrintJob.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 699}}";
+			sepNavSelRange = "{279, 49}";
+			sepNavVisRange = "{0, 334}";
+		};
+	};
+	E24F70831172265900285948 /* SanguinoPrintJob.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 1170}}";
+			sepNavSelRange = "{1969, 0}";
+			sepNavVisRange = "{514, 1504}";
+		};
+	};
+	E24F70D811723F3100285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6E19116FE62D00285948 /* GCodeParser.h */;
+		name = "GCodeParser.h: 39";
+		rLen = 0;
+		rLoc = 826;
+		rType = 0;
+		vrLen = 930;
+		vrLoc = 0;
+	};
+	E24F70DD11723F3100285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D934B114F12A400914392 /* SanguinoDevice.h */;
+		name = "SanguinoDevice.h: 12";
+		rLen = 0;
+		rLoc = 220;
+		rType = 0;
+		vrLen = 1292;
+		vrLoc = 0;
+	};
+	E24F70E411723F6000285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F70821172265900285948 /* SanguinoPrintJob.h */;
+		name = "SanguinoPrintJob.h: 17";
+		rLen = 49;
+		rLoc = 279;
+		rType = 0;
+		vrLen = 334;
+		vrLoc = 0;
+	};
+	E24F7107117240DD00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F705011721E9E00285948 /* P3DPrintingQueue.m */;
+		name = "P3DPrintingQueue.m: 29";
+		rLen = 0;
+		rLoc = 602;
+		rType = 0;
+		vrLen = 1232;
+		vrLoc = 0;
+	};
+	E24F7108117240DD00285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F7109117240DD00285948 /* P3DPrintJob.m */;
+		name = "P3DPrintJob.m: 21";
+		rLen = 0;
+		rLoc = 322;
+		rType = 0;
+		vrLen = 651;
+		vrLoc = 0;
+	};
+	E24F7109117240DD00285948 /* P3DPrintJob.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = P3DPrintJob.m;
+		path = /Users/zaggo/Develop/Pleasant3D/src/subprojects/P3DCore/P3DPrintJob.m;
+		sourceTree = "<absolute>";
+	};
+	E24F717211734F0400285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D95C9114F4E4200914392 /* PacketResponse.m */;
+		name = "PacketResponse.m: 80";
+		rLen = 87;
+		rLoc = 1587;
+		rType = 0;
+		vrLen = 1072;
+		vrLoc = 1736;
+	};
+	E24F717311734F0400285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F6E1A116FE62D00285948 /* GCodeParser.m */;
+		name = "GCodeParser.m: 161";
+		rLen = 0;
+		rLoc = 4633;
+		rType = 0;
+		vrLen = 1499;
+		vrLoc = 3887;
+	};
+	E24F717411734F0400285948 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24F70831172265900285948 /* SanguinoPrintJob.m */;
+		name = "SanguinoPrintJob.m: 80";
+		rLen = 0;
+		rLoc = 1969;
+		rType = 0;
+		vrLen = 1504;
+		vrLoc = 514;
+	};
+	E26D934B114F12A400914392 /* SanguinoDevice.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 1209}}";
+			sepNavSelRange = "{220, 0}";
+			sepNavVisRange = "{0, 1292}";
+		};
+	};
+	E26D934C114F12A400914392 /* SanguinoDevice.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1191, 2626}}";
+			sepNavSelRange = "{1028, 14}";
+			sepNavVisRange = "{1012, 1742}";
+		};
+	};
+	E26D94B3114F257100914392 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D94B4114F257100914392 /* IOKitKeys.h */;
+		name = "IOKitKeys.h: 68";
+		rLen = 10;
+		rLoc = 2388;
+		rType = 0;
+		vrLen = 2435;
+		vrLoc = 2063;
+	};
+	E26D94B4114F257100914392 /* IOKitKeys.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOKitKeys.h;
+		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/IOKitKeys.h;
+		sourceTree = "<absolute>";
+	};
+	E26D95A5114F445F00914392 /* PacketBuilder.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 718}}";
+			sepNavSelRange = "{424, 0}";
+			sepNavVisRange = "{0, 615}";
+		};
+	};
+	E26D95A6114F445F00914392 /* PacketBuilder.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 1430}}";
+			sepNavSelRange = "{2153, 0}";
+			sepNavVisRange = "{1132, 1256}";
+		};
+	};
+	E26D95C8114F4E4200914392 /* PacketResponse.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1312, 722}}";
+			sepNavSelRange = "{680, 17}";
+			sepNavVisRange = "{0, 855}";
+		};
+	};
+	E26D95C9114F4E4200914392 /* PacketResponse.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1322, 1885}}";
+			sepNavSelRange = "{2670, 0}";
+			sepNavVisRange = "{2356, 361}";
+		};
+	};
+	E279EB7912072D0F00291C5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E21FB6CA112D7ACC0024B53B /* Sanguino3G.m */;
+		name = "Sanguino3G.m: 160";
+		rLen = 59;
+		rLoc = 5406;
+		rType = 0;
+		vrLen = 1790;
+		vrLoc = 4299;
+	};
+	E279EB7B12072D0F00291C5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D95A5114F445F00914392 /* PacketBuilder.h */;
+		name = "PacketBuilder.h: 23";
+		rLen = 0;
+		rLoc = 424;
+		rType = 0;
+		vrLen = 615;
+		vrLoc = 0;
+	};
+	E2A6CEA81250BA0B00F1A69E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D934C114F12A400914392 /* SanguinoDevice.m */;
+		name = "SanguinoDevice.m: 40";
+		rLen = 14;
+		rLoc = 1028;
+		rType = 0;
+		vrLen = 1756;
+		vrLoc = 1012;
+	};
+	E2D0FD65112E04D400900531 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E21FB97F112D9FF70024B53B /* P3DPrinterDriverBase.h */;
+		name = "P3DPrinterDriverBase.h: 6";
+		rLen = 0;
+		rLoc = 94;
+		rType = 0;
+		vrLen = 869;
+		vrLoc = 0;
+	};
+	E2E6DDAC12512F1800D3043D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D934C114F12A400914392 /* SanguinoDevice.m */;
+		name = "SanguinoDevice.m: 40";
+		rLen = 14;
+		rLoc = 1028;
+		rType = 0;
+		vrLen = 1742;
+		vrLoc = 1012;
+	};
+	E2F052AD124E3C2A0020AE12 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E26D95A6114F445F00914392 /* PacketBuilder.m */;
+		name = "PacketBuilder.m: 95";
+		rLen = 0;
+		rLoc = 2153;
+		rType = 0;
+		vrLen = 1256;
+		vrLoc = 1132;
+	};
+	E2FE35D2115A7D9800168F11 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E21FB7F9112D92290024B53B /* mbIcon.png */;
+	};
+}

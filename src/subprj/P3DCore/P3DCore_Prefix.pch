@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'P3DToolBase' target in the 'P3DToolBase' project.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

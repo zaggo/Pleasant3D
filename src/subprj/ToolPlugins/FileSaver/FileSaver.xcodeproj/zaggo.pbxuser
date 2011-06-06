@@ -1,0 +1,310 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = E255E6891101F976006B8A2D /* Executable */;
+		activeTarget = 8D5B49AC048680CD000E48DA /* FileSaver */;
+		addToTargets = (
+			8D5B49AC048680CD000E48DA /* FileSaver */,
+		);
+		breakpoints = (
+			E29A058B111F3892006CD3C9 /* GcodeKernel.m:29 */,
+			E29A05B8111F3A54006CD3C9 /* GcodeKernel.m:51 */,
+			E2911E59112EB89B00D4259C /* FileSaver.m:195 */,
+		);
+		codeSenseManager = E255E6771101F87F006B8A2D /* Code sense */;
+		executables = (
+			E255E6891101F976006B8A2D /* Executable */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					823,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					935,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					895,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 291151604;
+			PBXWorkspaceStateSaveDate = 291151604;
+		};
+		perUserProjectItems = {
+			E23D774D115A96F000FD8E11 /* PlistBookmark */ = E23D774D115A96F000FD8E11 /* PlistBookmark */;
+			E27AD5B4115A9F0000FB0BD6 /* PlistBookmark */ = E27AD5B4115A9F0000FB0BD6 /* PlistBookmark */;
+			E2911E5B112EB89F00D4259C /* PBXBookmark */ = E2911E5B112EB89F00D4259C /* PBXBookmark */;
+			E2911F571130405F00D4259C /* PBXTextBookmark */ = E2911F571130405F00D4259C /* PBXTextBookmark */;
+			E2911F581130405F00D4259C /* PBXTextBookmark */ = E2911F581130405F00D4259C /* PBXTextBookmark */;
+			E2911F591130405F00D4259C /* PBXTextBookmark */ = E2911F591130405F00D4259C /* PBXTextBookmark */;
+			E297113D1125811D0060FA0C /* PBXBookmark */ = E297113D1125811D0060FA0C /* PBXBookmark */;
+		};
+		sourceControlManager = E255E6761101F87F006B8A2D /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D5B49AC048680CD000E48DA /* FileSaver */ = {
+		activeExec = 0;
+	};
+	E23D774D115A96F000FD8E11 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D5B49B7048680CD000E48DA /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/zaggo/Develop/Pleasant3D/public/ToolPlugins/FileSaver/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	E24FB04810FB97800081C559 /* FileSaver.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1125, 611}}";
+			sepNavSelRange = "{33, 0}";
+			sepNavVisRange = "{0, 475}";
+		};
+	};
+	E24FB04910FB97800081C559 /* FileSaver.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1125, 3445}}";
+			sepNavSelRange = "{7630, 0}";
+			sepNavVisRange = "{0, 1527}";
+		};
+	};
+	E255E6761101F87F006B8A2D /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	E255E6771101F87F006B8A2D /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	E255E6891101F976006B8A2D /* Executable */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			YES,
+		);
+		argumentStrings = (
+			"-i$(SRCROOT)/$(BUILD_DIR)/$(CONFIGURATION)",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+			"PBXLSLaunchAction-0" = {
+				PBXLSLaunchAction = 0;
+				PBXLSLaunchStartAction = 1;
+				PBXLSLaunchStdioStyle = 2;
+				PBXLSLaunchStyle = 0;
+				class = PBXLSRunLaunchConfig;
+				commandLineArgs = (
+				);
+				displayName = "Executable Runner";
+				environment = {
+				};
+				identifier = com.apple.Xcode.launch.runConfig;
+				remoteHostInfo = "";
+				startActionInfo = "";
+			};
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		launchableReference = E255E68A1101F976006B8A2D /* Pleasant3D.app */;
+		libgmallocEnabled = 0;
+		name = Executable;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	E255E68A1101F976006B8A2D /* Pleasant3D.app */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = Pleasant3D.app;
+		path = /Applications/Pleasant3D.app;
+		sourceTree = "<absolute>";
+	};
+	E27AD5B4115A9F0000FB0BD6 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D5B49B7048680CD000E48DA /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/zaggo/Develop/Pleasant3D/public/ToolPlugins/FileSaver/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	E2911E59112EB89B00D4259C /* FileSaver.m:195 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = E24FB04910FB97800081C559 /* FileSaver.m */;
+		functionName = "-processData";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 195;
+		location = FileSaver;
+		modificationTime = 291149995.021907;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	E2911E5B112EB89F00D4259C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E292E75B10FCE91D000432D2 /* FileSaver.icns */;
+	};
+	E2911F571130405F00D4259C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24FB04810FB97800081C559 /* FileSaver.h */;
+		name = "FileSaver.h: 3";
+		rLen = 0;
+		rLoc = 33;
+		rType = 0;
+		vrLen = 475;
+		vrLoc = 0;
+	};
+	E2911F581130405F00D4259C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24FB04910FB97800081C559 /* FileSaver.m */;
+		name = "FileSaver.m: 236";
+		rLen = 0;
+		rLoc = 7630;
+		rType = 0;
+		vrLen = 1527;
+		vrLoc = 0;
+	};
+	E2911F591130405F00D4259C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E2A2689F10FCC8ED00D00154 /* FileSaver_Prefix.pch */;
+		name = "FileSaver_Prefix.pch: 2";
+		rLen = 0;
+		rLoc = 85;
+		rType = 0;
+		vrLen = 151;
+		vrLoc = 0;
+	};
+	E297113D1125811D0060FA0C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E29A0459111F2001006CD3C9 /* Export.png */;
+	};
+	E29A058B111F3892006CD3C9 /* GcodeKernel.m:29 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = E2A43AA0110281F5003F5907 /* GcodeKernel.m */;
+		functionName = "-generateGCode:startup:shutdown:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 29;
+		modificationTime = 291149933.504517;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	E29A05B8111F3A54006CD3C9 /* GcodeKernel.m:51 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = E2A43AA0110281F5003F5907 /* GcodeKernel.m */;
+		functionName = "-generateGCode:owner:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 51;
+		modificationTime = 291149933.504529;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	E2A2689F10FCC8ED00D00154 /* FileSaver_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1125, 611}}";
+			sepNavSelRange = "{85, 0}";
+			sepNavVisRange = "{0, 151}";
+			sepNavWindowFrame = "{{15, 116}, {912, 762}}";
+		};
+	};
+	E2A43AA0110281F5003F5907 /* GcodeKernel.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = GcodeKernel.m;
+		path = /Users/zaggo/Develop/Pleasant3D/ToolPlugins/FileSaver/GcodeKernel.m;
+		sourceTree = "<absolute>";
+	};
+}

@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
+		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		E21FB6CB112D7ACC0024B53B /* Sanguino3G.m in Sources */ = {isa = PBXBuildFile; fileRef = E21FB6CA112D7ACC0024B53B /* Sanguino3G.m */; };
+		E21FB7FA112D92290024B53B /* mbIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E21FB7F9112D92290024B53B /* mbIcon.png */; };
+		E24F6C30116F5A2000285948 /* SanguinoPrinterOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F6C2F116F5A2000285948 /* SanguinoPrinterOptionsController.m */; };
+		E24F6C46116F5AF800285948 /* Sanguino3GPrinterOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24F6C45116F5AF800285948 /* Sanguino3GPrinterOptions.xib */; };
+		E24F6D2C116F857B00285948 /* StepperFieldEnabledTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F6D2B116F857B00285948 /* StepperFieldEnabledTransformer.m */; };
+		E24F6E1B116FE62D00285948 /* GCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F6E1A116FE62D00285948 /* GCodeParser.m */; };
+		E24F70841172265900285948 /* SanguinoPrintJob.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F70831172265900285948 /* SanguinoPrintJob.m */; };
+		E24F716D117268CF00285948 /* TempDisplayMask.png in Resources */ = {isa = PBXBuildFile; fileRef = E24F716A117268CF00285948 /* TempDisplayMask.png */; };
+		E24F716E117268CF00285948 /* TempDisplayOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = E24F716B117268CF00285948 /* TempDisplayOverlay.png */; };
+		E24F716F117268CF00285948 /* tempscale.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24F716C117268CF00285948 /* tempscale.pdf */; };
+		E26D934D114F12A400914392 /* SanguinoDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D934C114F12A400914392 /* SanguinoDevice.m */; };
+		E26D9377114F159C00914392 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D9376114F159C00914392 /* IOKit.framework */; };
+		E26D95A7114F445F00914392 /* PacketBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D95A6114F445F00914392 /* PacketBuilder.m */; };
+		E26D95CA114F4E4200914392 /* PacketResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D95C9114F4E4200914392 /* PacketResponse.m */; };
+		E27435DC138FDDD00062643A /* P3DCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27435DB138FDDD00062643A /* P3DCore.framework */; };
+		E2911F1411303D8900D4259C /* PrintDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2911F1311303D8900D4259C /* PrintDialog.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF630370AF2F00C91783 /* Sanguino3G_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sanguino3G_Prefix.pch; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* Sanguino3G.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sanguino3G.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E21FB6C9112D7ACC0024B53B /* Sanguino3G.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sanguino3G.h; sourceTree = "<group>"; };
+		E21FB6CA112D7ACC0024B53B /* Sanguino3G.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sanguino3G.m; sourceTree = "<group>"; };
+		E21FB7F9112D92290024B53B /* mbIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mbIcon.png; sourceTree = "<group>"; };
+		E24F6C2E116F5A2000285948 /* SanguinoPrinterOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SanguinoPrinterOptionsController.h; sourceTree = "<group>"; };
+		E24F6C2F116F5A2000285948 /* SanguinoPrinterOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SanguinoPrinterOptionsController.m; sourceTree = "<group>"; };
+		E24F6C45116F5AF800285948 /* Sanguino3GPrinterOptions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Sanguino3GPrinterOptions.xib; sourceTree = "<group>"; };
+		E24F6D2A116F857B00285948 /* StepperFieldEnabledTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepperFieldEnabledTransformer.h; sourceTree = "<group>"; };
+		E24F6D2B116F857B00285948 /* StepperFieldEnabledTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepperFieldEnabledTransformer.m; sourceTree = "<group>"; };
+		E24F6E19116FE62D00285948 /* GCodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCodeParser.h; sourceTree = "<group>"; };
+		E24F6E1A116FE62D00285948 /* GCodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCodeParser.m; sourceTree = "<group>"; };
+		E24F70821172265900285948 /* SanguinoPrintJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SanguinoPrintJob.h; sourceTree = "<group>"; };
+		E24F70831172265900285948 /* SanguinoPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SanguinoPrintJob.m; sourceTree = "<group>"; };
+		E24F716A117268CF00285948 /* TempDisplayMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TempDisplayMask.png; sourceTree = "<group>"; };
+		E24F716B117268CF00285948 /* TempDisplayOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TempDisplayOverlay.png; sourceTree = "<group>"; };
+		E24F716C117268CF00285948 /* tempscale.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = tempscale.pdf; sourceTree = "<group>"; };
+		E26D934B114F12A400914392 /* SanguinoDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SanguinoDevice.h; sourceTree = "<group>"; };
+		E26D934C114F12A400914392 /* SanguinoDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SanguinoDevice.m; sourceTree = "<group>"; };
+		E26D9376114F159C00914392 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		E26D95A5114F445F00914392 /* PacketBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketBuilder.h; sourceTree = "<group>"; };
+		E26D95A6114F445F00914392 /* PacketBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PacketBuilder.m; sourceTree = "<group>"; };
+		E26D95C8114F4E4200914392 /* PacketResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketResponse.h; sourceTree = "<group>"; };
+		E26D95C9114F4E4200914392 /* PacketResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PacketResponse.m; sourceTree = "<group>"; };
+		E27435DB138FDDD00062643A /* P3DCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = P3DCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2911F1311303D8900D4259C /* PrintDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrintDialog.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E27435DC138FDDD00062643A /* P3DCore.framework in Frameworks */,
+				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				E26D9377114F159C00914392 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* Sanguino3G */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = Sanguino3G;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				E27435DB138FDDD00062643A /* P3DCore.framework */,
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E24F716A117268CF00285948 /* TempDisplayMask.png */,
+				E24F716B117268CF00285948 /* TempDisplayOverlay.png */,
+				E24F716C117268CF00285948 /* tempscale.pdf */,
+				E21FB7F9112D92290024B53B /* mbIcon.png */,
+				8D5B49B7048680CD000E48DA /* Info.plist */,
+				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+				E2911F1311303D8900D4259C /* PrintDialog.xib */,
+				E24F6C45116F5AF800285948 /* Sanguino3GPrinterOptions.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E21FB6C9112D7ACC0024B53B /* Sanguino3G.h */,
+				E21FB6CA112D7ACC0024B53B /* Sanguino3G.m */,
+				E26D934B114F12A400914392 /* SanguinoDevice.h */,
+				E26D934C114F12A400914392 /* SanguinoDevice.m */,
+				E26D95A5114F445F00914392 /* PacketBuilder.h */,
+				E26D95A6114F445F00914392 /* PacketBuilder.m */,
+				E26D95C8114F4E4200914392 /* PacketResponse.h */,
+				E26D95C9114F4E4200914392 /* PacketResponse.m */,
+				E24F6C2E116F5A2000285948 /* SanguinoPrinterOptionsController.h */,
+				E24F6C2F116F5A2000285948 /* SanguinoPrinterOptionsController.m */,
+				E24F6D2A116F857B00285948 /* StepperFieldEnabledTransformer.h */,
+				E24F6D2B116F857B00285948 /* StepperFieldEnabledTransformer.m */,
+				E24F6E19116FE62D00285948 /* GCodeParser.h */,
+				E24F6E1A116FE62D00285948 /* GCodeParser.m */,
+				E24F70821172265900285948 /* SanguinoPrintJob.h */,
+				E24F70831172265900285948 /* SanguinoPrintJob.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E26D9376114F159C00914392 /* IOKit.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* Sanguino3G.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF630370AF2F00C91783 /* Sanguino3G_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* Sanguino3G */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "Sanguino3G" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sanguino3G;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = Sanguino3G;
+			productReference = 8D5B49B6048680CD000E48DA /* Sanguino3G.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Sanguino3G" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* Sanguino3G */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* Sanguino3G */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
+				E21FB7FA112D92290024B53B /* mbIcon.png in Resources */,
+				E2911F1411303D8900D4259C /* PrintDialog.xib in Resources */,
+				E24F6C46116F5AF800285948 /* Sanguino3GPrinterOptions.xib in Resources */,
+				E24F716D117268CF00285948 /* TempDisplayMask.png in Resources */,
+				E24F716E117268CF00285948 /* TempDisplayOverlay.png in Resources */,
+				E24F716F117268CF00285948 /* tempscale.pdf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21FB6CB112D7ACC0024B53B /* Sanguino3G.m in Sources */,
+				E26D934D114F12A400914392 /* SanguinoDevice.m in Sources */,
+				E26D95A7114F445F00914392 /* PacketBuilder.m in Sources */,
+				E26D95CA114F4E4200914392 /* PacketResponse.m in Sources */,
+				E24F6C30116F5A2000285948 /* SanguinoPrinterOptionsController.m in Sources */,
+				E24F6D2C116F857B00285948 /* StepperFieldEnabledTransformer.m in Sources */,
+				E24F6E1B116FE62D00285948 /* GCodeParser.m in Sources */,
+				E24F70841172265900285948 /* SanguinoPrintJob.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C167EFE841241C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Sanguino3G_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_NAME = Sanguino3G;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Sanguino3G_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_NAME = Sanguino3G;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "Sanguino3G" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Sanguino3G" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

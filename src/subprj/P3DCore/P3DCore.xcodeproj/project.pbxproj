@@ -1,0 +1,776 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		E21FB65B112D78C50024B53B /* P3DMachinableDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = E21FB659112D78C50024B53B /* P3DMachinableDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E21FB8A3112D99580024B53B /* P3DMachiningQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = E21FB89F112D99580024B53B /* P3DMachiningQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E21FB8A4112D99580024B53B /* P3DMachiningQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E21FB8A0112D99580024B53B /* P3DMachiningQueue.m */; };
+		E21FB8A9112D99AB0024B53B /* P3DMachineDriverBase.h in Headers */ = {isa = PBXBuildFile; fileRef = E21FB8A5112D99AB0024B53B /* P3DMachineDriverBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E221D2C61143DD8100C6A685 /* P3DMutableLoopIndexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E221D2C41143DD8100C6A685 /* P3DMutableLoopIndexArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E221D2C71143DD8100C6A685 /* P3DMutableLoopIndexArray.m in Sources */ = {isa = PBXBuildFile; fileRef = E221D2C51143DD8100C6A685 /* P3DMutableLoopIndexArray.m */; };
+		E24F6BE9116F58B500285948 /* MachineOptionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E24F6BE7116F58B500285948 /* MachineOptionsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24F6BEA116F58B500285948 /* MachineOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F6BE8116F58B500285948 /* MachineOptionsViewController.m */; };
+		E24F706E1172245200285948 /* P3DMachineJob.h in Headers */ = {isa = PBXBuildFile; fileRef = E24F706C1172245200285948 /* P3DMachineJob.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24F706F1172245200285948 /* P3DMachineJob.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F706D1172245200285948 /* P3DMachineJob.m */; };
+		E24FAE5710FB68E60081C559 /* P3DToolBase.h in Headers */ = {isa = PBXBuildFile; fileRef = E24FAE5510FB68E60081C559 /* P3DToolBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24FAE5810FB68E60081C559 /* P3DToolBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E24FAE5610FB68E60081C559 /* P3DToolBase.m */; };
+		E24FAE6210FB6B370081C559 /* ToolSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E24FAE5B10FB6B370081C559 /* ToolSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24FAE6310FB6B370081C559 /* ToolSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24FAE5C10FB6B370081C559 /* ToolSettingsViewController.m */; };
+		E24FAE6410FB6B370081C559 /* P3DBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = E24FAE5E10FB6B370081C559 /* P3DBorderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24FAE6510FB6B370081C559 /* P3DBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E24FAE5F10FB6B370081C559 /* P3DBorderView.m */; };
+		E24FAE6610FB6B370081C559 /* P3DPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E24FAE6010FB6B370081C559 /* P3DPopupWindow.h */; };
+		E24FAE6710FB6B370081C559 /* P3DPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E24FAE6110FB6B370081C559 /* P3DPopupWindow.m */; };
+		E24FAE6C10FB6B570081C559 /* SliceNDiceHost.h in Headers */ = {isa = PBXBuildFile; fileRef = E24FAE6A10FB6B570081C559 /* SliceNDiceHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24FAE7410FB6C170081C559 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAE7310FB6C170081C559 /* QuartzCore.framework */; };
+		E24FB29210FBE8270081C559 /* NSView+SearchSubview.h in Headers */ = {isa = PBXBuildFile; fileRef = E24FB29010FBE8270081C559 /* NSView+SearchSubview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E24FB29310FBE8270081C559 /* NSView+SearchSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = E24FB29110FBE8270081C559 /* NSView+SearchSubview.m */; };
+		E255E98211020EBA006B8A2D /* P3DProcessedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E255E98011020EBA006B8A2D /* P3DProcessedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E255E98311020EBA006B8A2D /* P3DProcessedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E255E98111020EBA006B8A2D /* P3DProcessedObject.m */; };
+		E26D97D41150E8A500914392 /* P3DSerialDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = E26D97D21150E8A500914392 /* P3DSerialDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E26D97D51150E8A500914392 /* P3DSerialDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D97D31150E8A500914392 /* P3DSerialDevice.m */; };
+		E26D97E21150F01300914392 /* AvailableDevices.h in Headers */ = {isa = PBXBuildFile; fileRef = E26D97E01150F01300914392 /* AvailableDevices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E26D97E31150F01300914392 /* AvailableDevices.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D97E11150F01300914392 /* AvailableDevices.m */; };
+		E26D97EE1150F3D000914392 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D97ED1150F3D000914392 /* IOKit.framework */; };
+		E2743614139003810062643A /* AMSerialErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = E27436081390037F0062643A /* AMSerialErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2743615139003810062643A /* AMSerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = E27436091390037F0062643A /* AMSerialPort.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2743616139003810062643A /* AMSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = E274360A1390037F0062643A /* AMSerialPort.m */; };
+		E2743617139003810062643A /* AMSerialPortAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = E274360B1390037F0062643A /* AMSerialPortAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2743618139003810062643A /* AMSerialPortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E274360C139003800062643A /* AMSerialPortAdditions.m */; };
+		E2743619139003810062643A /* AMSerialPortList_Deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = E274360D139003800062643A /* AMSerialPortList_Deprecated.h */; };
+		E274361A139003810062643A /* AMSerialPortList_Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = E274360E139003800062643A /* AMSerialPortList_Deprecated.m */; };
+		E274361B139003810062643A /* AMSerialPortList.h in Headers */ = {isa = PBXBuildFile; fileRef = E274360F139003800062643A /* AMSerialPortList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E274361C139003810062643A /* AMSerialPortList.m in Sources */ = {isa = PBXBuildFile; fileRef = E2743610139003810062643A /* AMSerialPortList.m */; };
+		E274361D139003810062643A /* AMSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = E2743611139003810062643A /* AMSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E274361E139003810062643A /* AMStandardEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = E2743612139003810062643A /* AMStandardEnumerator.h */; };
+		E274361F139003810062643A /* AMStandardEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = E2743613139003810062643A /* AMStandardEnumerator.m */; };
+		E274362413929DD30062643A /* P3DMachineDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E274362313929DD10062643A /* P3DMachineDriverBase.m */; };
+		E27C8048139C8296000010FD /* P3DMachinableDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C8047139C8295000010FD /* P3DMachinableDocument.m */; };
+		E281DF17112D5D6200C05C08 /* preprocessOpenCL.pl in XCode Helper Files */ = {isa = PBXBuildFile; fileRef = E2ABC5771100EB95004CE17C /* preprocessOpenCL.pl */; };
+		E29708771121B6180060FA0C /* P3DFormatRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = E29708751121B6180060FA0C /* P3DFormatRegistration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E29708781121B6180060FA0C /* P3DFormatRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = E29708761121B6180060FA0C /* P3DFormatRegistration.m */; };
+		E29A03B0111F104D006CD3C9 /* GCode.h in Headers */ = {isa = PBXBuildFile; fileRef = E29A03AE111F104D006CD3C9 /* GCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E29A03B1111F104D006CD3C9 /* GCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A03AF111F104D006CD3C9 /* GCode.m */; };
+		E2A43A4511027F43003F5907 /* P3DLoops.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A43A4311027F43003F5907 /* P3DLoops.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2A43A4611027F43003F5907 /* P3DLoops.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43A4411027F43003F5907 /* P3DLoops.m */; };
+		E2A43A6211028076003F5907 /* PSMutableIntegerArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A43A6011028076003F5907 /* PSMutableIntegerArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2A43A6311028076003F5907 /* PSMutableIntegerArray.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43A6111028076003F5907 /* PSMutableIntegerArray.m */; };
+		E2A43ABB11028F2B003F5907 /* clSliceTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A43AB911028F2B003F5907 /* clSliceTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2A43ABC11028F2B003F5907 /* SliceTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A43ABA11028F2B003F5907 /* SliceTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFB51100A6E4004CE17C /* PSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFB31100A6E4004CE17C /* PSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFB61100A6E4004CE17C /* PSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFB41100A6E4004CE17C /* PSLog.m */; };
+		E2ABBFBE1100A72F004CE17C /* BinarySTLStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFB71100A72F004CE17C /* BinarySTLStructs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFBF1100A72F004CE17C /* STLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFB81100A72F004CE17C /* STLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFC01100A72F004CE17C /* STLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFB91100A72F004CE17C /* STLModel.m */; };
+		E2ABBFC11100A72F004CE17C /* Vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFBA1100A72F004CE17C /* Vector3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFC21100A72F004CE17C /* Vector3.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFBB1100A72F004CE17C /* Vector3.m */; };
+		E2ABBFC31100A72F004CE17C /* Vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFBC1100A72F004CE17C /* Vector2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFC41100A72F004CE17C /* Vector2.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFBD1100A72F004CE17C /* Vector2.m */; };
+		E2ABBFC91100A793004CE17C /* STLImportPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFC51100A793004CE17C /* STLImportPlugin.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E2ABBFCA1100A793004CE17C /* STLImportPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFC61100A793004CE17C /* STLImportPlugin.m */; };
+		E2ABBFCB1100A793004CE17C /* STLShapeShifter.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFC71100A793004CE17C /* STLShapeShifter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E2ABBFCC1100A793004CE17C /* STLShapeShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFC81100A793004CE17C /* STLShapeShifter.m */; };
+		E2ABBFCF1100A7B7004CE17C /* P3DCore.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFCE1100A7B7004CE17C /* P3DCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABBFD21100A7F3004CE17C /* NSArray+GCode.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFD01100A7F2004CE17C /* NSArray+GCode.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E2ABBFD31100A7F3004CE17C /* NSArray+GCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABBFD11100A7F2004CE17C /* NSArray+GCode.m */; };
+		E2ABBFF41100A91C004CE17C /* P3DCore_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = E2ABBFF31100A91C004CE17C /* P3DCore_Prefix.pch */; };
+		E2ABC21F1100B7D3004CE17C /* QuartzUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABC21D1100B7D3004CE17C /* QuartzUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABC2201100B7D3004CE17C /* QuartzUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABC21E1100B7D3004CE17C /* QuartzUtils.m */; };
+		E2ABC3561100C30A004CE17C /* IndexedSTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABC3541100C30A004CE17C /* IndexedSTLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABC3571100C30A004CE17C /* IndexedSTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABC3551100C30A004CE17C /* IndexedSTLModel.m */; };
+		E2ABC3F91100CB75004CE17C /* clEdgeIndexTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABC3F81100CB75004CE17C /* clEdgeIndexTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABC3FF1100CBAD004CE17C /* IndexedEdges.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABC3FD1100CBAD004CE17C /* IndexedEdges.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2ABC4001100CBAD004CE17C /* IndexedEdges.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABC3FE1100CBAD004CE17C /* IndexedEdges.m */; };
+		E2BC36681100FAD400E7712B /* EdgeIndexTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BC36671100FAD400E7712B /* EdgeIndexTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2FC63B71162436100DC2E16 /* DAEImportPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FC63B51162436000DC2E16 /* DAEImportPlugin.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E2FC63B81162436100DC2E16 /* DAEImportPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FC63B61162436100DC2E16 /* DAEImportPlugin.m */; };
+		E2FC66721164BA8F00DC2E16 /* ConfiguredMachines.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FC66701164BA8F00DC2E16 /* ConfiguredMachines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2FC66731164BA8F00DC2E16 /* ConfiguredMachines.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FC66711164BA8F00DC2E16 /* ConfiguredMachines.m */; };
+		E2FC680811651A3A00DC2E16 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FC680711651A3A00DC2E16 /* SystemConfiguration.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		E29713181125BC430060FA0C /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = sourcecode.opencl;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE)OpenCLSource.h",
+			);
+			script = "/usr/bin/perl/Library/Frameworks/P3DCore.framework/Resources/XCodeHelpers/preprocessOpenCL.pl ${INPUT_FILE_PATH}";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E281DF44112D5DB600C05C08 /* XCode Helper Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = XCodeHelpers;
+			dstSubfolderSpec = 7;
+			files = (
+				E281DF17112D5D6200C05C08 /* preprocessOpenCL.pl in XCode Helper Files */,
+			);
+			name = "XCode Helper Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* P3DCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = P3DCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E21FB659112D78C50024B53B /* P3DMachinableDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachinableDocument.h; sourceTree = "<group>"; };
+		E21FB89F112D99580024B53B /* P3DMachiningQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachiningQueue.h; sourceTree = "<group>"; };
+		E21FB8A0112D99580024B53B /* P3DMachiningQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachiningQueue.m; sourceTree = "<group>"; };
+		E21FB8A5112D99AB0024B53B /* P3DMachineDriverBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachineDriverBase.h; sourceTree = "<group>"; };
+		E221D2C41143DD8100C6A685 /* P3DMutableLoopIndexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMutableLoopIndexArray.h; sourceTree = "<group>"; };
+		E221D2C51143DD8100C6A685 /* P3DMutableLoopIndexArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMutableLoopIndexArray.m; sourceTree = "<group>"; };
+		E24F6BE7116F58B500285948 /* MachineOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineOptionsViewController.h; sourceTree = "<group>"; };
+		E24F6BE8116F58B500285948 /* MachineOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineOptionsViewController.m; sourceTree = "<group>"; };
+		E24F706C1172245200285948 /* P3DMachineJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachineJob.h; sourceTree = "<group>"; };
+		E24F706D1172245200285948 /* P3DMachineJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachineJob.m; sourceTree = "<group>"; };
+		E24FAE5510FB68E60081C559 /* P3DToolBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DToolBase.h; sourceTree = "<group>"; };
+		E24FAE5610FB68E60081C559 /* P3DToolBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DToolBase.m; sourceTree = "<group>"; };
+		E24FAE5B10FB6B370081C559 /* ToolSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolSettingsViewController.h; sourceTree = "<group>"; };
+		E24FAE5C10FB6B370081C559 /* ToolSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolSettingsViewController.m; sourceTree = "<group>"; };
+		E24FAE5E10FB6B370081C559 /* P3DBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DBorderView.h; sourceTree = "<group>"; };
+		E24FAE5F10FB6B370081C559 /* P3DBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DBorderView.m; sourceTree = "<group>"; };
+		E24FAE6010FB6B370081C559 /* P3DPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DPopupWindow.h; sourceTree = "<group>"; };
+		E24FAE6110FB6B370081C559 /* P3DPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DPopupWindow.m; sourceTree = "<group>"; };
+		E24FAE6A10FB6B570081C559 /* SliceNDiceHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceNDiceHost.h; sourceTree = "<group>"; };
+		E24FAE7310FB6C170081C559 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E24FB29010FBE8270081C559 /* NSView+SearchSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+SearchSubview.h"; sourceTree = "<group>"; };
+		E24FB29110FBE8270081C559 /* NSView+SearchSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+SearchSubview.m"; sourceTree = "<group>"; };
+		E255E98011020EBA006B8A2D /* P3DProcessedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DProcessedObject.h; sourceTree = "<group>"; };
+		E255E98111020EBA006B8A2D /* P3DProcessedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DProcessedObject.m; sourceTree = "<group>"; };
+		E26D97D21150E8A500914392 /* P3DSerialDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DSerialDevice.h; sourceTree = "<group>"; };
+		E26D97D31150E8A500914392 /* P3DSerialDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DSerialDevice.m; sourceTree = "<group>"; };
+		E26D97E01150F01300914392 /* AvailableDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableDevices.h; sourceTree = "<group>"; };
+		E26D97E11150F01300914392 /* AvailableDevices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableDevices.m; sourceTree = "<group>"; };
+		E26D97ED1150F3D000914392 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		E27436081390037F0062643A /* AMSerialErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialErrors.h; sourceTree = "<group>"; };
+		E27436091390037F0062643A /* AMSerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPort.h; sourceTree = "<group>"; };
+		E274360A1390037F0062643A /* AMSerialPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPort.m; sourceTree = "<group>"; };
+		E274360B1390037F0062643A /* AMSerialPortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortAdditions.h; sourceTree = "<group>"; };
+		E274360C139003800062643A /* AMSerialPortAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortAdditions.m; sourceTree = "<group>"; };
+		E274360D139003800062643A /* AMSerialPortList_Deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortList_Deprecated.h; sourceTree = "<group>"; };
+		E274360E139003800062643A /* AMSerialPortList_Deprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortList_Deprecated.m; sourceTree = "<group>"; };
+		E274360F139003800062643A /* AMSerialPortList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortList.h; sourceTree = "<group>"; };
+		E2743610139003810062643A /* AMSerialPortList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortList.m; sourceTree = "<group>"; };
+		E2743611139003810062643A /* AMSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSDKCompatibility.h; sourceTree = "<group>"; };
+		E2743612139003810062643A /* AMStandardEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMStandardEnumerator.h; sourceTree = "<group>"; };
+		E2743613139003810062643A /* AMStandardEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMStandardEnumerator.m; sourceTree = "<group>"; };
+		E274362313929DD10062643A /* P3DMachineDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachineDriverBase.m; sourceTree = "<group>"; };
+		E27C8047139C8295000010FD /* P3DMachinableDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachinableDocument.m; sourceTree = "<group>"; };
+		E29708751121B6180060FA0C /* P3DFormatRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DFormatRegistration.h; sourceTree = "<group>"; };
+		E29708761121B6180060FA0C /* P3DFormatRegistration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DFormatRegistration.m; sourceTree = "<group>"; };
+		E29A03AE111F104D006CD3C9 /* GCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCode.h; sourceTree = "<group>"; };
+		E29A03AF111F104D006CD3C9 /* GCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCode.m; sourceTree = "<group>"; };
+		E2A43A4311027F43003F5907 /* P3DLoops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DLoops.h; sourceTree = "<group>"; };
+		E2A43A4411027F43003F5907 /* P3DLoops.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DLoops.m; sourceTree = "<group>"; };
+		E2A43A6011028076003F5907 /* PSMutableIntegerArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMutableIntegerArray.h; sourceTree = "<group>"; };
+		E2A43A6111028076003F5907 /* PSMutableIntegerArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSMutableIntegerArray.m; sourceTree = "<group>"; };
+		E2A43AB911028F2B003F5907 /* clSliceTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clSliceTypes.h; sourceTree = "<group>"; };
+		E2A43ABA11028F2B003F5907 /* SliceTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceTypes.h; sourceTree = "<group>"; };
+		E2ABBFB31100A6E4004CE17C /* PSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSLog.h; sourceTree = "<group>"; };
+		E2ABBFB41100A6E4004CE17C /* PSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSLog.m; sourceTree = "<group>"; };
+		E2ABBFB71100A72F004CE17C /* BinarySTLStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinarySTLStructs.h; sourceTree = "<group>"; };
+		E2ABBFB81100A72F004CE17C /* STLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLModel.h; sourceTree = "<group>"; };
+		E2ABBFB91100A72F004CE17C /* STLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLModel.m; sourceTree = "<group>"; };
+		E2ABBFBA1100A72F004CE17C /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		E2ABBFBB1100A72F004CE17C /* Vector3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vector3.m; sourceTree = "<group>"; };
+		E2ABBFBC1100A72F004CE17C /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
+		E2ABBFBD1100A72F004CE17C /* Vector2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vector2.m; sourceTree = "<group>"; };
+		E2ABBFC51100A793004CE17C /* STLImportPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLImportPlugin.h; sourceTree = "<group>"; };
+		E2ABBFC61100A793004CE17C /* STLImportPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLImportPlugin.m; sourceTree = "<group>"; };
+		E2ABBFC71100A793004CE17C /* STLShapeShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLShapeShifter.h; sourceTree = "<group>"; };
+		E2ABBFC81100A793004CE17C /* STLShapeShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLShapeShifter.m; sourceTree = "<group>"; };
+		E2ABBFCE1100A7B7004CE17C /* P3DCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DCore.h; sourceTree = "<group>"; };
+		E2ABBFD01100A7F2004CE17C /* NSArray+GCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+GCode.h"; sourceTree = "<group>"; };
+		E2ABBFD11100A7F2004CE17C /* NSArray+GCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+GCode.m"; sourceTree = "<group>"; };
+		E2ABBFF31100A91C004CE17C /* P3DCore_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DCore_Prefix.pch; sourceTree = "<group>"; };
+		E2ABC21D1100B7D3004CE17C /* QuartzUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuartzUtils.h; sourceTree = "<group>"; };
+		E2ABC21E1100B7D3004CE17C /* QuartzUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuartzUtils.m; sourceTree = "<group>"; };
+		E2ABC3541100C30A004CE17C /* IndexedSTLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexedSTLModel.h; sourceTree = "<group>"; };
+		E2ABC3551100C30A004CE17C /* IndexedSTLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexedSTLModel.m; sourceTree = "<group>"; };
+		E2ABC3F81100CB75004CE17C /* clEdgeIndexTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clEdgeIndexTypes.h; sourceTree = "<group>"; };
+		E2ABC3FD1100CBAD004CE17C /* IndexedEdges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexedEdges.h; sourceTree = "<group>"; };
+		E2ABC3FE1100CBAD004CE17C /* IndexedEdges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexedEdges.m; sourceTree = "<group>"; };
+		E2ABC5771100EB95004CE17C /* preprocessOpenCL.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = preprocessOpenCL.pl; sourceTree = "<group>"; };
+		E2BC36671100FAD400E7712B /* EdgeIndexTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EdgeIndexTypes.h; sourceTree = "<group>"; };
+		E2FC63B51162436000DC2E16 /* DAEImportPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAEImportPlugin.h; sourceTree = "<group>"; };
+		E2FC63B61162436100DC2E16 /* DAEImportPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAEImportPlugin.m; sourceTree = "<group>"; };
+		E2FC66701164BA8F00DC2E16 /* ConfiguredMachines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfiguredMachines.h; sourceTree = "<group>"; };
+		E2FC66711164BA8F00DC2E16 /* ConfiguredMachines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfiguredMachines.m; sourceTree = "<group>"; };
+		E2FC680711651A3A00DC2E16 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				E24FAE7410FB6C170081C559 /* QuartzCore.framework in Frameworks */,
+				E26D97EE1150F3D000914392 /* IOKit.framework in Frameworks */,
+				E2FC680811651A3A00DC2E16 /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* P3DCore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* P3DToolBase */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = P3DToolBase;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABC5771100EB95004CE17C /* preprocessOpenCL.pl */,
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABBFCE1100A7B7004CE17C /* P3DCore.h */,
+				E2ABBFA31100A4F0004CE17C /* Service */,
+				E2ABBFA11100A4D9004CE17C /* GUI */,
+				E2ABBFCD1100A799004CE17C /* Private */,
+				E2ABBFA21100A4E4004CE17C /* Model */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E26D97ED1150F3D000914392 /* IOKit.framework */,
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				E24FAE7310FB6C170081C559 /* QuartzCore.framework */,
+				E2FC680711651A3A00DC2E16 /* SystemConfiguration.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABBFF31100A91C004CE17C /* P3DCore_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		E21FB89E112D99320024B53B /* Printing */ = {
+			isa = PBXGroup;
+			children = (
+				E27436201390038D0062643A /* Serial Flotsam */,
+				E26D97E01150F01300914392 /* AvailableDevices.h */,
+				E26D97E11150F01300914392 /* AvailableDevices.m */,
+				E2FC66701164BA8F00DC2E16 /* ConfiguredMachines.h */,
+				E2FC66711164BA8F00DC2E16 /* ConfiguredMachines.m */,
+				E21FB659112D78C50024B53B /* P3DMachinableDocument.h */,
+				E27C8047139C8295000010FD /* P3DMachinableDocument.m */,
+				E21FB89F112D99580024B53B /* P3DMachiningQueue.h */,
+				E21FB8A0112D99580024B53B /* P3DMachiningQueue.m */,
+				E24F706C1172245200285948 /* P3DMachineJob.h */,
+				E24F706D1172245200285948 /* P3DMachineJob.m */,
+				E21FB8A5112D99AB0024B53B /* P3DMachineDriverBase.h */,
+				E274362313929DD10062643A /* P3DMachineDriverBase.m */,
+				E26D97D21150E8A500914392 /* P3DSerialDevice.h */,
+				E26D97D31150E8A500914392 /* P3DSerialDevice.m */,
+				E24F6BE7116F58B500285948 /* MachineOptionsViewController.h */,
+				E24F6BE8116F58B500285948 /* MachineOptionsViewController.m */,
+			);
+			name = Printing;
+			sourceTree = "<group>";
+		};
+		E24FAE5D10FB6B370081C559 /* PopupWindow */ = {
+			isa = PBXGroup;
+			children = (
+				E24FAE5E10FB6B370081C559 /* P3DBorderView.h */,
+				E24FAE5F10FB6B370081C559 /* P3DBorderView.m */,
+				E24FAE6010FB6B370081C559 /* P3DPopupWindow.h */,
+				E24FAE6110FB6B370081C559 /* P3DPopupWindow.m */,
+			);
+			name = PopupWindow;
+			sourceTree = "<group>";
+		};
+		E27436201390038D0062643A /* Serial Flotsam */ = {
+			isa = PBXGroup;
+			children = (
+				E27436081390037F0062643A /* AMSerialErrors.h */,
+				E27436091390037F0062643A /* AMSerialPort.h */,
+				E274360A1390037F0062643A /* AMSerialPort.m */,
+				E274360B1390037F0062643A /* AMSerialPortAdditions.h */,
+				E274360C139003800062643A /* AMSerialPortAdditions.m */,
+				E274360D139003800062643A /* AMSerialPortList_Deprecated.h */,
+				E274360E139003800062643A /* AMSerialPortList_Deprecated.m */,
+				E274360F139003800062643A /* AMSerialPortList.h */,
+				E2743610139003810062643A /* AMSerialPortList.m */,
+				E2743611139003810062643A /* AMSDKCompatibility.h */,
+				E2743612139003810062643A /* AMStandardEnumerator.h */,
+				E2743613139003810062643A /* AMStandardEnumerator.m */,
+			);
+			name = "Serial Flotsam";
+			sourceTree = "<group>";
+		};
+		E29A03AD111F0F8B006CD3C9 /* ProcessedDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				E255E98011020EBA006B8A2D /* P3DProcessedObject.h */,
+				E255E98111020EBA006B8A2D /* P3DProcessedObject.m */,
+				E2ABC3541100C30A004CE17C /* IndexedSTLModel.h */,
+				E2ABC3551100C30A004CE17C /* IndexedSTLModel.m */,
+				E2A43A4311027F43003F5907 /* P3DLoops.h */,
+				E2A43A4411027F43003F5907 /* P3DLoops.m */,
+				E29A03AE111F104D006CD3C9 /* GCode.h */,
+				E29A03AF111F104D006CD3C9 /* GCode.m */,
+			);
+			name = ProcessedDataModels;
+			sourceTree = "<group>";
+		};
+		E2A43AB811028F09003F5907 /* Binary Structs */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABBFB71100A72F004CE17C /* BinarySTLStructs.h */,
+				E2ABC3F81100CB75004CE17C /* clEdgeIndexTypes.h */,
+				E2BC36671100FAD400E7712B /* EdgeIndexTypes.h */,
+				E2A43AB911028F2B003F5907 /* clSliceTypes.h */,
+				E2A43ABA11028F2B003F5907 /* SliceTypes.h */,
+			);
+			name = "Binary Structs";
+			sourceTree = "<group>";
+		};
+		E2ABBFA11100A4D9004CE17C /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABC21D1100B7D3004CE17C /* QuartzUtils.h */,
+				E2ABC21E1100B7D3004CE17C /* QuartzUtils.m */,
+				E24FB29010FBE8270081C559 /* NSView+SearchSubview.h */,
+				E24FB29110FBE8270081C559 /* NSView+SearchSubview.m */,
+				E24FAE5D10FB6B370081C559 /* PopupWindow */,
+				E24FAE5B10FB6B370081C559 /* ToolSettingsViewController.h */,
+				E24FAE5C10FB6B370081C559 /* ToolSettingsViewController.m */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		E2ABBFA21100A4E4004CE17C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E2A43AB811028F09003F5907 /* Binary Structs */,
+				E29A03AD111F0F8B006CD3C9 /* ProcessedDataModels */,
+				E24FAE6A10FB6B570081C559 /* SliceNDiceHost.h */,
+				E29708751121B6180060FA0C /* P3DFormatRegistration.h */,
+				E29708761121B6180060FA0C /* P3DFormatRegistration.m */,
+				E24FAE5510FB68E60081C559 /* P3DToolBase.h */,
+				E24FAE5610FB68E60081C559 /* P3DToolBase.m */,
+				E2ABC3FD1100CBAD004CE17C /* IndexedEdges.h */,
+				E2ABC3FE1100CBAD004CE17C /* IndexedEdges.m */,
+				E2ABBFB81100A72F004CE17C /* STLModel.h */,
+				E2ABBFB91100A72F004CE17C /* STLModel.m */,
+				E2ABBFBA1100A72F004CE17C /* Vector3.h */,
+				E2ABBFBB1100A72F004CE17C /* Vector3.m */,
+				E2ABBFBC1100A72F004CE17C /* Vector2.h */,
+				E2ABBFBD1100A72F004CE17C /* Vector2.m */,
+				E21FB89E112D99320024B53B /* Printing */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		E2ABBFA31100A4F0004CE17C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABBFB31100A6E4004CE17C /* PSLog.h */,
+				E2ABBFB41100A6E4004CE17C /* PSLog.m */,
+				E2A43A6011028076003F5907 /* PSMutableIntegerArray.h */,
+				E2A43A6111028076003F5907 /* PSMutableIntegerArray.m */,
+				E221D2C41143DD8100C6A685 /* P3DMutableLoopIndexArray.h */,
+				E221D2C51143DD8100C6A685 /* P3DMutableLoopIndexArray.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		E2ABBFCD1100A799004CE17C /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				E2ABBFD01100A7F2004CE17C /* NSArray+GCode.h */,
+				E2ABBFD11100A7F2004CE17C /* NSArray+GCode.m */,
+				E2ABBFC51100A793004CE17C /* STLImportPlugin.h */,
+				E2ABBFC61100A793004CE17C /* STLImportPlugin.m */,
+				E2ABBFC71100A793004CE17C /* STLShapeShifter.h */,
+				E2ABBFC81100A793004CE17C /* STLShapeShifter.m */,
+				E2FC63B51162436000DC2E16 /* DAEImportPlugin.h */,
+				E2FC63B61162436100DC2E16 /* DAEImportPlugin.m */,
+			);
+			name = Private;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E24FAE5710FB68E60081C559 /* P3DToolBase.h in Headers */,
+				E24FAE6210FB6B370081C559 /* ToolSettingsViewController.h in Headers */,
+				E24FAE6410FB6B370081C559 /* P3DBorderView.h in Headers */,
+				E24FAE6610FB6B370081C559 /* P3DPopupWindow.h in Headers */,
+				E24FAE6C10FB6B570081C559 /* SliceNDiceHost.h in Headers */,
+				E24FB29210FBE8270081C559 /* NSView+SearchSubview.h in Headers */,
+				E2ABBFB51100A6E4004CE17C /* PSLog.h in Headers */,
+				E2ABBFBE1100A72F004CE17C /* BinarySTLStructs.h in Headers */,
+				E2ABBFBF1100A72F004CE17C /* STLModel.h in Headers */,
+				E2ABBFC11100A72F004CE17C /* Vector3.h in Headers */,
+				E2ABBFC31100A72F004CE17C /* Vector2.h in Headers */,
+				E2ABBFC91100A793004CE17C /* STLImportPlugin.h in Headers */,
+				E2ABBFCB1100A793004CE17C /* STLShapeShifter.h in Headers */,
+				E2ABBFCF1100A7B7004CE17C /* P3DCore.h in Headers */,
+				E2ABBFD21100A7F3004CE17C /* NSArray+GCode.h in Headers */,
+				E2ABBFF41100A91C004CE17C /* P3DCore_Prefix.pch in Headers */,
+				E2ABC21F1100B7D3004CE17C /* QuartzUtils.h in Headers */,
+				E2ABC3561100C30A004CE17C /* IndexedSTLModel.h in Headers */,
+				E2ABC3F91100CB75004CE17C /* clEdgeIndexTypes.h in Headers */,
+				E2ABC3FF1100CBAD004CE17C /* IndexedEdges.h in Headers */,
+				E2BC36681100FAD400E7712B /* EdgeIndexTypes.h in Headers */,
+				E255E98211020EBA006B8A2D /* P3DProcessedObject.h in Headers */,
+				E2A43A4511027F43003F5907 /* P3DLoops.h in Headers */,
+				E2A43A6211028076003F5907 /* PSMutableIntegerArray.h in Headers */,
+				E2A43ABB11028F2B003F5907 /* clSliceTypes.h in Headers */,
+				E2A43ABC11028F2B003F5907 /* SliceTypes.h in Headers */,
+				E29A03B0111F104D006CD3C9 /* GCode.h in Headers */,
+				E29708771121B6180060FA0C /* P3DFormatRegistration.h in Headers */,
+				E21FB65B112D78C50024B53B /* P3DMachinableDocument.h in Headers */,
+				E21FB8A3112D99580024B53B /* P3DMachiningQueue.h in Headers */,
+				E21FB8A9112D99AB0024B53B /* P3DMachineDriverBase.h in Headers */,
+				E221D2C61143DD8100C6A685 /* P3DMutableLoopIndexArray.h in Headers */,
+				E26D97D41150E8A500914392 /* P3DSerialDevice.h in Headers */,
+				E26D97E21150F01300914392 /* AvailableDevices.h in Headers */,
+				E2FC63B71162436100DC2E16 /* DAEImportPlugin.h in Headers */,
+				E2FC66721164BA8F00DC2E16 /* ConfiguredMachines.h in Headers */,
+				E24F6BE9116F58B500285948 /* MachineOptionsViewController.h in Headers */,
+				E24F706E1172245200285948 /* P3DMachineJob.h in Headers */,
+				E2743614139003810062643A /* AMSerialErrors.h in Headers */,
+				E2743615139003810062643A /* AMSerialPort.h in Headers */,
+				E2743617139003810062643A /* AMSerialPortAdditions.h in Headers */,
+				E2743619139003810062643A /* AMSerialPortList_Deprecated.h in Headers */,
+				E274361B139003810062643A /* AMSerialPortList.h in Headers */,
+				E274361D139003810062643A /* AMSDKCompatibility.h in Headers */,
+				E274361E139003810062643A /* AMStandardEnumerator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* P3DCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "P3DCore" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+				E281DF44112D5DB600C05C08 /* XCode Helper Files */,
+			);
+			buildRules = (
+				E29713181125BC430060FA0C /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = P3DCore;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = P3DToolBase;
+			productReference = 8DC2EF5B0486A6940098B216 /* P3DCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Pleasant Software";
+			};
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "P3DCore" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* P3DToolBase */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* P3DCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E24FAE5810FB68E60081C559 /* P3DToolBase.m in Sources */,
+				E24FAE6310FB6B370081C559 /* ToolSettingsViewController.m in Sources */,
+				E24FAE6510FB6B370081C559 /* P3DBorderView.m in Sources */,
+				E24FAE6710FB6B370081C559 /* P3DPopupWindow.m in Sources */,
+				E24FB29310FBE8270081C559 /* NSView+SearchSubview.m in Sources */,
+				E2ABBFB61100A6E4004CE17C /* PSLog.m in Sources */,
+				E2ABBFC01100A72F004CE17C /* STLModel.m in Sources */,
+				E2ABBFC21100A72F004CE17C /* Vector3.m in Sources */,
+				E2ABBFC41100A72F004CE17C /* Vector2.m in Sources */,
+				E2ABBFCA1100A793004CE17C /* STLImportPlugin.m in Sources */,
+				E2ABBFCC1100A793004CE17C /* STLShapeShifter.m in Sources */,
+				E2ABBFD31100A7F3004CE17C /* NSArray+GCode.m in Sources */,
+				E2ABC2201100B7D3004CE17C /* QuartzUtils.m in Sources */,
+				E2ABC3571100C30A004CE17C /* IndexedSTLModel.m in Sources */,
+				E2ABC4001100CBAD004CE17C /* IndexedEdges.m in Sources */,
+				E255E98311020EBA006B8A2D /* P3DProcessedObject.m in Sources */,
+				E2A43A4611027F43003F5907 /* P3DLoops.m in Sources */,
+				E2A43A6311028076003F5907 /* PSMutableIntegerArray.m in Sources */,
+				E29A03B1111F104D006CD3C9 /* GCode.m in Sources */,
+				E29708781121B6180060FA0C /* P3DFormatRegistration.m in Sources */,
+				E21FB8A4112D99580024B53B /* P3DMachiningQueue.m in Sources */,
+				E221D2C71143DD8100C6A685 /* P3DMutableLoopIndexArray.m in Sources */,
+				E26D97D51150E8A500914392 /* P3DSerialDevice.m in Sources */,
+				E26D97E31150F01300914392 /* AvailableDevices.m in Sources */,
+				E2FC63B81162436100DC2E16 /* DAEImportPlugin.m in Sources */,
+				E2FC66731164BA8F00DC2E16 /* ConfiguredMachines.m in Sources */,
+				E24F6BEA116F58B500285948 /* MachineOptionsViewController.m in Sources */,
+				E24F706F1172245200285948 /* P3DMachineJob.m in Sources */,
+				E2743616139003810062643A /* AMSerialPort.m in Sources */,
+				E2743618139003810062643A /* AMSerialPortAdditions.m in Sources */,
+				E274361A139003810062643A /* AMSerialPortList_Deprecated.m in Sources */,
+				E274361C139003810062643A /* AMSerialPortList.m in Sources */,
+				E274361F139003810062643A /* AMStandardEnumerator.m in Sources */,
+				E274362413929DD30062643A /* P3DMachineDriverBase.m in Sources */,
+				E27C8048139C8296000010FD /* P3DMachinableDocument.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/Frameworks;
+				PRODUCT_NAME = P3DCore;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Eberhard Rensch";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/Frameworks;
+				PRODUCT_NAME = P3DCore;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = __DEBUG__;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "Pleasant Software";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+		E29BC100113299020058A121 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "Pleasant Software";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Distribution;
+		};
+		E29BC101113299020058A121 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Eberhard Rensch";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/Frameworks;
+				PRODUCT_NAME = P3DCore;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Distribution;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "P3DCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+				E29BC101113299020058A121 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "P3DCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+				E29BC100113299020058A121 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

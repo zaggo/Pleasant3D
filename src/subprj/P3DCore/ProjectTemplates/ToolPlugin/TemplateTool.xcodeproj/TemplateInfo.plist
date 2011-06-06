@@ -1,0 +1,19 @@
+{
+	FilesToRename = {
+		"TemplateTool_Prefix.pch" = "ÇPROJECTNAMEÈ_Prefix.pch";
+		"TemplateTool.h" = "ÇPROJECTNAMEÈ.h";
+		"TemplateTool.m" = "ÇPROJECTNAMEÈ.m";
+		"TemplateTool.icns" = "ÇPROJECTNAMEÈ.icns";
+		"TemplateToolSettingsGUI.xib" = "ÇPROJECTNAMEÈSettingsGUI.xib";
+	};
+	FilesToMacroExpand = (
+		"ÇPROJECTNAMEÈ.xcodeproj/project.pbxproj",
+		"Info.plist",
+		"English.lproj/InfoPlist.strings",
+		"ÇPROJECTNAMEÈ_Prefix.pch",
+		"ÇPROJECTNAMEÈ.h",
+		"ÇPROJECTNAMEÈ.m",
+		"ÇPROJECTNAMEÈSettingsGUI.xib",
+	);
+	Description = "This project builds a Pleasant3D Tool Plugin bundle that links against the P3DToolBase framework.";
+}

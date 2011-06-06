@@ -1,0 +1,223 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = E29A01A2111F0064006CD3C9 /* Executable */;
+		activeTarget = 8D5B49AC048680CD000E48DA /* ForwardTool */;
+		addToTargets = (
+			8D5B49AC048680CD000E48DA /* ForwardTool */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = E2A4391B11023173003F5907 /* Code sense */;
+		executables = (
+			E29A01A2111F0064006CD3C9 /* Executable */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					601.58349609375,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					714,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					674,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 291151603;
+			PBXWorkspaceStateSaveDate = 291151603;
+		};
+		perUserProjectItems = {
+			E221D2A51143C98300C6A685 /* PBXTextBookmark */ = E221D2A51143C98300C6A685 /* PBXTextBookmark */;
+			E23D773C115A96D300FD8E11 /* PBXTextBookmark */ = E23D773C115A96D300FD8E11 /* PBXTextBookmark */;
+			E27AD5B8115A9F0100FB0BD6 /* PBXTextBookmark */ = E27AD5B8115A9F0100FB0BD6 /* PBXTextBookmark */;
+			E2911F8D1130414600D4259C /* PBXTextBookmark */ = E2911F8D1130414600D4259C /* PBXTextBookmark */;
+		};
+		sourceControlManager = E2A4391A11023173003F5907 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D5B49AC048680CD000E48DA /* ForwardTool */ = {
+		activeExec = 0;
+	};
+	E221D2A51143C98300C6A685 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E2A2689F10FCC8ED00D00154 /* ForwardTool_Prefix.pch */;
+		name = "ForwardTool_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 154;
+		vrLoc = 0;
+	};
+	E23D773C115A96D300FD8E11 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24FB04910FB97800081C559 /* ForwardTool.m */;
+		name = "ForwardTool.m: 139";
+		rLen = 0;
+		rLoc = 4556;
+		rType = 0;
+		vrLen = 1692;
+		vrLoc = 3773;
+	};
+	E24FB04810FB97800081C559 /* ForwardTool.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {904, 520}}";
+			sepNavSelRange = "{120, 0}";
+			sepNavVisRange = "{0, 301}";
+		};
+	};
+	E24FB04910FB97800081C559 /* ForwardTool.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {904, 2301}}";
+			sepNavSelRange = "{4556, 0}";
+			sepNavVisRange = "{3773, 1692}";
+		};
+	};
+	E27AD5B8115A9F0100FB0BD6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24FB04910FB97800081C559 /* ForwardTool.m */;
+		name = "ForwardTool.m: 139";
+		rLen = 0;
+		rLoc = 4556;
+		rType = 0;
+		vrLen = 1692;
+		vrLoc = 3773;
+	};
+	E2911F8D1130414600D4259C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E24FB04810FB97800081C559 /* ForwardTool.h */;
+		name = "ForwardTool.h: 6";
+		rLen = 0;
+		rLoc = 120;
+		rType = 0;
+		vrLen = 301;
+		vrLoc = 0;
+	};
+	E29A01A2111F0064006CD3C9 /* Executable */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			YES,
+		);
+		argumentStrings = (
+			"-i$(SRCROOT)/$(BUILD_DIR)/$(CONFIGURATION)",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+			"PBXLSLaunchAction-0" = {
+				PBXLSLaunchAction = 0;
+				PBXLSLaunchStartAction = 1;
+				PBXLSLaunchStdioStyle = 2;
+				PBXLSLaunchStyle = 0;
+				class = PBXLSRunLaunchConfig;
+				commandLineArgs = (
+				);
+				displayName = "Executable Runner";
+				environment = {
+				};
+				identifier = com.apple.Xcode.launch.runConfig;
+				remoteHostInfo = "";
+				startActionInfo = "";
+			};
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		launchableReference = E29A01A3111F0064006CD3C9 /* Pleasant3D.app */;
+		libgmallocEnabled = 0;
+		name = Executable;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	E29A01A3111F0064006CD3C9 /* Pleasant3D.app */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = Pleasant3D.app;
+		path = /Applications/Pleasant3D.app;
+		sourceTree = "<absolute>";
+	};
+	E2A2689F10FCC8ED00D00154 /* ForwardTool_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {904, 512}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 154}";
+		};
+	};
+	E2A4391A11023173003F5907 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	E2A4391B11023173003F5907 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}

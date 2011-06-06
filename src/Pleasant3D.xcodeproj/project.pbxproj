@@ -1,0 +1,1332 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D15AC310486D014006FF6A4 /* STLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* STLDocument.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		E21DBC01113AD81F0009875E /* PSToolboxPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DBC00113AD81F0009875E /* PSToolboxPanel.m */; };
+		E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264292108B7D7F002FCAD8 /* OpenGL.framework */; };
+		E2264295108B7D9F002FCAD8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264294108B7D9F002FCAD8 /* QuartzCore.framework */; };
+		E22644B4108B98A0002FCAD8 /* P3DDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22644B3108B98A0002FCAD8 /* P3DDocumentController.m */; };
+		E22645D5108BC216002FCAD8 /* GCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E22645D4108BC216002FCAD8 /* GCodeView.m */; };
+		E22645F2108BC558002FCAD8 /* GCodeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E22645F1108BC558002FCAD8 /* GCodeDocument.m */; };
+		E22646E9108BE0FD002FCAD8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E22646E8108BE0FD002FCAD8 /* AppIcon.icns */; };
+		E22646F8108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E22646F6108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns */; };
+		E22646F9108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E22646F7108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns */; };
+		E24338A7138FB65A007B347E /* GCodeQuickLook.qlgenerator in Copy QuickLook Plugins */ = {isa = PBXBuildFile; fileRef = E24338A6138FB65A007B347E /* GCodeQuickLook.qlgenerator */; };
+		E24338A9138FB662007B347E /* STLQuickLook.qlgenerator in Copy QuickLook Plugins */ = {isa = PBXBuildFile; fileRef = E24338A8138FB662007B347E /* STLQuickLook.qlgenerator */; };
+		E24338B0138FB956007B347E /* Slice.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338AF138FB955007B347E /* Slice.bundle */; };
+		E24338B2138FB95F007B347E /* STLImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B1138FB95F007B347E /* STLImport.bundle */; };
+		E24338B4138FB967007B347E /* GCodeGenerator.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B3138FB967007B347E /* GCodeGenerator.bundle */; };
+		E24338B6138FB970007B347E /* ForwardTool.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B5138FB970007B347E /* ForwardTool.bundle */; };
+		E24338B8138FB978007B347E /* FileSaver.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B7138FB978007B347E /* FileSaver.bundle */; };
+		E24D8A3C116F481B0046B8BA /* MachineOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D8A3B116F481B0046B8BA /* MachineOptionsController.m */; };
+		E24F6D74116FA2A800285948 /* Machine.png in Resources */ = {isa = PBXBuildFile; fileRef = E24F6D73116FA2A800285948 /* Machine.png */; };
+		E24F70A41172285E00285948 /* P3DMachiningQueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F70A31172285E00285948 /* P3DMachiningQueueManager.m */; };
+		E24FAE0810FB61700081C559 /* dataFlowButton_No_Forward.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFB10FB61700081C559 /* dataFlowButton_No_Forward.pdf */; };
+		E24FAE0910FB61700081C559 /* dataFlowButton_No_Intermed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFC10FB61700081C559 /* dataFlowButton_No_Intermed.pdf */; };
+		E24FAE0A10FB61700081C559 /* dataFlowButton_No_Preview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFD10FB61700081C559 /* dataFlowButton_No_Preview.pdf */; };
+		E24FAE0B10FB61700081C559 /* dataFlowButton_Yes_Forward.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFE10FB61700081C559 /* dataFlowButton_Yes_Forward.pdf */; };
+		E24FAE0C10FB61700081C559 /* dataFlowButton_Yes_Intermed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFF10FB61700081C559 /* dataFlowButton_Yes_Intermed.pdf */; };
+		E24FAE0D10FB61700081C559 /* dataFlowButton_Yes_Preview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE0010FB61700081C559 /* dataFlowButton_Yes_Preview.pdf */; };
+		E24FAE1410FB61700081C559 /* ToolBinBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE0710FB61700081C559 /* ToolBinBackground.png */; };
+		E24FAE2D10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE2C10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns */; };
+		E24FAE3510FB64620081C559 /* ToolPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3210FB64620081C559 /* ToolPanel.xib */; };
+		E24FAE3610FB64620081C559 /* ToolItemPrototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3310FB64620081C559 /* ToolItemPrototype.xib */; };
+		E24FAE3710FB64620081C559 /* Toolbox.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3410FB64620081C559 /* Toolbox.xib */; };
+		E24FAF9310FB8E540081C559 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; };
+		E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; };
+		E25420B610FA0E3B005D08F7 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = E25420B510FA0E3B005D08F7 /* dsa_pub.pem */; };
+		E254217D10FB57FA005D08F7 /* Toolbox.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E254217C10FB57FA005D08F7 /* Toolbox.pdf */; };
+		E254218810FB5904005D08F7 /* SliceNDiceDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E254218710FB5904005D08F7 /* SliceNDiceDocument.m */; };
+		E254219E10FB5991005D08F7 /* ToolBinEntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = E254219410FB5991005D08F7 /* ToolBinEntryView.m */; };
+		E254219F10FB5991005D08F7 /* ToolPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E254219610FB5991005D08F7 /* ToolPanelView.m */; };
+		E25421A010FB5991005D08F7 /* ToolBinScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E254219810FB5991005D08F7 /* ToolBinScrollView.m */; };
+		E25421A110FB5991005D08F7 /* ToolBinView.m in Sources */ = {isa = PBXBuildFile; fileRef = E254219A10FB5991005D08F7 /* ToolBinView.m */; };
+		E25421B710FB59BD005D08F7 /* P3DToolPoolController.m in Sources */ = {isa = PBXBuildFile; fileRef = E25421A610FB59BD005D08F7 /* P3DToolPoolController.m */; };
+		E25FE1E2116E2DAA00BD83E1 /* MachineOptionSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25FE1E1116E2DAA00BD83E1 /* MachineOptionSheet.xib */; };
+		E27435AE138FD7530062643A /* P3DCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27435AD138FD7530062643A /* P3DCore.framework */; };
+		E27435FA138FEC6A0062643A /* PleasantMill.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E27435F6138FE6270062643A /* PleasantMill.bundle */; };
+		E27435FB138FEC6F0062643A /* Sanguino3G.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E24338B9138FB988007B347E /* Sanguino3G.bundle */; };
+		E2743622139281160062643A /* GrayLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2743621139281160062643A /* GrayLight.png */; };
+		E2970FD811247D230060FA0C /* ThreeDPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2970FD711247D230060FA0C /* ThreeDPreviewView.m */; };
+		E29710A11124E9EB0060FA0C /* trackball.c in Sources */ = {isa = PBXBuildFile; fileRef = E297109F1124E9EB0060FA0C /* trackball.c */; };
+		E29A05CE111F3C4B006CD3C9 /* P3DGCodePreviewGUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = E29A05CD111F3C4B006CD3C9 /* P3DGCodePreviewGUI.xib */; };
+		E29A05D4111F3C96006CD3C9 /* P3DGCodePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A05D3111F3C96006CD3C9 /* P3DGCodePreviewController.m */; };
+		E29A05D7111F3D58006CD3C9 /* ParsedGCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A05D6111F3D58006CD3C9 /* ParsedGCode.m */; };
+		E29BBF3C1131F9C20058A121 /* SliceNDiceDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = E254217910FB577F005D08F7 /* SliceNDiceDocument.xib */; };
+		E29BBF3D1131F9CB0058A121 /* GCodeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = E22645E1108BC2C9002FCAD8 /* GCodeDocument.xib */; };
+		E29BBF3E1131F9CB0058A121 /* STLDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58290DA1D0D100B32029 /* STLDocument.xib */; };
+		E29BBF3F1131F9CB0058A121 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582B0DA1D0D100B32029 /* MainMenu.xib */; };
+		E29BBF401131F9EB0058A121 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4BAFDCFA73011CA2CEA /* Credits.rtf */; };
+		E29BBF411131FA000058A121 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1660FE840EACC02AAC07 /* InfoPlist.strings */; };
+		E2A43EC21103365E003F5907 /* debugScopes.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2A43EC11103365E003F5907 /* debugScopes.plist */; };
+		E2A43FBC11034EA9003F5907 /* P3DLoopsPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */; };
+		E2A43FC011034EFB003F5907 /* P3DLoopsPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43FBF11034EFB003F5907 /* P3DLoopsPreviewController.m */; };
+		E2A4400A11036327003F5907 /* P3DLoopsPreviewGUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A4400911036327003F5907 /* P3DLoopsPreviewGUI.xib */; };
+		E2C183AB10FE80C900396141 /* ToolPool.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C183AA10FE80C900396141 /* ToolPool.m */; };
+		E2C1879310FF478300396141 /* STLPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E226424C108B78EB002FCAD8 /* STLPreviewView.m */; };
+		E2C1879A10FF48BD00396141 /* STLPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C1879710FF47B200396141 /* STLPreviewController.m */; };
+		E2C187DC10FF51C900396141 /* STLImportPreviewGUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2C1878F10FF470E00396141 /* STLImportPreviewGUI.xib */; };
+		E2D0FCA2112DA04800900531 /* MachiningQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FCA1112DA04800900531 /* MachiningQueue.xib */; };
+		E2D0FCA5112DA12100900531 /* MachiningQueueItemPrototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FCA4112DA12100900531 /* MachiningQueueItemPrototype.xib */; };
+		E2D4E31E112D64EB00F67528 /* MachiningSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D4E31D112D64EB00F67528 /* MachiningSheet.xib */; };
+		E2D4E326112D680500F67528 /* P3DMachiningController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D4E325112D680500F67528 /* P3DMachiningController.m */; };
+		E2D7B4B910FD056600927AE4 /* Tool.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D7B4B810FD056600927AE4 /* Tool.png */; };
+		E2FC67D211650B1400DC2E16 /* GreenLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67CF11650B1400DC2E16 /* GreenLight.png */; };
+		E2FC67D311650B1400DC2E16 /* RedLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67D011650B1400DC2E16 /* RedLight.png */; };
+		E2FC67D411650B1400DC2E16 /* YellowLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67D111650B1400DC2E16 /* YellowLight.png */; };
+		E2FE3471115A695700168F11 /* MBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FE3470115A695700168F11 /* MBPreferencesController.m */; };
+		E2FE3479115A6AA500168F11 /* PreferencesGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FE3478115A6AA500168F11 /* PreferencesGeneralViewController.m */; };
+		E2FE347C115A6BCC00168F11 /* PreferencesMachinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FE347B115A6BCC00168F11 /* PreferencesMachinesViewController.m */; };
+		E2FE3509115A6D7400168F11 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2FE3507115A6D7400168F11 /* PreferencesGeneral.xib */; };
+		E2FE350A115A6D7400168F11 /* PreferencesMachines.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2FE3508115A6D7400168F11 /* PreferencesMachines.xib */; };
+		E2FE3538115A73AB00168F11 /* AddMachine.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2FE3537115A73AB00168F11 /* AddMachine.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E24337E6138FB2ED007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24337DF138FB2ED007B347E /* STLImport.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = STLImport;
+		};
+		E24337F0138FB355007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24337E8138FB354007B347E /* Slice.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = Slice;
+		};
+		E2433806138FB37A007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = GCodeGenerator;
+		};
+		E243380F138FB381007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2433808138FB381007B347E /* ForwardTool.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = ForwardTool;
+		};
+		E243381B138FB385007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2433811138FB385007B347E /* FileSaver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = FileSaver;
+		};
+		E2433824138FB483007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E243381D138FB483007B347E /* Sanguino3G.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = Sanguino3G;
+		};
+		E2433894138FB524007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2871337138FAF8C00439C45 /* STLQuickLook.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D57630D048677EA00EA77CD;
+			remoteInfo = STLQuickLook;
+		};
+		E2433896138FB52F007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D57630D048677EA00EA77CD;
+			remoteInfo = GCodeQuickLook;
+		};
+		E2433898138FB536007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2433808138FB381007B347E /* ForwardTool.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = ForwardTool;
+		};
+		E243389A138FB53F007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24337DF138FB2ED007B347E /* STLImport.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = STLImport;
+		};
+		E243389C138FB53F007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2433811138FB385007B347E /* FileSaver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = FileSaver;
+		};
+		E243389E138FB53F007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24337E8138FB354007B347E /* Slice.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = Slice;
+		};
+		E24338A0138FB53F007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E243381D138FB483007B347E /* Sanguino3G.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = Sanguino3G;
+		};
+		E24338A2138FB53F007B347E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = GCodeGenerator;
+		};
+		E27435AB138FD73A0062643A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2D62227138FD0A50052777A /* P3DCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = P3DCore;
+		};
+		E27435F0138FE5100062643A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = PleasantMill;
+		};
+		E27435F4138FE6160062643A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = PleasantMill;
+		};
+		E287133E138FAF8C00439C45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2871337138FAF8C00439C45 /* STLQuickLook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D576316048677EA00EA77CD;
+			remoteInfo = STLQuickLook;
+		};
+		E2871347138FAF9600439C45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D576316048677EA00EA77CD;
+			remoteInfo = GCodeQuickLook;
+		};
+		E2D6222E138FD0A50052777A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2D62227138FD0A50052777A /* P3DCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = P3DCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E24338AE138FB939007B347E /* Copy Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E24338B0138FB956007B347E /* Slice.bundle in Copy Plugins */,
+				E24338B2138FB95F007B347E /* STLImport.bundle in Copy Plugins */,
+				E24338B4138FB967007B347E /* GCodeGenerator.bundle in Copy Plugins */,
+				E24338B6138FB970007B347E /* ForwardTool.bundle in Copy Plugins */,
+				E24338B8138FB978007B347E /* FileSaver.bundle in Copy Plugins */,
+			);
+			name = "Copy Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E25420B310FA0B5F005D08F7 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E27435F9138FEC1F0062643A /* CopyMachineDrivers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/MachineDrivers;
+			dstSubfolderSpec = 1;
+			files = (
+				E27435FB138FEC6F0062643A /* Sanguino3G.bundle in CopyMachineDrivers */,
+				E27435FA138FEC6A0062643A /* PleasantMill.bundle in CopyMachineDrivers */,
+			);
+			name = CopyMachineDrivers;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2F3BF4410F78CBF005224CD /* Copy QuickLook Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = Contents/Library/QuickLook;
+			dstSubfolderSpec = 1;
+			files = (
+				E24338A7138FB65A007B347E /* GCodeQuickLook.qlgenerator in Copy QuickLook Plugins */,
+				E24338A9138FB662007B347E /* STLQuickLook.qlgenerator in Copy QuickLook Plugins */,
+			);
+			name = "Copy QuickLook Plugins";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58290DA1D0D100B32029 /* STLDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = STLDocument.xib; sourceTree = "<group>"; };
+		1DDD582B0DA1D0D100B32029 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		2564AD2C0F5327BB00F57823 /* Pleasant3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pleasant3D_Prefix.pch; path = Classes/Pleasant3D_Prefix.pch; sourceTree = "<group>"; };
+		2A37F4ACFDCFA73011CA2CEA /* STLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLDocument.m; sourceTree = "<group>"; };
+		2A37F4AEFDCFA73011CA2CEA /* STLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLDocument.h; sourceTree = "<group>"; };
+		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = "<group>"; };
+		2A37F4BAFDCFA73011CA2CEA /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8D15AC360486D014006FF6A4 /* Pleasant3D-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pleasant3D-Info.plist"; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* Pleasant3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pleasant3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E21DBBFF113AD81F0009875E /* PSToolboxPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSToolboxPanel.h; sourceTree = "<group>"; };
+		E21DBC00113AD81F0009875E /* PSToolboxPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSToolboxPanel.m; sourceTree = "<group>"; };
+		E226424B108B78EB002FCAD8 /* STLPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLPreviewView.h; sourceTree = "<group>"; };
+		E226424C108B78EB002FCAD8 /* STLPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLPreviewView.m; sourceTree = "<group>"; };
+		E2264292108B7D7F002FCAD8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E2264294108B7D9F002FCAD8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E22644B2108B98A0002FCAD8 /* P3DDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DDocumentController.h; sourceTree = "<group>"; };
+		E22644B3108B98A0002FCAD8 /* P3DDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DDocumentController.m; sourceTree = "<group>"; };
+		E22645D3108BC216002FCAD8 /* GCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCodeView.h; sourceTree = "<group>"; };
+		E22645D4108BC216002FCAD8 /* GCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCodeView.m; sourceTree = "<group>"; };
+		E22645E1108BC2C9002FCAD8 /* GCodeDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GCodeDocument.xib; sourceTree = "<group>"; };
+		E22645F0108BC558002FCAD8 /* GCodeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCodeDocument.h; sourceTree = "<group>"; };
+		E22645F1108BC558002FCAD8 /* GCodeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCodeDocument.m; sourceTree = "<group>"; };
+		E22646E8108BE0FD002FCAD8 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		E22646F6108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = com.pleasantsoftware.gcodeIcon.icns; sourceTree = "<group>"; };
+		E22646F7108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = com.pleasantsoftware.stlIcon.icns; sourceTree = "<group>"; };
+		E24337DF138FB2ED007B347E /* STLImport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = STLImport.xcodeproj; path = subprj/ToolPlugins/STLImport/STLImport.xcodeproj; sourceTree = "<group>"; };
+		E24337E8138FB354007B347E /* Slice.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Slice.xcodeproj; path = subprj/ToolPlugins/Slice/Slice.xcodeproj; sourceTree = "<group>"; };
+		E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GcodeGenerator.xcodeproj; path = subprj/ToolPlugins/GCodeGenerator/GcodeGenerator.xcodeproj; sourceTree = "<group>"; };
+		E2433808138FB381007B347E /* ForwardTool.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ForwardTool.xcodeproj; path = subprj/ToolPlugins/ForwardTool/ForwardTool.xcodeproj; sourceTree = "<group>"; };
+		E2433811138FB385007B347E /* FileSaver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FileSaver.xcodeproj; path = subprj/ToolPlugins/FileSaver/FileSaver.xcodeproj; sourceTree = "<group>"; };
+		E243381D138FB483007B347E /* Sanguino3G.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sanguino3G.xcodeproj; path = subprj/PrinterDriver/Sanguino3G/Sanguino3G.xcodeproj; sourceTree = "<group>"; };
+		E24338A6138FB65A007B347E /* GCodeQuickLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = GCodeQuickLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338A8138FB662007B347E /* STLQuickLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = STLQuickLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338AF138FB955007B347E /* Slice.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = Slice.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338B1138FB95F007B347E /* STLImport.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = STLImport.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338B3138FB967007B347E /* GCodeGenerator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = GCodeGenerator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338B5138FB970007B347E /* ForwardTool.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ForwardTool.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338B7138FB978007B347E /* FileSaver.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FileSaver.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24338B9138FB988007B347E /* Sanguino3G.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = Sanguino3G.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24D8A3A116F481B0046B8BA /* MachineOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineOptionsController.h; sourceTree = "<group>"; };
+		E24D8A3B116F481B0046B8BA /* MachineOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineOptionsController.m; sourceTree = "<group>"; };
+		E24F6D73116FA2A800285948 /* Machine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Machine.png; sourceTree = "<group>"; };
+		E24F70A21172285E00285948 /* P3DMachiningQueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachiningQueueManager.h; sourceTree = "<group>"; };
+		E24F70A31172285E00285948 /* P3DMachiningQueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachiningQueueManager.m; sourceTree = "<group>"; };
+		E24FADFB10FB61700081C559 /* dataFlowButton_No_Forward.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_No_Forward.pdf; sourceTree = "<group>"; };
+		E24FADFC10FB61700081C559 /* dataFlowButton_No_Intermed.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_No_Intermed.pdf; sourceTree = "<group>"; };
+		E24FADFD10FB61700081C559 /* dataFlowButton_No_Preview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_No_Preview.pdf; sourceTree = "<group>"; };
+		E24FADFE10FB61700081C559 /* dataFlowButton_Yes_Forward.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_Yes_Forward.pdf; sourceTree = "<group>"; };
+		E24FADFF10FB61700081C559 /* dataFlowButton_Yes_Intermed.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_Yes_Intermed.pdf; sourceTree = "<group>"; };
+		E24FAE0010FB61700081C559 /* dataFlowButton_Yes_Preview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_Yes_Preview.pdf; sourceTree = "<group>"; };
+		E24FAE0710FB61700081C559 /* ToolBinBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolBinBackground.png; sourceTree = "<group>"; };
+		E24FAE2C10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = com.pleasantsoftware.p3dIcon.icns; sourceTree = "<group>"; };
+		E24FAE3210FB64620081C559 /* ToolPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolPanel.xib; sourceTree = "<group>"; };
+		E24FAE3310FB64620081C559 /* ToolItemPrototype.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolItemPrototype.xib; sourceTree = "<group>"; };
+		E24FAE3410FB64620081C559 /* Toolbox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Toolbox.xib; sourceTree = "<group>"; };
+		E24FAF9210FB8E540081C559 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		E25420B510FA0E3B005D08F7 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		E254217910FB577F005D08F7 /* SliceNDiceDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliceNDiceDocument.xib; sourceTree = "<group>"; };
+		E254217C10FB57FA005D08F7 /* Toolbox.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Toolbox.pdf; sourceTree = "<group>"; };
+		E254218610FB5904005D08F7 /* SliceNDiceDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceNDiceDocument.h; sourceTree = "<group>"; };
+		E254218710FB5904005D08F7 /* SliceNDiceDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliceNDiceDocument.m; sourceTree = "<group>"; };
+		E254219310FB5991005D08F7 /* ToolBinEntryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBinEntryView.h; sourceTree = "<group>"; };
+		E254219410FB5991005D08F7 /* ToolBinEntryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBinEntryView.m; sourceTree = "<group>"; };
+		E254219510FB5991005D08F7 /* ToolPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolPanelView.h; sourceTree = "<group>"; };
+		E254219610FB5991005D08F7 /* ToolPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPanelView.m; sourceTree = "<group>"; };
+		E254219710FB5991005D08F7 /* ToolBinScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBinScrollView.h; sourceTree = "<group>"; };
+		E254219810FB5991005D08F7 /* ToolBinScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBinScrollView.m; sourceTree = "<group>"; };
+		E254219910FB5991005D08F7 /* ToolBinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBinView.h; sourceTree = "<group>"; };
+		E254219A10FB5991005D08F7 /* ToolBinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBinView.m; sourceTree = "<group>"; };
+		E25421A510FB59BD005D08F7 /* P3DToolPoolController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DToolPoolController.h; sourceTree = "<group>"; };
+		E25421A610FB59BD005D08F7 /* P3DToolPoolController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DToolPoolController.m; sourceTree = "<group>"; };
+		E25FE1E1116E2DAA00BD83E1 /* MachineOptionSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachineOptionSheet.xib; sourceTree = "<group>"; };
+		E27435AD138FD7530062643A /* P3DCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = P3DCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PleasantMill.xcodeproj; path = subprj/PrinterDriver/PleasantMill/PleasantMill.xcodeproj; sourceTree = "<group>"; };
+		E27435F6138FE6270062643A /* PleasantMill.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = PleasantMill.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2743621139281160062643A /* GrayLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayLight.png; sourceTree = "<group>"; };
+		E2871337138FAF8C00439C45 /* STLQuickLook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = STLQuickLook.xcodeproj; path = subprj/STLQuickLook/STLQuickLook.xcodeproj; sourceTree = "<group>"; };
+		E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCodeQuickLook.xcodeproj; path = subprj/GCodeQuickLook/GCodeQuickLook.xcodeproj; sourceTree = "<group>"; };
+		E2970FD611247D230060FA0C /* ThreeDPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeDPreviewView.h; sourceTree = "<group>"; };
+		E2970FD711247D230060FA0C /* ThreeDPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeDPreviewView.m; sourceTree = "<group>"; };
+		E297108F1124E54E0060FA0C /* What's new */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "What's new"; path = "Resources/etc/What's new"; sourceTree = "<group>"; };
+		E297109F1124E9EB0060FA0C /* trackball.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trackball.c; sourceTree = "<group>"; };
+		E29710A01124E9EB0060FA0C /* trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trackball.h; sourceTree = "<group>"; };
+		E29A05CD111F3C4B006CD3C9 /* P3DGCodePreviewGUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = P3DGCodePreviewGUI.xib; sourceTree = "<group>"; };
+		E29A05D2111F3C96006CD3C9 /* P3DGCodePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DGCodePreviewController.h; sourceTree = "<group>"; };
+		E29A05D3111F3C96006CD3C9 /* P3DGCodePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DGCodePreviewController.m; sourceTree = "<group>"; };
+		E29A05D5111F3D58006CD3C9 /* ParsedGCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParsedGCode.h; sourceTree = "<group>"; };
+		E29A05D6111F3D58006CD3C9 /* ParsedGCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParsedGCode.m; sourceTree = "<group>"; };
+		E2A43EC11103365E003F5907 /* debugScopes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = debugScopes.plist; sourceTree = "<group>"; };
+		E2A43FBA11034EA9003F5907 /* P3DLoopsPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DLoopsPreviewView.h; sourceTree = "<group>"; };
+		E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DLoopsPreviewView.m; sourceTree = "<group>"; };
+		E2A43FBE11034EFB003F5907 /* P3DLoopsPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DLoopsPreviewController.h; sourceTree = "<group>"; };
+		E2A43FBF11034EFB003F5907 /* P3DLoopsPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DLoopsPreviewController.m; sourceTree = "<group>"; };
+		E2A4400911036327003F5907 /* P3DLoopsPreviewGUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = P3DLoopsPreviewGUI.xib; sourceTree = "<group>"; };
+		E2C183A910FE80C900396141 /* ToolPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolPool.h; sourceTree = "<group>"; };
+		E2C183AA10FE80C900396141 /* ToolPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPool.m; sourceTree = "<group>"; };
+		E2C1878F10FF470E00396141 /* STLImportPreviewGUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = STLImportPreviewGUI.xib; sourceTree = "<group>"; };
+		E2C1879610FF47B200396141 /* STLPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLPreviewController.h; sourceTree = "<group>"; };
+		E2C1879710FF47B200396141 /* STLPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLPreviewController.m; sourceTree = "<group>"; };
+		E2D0FCA1112DA04800900531 /* MachiningQueue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachiningQueue.xib; sourceTree = "<group>"; };
+		E2D0FCA4112DA12100900531 /* MachiningQueueItemPrototype.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachiningQueueItemPrototype.xib; sourceTree = "<group>"; };
+		E2D4E31D112D64EB00F67528 /* MachiningSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachiningSheet.xib; sourceTree = "<group>"; };
+		E2D4E324112D680500F67528 /* P3DMachiningController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachiningController.h; sourceTree = "<group>"; };
+		E2D4E325112D680500F67528 /* P3DMachiningController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachiningController.m; sourceTree = "<group>"; };
+		E2D62227138FD0A50052777A /* P3DCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = P3DCore.xcodeproj; path = subprj/P3DCore/P3DCore.xcodeproj; sourceTree = "<group>"; };
+		E2D7B4B810FD056600927AE4 /* Tool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tool.png; sourceTree = "<group>"; };
+		E2FC67CF11650B1400DC2E16 /* GreenLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenLight.png; sourceTree = "<group>"; };
+		E2FC67D011650B1400DC2E16 /* RedLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedLight.png; sourceTree = "<group>"; };
+		E2FC67D111650B1400DC2E16 /* YellowLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowLight.png; sourceTree = "<group>"; };
+		E2FE346F115A695700168F11 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
+		E2FE3470115A695700168F11 /* MBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPreferencesController.m; sourceTree = "<group>"; };
+		E2FE3477115A6AA500168F11 /* PreferencesGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesGeneralViewController.h; sourceTree = "<group>"; };
+		E2FE3478115A6AA500168F11 /* PreferencesGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesGeneralViewController.m; sourceTree = "<group>"; };
+		E2FE347A115A6BCC00168F11 /* PreferencesMachinesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesMachinesViewController.h; sourceTree = "<group>"; };
+		E2FE347B115A6BCC00168F11 /* PreferencesMachinesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesMachinesViewController.m; sourceTree = "<group>"; };
+		E2FE3507115A6D7400168F11 /* PreferencesGeneral.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesGeneral.xib; sourceTree = "<group>"; };
+		E2FE3508115A6D7400168F11 /* PreferencesMachines.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesMachines.xib; sourceTree = "<group>"; };
+		E2FE3537115A73AB00168F11 /* AddMachine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddMachine.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E27435AE138FD7530062643A /* P3DCore.framework in Frameworks */,
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */,
+				E2264295108B7D9F002FCAD8 /* QuartzCore.framework in Frameworks */,
+				E24FAF9310FB8E540081C559 /* Sparkle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E24FAF9210FB8E540081C559 /* Sparkle.framework */,
+				E2264292108B7D7F002FCAD8 /* OpenGL.framework */,
+				E2264294108B7D9F002FCAD8 /* QuartzCore.framework */,
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* Pleasant3D.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* PleasantSTL */ = {
+			isa = PBXGroup;
+			children = (
+				E297108F1124E54E0060FA0C /* What's new */,
+				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				E24337D1138FB27D007B347E /* Subprojects */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			name = PleasantSTL;
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E254216210FB555F005D08F7 /* Service */,
+				E2D4E32C112D6AF900F67528 /* Printing */,
+				E2264611108BC891002FCAD8 /* Default Previews */,
+				E254218110FB58E6005D08F7 /* GUI */,
+				E254218210FB58EE005D08F7 /* Documents */,
+				E22644B2108B98A0002FCAD8 /* P3DDocumentController.h */,
+				E22644B3108B98A0002FCAD8 /* P3DDocumentController.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2564AD2C0F5327BB00F57823 /* Pleasant3D_Prefix.pch */,
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E24338AD138FB8BE007B347E /* Frameworks&Bundles */,
+				E254217510FB5700005D08F7 /* Images */,
+				E254217410FB56E3005D08F7 /* XIBs */,
+				E254217610FB570D005D08F7 /* etc */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E2264248108B78EB002FCAD8 /* Preview STL */ = {
+			isa = PBXGroup;
+			children = (
+				E2C1879610FF47B200396141 /* STLPreviewController.h */,
+				E2C1879710FF47B200396141 /* STLPreviewController.m */,
+				E226424B108B78EB002FCAD8 /* STLPreviewView.h */,
+				E226424C108B78EB002FCAD8 /* STLPreviewView.m */,
+			);
+			name = "Preview STL";
+			sourceTree = "<group>";
+		};
+		E2264611108BC891002FCAD8 /* Default Previews */ = {
+			isa = PBXGroup;
+			children = (
+				E29710A01124E9EB0060FA0C /* trackball.h */,
+				E297109F1124E9EB0060FA0C /* trackball.c */,
+				E2970FD611247D230060FA0C /* ThreeDPreviewView.h */,
+				E2970FD711247D230060FA0C /* ThreeDPreviewView.m */,
+				E2264248108B78EB002FCAD8 /* Preview STL */,
+				E2C1879510FF479500396141 /* Preview GCode */,
+				E2A43FBD11034EAE003F5907 /* Preview Loops */,
+			);
+			name = "Default Previews";
+			sourceTree = "<group>";
+		};
+		E24337D1138FB27D007B347E /* Subprojects */ = {
+			isa = PBXGroup;
+			children = (
+				E24337D8138FB290007B347E /* Core Frameworks */,
+				E24337FB138FB372007B347E /* Tool Plugins */,
+				E2433826138FB487007B347E /* Printer Drivers */,
+			);
+			name = Subprojects;
+			sourceTree = "<group>";
+		};
+		E24337D8138FB290007B347E /* Core Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E2D62227138FD0A50052777A /* P3DCore.xcodeproj */,
+				E2871337138FAF8C00439C45 /* STLQuickLook.xcodeproj */,
+				E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */,
+			);
+			name = "Core Frameworks";
+			sourceTree = "<group>";
+		};
+		E24337E0138FB2ED007B347E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E24337E7138FB2ED007B347E /* STLImport.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E24337E9138FB354007B347E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E24337F1138FB355007B347E /* Slice.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E24337FB138FB372007B347E /* Tool Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				E2433811138FB385007B347E /* FileSaver.xcodeproj */,
+				E2433808138FB381007B347E /* ForwardTool.xcodeproj */,
+				E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */,
+				E24337DF138FB2ED007B347E /* STLImport.xcodeproj */,
+				E24337E8138FB354007B347E /* Slice.xcodeproj */,
+			);
+			name = "Tool Plugins";
+			sourceTree = "<group>";
+		};
+		E2433800138FB379007B347E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2433807138FB37A007B347E /* GCodeGenerator.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2433809138FB381007B347E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2433810138FB381007B347E /* ForwardTool.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2433812138FB385007B347E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E243381C138FB385007B347E /* FileSaver.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E243381E138FB483007B347E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2433825138FB483007B347E /* Sanguino3G.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2433826138FB487007B347E /* Printer Drivers */ = {
+			isa = PBXGroup;
+			children = (
+				E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */,
+				E243381D138FB483007B347E /* Sanguino3G.xcodeproj */,
+			);
+			name = "Printer Drivers";
+			sourceTree = "<group>";
+		};
+		E24338AD138FB8BE007B347E /* Frameworks&Bundles */ = {
+			isa = PBXGroup;
+			children = (
+				E27435AD138FD7530062643A /* P3DCore.framework */,
+				E24338AF138FB955007B347E /* Slice.bundle */,
+				E24338B1138FB95F007B347E /* STLImport.bundle */,
+				E24338B3138FB967007B347E /* GCodeGenerator.bundle */,
+				E24338B5138FB970007B347E /* ForwardTool.bundle */,
+				E24338B7138FB978007B347E /* FileSaver.bundle */,
+				E24338B9138FB988007B347E /* Sanguino3G.bundle */,
+				E27435F6138FE6270062643A /* PleasantMill.bundle */,
+				E24338A6138FB65A007B347E /* GCodeQuickLook.qlgenerator */,
+				E24338A8138FB662007B347E /* STLQuickLook.qlgenerator */,
+			);
+			name = "Frameworks&Bundles";
+			sourceTree = "<group>";
+		};
+		E24FADFA10FB61700081C559 /* dataFlowButton */ = {
+			isa = PBXGroup;
+			children = (
+				E24FADFB10FB61700081C559 /* dataFlowButton_No_Forward.pdf */,
+				E24FADFC10FB61700081C559 /* dataFlowButton_No_Intermed.pdf */,
+				E24FADFD10FB61700081C559 /* dataFlowButton_No_Preview.pdf */,
+				E24FADFE10FB61700081C559 /* dataFlowButton_Yes_Forward.pdf */,
+				E24FADFF10FB61700081C559 /* dataFlowButton_Yes_Intermed.pdf */,
+				E24FAE0010FB61700081C559 /* dataFlowButton_Yes_Preview.pdf */,
+			);
+			path = dataFlowButton;
+			sourceTree = "<group>";
+		};
+		E254216210FB555F005D08F7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E2C183A910FE80C900396141 /* ToolPool.h */,
+				E2C183AA10FE80C900396141 /* ToolPool.m */,
+				E29A05D5111F3D58006CD3C9 /* ParsedGCode.h */,
+				E29A05D6111F3D58006CD3C9 /* ParsedGCode.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		E254217410FB56E3005D08F7 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				E2FE34E5115A6C7A00168F11 /* Preferences */,
+				E2C1879D10FF48EA00396141 /* DefaultPreviews */,
+				E2FE3536115A738500168F11 /* MachineSupport */,
+				E24FAE3210FB64620081C559 /* ToolPanel.xib */,
+				E24FAE3310FB64620081C559 /* ToolItemPrototype.xib */,
+				E24FAE3410FB64620081C559 /* Toolbox.xib */,
+				E254217910FB577F005D08F7 /* SliceNDiceDocument.xib */,
+				E22645E1108BC2C9002FCAD8 /* GCodeDocument.xib */,
+				1DDD58290DA1D0D100B32029 /* STLDocument.xib */,
+				1DDD582B0DA1D0D100B32029 /* MainMenu.xib */,
+			);
+			name = XIBs;
+			path = Resources/XIBs;
+			sourceTree = "<group>";
+		};
+		E254217510FB5700005D08F7 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E24F6D73116FA2A800285948 /* Machine.png */,
+				E2FC67CE11650B1400DC2E16 /* Lights */,
+				E2D7B4B810FD056600927AE4 /* Tool.png */,
+				E254217C10FB57FA005D08F7 /* Toolbox.pdf */,
+				E24FAE2C10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns */,
+				E22646F6108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns */,
+				E22646F7108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns */,
+				E22646E8108BE0FD002FCAD8 /* AppIcon.icns */,
+				E24FADFA10FB61700081C559 /* dataFlowButton */,
+				E24FAE0710FB61700081C559 /* ToolBinBackground.png */,
+			);
+			name = Images;
+			path = Resources/Images;
+			sourceTree = "<group>";
+		};
+		E254217610FB570D005D08F7 /* etc */ = {
+			isa = PBXGroup;
+			children = (
+				E2A43EC11103365E003F5907 /* debugScopes.plist */,
+				E25420B510FA0E3B005D08F7 /* dsa_pub.pem */,
+				2A37F4BAFDCFA73011CA2CEA /* Credits.rtf */,
+				8D15AC360486D014006FF6A4 /* Pleasant3D-Info.plist */,
+				089C1660FE840EACC02AAC07 /* InfoPlist.strings */,
+			);
+			name = etc;
+			path = Resources/etc;
+			sourceTree = "<group>";
+		};
+		E254218110FB58E6005D08F7 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				E2FE3472115A696700168F11 /* Preferences */,
+				E25421A510FB59BD005D08F7 /* P3DToolPoolController.h */,
+				E25421A610FB59BD005D08F7 /* P3DToolPoolController.m */,
+				E21DBBFF113AD81F0009875E /* PSToolboxPanel.h */,
+				E21DBC00113AD81F0009875E /* PSToolboxPanel.m */,
+				E254218B10FB5991005D08F7 /* ToolBin */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		E254218210FB58EE005D08F7 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				E254218610FB5904005D08F7 /* SliceNDiceDocument.h */,
+				E254218710FB5904005D08F7 /* SliceNDiceDocument.m */,
+				2A37F4AEFDCFA73011CA2CEA /* STLDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* STLDocument.m */,
+				E22645F0108BC558002FCAD8 /* GCodeDocument.h */,
+				E22645F1108BC558002FCAD8 /* GCodeDocument.m */,
+			);
+			name = Documents;
+			sourceTree = "<group>";
+		};
+		E254218B10FB5991005D08F7 /* ToolBin */ = {
+			isa = PBXGroup;
+			children = (
+				E254219310FB5991005D08F7 /* ToolBinEntryView.h */,
+				E254219410FB5991005D08F7 /* ToolBinEntryView.m */,
+				E254219510FB5991005D08F7 /* ToolPanelView.h */,
+				E254219610FB5991005D08F7 /* ToolPanelView.m */,
+				E254219710FB5991005D08F7 /* ToolBinScrollView.h */,
+				E254219810FB5991005D08F7 /* ToolBinScrollView.m */,
+				E254219910FB5991005D08F7 /* ToolBinView.h */,
+				E254219A10FB5991005D08F7 /* ToolBinView.m */,
+			);
+			name = ToolBin;
+			sourceTree = "<group>";
+		};
+		E27435EA138FE50F0062643A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E27435F1138FE5100062643A /* PleasantMill.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2871338138FAF8C00439C45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E287133F138FAF8C00439C45 /* STLQuickLook.qlgenerator */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2871341138FAF9600439C45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2871348138FAF9600439C45 /* GCodeQuickLook.qlgenerator */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2A43FBD11034EAE003F5907 /* Preview Loops */ = {
+			isa = PBXGroup;
+			children = (
+				E2A43FBE11034EFB003F5907 /* P3DLoopsPreviewController.h */,
+				E2A43FBF11034EFB003F5907 /* P3DLoopsPreviewController.m */,
+				E2A43FBA11034EA9003F5907 /* P3DLoopsPreviewView.h */,
+				E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */,
+			);
+			name = "Preview Loops";
+			sourceTree = "<group>";
+		};
+		E2C1879510FF479500396141 /* Preview GCode */ = {
+			isa = PBXGroup;
+			children = (
+				E29A05D2111F3C96006CD3C9 /* P3DGCodePreviewController.h */,
+				E29A05D3111F3C96006CD3C9 /* P3DGCodePreviewController.m */,
+				E22645D3108BC216002FCAD8 /* GCodeView.h */,
+				E22645D4108BC216002FCAD8 /* GCodeView.m */,
+			);
+			name = "Preview GCode";
+			sourceTree = "<group>";
+		};
+		E2C1879D10FF48EA00396141 /* DefaultPreviews */ = {
+			isa = PBXGroup;
+			children = (
+				E29A05CD111F3C4B006CD3C9 /* P3DGCodePreviewGUI.xib */,
+				E2A4400911036327003F5907 /* P3DLoopsPreviewGUI.xib */,
+				E2C1878F10FF470E00396141 /* STLImportPreviewGUI.xib */,
+			);
+			name = DefaultPreviews;
+			sourceTree = "<group>";
+		};
+		E2D4E32C112D6AF900F67528 /* Printing */ = {
+			isa = PBXGroup;
+			children = (
+				E2D4E324112D680500F67528 /* P3DMachiningController.h */,
+				E2D4E325112D680500F67528 /* P3DMachiningController.m */,
+				E24F70A21172285E00285948 /* P3DMachiningQueueManager.h */,
+				E24F70A31172285E00285948 /* P3DMachiningQueueManager.m */,
+			);
+			name = Printing;
+			sourceTree = "<group>";
+		};
+		E2D62228138FD0A50052777A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2D6222F138FD0A50052777A /* P3DCore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2FC67CE11650B1400DC2E16 /* Lights */ = {
+			isa = PBXGroup;
+			children = (
+				E2743621139281160062643A /* GrayLight.png */,
+				E2FC67CF11650B1400DC2E16 /* GreenLight.png */,
+				E2FC67D011650B1400DC2E16 /* RedLight.png */,
+				E2FC67D111650B1400DC2E16 /* YellowLight.png */,
+			);
+			name = Lights;
+			sourceTree = "<group>";
+		};
+		E2FE3472115A696700168F11 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				E2FE3477115A6AA500168F11 /* PreferencesGeneralViewController.h */,
+				E2FE3478115A6AA500168F11 /* PreferencesGeneralViewController.m */,
+				E2FE347A115A6BCC00168F11 /* PreferencesMachinesViewController.h */,
+				E2FE347B115A6BCC00168F11 /* PreferencesMachinesViewController.m */,
+				E2FE346F115A695700168F11 /* MBPreferencesController.h */,
+				E2FE3470115A695700168F11 /* MBPreferencesController.m */,
+				E24D8A3A116F481B0046B8BA /* MachineOptionsController.h */,
+				E24D8A3B116F481B0046B8BA /* MachineOptionsController.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		E2FE34E5115A6C7A00168F11 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				E2FE3507115A6D7400168F11 /* PreferencesGeneral.xib */,
+				E2FE3508115A6D7400168F11 /* PreferencesMachines.xib */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		E2FE3536115A738500168F11 /* MachineSupport */ = {
+			isa = PBXGroup;
+			children = (
+				E2D4E31D112D64EB00F67528 /* MachiningSheet.xib */,
+				E2D0FCA1112DA04800900531 /* MachiningQueue.xib */,
+				E2D0FCA4112DA12100900531 /* MachiningQueueItemPrototype.xib */,
+				E2FE3537115A73AB00168F11 /* AddMachine.xib */,
+				E25FE1E1116E2DAA00BD83E1 /* MachineOptionSheet.xib */,
+			);
+			name = MachineSupport;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D15AC270486D014006FF6A4 /* Pleasant3D */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Pleasant3D" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+				E2F3BF4410F78CBF005224CD /* Copy QuickLook Plugins */,
+				E25420B310FA0B5F005D08F7 /* Copy Frameworks */,
+				E24338AE138FB939007B347E /* Copy Plugins */,
+				E27435F9138FEC1F0062643A /* CopyMachineDrivers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E27435AC138FD73A0062643A /* PBXTargetDependency */,
+				E2433897138FB52F007B347E /* PBXTargetDependency */,
+				E2433895138FB524007B347E /* PBXTargetDependency */,
+				E243389B138FB53F007B347E /* PBXTargetDependency */,
+				E243389D138FB53F007B347E /* PBXTargetDependency */,
+				E243389F138FB53F007B347E /* PBXTargetDependency */,
+				E24338A3138FB53F007B347E /* PBXTargetDependency */,
+				E2433899138FB536007B347E /* PBXTargetDependency */,
+				E24338A1138FB53F007B347E /* PBXTargetDependency */,
+				E27435F5138FE6160062643A /* PBXTargetDependency */,
+			);
+			name = Pleasant3D;
+			productInstallPath = "$(HOME)/Applications";
+			productName = PleasantSTL;
+			productReference = 8D15AC370486D014006FF6A4 /* Pleasant3D.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Pleasant Software";
+			};
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Pleasant3D" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* PleasantSTL */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E2433812138FB385007B347E /* Products */;
+					ProjectRef = E2433811138FB385007B347E /* FileSaver.xcodeproj */;
+				},
+				{
+					ProductGroup = E2433809138FB381007B347E /* Products */;
+					ProjectRef = E2433808138FB381007B347E /* ForwardTool.xcodeproj */;
+				},
+				{
+					ProductGroup = E2433800138FB379007B347E /* Products */;
+					ProjectRef = E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */;
+				},
+				{
+					ProductGroup = E2871341138FAF9600439C45 /* Products */;
+					ProjectRef = E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */;
+				},
+				{
+					ProductGroup = E2D62228138FD0A50052777A /* Products */;
+					ProjectRef = E2D62227138FD0A50052777A /* P3DCore.xcodeproj */;
+				},
+				{
+					ProductGroup = E27435EA138FE50F0062643A /* Products */;
+					ProjectRef = E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */;
+				},
+				{
+					ProductGroup = E243381E138FB483007B347E /* Products */;
+					ProjectRef = E243381D138FB483007B347E /* Sanguino3G.xcodeproj */;
+				},
+				{
+					ProductGroup = E24337E9138FB354007B347E /* Products */;
+					ProjectRef = E24337E8138FB354007B347E /* Slice.xcodeproj */;
+				},
+				{
+					ProductGroup = E24337E0138FB2ED007B347E /* Products */;
+					ProjectRef = E24337DF138FB2ED007B347E /* STLImport.xcodeproj */;
+				},
+				{
+					ProductGroup = E2871338138FAF8C00439C45 /* Products */;
+					ProjectRef = E2871337138FAF8C00439C45 /* STLQuickLook.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* Pleasant3D */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E24337E7138FB2ED007B347E /* STLImport.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = STLImport.bundle;
+			remoteRef = E24337E6138FB2ED007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E24337F1138FB355007B347E /* Slice.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Slice.bundle;
+			remoteRef = E24337F0138FB355007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2433807138FB37A007B347E /* GCodeGenerator.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GCodeGenerator.bundle;
+			remoteRef = E2433806138FB37A007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2433810138FB381007B347E /* ForwardTool.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ForwardTool.bundle;
+			remoteRef = E243380F138FB381007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E243381C138FB385007B347E /* FileSaver.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FileSaver.bundle;
+			remoteRef = E243381B138FB385007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2433825138FB483007B347E /* Sanguino3G.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Sanguino3G.bundle;
+			remoteRef = E2433824138FB483007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E27435F1138FE5100062643A /* PleasantMill.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PleasantMill.bundle;
+			remoteRef = E27435F0138FE5100062643A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E287133F138FAF8C00439C45 /* STLQuickLook.qlgenerator */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = STLQuickLook.qlgenerator;
+			remoteRef = E287133E138FAF8C00439C45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2871348138FAF9600439C45 /* GCodeQuickLook.qlgenerator */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GCodeQuickLook.qlgenerator;
+			remoteRef = E2871347138FAF9600439C45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2D6222F138FD0A50052777A /* P3DCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = P3DCore.framework;
+			remoteRef = E2D6222E138FD0A50052777A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E29BBF401131F9EB0058A121 /* Credits.rtf in Resources */,
+				E29BBF411131FA000058A121 /* InfoPlist.strings in Resources */,
+				E29BBF3E1131F9CB0058A121 /* STLDocument.xib in Resources */,
+				E29BBF3F1131F9CB0058A121 /* MainMenu.xib in Resources */,
+				E29BBF3D1131F9CB0058A121 /* GCodeDocument.xib in Resources */,
+				E22646E9108BE0FD002FCAD8 /* AppIcon.icns in Resources */,
+				E22646F8108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns in Resources */,
+				E22646F9108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns in Resources */,
+				E25420B610FA0E3B005D08F7 /* dsa_pub.pem in Resources */,
+				E29BBF3C1131F9C20058A121 /* SliceNDiceDocument.xib in Resources */,
+				E254217D10FB57FA005D08F7 /* Toolbox.pdf in Resources */,
+				E24FAE0810FB61700081C559 /* dataFlowButton_No_Forward.pdf in Resources */,
+				E24FAE0910FB61700081C559 /* dataFlowButton_No_Intermed.pdf in Resources */,
+				E24FAE0A10FB61700081C559 /* dataFlowButton_No_Preview.pdf in Resources */,
+				E24FAE0B10FB61700081C559 /* dataFlowButton_Yes_Forward.pdf in Resources */,
+				E24FAE0C10FB61700081C559 /* dataFlowButton_Yes_Intermed.pdf in Resources */,
+				E24FAE0D10FB61700081C559 /* dataFlowButton_Yes_Preview.pdf in Resources */,
+				E24FAE1410FB61700081C559 /* ToolBinBackground.png in Resources */,
+				E24FAE2D10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns in Resources */,
+				E24FAE3510FB64620081C559 /* ToolPanel.xib in Resources */,
+				E24FAE3610FB64620081C559 /* ToolItemPrototype.xib in Resources */,
+				E24FAE3710FB64620081C559 /* Toolbox.xib in Resources */,
+				E2D7B4B910FD056600927AE4 /* Tool.png in Resources */,
+				E2C187DC10FF51C900396141 /* STLImportPreviewGUI.xib in Resources */,
+				E2A43EC21103365E003F5907 /* debugScopes.plist in Resources */,
+				E2A4400A11036327003F5907 /* P3DLoopsPreviewGUI.xib in Resources */,
+				E29A05CE111F3C4B006CD3C9 /* P3DGCodePreviewGUI.xib in Resources */,
+				E2D4E31E112D64EB00F67528 /* MachiningSheet.xib in Resources */,
+				E2D0FCA2112DA04800900531 /* MachiningQueue.xib in Resources */,
+				E2D0FCA5112DA12100900531 /* MachiningQueueItemPrototype.xib in Resources */,
+				E2FE3509115A6D7400168F11 /* PreferencesGeneral.xib in Resources */,
+				E2FE350A115A6D7400168F11 /* PreferencesMachines.xib in Resources */,
+				E2FE3538115A73AB00168F11 /* AddMachine.xib in Resources */,
+				E2FC67D211650B1400DC2E16 /* GreenLight.png in Resources */,
+				E2FC67D311650B1400DC2E16 /* RedLight.png in Resources */,
+				E2FC67D411650B1400DC2E16 /* YellowLight.png in Resources */,
+				E25FE1E2116E2DAA00BD83E1 /* MachineOptionSheet.xib in Resources */,
+				E24F6D74116FA2A800285948 /* Machine.png in Resources */,
+				E2743622139281160062643A /* GrayLight.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC310486D014006FF6A4 /* STLDocument.m in Sources */,
+				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				E22644B4108B98A0002FCAD8 /* P3DDocumentController.m in Sources */,
+				E22645D5108BC216002FCAD8 /* GCodeView.m in Sources */,
+				E22645F2108BC558002FCAD8 /* GCodeDocument.m in Sources */,
+				E254218810FB5904005D08F7 /* SliceNDiceDocument.m in Sources */,
+				E254219E10FB5991005D08F7 /* ToolBinEntryView.m in Sources */,
+				E254219F10FB5991005D08F7 /* ToolPanelView.m in Sources */,
+				E25421A010FB5991005D08F7 /* ToolBinScrollView.m in Sources */,
+				E25421A110FB5991005D08F7 /* ToolBinView.m in Sources */,
+				E25421B710FB59BD005D08F7 /* P3DToolPoolController.m in Sources */,
+				E2C183AB10FE80C900396141 /* ToolPool.m in Sources */,
+				E2C1879310FF478300396141 /* STLPreviewView.m in Sources */,
+				E2C1879A10FF48BD00396141 /* STLPreviewController.m in Sources */,
+				E2A43FBC11034EA9003F5907 /* P3DLoopsPreviewView.m in Sources */,
+				E2A43FC011034EFB003F5907 /* P3DLoopsPreviewController.m in Sources */,
+				E29A05D4111F3C96006CD3C9 /* P3DGCodePreviewController.m in Sources */,
+				E29A05D7111F3D58006CD3C9 /* ParsedGCode.m in Sources */,
+				E2970FD811247D230060FA0C /* ThreeDPreviewView.m in Sources */,
+				E29710A11124E9EB0060FA0C /* trackball.c in Sources */,
+				E2D4E326112D680500F67528 /* P3DMachiningController.m in Sources */,
+				E21DBC01113AD81F0009875E /* PSToolboxPanel.m in Sources */,
+				E2FE3471115A695700168F11 /* MBPreferencesController.m in Sources */,
+				E2FE3479115A6AA500168F11 /* PreferencesGeneralViewController.m in Sources */,
+				E2FE347C115A6BCC00168F11 /* PreferencesMachinesViewController.m in Sources */,
+				E24D8A3C116F481B0046B8BA /* MachineOptionsController.m in Sources */,
+				E24F70A41172285E00285948 /* P3DMachiningQueueManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E2433895138FB524007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STLQuickLook;
+			targetProxy = E2433894138FB524007B347E /* PBXContainerItemProxy */;
+		};
+		E2433897138FB52F007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GCodeQuickLook;
+			targetProxy = E2433896138FB52F007B347E /* PBXContainerItemProxy */;
+		};
+		E2433899138FB536007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ForwardTool;
+			targetProxy = E2433898138FB536007B347E /* PBXContainerItemProxy */;
+		};
+		E243389B138FB53F007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STLImport;
+			targetProxy = E243389A138FB53F007B347E /* PBXContainerItemProxy */;
+		};
+		E243389D138FB53F007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FileSaver;
+			targetProxy = E243389C138FB53F007B347E /* PBXContainerItemProxy */;
+		};
+		E243389F138FB53F007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Slice;
+			targetProxy = E243389E138FB53F007B347E /* PBXContainerItemProxy */;
+		};
+		E24338A1138FB53F007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sanguino3G;
+			targetProxy = E24338A0138FB53F007B347E /* PBXContainerItemProxy */;
+		};
+		E24338A3138FB53F007B347E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GCodeGenerator;
+			targetProxy = E24338A2138FB53F007B347E /* PBXContainerItemProxy */;
+		};
+		E27435AC138FD73A0062643A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = P3DCore;
+			targetProxy = E27435AB138FD73A0062643A /* PBXContainerItemProxy */;
+		};
+		E27435F5138FE6160062643A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PleasantMill;
+			targetProxy = E27435F4138FE6160062643A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Pleasant3D;
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Eberhard Rensch";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Pleasant3D;
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_BUILD_NUMBER = 6;
+				APPLICATION_VERSION = 2.0;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = __DEBUG__;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_BUILD_NUMBER = 6;
+				APPLICATION_VERSION = 2.0;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+		E29BBF951131FA640058A121 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_BUILD_NUMBER = 6;
+				APPLICATION_VERSION = 2.0;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "Pleasant Software";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Distribution;
+		};
+		E29BBF961131FA640058A121 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Eberhard Rensch";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Pleasant3D;
+			};
+			name = Distribution;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Pleasant3D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+				E29BBF961131FA640058A121 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Pleasant3D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+				E29BBF951131FA640058A121 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}

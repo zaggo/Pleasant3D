@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>disabledScopes</key>
+	<dict/>
+	<key>enabledScopes</key>
+	<dict>
+		<key>Machining</key>
+		<true/>
+		<key>*</key>
+		<false/>
+		<key>EdgeIndex</key>
+		<false/>
+		<key>Slice</key>
+		<true/>
+		<key>Timer</key>
+		<true/>
+	</dict>
+	<key>verbosity</key>
+	<integer>1</integer>
+	<key>writeLogFile</key>
+	<false/>
+</dict>
+</plist>

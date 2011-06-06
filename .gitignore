@@ -1,0 +1,8 @@
+.DS_Store
+/src/build
+/src/Pleasant3D.xcodeproj/xcuserdata
+/src/Pleasant3D.xcodeproj/zaggo.mode1v3
+/src/Pleasant3D.xcodeproj/zaggo.mode2v3
+/src/Pleasant3D.xcodeproj/zaggo.pbxuser
+/src/Pleasant3D.xcodeproj/zaggo.perspectivev3
+*~.rtf
