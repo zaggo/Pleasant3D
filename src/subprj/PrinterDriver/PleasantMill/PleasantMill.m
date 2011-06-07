@@ -138,4 +138,20 @@
 	return driverOptions;
 }
 
+- (Vector3*)dimBuildPlattform
+{
+    static Vector3* _dimBuildPlatform=nil;
+    if(_dimBuildPlatform==nil)
+        _dimBuildPlatform = [[Vector3 alloc] initVectorWithX:300. Y:150. Z:0.];
+    return _dimBuildPlatform;
+}
+
+- (Vector3*)zeroBuildPlattform
+{
+    static Vector3* _zeroBuildPlattform=nil;
+    if(_zeroBuildPlattform==nil)
+        _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
+    return _zeroBuildPlattform;
+}
+
 @end

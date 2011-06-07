@@ -29,6 +29,7 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
+    [openGLView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
 }
 
 - (NSInteger)correctedMaxLayers

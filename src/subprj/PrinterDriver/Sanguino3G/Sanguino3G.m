@@ -180,7 +180,7 @@
 - (Vector3*)dimBuildPlattform
 {
     static Vector3* _dimBuildPlatform=nil;
-    if(_dimBuildPlatform)
+    if(_dimBuildPlatform==nil)
         _dimBuildPlatform = [[Vector3 alloc] initVectorWithX:100. Y:100. Z:0.];
     return _dimBuildPlatform;
 }
@@ -188,7 +188,7 @@
 - (Vector3*)zeroBuildPlattform
 {
     static Vector3* _zeroBuildPlattform=nil;
-    if(_zeroBuildPlattform)
+    if(_zeroBuildPlattform==nil)
         _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:50. Y:50. Z:0.];
     return _zeroBuildPlattform;
 }

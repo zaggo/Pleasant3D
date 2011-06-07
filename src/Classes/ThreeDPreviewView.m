@@ -423,4 +423,10 @@
 	glFinish();
 	[[self openGLContext] flushBuffer];
 }
+
+- (void)setCurrentMachine:(P3DMachineDriverBase*)value
+{
+    currentMachine=value;
+    [self setNeedsDisplay:YES];
+}
 @end

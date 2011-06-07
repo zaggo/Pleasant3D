@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ConfiguredMachines;
+@class ConfiguredMachines, P3DMachineDriveBase;
 @interface P3DMachinableDocument : NSDocument
 {
     NSString* selectedMachineUUID;
@@ -18,5 +18,5 @@
 @property (readonly) ConfiguredMachines* configuredMachines;
 @property (copy) NSString* selectedMachineUUID;
 @property (assign) NSInteger selectedMachineIndex;
-
+@property (readonly) P3DMachineDriveBase* currentMachine;
 @end
