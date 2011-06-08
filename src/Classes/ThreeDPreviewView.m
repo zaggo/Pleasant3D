@@ -365,7 +365,6 @@
 	glEnable (GL_LINE_SMOOTH); 
 	glEnable (GL_BLEND); 
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_DEPTH_TEST);
 
 	glLoadIdentity();	
 	if(threeD)
@@ -418,7 +417,9 @@
     }
 	// Ende Build Platfom
     
+	glEnable(GL_DEPTH_TEST);
 	[self renderContent];
+	glDisable(GL_DEPTH_TEST);
 	
 	glFinish();
 	[[self openGLContext] flushBuffer];

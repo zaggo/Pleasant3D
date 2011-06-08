@@ -274,7 +274,7 @@
 		};
 		E2F3BF4410F78CBF005224CD /* Copy QuickLook Plugins */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			dstPath = Contents/Library/QuickLook;
 			dstSubfolderSpec = 1;
 			files = (
@@ -282,7 +282,7 @@
 				E24338A9138FB662007B347E /* STLQuickLook.qlgenerator in Copy QuickLook Plugins */,
 			);
 			name = "Copy QuickLook Plugins";
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

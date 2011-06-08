@@ -223,7 +223,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		kCGLPFAOffScreen,
 		kCGLPFAColorSize, 32,
 		kCGLPFADepthSize, 32,
-		kCGLPFAAlphaSize, 8,
+		//kCGLPFAAlphaSize, 8,
 		0
 	} ;
 	CGLPixelFormatObj pixelFormatObj;
@@ -237,14 +237,14 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	
 	/* Build bitmap context */
 	void *data;
-	data = malloc((GLsizei)renderSize.width * bytewidth);
+	data = malloc((GLsizei)renderSize.height * bytewidth);
 	if (data == NULL) {
 		return nil;
 	}
 	
 	CGColorSpaceRef cSpace = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB);
 	CGContextRef bitmap;
-	bitmap = CGBitmapContextCreate(data, (GLsizei)renderSize.width, (GLsizei)renderSize.height, 8, bytewidth, cSpace, kCGImageAlphaNoneSkipFirst /* XRGB */);
+	bitmap = CGBitmapContextCreate(data, (GLsizei)renderSize.width, (GLsizei)renderSize.height, 8, bytewidth, cSpace, kCGImageAlphaPremultipliedFirst /* ARGB */);
 	CFRelease(cSpace);
 
 	CGLContextObj contextObj;
@@ -258,12 +258,12 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective( 45.f, (GLfloat)(renderSize.width / renderSize.height), 0.1f, 1000.0f );
+    gluPerspective( 45.f, (GLfloat)(renderSize.width / renderSize.height), 10.f, 1000.0f );
 		
 	glMatrixMode( GL_MODELVIEW );
     // Clear the framebuffer.
 	if(thumbnail)
-		glClearColor( 0.f, 1.f, 0.f, 1.f);
+		glClearColor( 0.f, 0.f, 0.f, 0.f);
 	else
 		glClearColor( 0.f, 0.f, 0.f, 0.f);
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -356,6 +356,9 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	glReadPixels((GLint)0, (GLint)0, (GLsizei)renderSize.width, (GLsizei)renderSize.width, GL_BGRA,
 				 GL_UNSIGNED_INT_8_8_8_8, // for Intel! http://lists.apple.com/archives/quartz-dev/2006/May/msg00100.html
 				 data);
+    
+  //  NSLog(@"alpha = %d", ((char*) data)[3]);
+    
 	swizzleBitmap(data, bytewidth, (GLsizei)renderSize.height);
 	
 	/* Make an image out of our bitmap; does a cheap vm_copy of the bitmap */

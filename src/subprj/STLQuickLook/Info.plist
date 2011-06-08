@@ -32,7 +32,7 @@
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
-	<string>NO</string>
+	<string>YES</string>
 	<key>CFPlugInFactories</key>
 	<dict>
 		<key>C02E94A7-9A81-43CB-9663-4C4F30F4D259</key>

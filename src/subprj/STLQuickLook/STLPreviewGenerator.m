@@ -94,7 +94,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		kCGLPFAOffScreen,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
-		kCGLPFAAlphaSize, (CGLPixelFormatAttribute)8,
+		//kCGLPFAAlphaSize, (CGLPixelFormatAttribute)8,
 		kCGLPFASupersample,
 		kCGLPFASampleAlpha,
 		(CGLPixelFormatAttribute)0
@@ -108,14 +108,14 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	
 	/* Build bitmap context */
 	void *data;
-	data = malloc((GLsizei)renderSize.width * bytewidth);
+	data = malloc((GLsizei)renderSize.height * bytewidth);
 	if (data == NULL) {
 		return nil;
 	}
 	
 	CGColorSpaceRef cSpace = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB);
 	CGContextRef bitmap;
-	bitmap = CGBitmapContextCreate(data, (GLsizei)renderSize.width, (GLsizei)renderSize.height, 8, bytewidth, cSpace, kCGImageAlphaNoneSkipFirst /* XRGB */);
+	bitmap = CGBitmapContextCreate(data, (GLsizei)renderSize.width, (GLsizei)renderSize.height, 8, bytewidth, cSpace, kCGImageAlphaPremultipliedFirst /* ARGB */);
 	CFRelease(cSpace);
 
 	CGLContextObj contextObj;
@@ -134,7 +134,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective( 40., renderSize.width / renderSize.height, 0.1, MAX(1000.,- 2. *cameraOffset) );
+    gluPerspective( 40., renderSize.width / renderSize.height, 10., MAX(1000.,- 2. *cameraOffset) );
 		
     // Clear the framebuffer.
 	glMatrixMode(GL_MODELVIEW);
@@ -144,7 +144,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 //	for(rotateX=0.; rotateX<360.; rotateX+=45.)
 	{
 		if(thumbnail)
-			glClearColor( 0., 1., 0., 1. );
+			glClearColor( 0., 0., 0., 0. );
 		else
 			glClearColor( 0.1, 0.1, 0.1, 1.0 );
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -212,19 +212,24 @@ const CGFloat kRenderUpsizeFaktor=3.;
 				glDisable(GL_LIGHTING);
 				glDisable(GL_LIGHT0);
 			}
-			const GLfloat platformZ = 0.;
+			GLfloat platformZ = 0.;
 			
-			if(thumbnail)
-				glColor4f(.252, .212, .122, 1.);
+            if(thumbnail)
+                glColor4f(.252f, .212f, .122f, 1.f);
 			else
 				glColor4f(1., .749, 0., .1);
+            
 			glBegin(GL_QUADS);
 			glVertex3f(-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
 			glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
 			glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
 			glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
 			glEnd();
-			
+
+            //glDepthFunc(GL_LEQUAL);
+            platformZ += 0.1;
+            
+            
 			glBegin(GL_LINES);
 			glColor4f(1., 0., 0., .5);
 			for(CGFloat x = -zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.)
@@ -243,7 +248,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 			glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
 			glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
 			glEnd();
-			
+
 			if(!wireframe)
 			{
 				glDisable(GL_DEPTH_TEST);

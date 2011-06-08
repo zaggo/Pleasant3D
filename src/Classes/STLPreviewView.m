@@ -89,11 +89,11 @@
 			glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 			glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
 			glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-			
-			glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
+						
+            glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
 			glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
 			glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-			
+
 			glEnable(GL_COLOR_MATERIAL);
 			glEnable(GL_LIGHTING);
 			glEnable(GL_LIGHT0);
@@ -109,11 +109,6 @@
 			for(NSInteger pIndex = 0; pIndex<3; pIndex++)
 				glVertex3fv((GLfloat const *)&(facet->p[pIndex]));
 			
-//			glColor3f(0.400, 0.800, 1.000);
-//			glBegin(GL_LINES);
-//			glVertex3fv((CGFloat*)&(facet->p[0]));
-//			glVertex3f(facet->p[0].x+facet->normal.x, facet->p[0].y+facet->normal.y, facet->p[0].z+facet->normal.z);
-//			glEnd();
 			facet = nextFacet(facet);
 		}
 		glEnd();

@@ -8,9 +8,10 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import <P3DCore/P3DCore.h>
 
 @class STLModel, STLPreviewView, STLShapeShifter;
-@interface STLDocument : NSDocument
+@interface STLDocument : P3DMachinableDocument
 {
 	STLModel* loadedSTLModel;
 	IBOutlet STLShapeShifter* stlShapeShifter;

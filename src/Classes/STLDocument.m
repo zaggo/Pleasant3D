@@ -27,6 +27,9 @@
 	stlShapeShifter.undoManager = [self undoManager];
 	[stlShapeShifter resetWithSTLModel:loadedSTLModel];
 	[stlPreviewView bind:@"stlModel" toObject:stlShapeShifter withKeyPath:@"processedSTLModel" options:0];
+
+
+    [stlPreviewView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -76,4 +79,5 @@
 {
 	return NO;
 }
+
 @end
