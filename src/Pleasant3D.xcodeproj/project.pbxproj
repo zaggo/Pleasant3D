@@ -374,7 +374,6 @@
 		E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCodeQuickLook.xcodeproj; path = subprj/GCodeQuickLook/GCodeQuickLook.xcodeproj; sourceTree = "<group>"; };
 		E2970FD611247D230060FA0C /* ThreeDPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeDPreviewView.h; sourceTree = "<group>"; };
 		E2970FD711247D230060FA0C /* ThreeDPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeDPreviewView.m; sourceTree = "<group>"; };
-		E297108F1124E54E0060FA0C /* What's new */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "What's new"; path = "Resources/etc/What's new"; sourceTree = "<group>"; };
 		E297109F1124E9EB0060FA0C /* trackball.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trackball.c; sourceTree = "<group>"; };
 		E29710A01124E9EB0060FA0C /* trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trackball.h; sourceTree = "<group>"; };
 		E29A05CD111F3C4B006CD3C9 /* P3DGCodePreviewGUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = P3DGCodePreviewGUI.xib; sourceTree = "<group>"; };
@@ -462,7 +461,6 @@
 		2A37F4AAFDCFA73011CA2CEA /* PleasantSTL */ = {
 			isa = PBXGroup;
 			children = (
-				E297108F1124E54E0060FA0C /* What's new */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				E24337D1138FB27D007B347E /* Subprojects */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
