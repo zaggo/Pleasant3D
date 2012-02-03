@@ -51,6 +51,7 @@ CGImageRef GetCGImageNamedFromBundleWithClass( NSString *name, Class bundleClass
         image = CreateCGImageFromFile(path);
         NSCAssert1(image,@"Failed to load image from %@",path);
         [sMap setObject: (id)image forKey: name];
+        CFRelease(image);
     }
     return image;
 }

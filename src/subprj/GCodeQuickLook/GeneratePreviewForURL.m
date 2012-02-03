@@ -20,7 +20,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 	if(cgContext) 
 	{
 		GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(NSURL *)url size:renderSize forThumbnail:NO];
-		CGImageRef cgImage = [previewGen generatePreviewImage];
+		CGImageRef cgImage = [previewGen newPreviewImage];
 		if(cgImage)
 		{
 			CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);

@@ -32,7 +32,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	{	
 		STLPreviewGenerator* previewGen = [[STLPreviewGenerator alloc] initWithSTLModel:model size:renderSize forThumbnail:thumbnailIcon];
 		
-		CGImageRef cgImage = [previewGen generatePreviewImage];
+		CGImageRef cgImage = [previewGen newPreviewImage];
 		if(cgImage)
 		{
 //			if(thumbnailIcon)

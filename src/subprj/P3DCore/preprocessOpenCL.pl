@@ -1,17 +1,17 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use File::Find;
-print "[v0.6] Processing $ARGV[0]\n";
+print "[v0.7] Processing $ARGV[0]\n";
 
 @searchpath = ($ENV{INPUT_FILE_DIR});
 
-if($0 =~ /(.*)P3DCore\.framework\/.*\/Resources/)
+if($0 =~ /^(.*)P3DCore\.framework(\/.*)?\/Resources/)
 {
 	$frameworkPath = $1."P3DCore.framework/Headers";
 	push @searchpath, $frameworkPath;
-#	print "add search path $frameworkPath\n"
+	#print "add search path: $frameworkPath\n"
 }
 
-open IN, $ARGV[0] or die "Cannot read input file $ARGV[0]: $!\n";
+open IN, $ARGV[0] or die "Cannot read input file: $ARGV[0]: $!\n";
 @inFile = <IN>;
 close IN;
 chomp(@inFile);
@@ -66,11 +66,11 @@ sub generateIncludeSource
 	$infileName = shift;
 	$outInclude = "";
 	#$infilePath = $ENV{INPUT_FILE_DIR}."/".$infileName;
+    print "Doing Stuff with $infileName\n";
 	$infilePath = findAbsoluteSourcePath($infileName);
+	print "Generate include source from '$infilePath'\n";
 	
-	print "Generate include source from $infilePath\n";
-	
-	open INCLUDE, $infilePath or die "Cannot read input file $infilePath: $!\n";
+	open INCLUDE, $infilePath or die "Cannot read input file '$infilePath': $!\n";
 	@includeFile = <INCLUDE>;
 	close INCLUDE;
 	chomp(@includeFile);
@@ -90,18 +90,20 @@ sub generateIncludeSource
 sub findAbsoluteSourcePath
 {
 	$fileToFind = shift;
-	
+	#print "findAbsoluteSourcePath for $fileToFind\n";
+    
 	undef $fullpath;
 	find({wanted=>\&check, follow=>1 }, @searchpath);
 	
+    # print "found: '$fullpath'\n";
 	return $fullpath;
 }
 
 sub check
 {
 	$current = $_;
-#	print "Check $File::Find::name\n";
-	if($current=/^$fileToFind$/)
+    #	print "Check $File::Find::name with current: $current\n";
+	if($current eq $fileToFind)
 	{
 		$fullpath = $File::Find::name;
 		$File::Find::prune = 1;

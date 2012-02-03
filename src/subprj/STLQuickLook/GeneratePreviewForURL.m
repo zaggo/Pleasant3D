@@ -24,7 +24,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 	if(cgContext) 
 	{
 		STLPreviewGenerator* previewGen = [[STLPreviewGenerator alloc] initWithSTLModel:model size:renderSize forThumbnail:NO];
-		CGImageRef cgImage = [previewGen generatePreviewImage];
+		CGImageRef cgImage = [previewGen newPreviewImage];
 		if(cgImage)
 		{
 			CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);

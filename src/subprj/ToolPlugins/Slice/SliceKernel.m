@@ -46,12 +46,12 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 	edge->parentEndEdge = edge->parentStartEdge;
 	edge->parentStartEdge = endEdge;
 	cl_float2 p;
-	p[0] = edge->startPoint[0];
-	p[1] = edge->startPoint[1];
-	edge->startPoint[0] = edge->endPoint[0];
-	edge->startPoint[1] = edge->endPoint[1];
-	edge->endPoint[0] = p[0];
-	edge->endPoint[1] = p[1];
+	p.s[0] = edge->startPoint.s[0];
+	p.s[1] = edge->startPoint.s[1];
+	edge->startPoint.s[0] = edge->endPoint.s[0];
+	edge->startPoint.s[1] = edge->endPoint.s[1];
+	edge->endPoint.s[0] = p.s[0];
+	edge->endPoint.s[1] = p.s[1];
 }
 
 
@@ -249,6 +249,11 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		// Create buffer for the endresults
 		//
 		
+        if(totalSlices==0)
+        {
+			PSErrorLog(@"clCreateBuffer totalSlices==0");
+			return nil;
+        }
 		// This array holds all sliced points
 		SlicedEdge* slicedEdges = (SlicedEdge*)malloc(totalSlices*kSlicedEdgeSize);
 		// This array holds an index of "layerIndex" <-> "slicedPointIndex"
@@ -391,7 +396,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 						if(connectionIndex>=indexedModel.edgeIndex.numberOfIndexedEdges)
 						{
 							PSErrorLog(@"Corrupted Data in indexedEdges");
-							stillInLoop=NO;
+							//stillInLoop=NO;
 							break;
 						}
 						EdgeIndex connectionInfo = indexedModel.edgeIndex.indexedEdges[connectionIndex];
@@ -423,7 +428,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 						}					
 						if(!conectionFound)
 						{
-							stillInLoop=NO;
+							//stillInLoop=NO;
 							danglingEdges++;
 							break;
 						}
@@ -598,6 +603,11 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		// Create buffer for the endresults
 		//
 		
+        if(totalCorners==0)
+		{
+			PSErrorLog(@"clCreateBuffer totalCorners==0");
+			return nil;
+		}
 		// This array holds all sliced points
 		insetLoops = (InsetLoopCorner*)malloc(totalCorners*kInsetLoopCornerSize);
 		

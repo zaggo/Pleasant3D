@@ -48,12 +48,12 @@
 			if(count>0)
 			{
 				InsetLoopCorner* corner = &(loops.loopCorners[[((PSMutableIntegerArray*)loop) integerAtIndex:0]]);
-				[gcode appendFormat:@"G1 X%1.3f Y%1.3f Z%1.3f F%1.3f\n",corner->point[0], corner->point[1], z, travelSpeed];
+				[gcode appendFormat:@"G1 X%1.3f Y%1.3f Z%1.3f F%1.3f\n",corner->point.s[0], corner->point.s[1], z, travelSpeed];
 				[gcode appendString:@"M101\n"];
 				for(NSUInteger pointIndex=1;pointIndex<count;pointIndex++)
 				{
 					corner = &(loops.loopCorners[[((PSMutableIntegerArray*)loop) integerAtIndex:pointIndex]]);
-					[gcode appendFormat:@"G1 X%1.3f Y%1.3f Z%1.3f F%1.3f\n",corner->point[0], corner->point[1], z, extrudeSpeed];
+					[gcode appendFormat:@"G1 X%1.3f Y%1.3f Z%1.3f F%1.3f\n",corner->point.s[0], corner->point.s[1], z, extrudeSpeed];
 				}
 				[gcode appendString:@"M103\n"];
 			}

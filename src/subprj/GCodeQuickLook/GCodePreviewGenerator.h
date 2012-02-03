@@ -39,5 +39,5 @@
 
 - (id)initWithURL:(NSURL*)gCodeURL size:(CGSize)size forThumbnail:(BOOL)forThumbnail;
 
-- (CGImageRef)generatePreviewImage;
+- (CGImageRef)newPreviewImage;
 @end

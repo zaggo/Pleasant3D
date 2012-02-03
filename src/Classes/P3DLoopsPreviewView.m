@@ -19,7 +19,7 @@ static NSArray* _extrusionColors=nil;
 + (void)initialize
 {
 	// 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
-	_extrusionColors = [NSArray arrayWithObjects:(id)CGColorCreateGenericRGB(0.855, 0.429, 0.002, 1.000), (id)CGColorCreateGenericRGB(1.000, 0.000, 0.000, 1.000), (id)CGColorCreateGenericRGB(1.000, 0.689, 0.064, 1.000), (id)CGColorCreateGenericRGB(1.000, 1.000, 0.000, 1.000), (id)CGColorCreateGenericRGB(0.367, 0.742, 0.008, 1.000), (id)CGColorCreateGenericRGB(0.607, 0.598, 1.000, 1.000), (id)CGColorCreateGenericRGB(0.821, 0.000, 0.833, 1.000), nil];
+	_extrusionColors = [NSArray arrayWithObjects:NSMakeCollectable(CGColorCreateGenericRGB(0.855, 0.429, 0.002, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.000, 0.000, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.689, 0.064, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(1.000, 1.000, 0.000, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(0.367, 0.742, 0.008, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(0.607, 0.598, 1.000, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(0.821, 0.000, 0.833, 1.000)), nil];
 
 	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
 	[ddef setObject:[NSNumber numberWithBool:YES] forKey:@"P3DLoopsPreviewShowNoExtrusionPaths"];
@@ -137,8 +137,8 @@ static NSArray* _extrusionColors=nil;
 						if(lastCorner)
 						{
 							glBegin(GL_LINES);
-							glVertex3f((GLfloat)lastCorner->point[0], (GLfloat)lastCorner->point[1], z);
-							glVertex3f((GLfloat)corner->point[0], (GLfloat)corner->point[1], z);
+							glVertex3f((GLfloat)lastCorner->point.s[0], (GLfloat)lastCorner->point.s[1], z);
+							glVertex3f((GLfloat)corner->point.s[0], (GLfloat)corner->point.s[1], z);
 							glEnd();
 
 							if(layerNumber==currentLayer)
@@ -151,8 +151,8 @@ static NSArray* _extrusionColors=nil;
 								if(showArrows)
 								{
 									glPushMatrix();
-									glTranslatef((GLfloat)((corner->point[0]+lastCorner->point[0])/2.f), (GLfloat)((corner->point[1]+lastCorner->point[1])/2.f), z);
-									glRotatef((GLfloat)(180.f*atan2f((corner->point[1]-lastCorner->point[1]), ((corner->point[0]-lastCorner->point[0])))/M_PI), 0.f, 0.f, 1.f);
+									glTranslatef((GLfloat)((corner->point.s[0]+lastCorner->point.s[0])/2.f), (GLfloat)((corner->point.s[1]+lastCorner->point.s[1])/2.f), z);
+									glRotatef((GLfloat)(180.f*atan2f((corner->point.s[1]-lastCorner->point.s[1]), ((corner->point.s[0]-lastCorner->point.s[0])))/M_PI), 0.f, 0.f, 1.f);
 									glCallList(arrowDL);
 									glPopMatrix();
 								}
@@ -196,8 +196,8 @@ static NSArray* _extrusionColors=nil;
 						if(lastCorner)
 						{
 							glBegin(GL_LINES);
-							glVertex3f((GLfloat)lastCorner->point[0], (GLfloat)lastCorner->point[1], 0.f);
-							glVertex3f((GLfloat)corner->point[0], (GLfloat)corner->point[1], 0.f);
+							glVertex3f((GLfloat)lastCorner->point.s[0], (GLfloat)lastCorner->point.s[1], 0.f);
+							glVertex3f((GLfloat)corner->point.s[0], (GLfloat)corner->point.s[1], 0.f);
 							glEnd();
 							
 //							glBegin(GL_LINES);
@@ -208,8 +208,8 @@ static NSArray* _extrusionColors=nil;
 							if(showArrows)
 							{
 								glPushMatrix();
-								glTranslatef((GLfloat)((corner->point[0]+lastCorner->point[0])/2.f), (GLfloat)((corner->point[1]+lastCorner->point[1])/2.f), 0.f);
-								glRotatef((GLfloat)(180.f*atan2f((corner->point[1]-lastCorner->point[1]), ((corner->point[0]-lastCorner->point[0])))/M_PI), 0.f, 0.f, 1.f);
+								glTranslatef((GLfloat)((corner->point.s[0]+lastCorner->point.s[0])/2.f), (GLfloat)((corner->point.s[1]+lastCorner->point.s[1])/2.f), 0.f);
+								glRotatef((GLfloat)(180.f*atan2f((corner->point.s[1]-lastCorner->point.s[1]), ((corner->point.s[0]-lastCorner->point.s[0])))/M_PI), 0.f, 0.f, 1.f);
 								glCallList(arrowDL);
 								glPopMatrix();
 							}

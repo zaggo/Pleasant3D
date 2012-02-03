@@ -27,7 +27,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	{	
 		GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(NSURL *)url size:renderSize forThumbnail:thumbnailIcon];
 		
-		CGImageRef cgImage = [previewGen generatePreviewImage];
+		CGImageRef cgImage = [previewGen newPreviewImage];
 		if(cgImage)
 		{
             CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);

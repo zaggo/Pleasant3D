@@ -219,14 +219,15 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 		
 		__block NSMutableArray* fileTypes = [[NSMutableArray alloc] init];
 		[self.requiredInputFormats enumerateObjectsUsingBlock:^(id formatString, NSUInteger idx, BOOL *stop) {
-			NSDictionary* utiDict = (NSDictionary*)UTTypeCopyDeclaration((CFStringRef)formatString);
+			NSDictionary* utiDict = (NSDictionary*)NSMakeCollectable(UTTypeCopyDeclaration((CFStringRef)formatString));
 			[fileTypes addObjectsFromArray:[[utiDict objectForKey:(id)kUTTypeTagSpecificationKey] objectForKey:(id)kUTTagClassFilenameExtension]];
+            
 		}];
 		[panel setAllowedFileTypes:fileTypes];
 		[panel beginSheetModalForWindow:[self.sliceNDiceHost windowForSheet] completionHandler:^(NSInteger result) {
 			if(result==NSFileHandlingPanelOKButton)
 			{
-				self.sourceFilePath = [[panel filenames] objectAtIndex:0];
+				self.sourceFilePath = [[[panel URLs] objectAtIndex:0] path];
 			}
 		}];
 	}]];
@@ -239,7 +240,7 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 	
 	self.sourceFileUTI = nil;
 	[self.requiredInputFormats enumerateObjectsUsingBlock:^(id formatString, NSUInteger idx, BOOL *stop) {
-		NSDictionary* utiDict = (NSDictionary*)UTTypeCopyDeclaration((CFStringRef)formatString);
+		NSDictionary* utiDict = (NSDictionary*)NSMakeCollectable(UTTypeCopyDeclaration((CFStringRef)formatString));
 		
 		for(NSString* extension in [[utiDict objectForKey:(id)kUTTypeTagSpecificationKey] objectForKey:(id)kUTTagClassFilenameExtension])
 		{

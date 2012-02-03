@@ -27,7 +27,7 @@
 //
 
 #include "clEdgeIndexTypes.h"
-__kernel void edgeMatch(__constant FacetEdge* inFacetEdges, __global EdgeIndex* inOutIndexedEdges, __constant const uint numberOfEdges)
+__kernel void edgeMatch(__constant FacetEdge* inFacetEdges, __global EdgeIndex* inOutIndexedEdges, __constant uint numberOfEdges)
 {
 	const uint idx = get_global_id(0);
 		

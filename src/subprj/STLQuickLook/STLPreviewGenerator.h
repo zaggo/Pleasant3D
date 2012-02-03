@@ -33,6 +33,6 @@
 
 - (id)initWithSTLModel:(STLModel*)model size:(CGSize)size forThumbnail:(BOOL)forThumbnail;
 
-- (CGImageRef)generatePreviewImage;
+- (CGImageRef)newPreviewImage;
 //- (QTMovie*)generatePreviewMovie;
 @end

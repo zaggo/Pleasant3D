@@ -29,9 +29,9 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-@class GcodeKernel;
+@class GCodeKernel;
 @interface GcodeGenerator : P3DToolBase {
-	GcodeKernel*	gCodeGen;
+	GCodeKernel*	gCodeGen;
 	
 	NSMutableArray* layerSettings;
 	

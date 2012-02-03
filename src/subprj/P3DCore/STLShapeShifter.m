@@ -19,7 +19,7 @@ static void rotateVertex(NSInteger axis, STLVertex* p, float angle)
 	
 	float inP[3] = {(float)p->x, (float)p->y, (float)p->z};
 	
-	float eulerMatrix[3][3];
+	float eulerMatrix[3][3]={0};
 	switch(axis)
 	{
 		case kRotateX:

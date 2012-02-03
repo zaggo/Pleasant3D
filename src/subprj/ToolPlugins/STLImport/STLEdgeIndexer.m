@@ -36,17 +36,17 @@ const cl_float kEdgeFinderPrecision=1000.;
 
 static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 {
-	if(i1[0] < i2[0])
+	if(i1.s[0] < i2.s[0])
 		return -1;
-	if(i1[0] > i2[0])
+	if(i1.s[0] > i2.s[0])
 		return 1;
-	if(i1[1] < i2[1])
+	if(i1.s[1] < i2.s[1])
 		return -1;
-	if(i1[1] > i2[1])
+	if(i1.s[1] > i2.s[1])
 		return 1;
-	if(i1[2] < i2[2])
+	if(i1.s[2] < i2.s[2])
 		return -1;
-	if(i1[2] > i2[2])
+	if(i1.s[2] > i2.s[2])
 		return 1;
 	return 0;
 }
@@ -143,17 +143,17 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 		for(NSInteger facetIndex = 0; facetIndex<stl->numberOfFacets; facetIndex++)
 		{
 			cl_int4 roundedP0;
-			roundedP0[0] = (cl_int)roundf(facet->p[0].x*kEdgeFinderPrecision);
-			roundedP0[1] = (cl_int)roundf(facet->p[0].y*kEdgeFinderPrecision);
-			roundedP0[2] = (cl_int)roundf(facet->p[0].z*kEdgeFinderPrecision);
+			roundedP0.s[0] = (cl_int)roundf(facet->p[0].x*kEdgeFinderPrecision);
+			roundedP0.s[1] = (cl_int)roundf(facet->p[0].y*kEdgeFinderPrecision);
+			roundedP0.s[2] = (cl_int)roundf(facet->p[0].z*kEdgeFinderPrecision);
 			cl_int4 roundedP1;
-			roundedP1[0] = (cl_int)roundf(facet->p[1].x*kEdgeFinderPrecision);
-			roundedP1[1] = (cl_int)roundf(facet->p[1].y*kEdgeFinderPrecision);
-			roundedP1[2] = (cl_int)roundf(facet->p[1].z*kEdgeFinderPrecision);
+			roundedP1.s[0] = (cl_int)roundf(facet->p[1].x*kEdgeFinderPrecision);
+			roundedP1.s[1] = (cl_int)roundf(facet->p[1].y*kEdgeFinderPrecision);
+			roundedP1.s[2] = (cl_int)roundf(facet->p[1].z*kEdgeFinderPrecision);
 			cl_int4 roundedP2;
-			roundedP2[0] = (cl_int)roundf(facet->p[2].x*kEdgeFinderPrecision);
-			roundedP2[1] = (cl_int)roundf(facet->p[2].y*kEdgeFinderPrecision);
-			roundedP2[2] = (cl_int)roundf(facet->p[2].z*kEdgeFinderPrecision);
+			roundedP2.s[0] = (cl_int)roundf(facet->p[2].x*kEdgeFinderPrecision);
+			roundedP2.s[1] = (cl_int)roundf(facet->p[2].y*kEdgeFinderPrecision);
+			roundedP2.s[2] = (cl_int)roundf(facet->p[2].z*kEdgeFinderPrecision);
 			
 	#if __verbose
 			PSLog(@"EdgeIndex",PSPrioNormal,@"#%3d (%1.2f|%1.2f|%1.2f) - (%1.2f|%1.2f|%1.2f) - (%1.2f|%1.2f|%1.2f)", facetIndex,
@@ -169,79 +169,79 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 			// Edge 0: p0->p1
 			facetEdges[facetEdgeIndex].facetIndex = facetIndex;
 			facetEdges[facetEdgeIndex].edgeIndex = 0;
-			facetEdges[facetEdgeIndex].roundedP[0] = roundedP0[0];
-			facetEdges[facetEdgeIndex].roundedP[1] = roundedP0[1];
-			facetEdges[facetEdgeIndex].roundedP[2] = roundedP0[2];
-			facetEdges[facetEdgeIndex].roundedP[3] = 0;
-			facetEdges[facetEdgeIndex].roundedQ[0] = roundedP1[0];
-			facetEdges[facetEdgeIndex].roundedQ[1] = roundedP1[1];
-			facetEdges[facetEdgeIndex].roundedQ[2] = roundedP1[2];
-			facetEdges[facetEdgeIndex].roundedQ[3] = 0;
+			facetEdges[facetEdgeIndex].roundedP.s[0] = roundedP0.s[0];
+			facetEdges[facetEdgeIndex].roundedP.s[1] = roundedP0.s[1];
+			facetEdges[facetEdgeIndex].roundedP.s[2] = roundedP0.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[0] = roundedP1.s[0];
+			facetEdges[facetEdgeIndex].roundedQ.s[1] = roundedP1.s[1];
+			facetEdges[facetEdgeIndex].roundedQ.s[2] = roundedP1.s[2];
+			facetEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 1: p0->p2
 			facetEdgeIndex++;
 			facetEdges[facetEdgeIndex].facetIndex = facetIndex;
 			facetEdges[facetEdgeIndex].edgeIndex = 1;
-			facetEdges[facetEdgeIndex].roundedP[0] = roundedP0[0];
-			facetEdges[facetEdgeIndex].roundedP[1] = roundedP0[1];
-			facetEdges[facetEdgeIndex].roundedP[2] = roundedP0[2];
-			facetEdges[facetEdgeIndex].roundedP[3] = 0;
-			facetEdges[facetEdgeIndex].roundedQ[0] = roundedP2[0];
-			facetEdges[facetEdgeIndex].roundedQ[1] = roundedP2[1];
-			facetEdges[facetEdgeIndex].roundedQ[2] = roundedP2[2];
-			facetEdges[facetEdgeIndex].roundedQ[3] = 0;
+			facetEdges[facetEdgeIndex].roundedP.s[0] = roundedP0.s[0];
+			facetEdges[facetEdgeIndex].roundedP.s[1] = roundedP0.s[1];
+			facetEdges[facetEdgeIndex].roundedP.s[2] = roundedP0.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[0] = roundedP2.s[0];
+			facetEdges[facetEdgeIndex].roundedQ.s[1] = roundedP2.s[1];
+			facetEdges[facetEdgeIndex].roundedQ.s[2] = roundedP2.s[2];
+			facetEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 2: p1->p2
 			facetEdgeIndex++;
 			facetEdges[facetEdgeIndex].facetIndex = facetIndex;
 			facetEdges[facetEdgeIndex].edgeIndex = 2;
-			facetEdges[facetEdgeIndex].roundedP[0] = roundedP1[0];
-			facetEdges[facetEdgeIndex].roundedP[1] = roundedP1[1];
-			facetEdges[facetEdgeIndex].roundedP[2] = roundedP1[2];
-			facetEdges[facetEdgeIndex].roundedP[3] = 0;
-			facetEdges[facetEdgeIndex].roundedQ[0] = roundedP2[0];
-			facetEdges[facetEdgeIndex].roundedQ[1] = roundedP2[1];
-			facetEdges[facetEdgeIndex].roundedQ[2] = roundedP2[2];
-			facetEdges[facetEdgeIndex].roundedQ[3] = 0;
+			facetEdges[facetEdgeIndex].roundedP.s[0] = roundedP1.s[0];
+			facetEdges[facetEdgeIndex].roundedP.s[1] = roundedP1.s[1];
+			facetEdges[facetEdgeIndex].roundedP.s[2] = roundedP1.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[0] = roundedP2.s[0];
+			facetEdges[facetEdgeIndex].roundedQ.s[1] = roundedP2.s[1];
+			facetEdges[facetEdgeIndex].roundedQ.s[2] = roundedP2.s[2];
+			facetEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 0': p1->p0
 			facetEdgeIndex++;
 			facetEdges[facetEdgeIndex].facetIndex = facetIndex;
 			facetEdges[facetEdgeIndex].edgeIndex = 0;
-			facetEdges[facetEdgeIndex].roundedQ[0] = roundedP0[0];
-			facetEdges[facetEdgeIndex].roundedQ[1] = roundedP0[1];
-			facetEdges[facetEdgeIndex].roundedQ[2] = roundedP0[2];
-			facetEdges[facetEdgeIndex].roundedP[0] = roundedP1[0];
-			facetEdges[facetEdgeIndex].roundedP[1] = roundedP1[1];
-			facetEdges[facetEdgeIndex].roundedP[2] = roundedP1[2];
-			facetEdges[facetEdgeIndex].roundedP[3] = 0;
-			facetEdges[facetEdgeIndex].roundedQ[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[0] = roundedP0.s[0];
+			facetEdges[facetEdgeIndex].roundedQ.s[1] = roundedP0.s[1];
+			facetEdges[facetEdgeIndex].roundedQ.s[2] = roundedP0.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[0] = roundedP1.s[0];
+			facetEdges[facetEdgeIndex].roundedP.s[1] = roundedP1.s[1];
+			facetEdges[facetEdgeIndex].roundedP.s[2] = roundedP1.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 1': p2->p0
 			facetEdgeIndex++;
 			facetEdges[facetEdgeIndex].facetIndex = facetIndex;
 			facetEdges[facetEdgeIndex].edgeIndex = 1;
-			facetEdges[facetEdgeIndex].roundedQ[0] = roundedP0[0];
-			facetEdges[facetEdgeIndex].roundedQ[1] = roundedP0[1];
-			facetEdges[facetEdgeIndex].roundedQ[2] = roundedP0[2];
-			facetEdges[facetEdgeIndex].roundedP[0] = roundedP2[0];
-			facetEdges[facetEdgeIndex].roundedP[1] = roundedP2[1];
-			facetEdges[facetEdgeIndex].roundedP[2] = roundedP2[2];
-			facetEdges[facetEdgeIndex].roundedP[3] = 0;
-			facetEdges[facetEdgeIndex].roundedQ[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[0] = roundedP0.s[0];
+			facetEdges[facetEdgeIndex].roundedQ.s[1] = roundedP0.s[1];
+			facetEdges[facetEdgeIndex].roundedQ.s[2] = roundedP0.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[0] = roundedP2.s[0];
+			facetEdges[facetEdgeIndex].roundedP.s[1] = roundedP2.s[1];
+			facetEdges[facetEdgeIndex].roundedP.s[2] = roundedP2.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 2': p2->p1
 			facetEdgeIndex++;
 			facetEdges[facetEdgeIndex].facetIndex = facetIndex;
 			facetEdges[facetEdgeIndex].edgeIndex = 2;
-			facetEdges[facetEdgeIndex].roundedQ[0] = roundedP1[0];
-			facetEdges[facetEdgeIndex].roundedQ[1] = roundedP1[1];
-			facetEdges[facetEdgeIndex].roundedQ[2] = roundedP1[2];
-			facetEdges[facetEdgeIndex].roundedP[0] = roundedP2[0];
-			facetEdges[facetEdgeIndex].roundedP[1] = roundedP2[1];
-			facetEdges[facetEdgeIndex].roundedP[2] = roundedP2[2];
-			facetEdges[facetEdgeIndex].roundedP[3] = 0;
-			facetEdges[facetEdgeIndex].roundedQ[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[0] = roundedP1.s[0];
+			facetEdges[facetEdgeIndex].roundedQ.s[1] = roundedP1.s[1];
+			facetEdges[facetEdgeIndex].roundedQ.s[2] = roundedP1.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[0] = roundedP2.s[0];
+			facetEdges[facetEdgeIndex].roundedP.s[1] = roundedP2.s[1];
+			facetEdges[facetEdgeIndex].roundedP.s[2] = roundedP2.s[2];
+			facetEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			facetEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			
 			
@@ -250,46 +250,46 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 			// Edge 0: p0->p1
 			indexedEdges[facetEdgeIndex].facetIndex = facetIndex;
 			indexedEdges[facetEdgeIndex].edgeIndex = 0;
-			indexedEdges[facetEdgeIndex].roundedP[0] = roundedP0[0];
-			indexedEdges[facetEdgeIndex].roundedP[1] = roundedP0[1];
-			indexedEdges[facetEdgeIndex].roundedP[2] = roundedP0[2];
-			indexedEdges[facetEdgeIndex].roundedQ[0] = roundedP1[0];
-			indexedEdges[facetEdgeIndex].roundedQ[1] = roundedP1[1];
-			indexedEdges[facetEdgeIndex].roundedQ[2] = roundedP1[2];
+			indexedEdges[facetEdgeIndex].roundedP.s[0] = roundedP0.s[0];
+			indexedEdges[facetEdgeIndex].roundedP.s[1] = roundedP0.s[1];
+			indexedEdges[facetEdgeIndex].roundedP.s[2] = roundedP0.s[2];
+			indexedEdges[facetEdgeIndex].roundedQ.s[0] = roundedP1.s[0];
+			indexedEdges[facetEdgeIndex].roundedQ.s[1] = roundedP1.s[1];
+			indexedEdges[facetEdgeIndex].roundedQ.s[2] = roundedP1.s[2];
 			indexedEdges[facetEdgeIndex].touchesFacetIndex = (cl_uint)-1;
 			indexedEdges[facetEdgeIndex].touchesEdgeIndex =  (cl_uint)-1;
-			indexedEdges[facetEdgeIndex].roundedP[3] = 0;
-			indexedEdges[facetEdgeIndex].roundedQ[3] = 0;
+			indexedEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			indexedEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 1: p0->p2
 			facetEdgeIndex++;
 			indexedEdges[facetEdgeIndex].facetIndex = facetIndex;
 			indexedEdges[facetEdgeIndex].edgeIndex = 1;
-			indexedEdges[facetEdgeIndex].roundedP[0] = roundedP0[0];
-			indexedEdges[facetEdgeIndex].roundedP[1] = roundedP0[1];
-			indexedEdges[facetEdgeIndex].roundedP[2] = roundedP0[2];
-			indexedEdges[facetEdgeIndex].roundedQ[0] = roundedP2[0];
-			indexedEdges[facetEdgeIndex].roundedQ[1] = roundedP2[1];
-			indexedEdges[facetEdgeIndex].roundedQ[2] = roundedP2[2];
+			indexedEdges[facetEdgeIndex].roundedP.s[0] = roundedP0.s[0];
+			indexedEdges[facetEdgeIndex].roundedP.s[1] = roundedP0.s[1];
+			indexedEdges[facetEdgeIndex].roundedP.s[2] = roundedP0.s[2];
+			indexedEdges[facetEdgeIndex].roundedQ.s[0] = roundedP2.s[0];
+			indexedEdges[facetEdgeIndex].roundedQ.s[1] = roundedP2.s[1];
+			indexedEdges[facetEdgeIndex].roundedQ.s[2] = roundedP2.s[2];
 			indexedEdges[facetEdgeIndex].touchesFacetIndex = (cl_uint)-1;
 			indexedEdges[facetEdgeIndex].touchesEdgeIndex =  (cl_uint)-1;
-			indexedEdges[facetEdgeIndex].roundedP[3] = 0;
-			indexedEdges[facetEdgeIndex].roundedQ[3] = 0;
+			indexedEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			indexedEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			// Edge 2: p1->p2
 			facetEdgeIndex++;
 			indexedEdges[facetEdgeIndex].facetIndex = facetIndex;
 			indexedEdges[facetEdgeIndex].edgeIndex = 2;
-			indexedEdges[facetEdgeIndex].roundedP[0] = roundedP1[0];
-			indexedEdges[facetEdgeIndex].roundedP[1] = roundedP1[1];
-			indexedEdges[facetEdgeIndex].roundedP[2] = roundedP1[2];
-			indexedEdges[facetEdgeIndex].roundedQ[0] = roundedP2[0];
-			indexedEdges[facetEdgeIndex].roundedQ[1] = roundedP2[1];
-			indexedEdges[facetEdgeIndex].roundedQ[2] = roundedP2[2];
+			indexedEdges[facetEdgeIndex].roundedP.s[0] = roundedP1.s[0];
+			indexedEdges[facetEdgeIndex].roundedP.s[1] = roundedP1.s[1];
+			indexedEdges[facetEdgeIndex].roundedP.s[2] = roundedP1.s[2];
+			indexedEdges[facetEdgeIndex].roundedQ.s[0] = roundedP2.s[0];
+			indexedEdges[facetEdgeIndex].roundedQ.s[1] = roundedP2.s[1];
+			indexedEdges[facetEdgeIndex].roundedQ.s[2] = roundedP2.s[2];
 			indexedEdges[facetEdgeIndex].touchesFacetIndex = (cl_uint)-1;
 			indexedEdges[facetEdgeIndex].touchesEdgeIndex =  (cl_uint)-1;
-			indexedEdges[facetEdgeIndex].roundedP[3] = 0;
-			indexedEdges[facetEdgeIndex].roundedQ[3] = 0;
+			indexedEdges[facetEdgeIndex].roundedP.s[3] = 0;
+			indexedEdges[facetEdgeIndex].roundedQ.s[3] = 0;
 			
 			facet = nextFacet(facet);
 		}
