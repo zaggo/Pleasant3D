@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -79,6 +79,7 @@
 		E2D4E31E112D64EB00F67528 /* MachiningSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D4E31D112D64EB00F67528 /* MachiningSheet.xib */; };
 		E2D4E326112D680500F67528 /* P3DMachiningController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D4E325112D680500F67528 /* P3DMachiningController.m */; };
 		E2D7B4B910FD056600927AE4 /* Tool.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D7B4B810FD056600927AE4 /* Tool.png */; };
+		E2FB7E1B13A1658800637786 /* P3DCore.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E27435AD138FD7530062643A /* P3DCore.framework */; };
 		E2FC67D211650B1400DC2E16 /* GreenLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67CF11650B1400DC2E16 /* GreenLight.png */; };
 		E2FC67D311650B1400DC2E16 /* RedLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67D011650B1400DC2E16 /* RedLight.png */; };
 		E2FC67D411650B1400DC2E16 /* YellowLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67D111650B1400DC2E16 /* YellowLight.png */; };
@@ -256,6 +257,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */,
+				E2FB7E1B13A1658800637786 /* P3DCore.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,10 +924,11 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Pleasant Software";
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Pleasant3D" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1204,7 +1207,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1245,7 +1247,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -1263,7 +1264,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -1282,7 +1282,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};

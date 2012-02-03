@@ -10,6 +10,9 @@
 #import <P3DCore/P3DCore.h>
 
 @interface PleasantMillDevice : P3DSerialDevice {
+    CGFloat machinableAreaX;
+    CGFloat machinableAreaY;
+    CGFloat machinableAreaZ;
 }
 
 - (void)changeMachineName:(NSString*)newName;

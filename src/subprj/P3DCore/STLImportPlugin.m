@@ -86,6 +86,10 @@
 			stlData = [self convertASCIISTL:asciiSTL];
 			[asciiSTL release];
 		}
+        else
+        {
+//            STLFacetCL
+        }
 		
 		if(stlData)
 		{

@@ -102,36 +102,38 @@
 
 - (STLFacetCL*)facets
 {
-	if(clFacetsData==nil)
-	{
-		STLBinaryHead* stl = [self stlHead];
-		clFacetsData = [[NSData alloc] initWithBytes:calloc(stl->numberOfFacets, sizeof(STLFacetCL)) length:stl->numberOfFacets];
-		STLFacetCL* facets = (STLFacetCL*)clFacetsData.bytes;
-		if(facets==nil)
-			PSErrorLog(@"Out of memory!");
-		
-		STLFacet* facet = firstFacet(stl);		
-		for(NSUInteger i = 0; i<stl->numberOfFacets; i++)
-		{			
-			facets[i].p0[0]=facet->p[0].x;
-			facets[i].p0[1]=facet->p[0].y;
-			facets[i].p0[2]=facet->p[0].z;
-			
-			facets[i].p1[0]=facet->p[1].x;
-			facets[i].p1[1]=facet->p[1].y;
-			facets[i].p1[2]=facet->p[1].z;
-			
-			facets[i].p2[0]=facet->p[2].x;
-			facets[i].p2[1]=facet->p[2].y;
-			facets[i].p2[2]=facet->p[2].z;
-			
-			facets[i].normal[0]=facet->normal.x;
-			facets[i].normal[1]=facet->normal.y;
-			facets[i].normal[2]=facet->normal.z;
-			
-			facet = nextFacet(facet);
-		}
-	}
+    @synchronized(self) {
+        if(clFacetsData==nil)
+        {
+            STLBinaryHead* stl = [self stlHead];
+            clFacetsData = [[NSData alloc] initWithBytes:calloc(stl->numberOfFacets, sizeof(STLFacetCL)) length:stl->numberOfFacets];
+            STLFacetCL* facets = (STLFacetCL*)clFacetsData.bytes;
+            if(facets==nil)
+                PSErrorLog(@"Out of memory!");
+            
+            STLFacet* facet = firstFacet(stl);		
+            for(NSUInteger i = 0; i<stl->numberOfFacets; i++)
+            {			
+                facets[i].p0.s[0]=facet->p[0].x;
+                facets[i].p0.s[1]=facet->p[0].y;
+                facets[i].p0.s[2]=facet->p[0].z;
+                
+                facets[i].p1.s[0]=facet->p[1].x;
+                facets[i].p1.s[1]=facet->p[1].y;
+                facets[i].p1.s[2]=facet->p[1].z;
+                
+                facets[i].p2.s[0]=facet->p[2].x;
+                facets[i].p2.s[1]=facet->p[2].y;
+                facets[i].p2.s[2]=facet->p[2].z;
+                
+                facets[i].normal.s[0]=facet->normal.x;
+                facets[i].normal.s[1]=facet->normal.y;
+                facets[i].normal.s[2]=facet->normal.z;
+                
+                facet = nextFacet(facet);
+            }
+        }
+    }
 	return (STLFacetCL*)clFacetsData.bytes;
 }
 @end

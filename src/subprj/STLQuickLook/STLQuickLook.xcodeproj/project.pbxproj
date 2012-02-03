@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		8D576314048677EA00EA77CD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */; };
 		8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D5B49A704867FD3000E48DA /* InfoPlist.strings */; };
 		C86B05270671AA6E00DD9006 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86B05260671AA6E00DD9006 /* CoreServices.framework */; };
+		E23E497B13A1259F0045583D /* clSliceTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E23E497A13A1259F0045583D /* clSliceTypes.h */; };
 		E2A6CF1E1250C25200F1A69E /* PSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A6CF1C1250C25200F1A69E /* PSLog.h */; };
 		E2A6CF1F1250C25200F1A69E /* PSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A6CF1D1250C25200F1A69E /* PSLog.m */; };
 		E2ABC2141100B79D004CE17C /* Vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = E2ABC20E1100B79D004CE17C /* Vector3.h */; };
@@ -48,6 +49,7 @@
 		8D576316048677EA00EA77CD /* STLQuickLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STLQuickLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C86B05260671AA6E00DD9006 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		E23E497A13A1259F0045583D /* clSliceTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = clSliceTypes.h; path = ../P3DCore/clSliceTypes.h; sourceTree = "<group>"; };
 		E2A6CF1C1250C25200F1A69E /* PSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSLog.h; path = ../P3DCore/PSLog.h; sourceTree = SOURCE_ROOT; };
 		E2A6CF1D1250C25200F1A69E /* PSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSLog.m; path = ../P3DCore/PSLog.m; sourceTree = SOURCE_ROOT; };
 		E2ABC20E1100B79D004CE17C /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector3.h; path = ../P3DCore/Vector3.h; sourceTree = SOURCE_ROOT; };
@@ -153,6 +155,7 @@
 		E2ABC20D1100B79D004CE17C /* From P3DCore */ = {
 			isa = PBXGroup;
 			children = (
+				E23E497A13A1259F0045583D /* clSliceTypes.h */,
 				E2A6CF1C1250C25200F1A69E /* PSLog.h */,
 				E2A6CF1D1250C25200F1A69E /* PSLog.m */,
 				E2ABC20E1100B79D004CE17C /* Vector3.h */,
@@ -188,6 +191,7 @@
 				E2ABC22A1100B843004CE17C /* STLModel.h in Headers */,
 				E2ABC22E1100B856004CE17C /* STLImportPlugin.h in Headers */,
 				E2A6CF1E1250C25200F1A69E /* PSLog.h in Headers */,
+				E23E497B13A1259F0045583D /* clSliceTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,10 +224,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Pleasant Software";
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "STLQuickLook" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -301,12 +306,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = /Library/QuickLook;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = STLQuickLook;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -319,7 +323,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = /Library/QuickLook;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = STLQuickLook;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -328,29 +332,29 @@
 		2CA326230896AD4900168862 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = __NO_VECTOR2D__;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ..;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		2CA326240896AD4900168862 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = __NO_VECTOR2D__;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ..;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
