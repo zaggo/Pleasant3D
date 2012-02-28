@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<int key="IBDocument.SystemTarget">1070</int>
+		<string key="IBDocument.SystemVersion">11D50b</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2177</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1306</string>
+			<string key="NS.object.0">2177</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSPopUpButtonCell</string>
 			<string>NSToolbar</string>
-			<string>NSToolbarFlexibleSpaceItem</string>
 			<string>NSScroller</string>
+			<string>NSArrayController</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
 			<string>NSPopUpButton</string>
-			<string>NSMenu</string>
 			<string>NSScrollView</string>
 			<string>NSTextFieldCell</string>
 			<string>NSToolbarSpaceItem</string>
 			<string>NSBox</string>
-			<string>NSMenuItem</string>
+			<string>NSMenu</string>
 			<string>NSToolbarSeparatorItem</string>
-			<string>NSArrayController</string>
+			<string>NSMenuItem</string>
 			<string>NSCustomView</string>
 			<string>NSCustomObject</string>
 			<string>NSView</string>
@@ -34,7 +34,10 @@
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
-		<dictionary class="NSMutableDictionary" key="IBDocument.Metadata"/>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
+		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="580458321">
 			<object class="NSCustomObject" id="512844837">
 				<string key="NSClassName">SliceNDiceDocument</string>
@@ -51,7 +54,7 @@
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="808499815">
 					<object class="NSMutableString" key="NSToolbarIdentifier">
-						<characters key="NS.bytes">431122E8-6ED4-4977-9DCA-B0E155600C5D</characters>
+						<characters key="NS.bytes">729D5B9D-441D-45E9-8EDF-8A2D16D04C93</characters>
 					</object>
 					<nil key="NSToolbarDelegate"/>
 					<bool key="NSToolbarPrefersToBeShown">YES</bool>
@@ -65,8 +68,8 @@
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">35BA8EC3-6FE5-4A31-BB36-48DE11563645</characters>
 							</object>
-							<string key="NSToolbarItemLabel">Print</string>
-							<string key="NSToolbarItemPaletteLabel">Print</string>
+							<string key="NSToolbarItemLabel">Build</string>
+							<string key="NSToolbarItemPaletteLabel">Build</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -91,9 +94,11 @@
 							<string key="NSToolbarItemPaletteLabel">Machine</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="367856913">
-								<nil key="NSNextResponder"/>
+								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{0, 14}, {226, 25}}</string>
+								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="910095304">
 									<int key="NSCellFlags">-2076049856</int>
@@ -209,7 +214,7 @@
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">NSToolbarCustomizeToolbarItemImage</string>
+								<string key="NSResourceName">NSToolbarCustomize</string>
 							</object>
 							<nil key="NSToolbarItemTarget"/>
 							<string key="NSToolbarItemAction">runToolbarCustomizationPalette:</string>
@@ -312,7 +317,7 @@
 						<reference ref="711299234"/>
 						<reference ref="160719539"/>
 					</array>
-					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
+					<array key="NSToolbarIBDefaultItems">
 						<reference ref="976954723"/>
 						<reference ref="455616077"/>
 						<reference ref="908836488"/>
@@ -321,6 +326,7 @@
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
 				</object>
+				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{711, 518}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
 					<reference key="NSNextResponder"/>
@@ -457,7 +463,7 @@
 										<object class="NSCustomView" id="614695427">
 											<reference key="NSNextResponder" ref="708729200"/>
 											<int key="NSvFlags">276</int>
-											<string key="NSFrameSize">{711, 90}</string>
+											<string key="NSFrameSize">{711, 101}</string>
 											<reference key="NSSuperview" ref="708729200"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="887634760"/>
@@ -466,7 +472,7 @@
 											<string key="NSClassName">ToolBinView</string>
 										</object>
 									</array>
-									<string key="NSFrame">{{1, 1}, {709, 90}}</string>
+									<string key="NSFrame">{{1, 1}, {709, 101}}</string>
 									<reference key="NSSuperview" ref="27477621"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="614695427"/>
@@ -482,7 +488,6 @@
 									<reference key="NSSuperview" ref="27477621"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="708729200"/>
-									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSTarget" ref="27477621"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSCurValue">1</double>
@@ -495,7 +500,6 @@
 									<reference key="NSSuperview" ref="27477621"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="877496349"/>
-									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">257</int>
 									<reference key="NSTarget" ref="27477621"/>
@@ -509,21 +513,22 @@
 							<reference key="NSNextKeyView" ref="1034381722"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
-							<int key="NSsFlags">674</int>
+							<int key="NSsFlags">133794</int>
 							<reference key="NSVScroller" ref="1034381722"/>
 							<reference key="NSHScroller" ref="887634760"/>
 							<reference key="NSContentView" ref="708729200"/>
 						</object>
 					</array>
-					<string key="NSFrame">{{7, 11}, {711, 518}}</string>
+					<string key="NSFrameSize">{711, 518}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="27477621"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{711, 596}</string>
-				<string key="NSMaxSize">{1e+13, 1e+13}</string>
+				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomObject" id="796877042">
 				<string key="NSClassName">NSApplication</string>
@@ -547,14 +552,6 @@
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="275939982"/>
-						<reference key="destination" ref="512844837"/>
-					</object>
-					<int key="connectionID">17</int>
-				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">window</string>
@@ -588,44 +585,20 @@
 					<int key="connectionID">100201</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: configuredMachines.configuredMachines</string>
-						<reference key="source" ref="598843384"/>
-						<reference key="destination" ref="512844837"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="598843384"/>
-							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">contentArray: configuredMachines.configuredMachines</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">configuredMachines.configuredMachines</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100233</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: canPrintDocument</string>
-						<reference key="source" ref="455616077"/>
-						<reference key="destination" ref="512844837"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="455616077"/>
-							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">enabled: canPrintDocument</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">canPrintDocument</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100251</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">printDocument:</string>
 						<reference key="source" ref="613418571"/>
 						<reference key="destination" ref="455616077"/>
 					</object>
 					<int key="connectionID">100254</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="275939982"/>
+						<reference key="destination" ref="512844837"/>
+					</object>
+					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -659,6 +632,38 @@
 						</object>
 					</object>
 					<int key="connectionID">100261</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: configuredMachines.configuredMachines</string>
+						<reference key="source" ref="598843384"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="598843384"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">contentArray: configuredMachines.configuredMachines</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">configuredMachines.configuredMachines</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100233</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: canPrintDocument</string>
+						<reference key="source" ref="455616077"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="455616077"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">enabled: canPrintDocument</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">canPrintDocument</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100251</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -732,6 +737,42 @@
 						<reference key="parent" ref="27477621"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">100160</int>
+						<reference key="object" ref="877496349"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="615612042"/>
+						</array>
+						<reference key="parent" ref="568628114"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100116</int>
+						<reference key="object" ref="615612042"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="725570717"/>
+						</array>
+						<reference key="parent" ref="877496349"/>
+						<string key="objectName">PreviewContainerView</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100198</int>
+						<reference key="object" ref="725570717"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="57683577"/>
+						</array>
+						<reference key="parent" ref="615612042"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100199</int>
+						<reference key="object" ref="57683577"/>
+						<reference key="parent" ref="725570717"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100232</int>
+						<reference key="object" ref="598843384"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">ConfiguredMachines</string>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">100118</int>
 						<reference key="object" ref="808499815"/>
 						<array class="NSMutableArray" key="children">
@@ -771,41 +812,16 @@
 						<reference key="parent" ref="808499815"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100160</int>
-						<reference key="object" ref="877496349"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="615612042"/>
-						</array>
-						<reference key="parent" ref="568628114"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100116</int>
-						<reference key="object" ref="615612042"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="725570717"/>
-						</array>
-						<reference key="parent" ref="877496349"/>
-						<string key="objectName">PreviewContainerView</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100198</int>
-						<reference key="object" ref="725570717"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="57683577"/>
-						</array>
-						<reference key="parent" ref="615612042"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100199</int>
-						<reference key="object" ref="57683577"/>
-						<reference key="parent" ref="725570717"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100210</int>
 						<reference key="object" ref="857351899"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="367856913"/>
 						</array>
+						<reference key="parent" ref="808499815"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100250</int>
+						<reference key="object" ref="455616077"/>
 						<reference key="parent" ref="808499815"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -848,17 +864,6 @@
 						<int key="objectID">100207</int>
 						<reference key="object" ref="1039764464"/>
 						<reference key="parent" ref="917998269"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100232</int>
-						<reference key="object" ref="598843384"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">ConfiguredMachines</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100250</int>
-						<reference key="object" ref="455616077"/>
-						<reference key="parent" ref="808499815"/>
 					</object>
 				</array>
 			</object>
@@ -926,47 +931,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">NSDocument</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="printDocument:">id</string>
-						<string key="revertDocumentToSaved:">id</string>
-						<string key="runPageLayout:">id</string>
-						<string key="saveDocument:">id</string>
-						<string key="saveDocumentAs:">id</string>
-						<string key="saveDocumentTo:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="printDocument:">
-							<string key="name">printDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="revertDocumentToSaved:">
-							<string key="name">revertDocumentToSaved:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="runPageLayout:">
-							<string key="name">runPageLayout:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocument:">
-							<string key="name">saveDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocumentAs:">
-							<string key="name">saveDocumentAs:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocumentTo:">
-							<string key="name">saveDocumentTo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSDocument.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">P3DMachinableDocument</string>
 					<string key="superclassName">NSDocument</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1016,17 +980,13 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1060" key="NS.object.0"/>
-		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="Machine">{96, 96}</string>
-			<string key="NSMenuCheckmark">{9, 8}</string>
-			<string key="NSMenuMixedState">{7, 2}</string>
-			<string key="NSToolbarCustomizeToolbarItemImage">{32, 32}</string>
+			<string key="NSMenuCheckmark">{11, 11}</string>
+			<string key="NSMenuMixedState">{10, 3}</string>
+			<string key="NSToolbarCustomize">{32, 32}</string>
 			<string key="Toolbox">{512, 512}</string>
 		</dictionary>
 	</data>
