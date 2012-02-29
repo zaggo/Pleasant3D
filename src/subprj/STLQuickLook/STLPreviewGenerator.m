@@ -167,9 +167,10 @@ const CGFloat kRenderUpsizeFaktor=3.;
         
         if(stlModel)
         {	
+            glEnable (GL_LINE_SMOOTH); 
             glEnable (GL_BLEND); 
             glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            glEnable (GL_LINE_SMOOTH); 
+
             if(wireframe)
             {
                 glColor3f(1., 1., 1.);
@@ -206,42 +207,19 @@ const CGFloat kRenderUpsizeFaktor=3.;
             glRotatef(rotateX, 0.f, 1.f, 0.f);
             glRotatef(rotateY, 1.f, 0.f, 0.f);
             
-            glColor3f(1., 1., 1.);
-            glBegin(GL_TRIANGLES);
-            STLBinaryHead* stl = [stlModel stlHead];
-            STLFacet* facet = firstFacet(stl);
-            for(NSUInteger i = 0; i<stl->numberOfFacets; i++)
-            {
-                glNormal3fv((GLfloat const *)&(facet->normal));
-                for(NSInteger pIndex = 0; pIndex<3; pIndex++)
-                {
-                    //glVertex3f((GLfloat)facet->p[pIndex].x, (GLfloat)facet->p[pIndex].y, (GLfloat)facet->p[pIndex].z);
-                    glVertex3fv((GLfloat const *)&(facet->p[pIndex]));
-                }
-                facet = nextFacet(facet);
-            }
-            glEnd();
-            
-            if(!wireframe)
-            {
-                glDisable(GL_COLOR_MATERIAL);
-                glDisable(GL_LIGHTING);
-                glDisable(GL_LIGHT0);
-            }
-            GLfloat platformZ = 0.;
-            
             if(thumbnail)
                 glColor4f(.252f, .212f, .122f, 1.f);
             else
-                glColor4f(1., .749, 0., .6);
+                glColor4f(1.f, .749f, 0.f, .1f);
             
+            GLfloat platformZ = 0.;
             glBegin(GL_QUADS);
             glVertex3f(-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
             glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
             glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
             glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
             glEnd();
-
+            
             //glDepthFunc(GL_LEQUAL);
             platformZ += 0.1;
             
@@ -264,6 +242,29 @@ const CGFloat kRenderUpsizeFaktor=3.;
             glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
             glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
             glEnd();
+
+            glColor3f(1., 1., 1.);
+            glBegin(GL_TRIANGLES);
+            STLBinaryHead* stl = [stlModel stlHead];
+            STLFacet* facet = firstFacet(stl);
+            for(NSUInteger i = 0; i<stl->numberOfFacets; i++)
+            {
+                glNormal3fv((GLfloat const *)&(facet->normal));
+                for(NSInteger pIndex = 0; pIndex<3; pIndex++)
+                {
+                    //glVertex3f((GLfloat)facet->p[pIndex].x, (GLfloat)facet->p[pIndex].y, (GLfloat)facet->p[pIndex].z);
+                    glVertex3fv((GLfloat const *)&(facet->p[pIndex]));
+                }
+                facet = nextFacet(facet);
+            }
+            glEnd();
+            
+            if(!wireframe)
+            {
+                glDisable(GL_COLOR_MATERIAL);
+                glDisable(GL_LIGHTING);
+                glDisable(GL_LIGHT0);
+            }            
 
             if(!wireframe)
             {
