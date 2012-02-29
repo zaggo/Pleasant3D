@@ -32,7 +32,7 @@
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       displayScaleIsEnabled = "NO"
       displayScale = "1.00"
       launchStyle = "0"
@@ -44,7 +44,24 @@
       <PathRunnable
          FilePath = "/System/Library/Frameworks/QuickLook.framework/Versions/A/Resources/quicklookd.app/Contents/MacOS/qlmanage">
       </PathRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8D57630D048677EA00EA77CD"
+            BuildableName = "STLQuickLook.qlgenerator"
+            BlueprintName = "STLQuickLook"
+            ReferencedContainer = "container:STLQuickLook.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-g ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-c com.pleasantsoftware.uti.stl"
+            isEnabled = "YES">
+         </CommandLineArgument>
          <CommandLineArgument
             argument = "-t"
             isEnabled = "NO">
@@ -62,19 +79,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-c com.pleasantsoftware.uti.stl"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-g &quot;/Users/zaggo/Library/Developer/Xcode/DerivedData/Pleasant3D-fmgwrzdrxwzoancjafzqpjyxkhld/Build/Products/Debug/STLQuickLook.qlgenerator&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "/Users/zaggo/Downloads/pycam-0.5.1/samples/Box3.stl"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "/Users/zaggo/Documents/CupCake/Konstruktion/Stifthalter_1Part.stl"
+            argument = "${PROJECT_DIR}/etc/sampleObject.stl"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

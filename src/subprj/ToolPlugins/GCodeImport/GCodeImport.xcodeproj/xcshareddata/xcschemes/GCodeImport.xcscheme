@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-i/Users/zaggo/Library/Developer/Xcode/DerivedData/Pleasant3D-fmgwrzdrxwzoancjafzqpjyxkhld/Build/Products/Debug/"
+            argument = "-i${BUILT_PRODUCTS_DIR}"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

@@ -32,7 +32,7 @@
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       displayScaleIsEnabled = "NO"
       displayScale = "1.00"
       launchStyle = "0"
@@ -44,21 +44,18 @@
       <PathRunnable
          FilePath = "/System/Library/Frameworks/QuickLook.framework/Versions/A/Resources/quicklookd.app/Contents/MacOS/qlmanage">
       </PathRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8D57630D048677EA00EA77CD"
+            BuildableName = "GCodeQuickLook.qlgenerator"
+            BlueprintName = "GCodeQuickLook"
+            ReferencedContainer = "container:GCodeQuickLook.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-t"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-g &quot;/Users/zaggo/Library/Developer/Xcode/DerivedData/Pleasant3D-dxnmeaxejsixsjgcbupqybepulgb/Build/Products/Debug/GCodeQuickLook.qlgenerator&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-s 512"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-i"
+            argument = "-g ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -66,7 +63,23 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/zaggo/Documents/CupCake/Konstruktion/Tischunterbau_export.gcode"
+            argument = "-t"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-i"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-s 512"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-p"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "${PROJECT_DIR}/etc/sampleObject.gcode"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

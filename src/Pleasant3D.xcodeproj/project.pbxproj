@@ -1271,6 +1271,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Pleasant3D;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
 			name = Release;
 		};
@@ -1280,6 +1281,7 @@
 				APPLICATION_BUILD_NUMBER = 6;
 				APPLICATION_VERSION = 2.0;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = required;
@@ -1288,6 +1290,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
@@ -1300,50 +1303,18 @@
 				APPLICATION_BUILD_NUMBER = 6;
 				APPLICATION_VERSION = 2.0;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
-		};
-		E29BBF951131FA640058A121 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_BUILD_NUMBER = 6;
-				APPLICATION_VERSION = 2.0;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "Pleasant Software";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_GC = required;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
-			};
-			name = Distribution;
-		};
-		E29BBF961131FA640058A121 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = Pleasant3D;
-				PROVISIONING_PROFILE = "";
-			};
-			name = Distribution;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1353,7 +1324,6 @@
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,
 				C05733C908A9546B00998B17 /* Release */,
-				E29BBF961131FA640058A121 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1363,7 +1333,6 @@
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
 				C05733CD08A9546B00998B17 /* Release */,
-				E29BBF951131FA640058A121 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
