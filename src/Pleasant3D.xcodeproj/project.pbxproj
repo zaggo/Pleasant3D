@@ -11,6 +11,7 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		E21DBC01113AD81F0009875E /* PSToolboxPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DBC00113AD81F0009875E /* PSToolboxPanel.m */; };
+		E21E14F114FDAE9200A4FC02 /* GCodeImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */; };
 		E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264292108B7D7F002FCAD8 /* OpenGL.framework */; };
 		E2264295108B7D9F002FCAD8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264294108B7D9F002FCAD8 /* QuartzCore.framework */; };
 		E22644B4108B98A0002FCAD8 /* P3DDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22644B3108B98A0002FCAD8 /* P3DDocumentController.m */; };
@@ -92,6 +93,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E21E14DC14FD67AD00A4FC02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = STLImport;
+		};
+		E21E14F214FDB0F200A4FC02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = GCodeImport;
+		};
 		E24337E6138FB2ED007B347E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E24337DF138FB2ED007B347E /* STLImport.xcodeproj */;
@@ -246,6 +261,7 @@
 				E24338B4138FB967007B347E /* GCodeGenerator.bundle in Copy Plugins */,
 				E24338B6138FB970007B347E /* ForwardTool.bundle in Copy Plugins */,
 				E24338B8138FB978007B347E /* FileSaver.bundle in Copy Plugins */,
+				E21E14F114FDAE9200A4FC02 /* GCodeImport.bundle in Copy Plugins */,
 			);
 			name = "Copy Plugins";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,6 +321,7 @@
 		8D15AC370486D014006FF6A4 /* Pleasant3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pleasant3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21DBBFF113AD81F0009875E /* PSToolboxPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSToolboxPanel.h; sourceTree = "<group>"; };
 		E21DBC00113AD81F0009875E /* PSToolboxPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSToolboxPanel.m; sourceTree = "<group>"; };
+		E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCodeImport.xcodeproj; path = subprj/ToolPlugins/GCodeImport/GCodeImport.xcodeproj; sourceTree = "<group>"; };
 		E226424B108B78EB002FCAD8 /* STLPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLPreviewView.h; sourceTree = "<group>"; };
 		E226424C108B78EB002FCAD8 /* STLPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLPreviewView.m; sourceTree = "<group>"; };
 		E2264292108B7D7F002FCAD8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -514,6 +531,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E21E14D614FD67AD00A4FC02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E21E14DD14FD67AD00A4FC02 /* STLImport.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E2264248108B78EB002FCAD8 /* Preview STL */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,6 +603,7 @@
 		E24337FB138FB372007B347E /* Tool Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */,
 				E2433811138FB385007B347E /* FileSaver.xcodeproj */,
 				E2433808138FB381007B347E /* ForwardTool.xcodeproj */,
 				E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */,
@@ -903,6 +929,7 @@
 				E2433897138FB52F007B347E /* PBXTargetDependency */,
 				E2433895138FB524007B347E /* PBXTargetDependency */,
 				E243389B138FB53F007B347E /* PBXTargetDependency */,
+				E21E14F314FDB0F200A4FC02 /* PBXTargetDependency */,
 				E243389D138FB53F007B347E /* PBXTargetDependency */,
 				E243389F138FB53F007B347E /* PBXTargetDependency */,
 				E24338A3138FB53F007B347E /* PBXTargetDependency */,
@@ -951,6 +978,10 @@
 					ProjectRef = E24337FF138FB379007B347E /* GcodeGenerator.xcodeproj */;
 				},
 				{
+					ProductGroup = E21E14D614FD67AD00A4FC02 /* Products */;
+					ProjectRef = E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */;
+				},
+				{
 					ProductGroup = E2871341138FAF9600439C45 /* Products */;
 					ProjectRef = E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */;
 				},
@@ -987,6 +1018,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		E21E14DD14FD67AD00A4FC02 /* STLImport.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GCodeImport.bundle;
+			remoteRef = E21E14DC14FD67AD00A4FC02 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		E24337E7138FB2ED007B347E /* STLImport.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -1146,6 +1184,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E21E14F314FDB0F200A4FC02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GCodeImport;
+			targetProxy = E21E14F214FDB0F200A4FC02 /* PBXContainerItemProxy */;
+		};
 		E2433895138FB524007B347E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = STLQuickLook;
