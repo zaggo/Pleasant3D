@@ -46,6 +46,8 @@
 	
 	NSPoint localMousePoint;
 
+    BOOL validPerspective;
+    
 	BOOL threeD;
 	BOOL showArrows;
 	CGFloat othersAlpha;
@@ -66,6 +68,7 @@
 @property (assign) float currentLayerHeight;
 @property (readonly) float layerHeight;
 @property (assign) P3DMachineDriverBase* currentMachine;
+@property (readonly) Vector3* objectDimensions;
 
 - (IBAction)resetPerspective:(id)sender;
 

@@ -81,6 +81,11 @@ static GLuint makeMask(NSInteger n)
 	return parsedGCode.panes.count-1;
 }
 
+- (Vector3*)objectDimensions
+{
+    return [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];
+}
+
 - (NSString*)dimensionsString
 {
 	Vector3* dimension = [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];

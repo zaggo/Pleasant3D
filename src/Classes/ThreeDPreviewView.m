@@ -38,7 +38,7 @@
 
 @implementation ThreeDPreviewView
 @synthesize currentLayer, threeD, othersAlpha, showArrows, currentLayerHeight, currentMachine;
-@dynamic userRequestedAutorotate, autorotate, maxLayers, layerHeight;
+@dynamic userRequestedAutorotate, autorotate, maxLayers, layerHeight, objectDimensions;
 
 - (void)awakeFromNib
 {
@@ -90,10 +90,15 @@
             }
             else
             {
-                width = (boundsInPixelUnits.size.width)*1.1;
-                height = (boundsInPixelUnits.size.height)*1.1;
-                midX = boundsInPixelUnits.size.width/2.;
-                midY = boundsInPixelUnits.size.height/2.;
+                width = (self.objectDimensions.x)*1.1;
+                height = (self.objectDimensions.y)*1.1;
+                midX = self.currentMachine.zeroBuildPlattform.x-self.objectDimensions.x/2.;
+                midY = self.currentMachine.zeroBuildPlattform.y-self.objectDimensions.y/2.;
+
+//                width = (boundsInPixelUnits.size.width)*1.1;
+//                height = (boundsInPixelUnits.size.height)*1.1;
+//                midX = boundsInPixelUnits.size.width/2.;
+//                midY = boundsInPixelUnits.size.height/2.;
             }
 			CGFloat ratio = boundsInPixelUnits.size.width / boundsInPixelUnits.size.height;
 			if(ratio>1.)
@@ -187,7 +192,7 @@
 	threeD = value;
 	self.autorotate=NO;
 	[[NSUserDefaults standardUserDefaults] setBool:threeD forKey:@"gCode3d"];
-	
+	validPerspective=NO;
 	[self resetGraphics];
 }
 
@@ -206,21 +211,34 @@
 	[self setNeedsDisplay:YES];
 }
 
+- (Vector3*)objectDimensions
+{
+    return nil;
+}
+
 - (IBAction)resetPerspective:(id)sender
 {
 	self.autorotate=NO;
+	cameraTranslateX = 0.;
+	cameraTranslateY = 0.;
     if(self.currentMachine.dimBuildPlattform)
+    {
         cameraOffset = - 2*MAX( self.currentMachine.dimBuildPlattform.x, self.currentMachine.dimBuildPlattform.y);
+        validPerspective=YES;
+    }
     else
     {
-		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
-        cameraOffset = - 2*MAX( boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
+        Vector3* dim = self.objectDimensions;
+        if(dim)
+        {
+            cameraOffset = - 2*MAX( dim.x, dim.y);
+            validPerspective=YES;
+            cameraTranslateY = -dim.y/4.;
+        }
     }
 	worldRotation[0] = -45.f;
 	worldRotation[1] = 1.f;
 	worldRotation[2] = worldRotation[3] = 0.0f;
-	cameraTranslateX = 0.;
-	cameraTranslateY = 0.;
 	[self setNeedsDisplay:YES];
 }
 
@@ -375,6 +393,11 @@
 		readyToDraw=YES;
 		[self setupProjection];
 	}
+    if(!validPerspective)
+    {
+        [self resetPerspective:nil];
+    }
+
     // Clear the framebuffer.
 	glClearColor( .08f, .08f, .08f, 1.f);
 	//glClearColor( 1.f, 1.f, 1.f, 1.f);

@@ -51,6 +51,11 @@
     return [NSSet setWithObjects:@"stlModel", nil];
 }
 
+- (Vector3*)objectDimensions
+{
+    return [stlModel.cornerMaximum sub:stlModel.cornerMinimum];
+}
+
 - (NSString*)dimensionsString
 {
 	Vector3* dimension = [stlModel.cornerMaximum sub:stlModel.cornerMinimum];
