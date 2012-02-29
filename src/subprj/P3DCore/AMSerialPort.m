@@ -80,6 +80,15 @@ NSString *const AMSerialErrorDomain = @"de.harmless.AMSerial.ErrorDomain";
 		
 		// By default blocking read attempts will timeout after 1 second
 		[self setReadTimeout:1.0];
+        
+        // Silence static analyzer
+        (void)am_readTarget;
+        (void)am_readSelector;
+        (void)stopWriteInBackground;
+        (void)countWriteInBackgroundThreads;
+        (void)stopReadInBackground;
+        (void)countReadInBackgroundThreads;
+        // End silence
 	}
 	return self;
 }

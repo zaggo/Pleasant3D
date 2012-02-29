@@ -314,7 +314,7 @@
 	} else {
 		[closeLock unlock];
 	}
-	[localAutoreleasePool release];
+	[localAutoreleasePool drain];
 	if (localReadFDs)
 		free(localReadFDs);
 	if (localBuffer)
@@ -450,7 +450,7 @@
 	
 	free(localBuffer);
 	[data release];
-	[localAutoreleasePool release];
+	[localAutoreleasePool drain];
 }
 
 - (id)am_readTarget
@@ -498,7 +498,7 @@
 	
 	while (!stop) {
 		if (remainingTimeout <= 0.0) {
-			stop = YES;
+			//stop = YES;
 			errorCode = kAMSerialErrorTimeout;
 			break;
 		} else {
@@ -521,11 +521,11 @@
 			[self readTimeoutAsTimeval:&timeout];
 			int selectResult = select(fileDescriptor+1, readfds, NULL, NULL, &timeout);
 			if (selectResult == -1) {
-				stop = YES;
+				//stop = YES;
 				errorCode = kAMSerialErrorFatal;
 				break;
 			} else if (selectResult == 0) {
-				stop = YES;
+				//stop = YES;
 				errorCode = kAMSerialErrorTimeout;
 				break;
 			} else {
@@ -540,32 +540,32 @@
 					bytesRead += readResult;
 					if (stopAfterBytes) {
 						if (bytesRead == bytesToRead) {
-							stop = YES;
+							//stop = YES;
 							endCode = kAMSerialStopLengthReached;
 							break;
 						} else if (bytesRead > bytesToRead) {
-							stop = YES;
+							//stop = YES;
 							endCode = kAMSerialStopLengthExceeded;
 							break;
 						}
 					}
 					if (stopAtChar && (buffer[bytesRead-1] == stopChar)) {
-						stop = YES;
+						//stop = YES;
 						endCode = kAMSerialStopCharReached;
 						break;
 					}
 					if (bytesRead >= AMSER_MAXBUFSIZE) {
-						stop = YES;
+						//stop = YES;
 						errorCode = kAMSerialErrorInternalBufferFull;
 						break;
 					}
 				} else if (readResult == 0) {
 					// Should not be possible since select() has indicated data is available
-					stop = YES;
+					//stop = YES;
 					errorCode = kAMSerialErrorFatal;
 					break;
 				} else {
-					stop = YES;
+					//stop = YES;
 					// Make underlying error
 					underlyingError = [NSError errorWithDomain:NSPOSIXErrorDomain code:readResult userInfo:nil];
 					errorCode = kAMSerialErrorFatal;

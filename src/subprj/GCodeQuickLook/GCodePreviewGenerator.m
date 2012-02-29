@@ -166,7 +166,8 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	if(self)
 	{
 		// 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
-		extrusionColors = [[NSArray alloc] initWithObjects:NSMakeCollectable(CGColorCreateGenericRGB(0.855, 0.429, 0.002, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.000, 0.000, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.689, 0.064, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(1.000, 1.000, 0.000, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(0.367, 0.742, 0.008, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(0.607, 0.598, 1.000, 1.000)), NSMakeCollectable(CGColorCreateGenericRGB(0.821, 0.000, 0.833, 1.000)), nil];
+		extrusionColors = [[NSArray alloc] initWithObjects:[NSMakeCollectable(CGColorCreateGenericRGB(0.855, 0.429, 0.002, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.000, 0.000, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.689, 0.064, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(1.000, 1.000, 0.000, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(0.367, 0.742, 0.008, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(0.607, 0.598, 1.000, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(0.821, 0.000, 0.833, 1.000)) autorelease], nil];        
+        
 		extrusionOffColor = (CGColorRef)CFMakeCollectable(CGColorCreateGenericRGB(0.902, 0.902, 0.902, .1));
 
 		thumbnail = forThumbnail;
@@ -226,8 +227,6 @@ const CGFloat kRenderUpsizeFaktor=3.;
 {
 	[gCodePanes release];
 
-	for(id ref in extrusionColors)
-		CFRelease((CGColorRef)ref);
 	[extrusionColors release];
 	CFRelease(extrusionOffColor);
 	[dimBuildPlattform release];
