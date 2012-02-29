@@ -203,18 +203,18 @@
 - (NSViewController*)defaultPreviewControllerForTool:(P3DToolBase*)tool 
 {
 	NSViewController* defaultPreviewViewController=nil;
-	
-	if([[tool providesPreviewFormat] isEqualToString:P3DFormatIndexedSTL])
+	NSString* previewFormat = [tool providesPreviewFormat];
+	if([previewFormat isEqualToString:P3DFormatIndexedSTL])
 	{
 		defaultPreviewViewController = [[STLPreviewController alloc] initWithNibName:@"STLImportPreviewGUI" bundle:nil];
 		[defaultPreviewViewController setRepresentedObject:tool];
 	}
-	else if([[tool providesPreviewFormat] isEqualToString:P3DFormatLoops])
+	else if([previewFormat isEqualToString:P3DFormatLoops])
 	{
 		defaultPreviewViewController = [[P3DLoopsPreviewController alloc] initWithNibName:@"P3DLoopsPreviewGUI" bundle:nil];
 		[defaultPreviewViewController setRepresentedObject:tool];
 	}
-	else if([[tool providesPreviewFormat] isEqualToString:P3DFormatGCode])
+	else if([previewFormat isEqualToString:P3DFormatGCode])
 	{
 		defaultPreviewViewController = [[P3DGCodePreviewController alloc] initWithNibName:@"P3DGCodePreviewGUI" bundle:nil];
 		[defaultPreviewViewController setRepresentedObject:tool];
