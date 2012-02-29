@@ -534,7 +534,7 @@
 		E21E14D614FD67AD00A4FC02 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E21E14DD14FD67AD00A4FC02 /* STLImport.bundle */,
+				E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1018,7 +1018,7 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E21E14DD14FD67AD00A4FC02 /* STLImport.bundle */ = {
+		E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = GCodeImport.bundle;
