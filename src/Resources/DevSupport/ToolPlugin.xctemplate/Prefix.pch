@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the '___PROJECTNAME___' target in the '___PROJECTNAME___' project.
+//
+//  This plugin is based on Pleasant3D and the P3DCore.framework
+//  created by Eberhard Rensch - Pleasant Software, Offenburg/Germany
+//  Pleasant3D and the P3DCore.framework are Copyright 2009-___YEAR___ Pleasant Software.
+//  All rights reserved.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+	#import <P3DCore/P3DCore.h>
+#endif

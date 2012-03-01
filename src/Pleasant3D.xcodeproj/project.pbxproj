@@ -77,6 +77,8 @@
 		E2C187DC10FF51C900396141 /* STLImportPreviewGUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2C1878F10FF470E00396141 /* STLImportPreviewGUI.xib */; };
 		E2D0FCA2112DA04800900531 /* MachiningQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FCA1112DA04800900531 /* MachiningQueue.xib */; };
 		E2D0FCA5112DA12100900531 /* MachiningQueueItemPrototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FCA4112DA12100900531 /* MachiningQueueItemPrototype.xib */; };
+		E2D4788A14FED86600FC7833 /* ToolPlugin.xctemplate in CopyDevSupport */ = {isa = PBXBuildFile; fileRef = E2D4788814FED81800FC7833 /* ToolPlugin.xctemplate */; };
+		E2D4788B14FED86800FC7833 /* InstallDevSupport.command in CopyDevSupport */ = {isa = PBXBuildFile; fileRef = E2D4788514FED6FA00FC7833 /* InstallDevSupport.command */; };
 		E2D4E31E112D64EB00F67528 /* MachiningSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D4E31D112D64EB00F67528 /* MachiningSheet.xib */; };
 		E2D4E326112D680500F67528 /* P3DMachiningController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D4E325112D680500F67528 /* P3DMachiningController.m */; };
 		E2D7B4B910FD056600927AE4 /* Tool.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D7B4B810FD056600927AE4 /* Tool.png */; };
@@ -290,6 +292,18 @@
 			name = CopyMachineDrivers;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2D4788914FED84000FC7833 /* CopyDevSupport */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/DevSupport;
+			dstSubfolderSpec = 1;
+			files = (
+				E2D4788A14FED86600FC7833 /* ToolPlugin.xctemplate in CopyDevSupport */,
+				E2D4788B14FED86800FC7833 /* InstallDevSupport.command in CopyDevSupport */,
+			);
+			name = CopyDevSupport;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E2F3BF4410F78CBF005224CD /* Copy QuickLook Plugins */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
@@ -411,6 +425,8 @@
 		E2C1879710FF47B200396141 /* STLPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLPreviewController.m; sourceTree = "<group>"; };
 		E2D0FCA1112DA04800900531 /* MachiningQueue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachiningQueue.xib; sourceTree = "<group>"; };
 		E2D0FCA4112DA12100900531 /* MachiningQueueItemPrototype.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachiningQueueItemPrototype.xib; sourceTree = "<group>"; };
+		E2D4788514FED6FA00FC7833 /* InstallDevSupport.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = InstallDevSupport.command; path = ../DevSupport/InstallDevSupport.command; sourceTree = "<group>"; };
+		E2D4788814FED81800FC7833 /* ToolPlugin.xctemplate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ToolPlugin.xctemplate; path = Resources/DevSupport/ToolPlugin.xctemplate; sourceTree = SOURCE_ROOT; };
 		E2D4E31D112D64EB00F67528 /* MachiningSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MachiningSheet.xib; sourceTree = "<group>"; };
 		E2D4E324112D680500F67528 /* P3DMachiningController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachiningController.h; sourceTree = "<group>"; };
 		E2D4E325112D680500F67528 /* P3DMachiningController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachiningController.m; sourceTree = "<group>"; };
@@ -514,6 +530,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E2D4788714FED7A300FC7833 /* DevSupport */,
 				E24338AD138FB8BE007B347E /* Frameworks&Bundles */,
 				E254217510FB5700005D08F7 /* Images */,
 				E254217410FB56E3005D08F7 /* XIBs */,
@@ -841,6 +858,16 @@
 			name = DefaultPreviews;
 			sourceTree = "<group>";
 		};
+		E2D4788714FED7A300FC7833 /* DevSupport */ = {
+			isa = PBXGroup;
+			children = (
+				E2D4788814FED81800FC7833 /* ToolPlugin.xctemplate */,
+				E2D4788514FED6FA00FC7833 /* InstallDevSupport.command */,
+			);
+			name = DevSupport;
+			path = Resources/etc;
+			sourceTree = "<group>";
+		};
 		E2D4E32C112D6AF900F67528 /* Printing */ = {
 			isa = PBXGroup;
 			children = (
@@ -921,6 +948,7 @@
 				E25420B310FA0B5F005D08F7 /* Copy Frameworks */,
 				E24338AE138FB939007B347E /* Copy Plugins */,
 				E27435F9138FEC1F0062643A /* CopyMachineDrivers */,
+				E2D4788914FED84000FC7833 /* CopyDevSupport */,
 			);
 			buildRules = (
 			);
