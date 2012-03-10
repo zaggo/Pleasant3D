@@ -110,6 +110,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
 		kCGLPFASupersample,
 		kCGLPFASampleAlpha,
+        kCGLPFARemotePBuffer,
 		(CGLPixelFormatAttribute)0
 	} ;
 	CGLPixelFormatObj pixelFormatObj;
