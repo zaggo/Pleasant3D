@@ -4,7 +4,9 @@ Author: Eberhard Rensch
 Copyright 2009-2012 Pleasant Software. All rights reserved.
 
 Build it with XCode 4 with Garbage Collection switched on.
-The code (especially the importing STL files stuff) currently works only when build for 32-bit!
+
+If you plan to develop a tool plugin, check out the DevSupport folder in the Pleasant3D.app bundle (Pleasant3D.app/Contents/DevSupport/). Best practice is to (build and) copy the most recent version of Pleasant3D into the Applications folder. Then run the InstallDevSupport.command script inside the above mentioned DevSupport folder. This will copy the P3DCore.framework to your ~/Library/Frameworks folder and install a Pleasant3D tool plugin template in Xcode 4.
+Re-launch Xcode 4 and create a new project with this template to get started. See the readme.txt inside the freshly created project for additional info.
 
 More info on the Project on http://pleasantsoftware.com/developer/pleasant3d/
 
