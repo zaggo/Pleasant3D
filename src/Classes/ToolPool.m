@@ -46,7 +46,7 @@ extern "C" {
 
 
 @implementation ToolPool
-@synthesize availableTools, loading, availableImporterUTIs;
+@synthesize availableTools, loading, availableImporterUTIs, supportedToolCreatingUTIs;
 
 + (ToolPool*)sharedToolPool
 {
@@ -65,6 +65,7 @@ extern "C" {
 	if (self != nil) {
 		availableTools = [[NSMutableArray alloc] init];
 		availableImporterUTIs = [[NSMutableArray alloc] init];
+        supportedToolCreatingUTIs = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -160,6 +161,8 @@ extern "C" {
 					[tempAvailableTools addObject:toolDesc];
 					if([[pClass toolType] isEqualToString:P3DTypeImporter] && [pClass requiredInputFormats])
 						[availableImporterUTIs addObjectsFromArray:[pClass requiredInputFormats]];
+                    if([pClass respondsToSelector:@selector(importedContentDataUTIs)] && [pClass importedContentDataUTIs])
+                        [supportedToolCreatingUTIs addObjectsFromArray:[pClass importedContentDataUTIs]];
 				}
 				
 			}

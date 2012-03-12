@@ -251,11 +251,18 @@ typedef enum
 			currentFirstTool = [currentTools objectAtIndex:0];
 			requiredInputFormats = [[currentFirstTool class] requiredInputFormats];
 		}
-		NSArray* possibleUTIs=nil;
-		if(currentFirstTool && [[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter])
-			possibleUTIs = requiredInputFormats;
+		NSMutableArray* possibleUTIs=[NSMutableArray array];
+		if(currentFirstTool && [[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter] && requiredInputFormats)
+			[possibleUTIs addObjectsFromArray:requiredInputFormats];
 		else
-			possibleUTIs = [[ToolPool  sharedToolPool] availableImporterUTIs];
+        {
+            NSArray* availableImporterUTIs = [[ToolPool  sharedToolPool] availableImporterUTIs];
+			if(availableImporterUTIs)
+                [possibleUTIs addObjectsFromArray:availableImporterUTIs];
+        }
+        NSArray* supportedToolCreatingUTIs = [[ToolPool  sharedToolPool] supportedToolCreatingUTIs];
+        if(supportedToolCreatingUTIs)
+            [possibleUTIs addObjectsFromArray:supportedToolCreatingUTIs];
 
 		for(NSString* uti in possibleUTIs)
 		{
@@ -268,20 +275,90 @@ typedef enum
 				NSArray* draggedFiles = [pasteboard readObjectsForClasses:[NSArray arrayWithObject:[NSURL class]] options:pbReadOptions];
 				if(draggedFiles.count==1) // Only single files
 				{
-					if(currentFirstTool && ![[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter])
+					if(currentFirstTool)
 					{
-						NSArray* allTools = [[ToolPool  sharedToolPool] availableTools];
-						for(NSDictionary* toolDesc in allTools)
-						{
-							Class toolClass = NSClassFromString([toolDesc objectForKey:kMSFPersistenceClass]);
-							if([[toolClass requiredInputFormats] containsObject:uti] && 
-							   [requiredInputFormats containsObject:[toolClass providesOutputFormat]])
-							{								
-								[self makeGapAtIndex:0 hitPart:kBeforeTool];
-								dragOp = NSDragOperationCopy;
-								break;
-							}
-						}
+                        if([currentFirstTool.requiredInputFormats containsObject:uti])
+                            dragOp = NSDragOperationCopy;
+                        else
+                        {
+                            NSMutableArray* possibleTools = [NSMutableArray array];
+                            NSArray* allTools = [[ToolPool  sharedToolPool] availableTools];
+                            for(NSDictionary* toolDesc in allTools)
+                            {
+                                Class toolClass = NSClassFromString([toolDesc objectForKey:kMSFPersistenceClass]);
+                                if([[toolClass requiredInputFormats] containsObject:uti] && 
+                                   [requiredInputFormats containsObject:[toolClass providesOutputFormat]])
+                                {								
+                                    [self makeGapAtIndex:0 hitPart:kBeforeTool];
+                                    dragOp = NSDragOperationCopy;
+                                    break;
+                                }
+                                else if([[toolClass importedContentDataUTIs] containsObject:uti])
+                                {
+                                    [possibleTools addObject:toolClass];
+                                }
+                            }
+                            if(dragOp==NSDragOperationNone && possibleTools.count>0)
+                            {
+                                HitPart part;
+                                ToolBinEntryView* toolBinEntryView;
+                                [self findHitToolForLocation:localPoint outIndex:&gapNeededAtIndex outHitPart:&part outToolBinEntryView:&toolBinEntryView];			
+                                
+                                NSInteger previousIndex = gapNeededAtIndex-1;
+                                switch(part)
+                                {
+                                    case kRightOnTool:
+                                    case kAfterTool:
+                                        previousIndex++;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                
+                                P3DToolBase* pre = nil;
+                                P3DToolBase* next = nil;
+                                if(previousIndex>=0)
+                                    pre = (P3DToolBase*)[[toolViewControllers objectAtIndex:previousIndex] representedObject];
+                                
+                                NSInteger nextIndex = gapNeededAtIndex;
+                                switch(part)
+                                {
+                                    case kRightOnTool:
+                                    case kAfterTool:
+                                        nextIndex++;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                if(nextIndex<[toolViewControllers count])
+                                    next = (P3DToolBase*)[[toolViewControllers objectAtIndex:nextIndex] representedObject];
+
+                                for(Class toolClass in possibleTools)
+                                {
+                                    P3DToolBase* tool = [[toolClass alloc] init];
+                                    if([tool canHandleInputFromTool:pre andProvideOutputForTool:next])
+                                    {
+                                        dragOp = NSDragOperationCopy;
+                                        break;
+                                    }
+                                }    
+                                
+                                if(dragOp == NSDragOperationNone)
+                                    dragOp = NSDragOperationDelete;
+                                
+                                if(dragOp == NSDragOperationNone && gapAtIndex!=-1)
+                                {
+                                    //NSLog(@"Close Gap at %d",gapAtIndex);
+                                    for(NSInteger i = gapAtIndex; i<[toolViewControllers count];i++)
+                                        [(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
+                                    gapAtIndex=-1;
+                                    [self resizeToolBin];
+                                    [self setNeedsDisplay:YES];
+                                }
+                                else if(dragOp != NSDragOperationDelete)
+                                    [self makeGapAtIndex:gapNeededAtIndex hitPart:part];
+                            }
+                        }
 					}
 					else
 						dragOp = NSDragOperationCopy;
@@ -395,11 +472,18 @@ typedef enum
 			currentFirstTool = [currentTools objectAtIndex:0];
 			requiredInputFormats = [[currentFirstTool class] requiredInputFormats];
 		}
-		NSArray* possibleUTIs=nil;
-		if(currentFirstTool && [[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter])
-			possibleUTIs = requiredInputFormats;
+		NSMutableArray* possibleUTIs=[NSMutableArray array];
+		if(currentFirstTool && [[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter] && requiredInputFormats)
+			[possibleUTIs addObjectsFromArray:requiredInputFormats];
 		else
-			possibleUTIs = [[ToolPool  sharedToolPool] availableImporterUTIs];
+        {
+            NSArray* availableImporterUTIs = [[ToolPool  sharedToolPool] availableImporterUTIs];
+			if(availableImporterUTIs)
+                [possibleUTIs addObjectsFromArray:availableImporterUTIs];
+        }
+        NSArray* supportedToolCreatingUTIs = [[ToolPool  sharedToolPool] supportedToolCreatingUTIs];
+        if(supportedToolCreatingUTIs)
+            [possibleUTIs addObjectsFromArray:supportedToolCreatingUTIs];
 		
 		for(NSString* uti in possibleUTIs)
 		{
@@ -412,24 +496,88 @@ typedef enum
 				NSArray* draggedFiles = [pasteboard readObjectsForClasses:[NSArray arrayWithObject:[NSURL class]] options:pbReadOptions];
 				if(draggedFiles.count==1) // Only single files
 				{
-					if(currentFirstTool==nil || ![[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter])
-					{
-						NSArray* allTools = [[ToolPool  sharedToolPool] availableTools];
-						for(NSDictionary* toolDesc in allTools)
-						{
-							Class toolClass = NSClassFromString([toolDesc objectForKey:kMSFPersistenceClass]);
-							if([[toolClass requiredInputFormats] containsObject:uti] && 
-							   (currentFirstTool==nil || [requiredInputFormats containsObject:[toolClass providesOutputFormat]]))
-							{								
+                    if(currentFirstTool && [currentFirstTool.requiredInputFormats containsObject:uti])
+                    {
+                        SEL pathSetterSel = [currentFirstTool pathSetterForImportContentDataWithUTI:uti];
+                        if(pathSetterSel && [currentFirstTool respondsToSelector:pathSetterSel])
+                            [currentFirstTool performSelector:pathSetterSel withObject:[[draggedFiles lastObject] path]];
+                        result = YES;
+                    }
+                    else
+                    {
+                        NSMutableArray* possibleTools = [NSMutableArray array];
+                        NSArray* allTools = [[ToolPool  sharedToolPool] availableTools];
+                        for(NSDictionary* toolDesc in allTools)
+                        {
+                            Class toolClass = NSClassFromString([toolDesc objectForKey:kMSFPersistenceClass]);
+                            if((currentFirstTool==nil || ![[[currentFirstTool class] toolType] isEqualToString:P3DTypeImporter]) && [[toolClass requiredInputFormats] containsObject:uti])
+                            {								
 								currentFirstTool = [[toolClass alloc] initWithHost:[[[self window] windowController] document]];
 								[self insertTool:currentFirstTool atIndex:0];
-								break;
-							}
-						}
-					}
-					
-					[currentFirstTool performSelector:@selector(setSourceFilePath:) withObject:[[draggedFiles lastObject] path]];
-					result = YES;
+                                SEL pathSetterSel = [currentFirstTool pathSetterForImportContentDataWithUTI:uti];
+                                if(pathSetterSel && [currentFirstTool respondsToSelector:pathSetterSel])
+                                    [currentFirstTool performSelector:pathSetterSel withObject:[[draggedFiles lastObject] path]];
+                                result = YES;
+                                break;
+                            }
+                            else if([[toolClass importedContentDataUTIs] containsObject:uti])
+                            {
+                                [possibleTools addObject:toolClass];
+                            }
+                        }
+                        if(!result && possibleTools.count>0)
+                        {
+                            NSInteger gapNeededAtIndex =-1;
+                            NSPoint localPoint = [self convertPoint:[sender draggingLocation] fromView:nil];
+                            HitPart part;
+                            ToolBinEntryView* toolBinEntryView;
+                            [self findHitToolForLocation:localPoint outIndex:&gapNeededAtIndex outHitPart:&part outToolBinEntryView:&toolBinEntryView];			
+                            NSInteger previousIndex = gapNeededAtIndex-1;
+                            switch(part)
+                            {
+                                case kRightOnTool:
+                                case kAfterTool:
+                                    previousIndex++;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            
+                            P3DToolBase* pre = nil;
+                            P3DToolBase* next = nil;
+                            if(previousIndex>=0)
+                                pre = (P3DToolBase*)[[toolViewControllers objectAtIndex:previousIndex] representedObject];
+                            
+                            NSInteger nextIndex = gapNeededAtIndex;
+                            switch(part)
+                            {
+                                case kRightOnTool:
+                                case kAfterTool:
+                                    nextIndex++;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if(nextIndex<[toolViewControllers count])
+                                next = (P3DToolBase*)[[toolViewControllers objectAtIndex:nextIndex] representedObject];
+                            
+                            for(Class toolClass in possibleTools)
+                            {
+                                P3DToolBase* tool = [[toolClass alloc] init];
+                                if([tool canHandleInputFromTool:pre andProvideOutputForTool:next])
+                                {
+                                    tool = [[toolClass alloc] initWithHost:[[[self window] windowController] document]];
+                                    [self insertTool:tool atIndex:nextIndex];
+                                    
+                                    SEL pathSetterSel = [tool pathSetterForImportContentDataWithUTI:uti];
+                                    if(pathSetterSel && [tool respondsToSelector:pathSetterSel])
+                                        [tool performSelector:pathSetterSel withObject:[[draggedFiles lastObject] path]];
+                                    result = YES;
+                                    break; // TODO: What's about multiple matches?
+                                }
+                            }    
+                        }
+                    }
 				}
 			}
 		}

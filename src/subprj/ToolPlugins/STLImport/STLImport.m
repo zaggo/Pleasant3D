@@ -195,6 +195,11 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 	return [NSArray arrayWithObjects:@"com.pleasantsoftware.uti.stl", @"org.khronos.collada.digital-asset-exchange", nil];
 }
 
+- (SEL)pathSetterForImportContentDataWithUTI:(NSString*)uti
+{
+    return @selector(setSourceFilePath:);
+}
+
 // The format of the output data, provided by this tool
 + (NSString*)providesOutputFormat
 {

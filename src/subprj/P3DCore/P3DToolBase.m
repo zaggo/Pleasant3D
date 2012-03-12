@@ -55,7 +55,7 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 @synthesize inputProvider;
 @synthesize outData=_outData;
 @synthesize sliceNDiceHost, showPreview,  abortRequested, toolProgress, toolPresetNames, toolPresets, selectedPresetIndex;
-@dynamic dataFlowButtonImage, dataFlowButtonAltImage, previewData, showsProgress, iconPath, localizedToolName, requiredInputFormats, inputFormatNames, providesOutputFormat, outputFormatName, providesPreviewFormat, possibleOutputFormats, settingsViewNibName;
+@dynamic dataFlowButtonImage, dataFlowButtonAltImage, previewData, showsProgress, iconPath, localizedToolName, requiredInputFormats, inputFormatNames, providesOutputFormat, outputFormatName, providesPreviewFormat, possibleOutputFormats, settingsViewNibName, importedContentDataUTIs;
 
 - (id)initWithHost:(id <SliceNDiceHost>)host
 {
@@ -191,6 +191,21 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 	return [[self class] requiredInputFormats];
 }
 
++ (NSArray*)importedContentDataUTIs
+{
+    return nil;
+}
+
+- (NSArray*)importedContentDataUTIs
+{
+	return [[self class] importedContentDataUTIs];
+}
+
+- (SEL)pathSetterForImportContentDataWithUTI:(NSString*)uti
+{
+    return nil;
+}
+
 + (NSString*)providesOutputFormat
 {
 	return nil;
@@ -306,7 +321,7 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 	// If the input can be handled, check the output...		
 	if(canHandle && outputConsumer)
 	{
-		NSArray* toolProvidedsFormats=self.possibleOutputFormats;
+		NSArray* toolProvidedsFormats=[self possibleOutputFormats];
 		if(toolProvidedsFormats.count==1 && [[toolProvidedsFormats objectAtIndex:0] isEqualToString:P3DFormatAnyProcessedData] && inputCandidate)
 			toolProvidedsFormats = inputCandidate.possibleOutputFormats;
 		NSArray* consumerCanHandleFormats = [outputConsumer requiredInputFormats];

@@ -79,6 +79,7 @@ extern NSString* const P3DToolUTI;
 @property (readonly) NSString* localizedToolName;
 
 @property (readonly) NSArray* requiredInputFormats;
+@property (readonly) NSArray* importedContentDataUTIs;
 @property (readonly) NSString* inputFormatNames;
 @property (readonly) NSString* providesOutputFormat;
 @property (readonly) NSString* outputFormatName;
@@ -148,6 +149,14 @@ extern NSString* const P3DToolUTI;
 // The properies are for convenience only and call these class methods
 + (NSArray*)requiredInputFormats;
 + (NSString*)providesOutputFormat;
+
+// If a tool imports additional data (e.g. a script or additional data) return the UTIs of
+// the supported file formats here. Don't use this for importer tools, they use the
+// requiredInputFormats class method for this (see above)
+// Define the data formats in this class method (not in the property!)
+// The property is for convenience only and call this class method
++ (NSArray*)importedContentDataUTIs;
+- (SEL)pathSetterForImportContentDataWithUTI:(NSString*)uti;
 
 // if the settingsViewController property returns nil (default implementation),
 // Pleasant3D calls this action when the tool panel view is clicked on.

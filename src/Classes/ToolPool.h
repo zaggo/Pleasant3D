@@ -34,6 +34,7 @@
 @interface ToolPool : NSObject {
 	NSMutableArray* availableTools;
 	NSMutableArray* availableImporterUTIs;
+	NSMutableArray* supportedToolCreatingUTIs;
 	
 	BOOL loading;
 }
@@ -43,5 +44,6 @@
 @property (readonly) NSArray* availableTools;
 @property (assign) BOOL loading;
 @property (readonly) NSArray* availableImporterUTIs;
+@property (readonly) NSArray* supportedToolCreatingUTIs;
 
 @end
