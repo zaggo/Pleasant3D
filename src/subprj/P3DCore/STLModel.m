@@ -125,7 +125,7 @@
         if(clFacetsData==nil)
         {
             STLBinaryHead* stl = [self stlHead];
-            clFacetsData = [[NSData alloc] initWithBytes:calloc(stl->numberOfFacets, sizeof(STLFacetCL)) length:stl->numberOfFacets];
+            clFacetsData = [[NSData alloc] initWithBytesNoCopy:calloc(stl->numberOfFacets, sizeof(STLFacetCL)) length:stl->numberOfFacets];
             STLFacetCL* facets = (STLFacetCL*)clFacetsData.bytes;
             if(facets==nil)
                 PSErrorLog(@"Out of memory!");

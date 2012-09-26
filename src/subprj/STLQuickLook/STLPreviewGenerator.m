@@ -214,24 +214,48 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 glColor4f(1.f, .749f, 0.f, .1f);
             
             GLfloat platformZ = 0.;
-            glBegin(GL_QUADS);
-            glVertex3f(-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
-            glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
-            glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
-            glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
-            glEnd();
+            GLfloat platformCoords[] = {
+                -zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ,
+                -zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ,
+                dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ,
+                dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ
+            };
+            glVertexPointer(3, GL_FLOAT, 0, platformCoords);
+            glDrawArrays(GL_QUADS, 0, 12);
+
+//            glBegin(GL_QUADS);
+//            glVertex3f(-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
+//            glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
+//            glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
+//            glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
+//            glEnd();
             
             //glDepthFunc(GL_LEQUAL);
             platformZ += 0.1;
             
             
-            glBegin(GL_LINES);
             glColor4f(1., 0., 0., .5);
+            GLfloat* rasterLines = calloc((size_t)(dimBuildPlattform.x/10.)*2, sizeof(GLfloat));
+            NSInteger i=0;
             for(CGFloat x = -zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.)
             {
-                glVertex3f(x, -zeroBuildPlattform.y, platformZ);
-                glVertex3f(x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
+                rasterLines[i++]=x;
+                rasterLines[i++]=-zeroBuildPlattform.y;
+                rasterLines[i++]=platformZ;
+                rasterLines[i++]=x;
+                rasterLines[i++]=dimBuildPlattform.y-zeroBuildPlattform.y;
+                rasterLines[i++]=platformZ;
             }
+            glVertexPointer(3, GL_FLOAT, 0, rasterLines);
+            glDrawArrays(GL_LINES, 0, i);
+            free(rasterLines);
+            
+            glBegin(GL_LINES);
+//            for(CGFloat x = -zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.)
+//            {
+//                glVertex3f(x, -zeroBuildPlattform.y, platformZ);
+//                glVertex3f(x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
+//            }
             glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
             glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
             

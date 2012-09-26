@@ -252,6 +252,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
         if(totalSlices==0)
         {
 			PSErrorLog(@"clCreateBuffer totalSlices==0");
+            free(lineOffsets);
 			return nil;
         }
 		// This array holds all sliced points
@@ -264,6 +265,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (!inOutSlicedEdges || err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clCreateBuffer inOutSlicedEdges failed: %d", err);
+            free(lineOffsets);
 			return nil;
 		}
 		cl_mem inOutSlicedEdgeLayerReferences;
@@ -271,6 +273,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (!inOutSlicedEdgeLayerReferences || err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clCreateBuffer inOutSlicedEdgeLayerReferences failed: %d", err);
+            free(lineOffsets);
 			return nil;
 		}
 		
@@ -283,6 +286,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clSetKernelArg kernelSliceTriangles returns %d",err);
+            free(lineOffsets);
 			return nil;
 		}		
 		
@@ -291,6 +295,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err)
 		{
 			PSErrorLog(@"clEnqueueNDRangeKernel returns %d",err);
+            free(lineOffsets);
 			return nil;
 		}
 			
@@ -298,6 +303,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clEnqueueReadBuffer inOutSlicedPoints returns %d",err);
+            free(lineOffsets);
 			return nil;
 		}
 		
@@ -305,6 +311,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clEnqueueReadBuffer inOutSlicedPointLayerReferences returns %d",err);
+            free(lineOffsets);
 			return nil;
 		}
 		
@@ -331,7 +338,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		
 		// The layer catalog contains an Index from layerIndex -> slicedPointLayerReference (-> slicedPointIndex)
 		// With help of this catalog, we have fast access on the first slicedPoint of a layer
-		cl_uint* layerCatalog = (cl_uint*)malloc((totalLayers+1)*sizeof(cl_uint));
+		cl_uint* layerCatalog = (cl_uint*)calloc((totalLayers+1),sizeof(cl_uint));
 		NSUInteger lastLayerIndex = 0;
 		NSUInteger layerCatalogLength = 0;
 		layerCatalog[layerCatalogLength++]=0;
@@ -375,7 +382,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		dispatch_group_t dpGroup = dispatch_group_create();
 	#endif
 		
-		for(NSInteger layerIndex = 0; layerIndex<totalLayers; layerIndex++)
+		for(NSInteger layerIndex = 0; layerIndex<totalLayers-1; layerIndex++)
 		{
 	#if !__disable_gcd	
 		
@@ -476,6 +483,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (!inOutOptimizedConnections || err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clCreateBuffer inOutOptimizedConnections failed: %d", err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}
 		
@@ -483,6 +494,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		err = clEnqueueWriteBuffer(queue, inOutSlicedEdges, CL_FALSE, 0, totalSlices*kSlicedEdgeSize, slicedEdges, 0, NULL, NULL);
 		if (err != CL_SUCCESS) {
 			PSErrorLog(@"clEnqueueWriteBuffer inOutSlicedEdges returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}
 		
@@ -492,6 +507,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clSetKernelArg kernelOptimizeCornerPoints returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}		
 		
@@ -500,6 +519,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err)
 		{
 			PSErrorLog(@"clEnqueueNDRangeKernel kernelOptimizeCornerPoints returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}
 				
@@ -509,6 +532,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clSetKernelArg kernelOptimizeCornerPoints returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}		
 		global = totalSlices;
@@ -516,6 +543,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err)
 		{
 			PSErrorLog(@"clEnqueueNDRangeKernel kernelOptimizeCornerPoints returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}
 		
@@ -523,6 +554,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clEnqueueReadBuffer inOutSlicedPoints returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            free(optimizedConnections);
 			return nil;
 		}
 		
@@ -606,6 +641,9 @@ static void inverseSlicedEdge(SlicedEdge* edge)
         if(totalCorners==0)
 		{
 			PSErrorLog(@"clCreateBuffer totalCorners==0");
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
 			return nil;
 		}
 		// This array holds all sliced points
@@ -675,12 +713,20 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (!outInsetLoops || err!=CL_SUCCESS)
 		{
 			PSErrorLog(@"clCreateBuffer outInsetLoops failed: %d",err);
-			return nil;
+			free(insetLoops);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+            return nil;
 		}
 		
 		err = clEnqueueWriteBuffer(queue, inOutSlicedEdges, CL_FALSE, 0, totalSlices*kSlicedEdgeSize, slicedEdges, 0, NULL, NULL);
 		if (err != CL_SUCCESS) {
 			PSErrorLog(@"clEnqueueWriteBuffer inOutSlicedEdges returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+			free(insetLoops);
 			return nil;
 		}
 				
@@ -690,6 +736,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clSetKernelArg kernelInsetLoop returns %d",err);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
+			free(insetLoops);
 			return nil;
 		}		
 		global = totalSlices;
@@ -697,6 +747,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err)
 		{
 			PSErrorLog(@"clEnqueueNDRangeKernel kernelInsetLoop returns %d",err);
+			free(insetLoops);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
 			return nil;
 		}
 		
@@ -704,6 +758,10 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clEnqueueReadBuffer kernelInsetLoop returns %d",err);
+			free(insetLoops);
+            free(layerCatalog);
+            free(slicedEdges);
+            free(lineOffsets);
 			return nil;
 		}
 			

@@ -83,7 +83,7 @@ void PSoftLog(char* filename, NSInteger line, NSString* scope, NSInteger priorit
 				[disabledScopes addObject:key];
 		}
         verbosity = [[scopeDict objectForKey:@"verbosity"] intValue];
-		NSLog(@"PSLogging is ON and shows priorities %@ and above", ((verbosity==PSPrioLow)?@"LOW":(verbosity==PSPrioNormal)?@"NORMAL":(verbosity==PSPrioHigh)?@"HIGH":[NSString stringWithFormat:@"<%d>",verbosity]));
+		NSLog(@"PSLogging is ON and shows priorities %@ and above", ((verbosity==PSPrioLow)?@"LOW":(verbosity==PSPrioNormal)?@"NORMAL":(verbosity==PSPrioHigh)?@"HIGH":[NSString stringWithFormat:@"<%d>",(int32_t)verbosity]));
 		[pool drain];
     }
     
@@ -113,7 +113,7 @@ void PSoftLog(char* filename, NSInteger line, NSString* scope, NSInteger priorit
 		{
 			NSString* log;
 			if([logTxt length]>0)
-				log = [NSString stringWithFormat:@"%@ (%@:%d)",logTxt, fileNameCleaned, line];
+				log = [NSString stringWithFormat:@"%@ (%@:%d)",logTxt, fileNameCleaned, (int32_t)line];
 			else
 				log = @"";
 			NSLogv(log, ap);
@@ -128,7 +128,7 @@ void PSoftErrorLog(char* filename, NSInteger line, NSString* logTxt, ...)
     va_list ap;
     va_start(ap, logTxt);
     NSAutoreleasePool* pool=[NSAutoreleasePool new];
-	NSString* log = [NSString stringWithFormat:@"%@ (%@:%d)",logTxt, [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent], line];
+	NSString* log = [NSString stringWithFormat:@"%@ (%@:%d)",logTxt, [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent], (int32_t)line];
 	NSLogv(log, ap);
 	[pool drain];
 }
@@ -141,11 +141,11 @@ BOOL PSoftAssert(char* filename, NSInteger line, BOOL condition, NSString* logTx
 		va_list ap;
 		va_start(ap, logTxt);
 		NSAutoreleasePool* pool=[NSAutoreleasePool new];
-		NSString* log = [NSString stringWithFormat:@"*** ASSERTION FAILED!! %@ (%@:%d)",logTxt, [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent], line];
+		NSString* log = [NSString stringWithFormat:@"*** ASSERTION FAILED!! %@ (%@:%d)",logTxt, [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent], (int32_t)line];
 		NSLogv(log, ap);
 		
 #if defined(__DEBUG__) || defined(__VERBOSE__)
-        NSAlert* fatalError = [NSAlert alertWithMessageText:@"Assertion failed!" defaultButton:@"Fail" alternateButton:nil otherButton:nil informativeTextWithFormat:log ];
+        NSAlert* fatalError = [NSAlert alertWithMessageText:@"Assertion failed!" defaultButton:@"Fail" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@",log ];
         [fatalError runModal];
 #endif
 		[pool drain];

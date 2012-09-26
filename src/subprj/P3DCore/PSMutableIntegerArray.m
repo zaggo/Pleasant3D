@@ -92,7 +92,7 @@ static NSInteger sortLexically(NSNumber* n1, NSNumber* n2, void * context)
 {
 	if(index<0 || index>=count)
 		@throw [NSException exceptionWithName:@"PSIntegerArray: indexOufOfRange" 
-							reason:[NSString stringWithFormat:@"index %d is out of array range [0..%d]",index, count] 
+							reason:[NSString stringWithFormat:@"index %d is out of array range [0..%d]",(int32_t)index, (int32_t)count] 
 							userInfo:nil];
 							
 	NSInteger chunkIndex = index/integersPerChunk;
@@ -105,7 +105,7 @@ static NSInteger sortLexically(NSNumber* n1, NSNumber* n2, void * context)
 {
 	if(index<0 || index>=count)
 		@throw [NSException exceptionWithName:@"PSIntegerArray: indexOufOfRange" 
-									   reason:[NSString stringWithFormat:@"index %d is out of array range [0..%d]",index, count] 
+									   reason:[NSString stringWithFormat:@"index %d is out of array range [0..%d]",(int32_t)index, (int32_t)count]
 									 userInfo:nil];
 	
 	NSInteger chunkIndex = index/integersPerChunk;
@@ -141,12 +141,12 @@ static NSInteger sortLexically(NSNumber* n1, NSNumber* n2, void * context)
 
 - (NSString*)description
 {
-	NSMutableString* desc=[NSMutableString stringWithFormat:@"IntegerArray with %d integers", count];
+	NSMutableString* desc=[NSMutableString stringWithFormat:@"IntegerArray with %d integers", (int32_t)count];
 	if(count>0)
 	{
 		[desc appendString:@" ("];
 		for(int i=0;i<count;i++)
-			[desc appendFormat:@"%d, ", [self integerAtIndex:i]];
+			[desc appendFormat:@"%d, ", (int32_t)[self integerAtIndex:i]];
 		[desc deleteCharactersInRange:NSMakeRange([desc length]-2, 2)];
 	}
 	[desc appendString:@")"];

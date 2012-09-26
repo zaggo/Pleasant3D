@@ -314,6 +314,8 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 		if (!inFacetEdges || err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clCreateBuffer inFacetEdges failed: %d",err);
+            free(facetEdges);
+            free(indexedEdges);
 			return nil;
 		}
 
@@ -321,6 +323,9 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 		if (!inOutIndexedEdges || err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clCreateBuffer inOutIndexedEdges failed: %d",err);
+            free(facetEdges);
+            clReleaseMemObject(inFacetEdges);
+            free(indexedEdges);
 			return nil;
 		}
 
@@ -331,6 +336,10 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clSetKernelArg kernelEdgeMatch returns %d",err);
+            free(facetEdges);
+            free(indexedEdges);
+            clReleaseMemObject(inFacetEdges);
+            clReleaseMemObject(inOutIndexedEdges);
 			return nil;
 		}
 		
@@ -339,6 +348,10 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 		if (err)
 		{
 			PSErrorLog(@"clEnqueueNDRangeKernel kernelEdgeMatch returns %d",err);
+            free(facetEdges);
+            free(indexedEdges);
+            clReleaseMemObject(inFacetEdges);
+            clReleaseMemObject(inOutIndexedEdges);
 			return nil;
 		}
 			
@@ -346,6 +359,10 @@ static int compareCl_Int4(cl_int4 i1, cl_int4 i2)
 		if (err != CL_SUCCESS)
 		{
 			PSErrorLog(@"clEnqueueReadBuffer returns %d",err);
+            free(facetEdges);
+            free(indexedEdges);
+            clReleaseMemObject(inFacetEdges);
+            clReleaseMemObject(inOutIndexedEdges);
 			return nil;
 		}
 			

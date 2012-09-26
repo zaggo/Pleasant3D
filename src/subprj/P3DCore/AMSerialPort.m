@@ -136,7 +136,7 @@ NSString *const AMSerialErrorDomain = @"de.harmless.AMSerial.ErrorDomain";
 // So NSLog and gdb's 'po' command give something useful
 - (NSString *)description
 {
-	NSString *result= [NSString stringWithFormat:@"<%@: %x = name: %@, path: %@, type: %@, fileHandle: %@, fileDescriptor: %d>", NSStringFromClass([self class]), (long unsigned)self, serviceName, bsdPath, serviceType, fileHandle, fileDescriptor];
+	NSString *result= [NSString stringWithFormat:@"<%@: %p = name: %@, path: %@, type: %@, fileHandle: %@, fileDescriptor: %d>", NSStringFromClass([self class]), self, serviceName, bsdPath, serviceType, fileHandle, (int32_t)fileDescriptor];
 	return result;
 }
 
@@ -388,8 +388,8 @@ NSString *const AMSerialErrorDomain = @"de.harmless.AMSerial.ErrorDomain";
 {
 	[optionsDictionary removeAllObjects];
 	[optionsDictionary setObject:[self name] forKey:AMSerialOptionServiceName];
-	[optionsDictionary setObject:[NSString stringWithFormat:@"%d", [self speed]] forKey:AMSerialOptionSpeed];
-	[optionsDictionary setObject:[NSString stringWithFormat:@"%ul", [self dataBits]] forKey:AMSerialOptionDataBits];
+	[optionsDictionary setObject:[NSString stringWithFormat:@"%d", (int32_t)[self speed]] forKey:AMSerialOptionSpeed];
+	[optionsDictionary setObject:[NSString stringWithFormat:@"%ul", (uint32_t) [self dataBits]] forKey:AMSerialOptionDataBits];
 	switch ([self parity]) {
 		case kAMSerialParityOdd: {
 			[optionsDictionary setObject:@"Odd" forKey:AMSerialOptionParity];

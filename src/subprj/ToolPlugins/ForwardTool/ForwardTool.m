@@ -123,7 +123,7 @@
 	else
 	{
 		dispatch_async(dispatch_get_main_queue(), ^{
-			self.toolInfo2 = [NSString stringWithFormat:@"%C %@ %C",0x25ba,NSStringFromClass([self.inputProvider.outData class]),0x25ba];
+			self.toolInfo2 = [NSString stringWithFormat:@"%C %@ %C",(unsigned short)0x25ba,NSStringFromClass([self.inputProvider.outData class]),(unsigned short)0x25ba];
 			});
 		self.outData=nil;		
 		if(self.inputProvider.outData)
