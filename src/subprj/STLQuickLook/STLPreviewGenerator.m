@@ -105,7 +105,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
     
 	CGLPixelFormatAttribute attribs[] = // 1
 	{
-		kCGLPFAOffScreen,
+//		kCGLPFAOffScreen,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
 		kCGLPFASupersample,
