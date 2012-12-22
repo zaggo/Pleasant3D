@@ -235,7 +235,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
             
             
             glColor4f(1., 0., 0., .5);
-            size_t rasterLinesSize = ceil((dimBuildPlattform.x - zeroBuildPlattform.x - -zeroBuildPlattform.x) / 10.0) * 6;
+            size_t rasterLinesSize = ceil(dimBuildPlattform.x/ 10.0) * 6;
             GLfloat* rasterLines = calloc(rasterLinesSize, sizeof(GLfloat));
             NSInteger i=0;
             for(CGFloat x = -zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.)
