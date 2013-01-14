@@ -1274,8 +1274,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 8;
-				APPLICATION_VERSION = 2.0.1;
+				APPLICATION_BUILD_NUMBER = 9;
+				APPLICATION_VERSION = 2.0.2;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1293,8 +1293,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 8;
-				APPLICATION_VERSION = 2.0.1;
+				APPLICATION_BUILD_NUMBER = 9;
+				APPLICATION_VERSION = 2.0.2;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

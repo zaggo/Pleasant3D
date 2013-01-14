@@ -90,7 +90,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>$(APPLICATION_VERSION) ($(APPLICATION_BUILD_NUMBER)) © 2005-2010 Pleasant Software, Offenburg/Germany</string>
+	<string>$(APPLICATION_VERSION) ($(APPLICATION_BUILD_NUMBER)) © 2005-2013 Pleasant Software, Offenburg/Germany</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
@@ -105,8 +105,6 @@
 	<string>$(APPLICATION_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array/>
 	<key>CFBundleVersion</key>
 	<string>$(APPLICATION_BUILD_NUMBER)</string>
 	<key>LSMinimumSystemVersion</key>
@@ -115,8 +113,6 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSServices</key>
-	<array/>
 	<key>SUFeedURL</key>
 	<string>http://download.pleasantsoftware.com/pleasant3d/pleasant3d.xml</string>
 	<key>SUPublicDSAKeyFile</key>
@@ -187,7 +183,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>UTImportedTypeDeclarations</key>
-	<array/>
 </dict>
 </plist>
