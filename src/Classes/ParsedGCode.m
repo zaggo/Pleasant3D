@@ -63,6 +63,8 @@
 	{
 		if([self scanString:@"(<layer>" intoString:nil])
 			isLayerStart = YES;
+		if([self scanString:@"(Slice" intoString:nil])
+			isLayerStart = YES;
 	}
 	else if([self scanString:@"G1" intoString:nil] || 
 			[self scanString:@"G2" intoString:nil] ||
@@ -110,7 +112,8 @@ static CGColorRef _extrusionOffColor=nil;
 			
 		extrusionWidth = 0.;
 		
-		BOOL isThereALayerStartWord=[gCodeLineScanners isThereAFirstWord:@"(<layer>"];
+		// MakerWare 1.1 uses Slice and has no <layer>
+		BOOL isThereALayerStartWord=[gCodeLineScanners isThereAFirstWord:@"(<layer>"] || [gCodeLineScanners isThereAFirstWord:@"(Slice"];
 		
 		panes = [NSMutableArray array];
 		__block NSMutableArray* currentPane = nil;
@@ -120,6 +123,11 @@ static CGColorRef _extrusionOffColor=nil;
 		__block Vector3* highCorner = [[Vector3 alloc] initVectorWithX:-FLT_MAX Y:-FLT_MAX Z:-FLT_MAX];
 		__block Vector3* lowCorner = [[Vector3 alloc] initVectorWithX:FLT_MAX Y:FLT_MAX Z:FLT_MAX];
 		__block float localExtrutionWidth = 0.;
+		__block float lastEValue = 0;
+		__block float eValue = 0;
+		__block BOOL extrusionOff = NO;
+		__block BOOL makerWareInUse = YES;
+		
 		[gCodeLineScanners enumerateObjectsUsingBlock:^(id scanner, NSUInteger idx, BOOL *stop) {
 			NSScanner* lineScanner = (NSScanner*)scanner;
 			[lineScanner setScanLocation:0];
@@ -129,7 +137,40 @@ static CGColorRef _extrusionOffColor=nil;
 				currentPane = [NSMutableArray array];
 				[panes addObject:currentPane];
 			}
-			if([lineScanner scanString:@"G1" intoString:nil])
+			BOOL hasG1E = [lineScanner scanString:@"G1 E" intoString:nil];
+			BOOL hasSnort = [[lineScanner string] rangeOfString:@"(snort)"].length != 0;
+			BOOL hasSquirt = [[lineScanner string] rangeOfString:@"(squirt)"].length != 0;
+		
+			if(makerWareInUse && (hasG1E || hasSnort || hasSquirt))
+			{
+				// Track E value for MakerWare 1.0 only
+				// Makerware does not insert 101 and 103s into the G-Code, so coloring fails
+				// G1 E with E smaller is a 103, next G1 E setting is a 101
+				if(hasG1E) {
+					[lineScanner scanFloat:&eValue];
+					if(eValue<lastEValue) {
+						[currentPane addObject:(id)_extrusionOffColor];
+						extrusionOff = YES;
+					} else if (extrusionOff) {
+						extrusionNumber++;
+						[currentPane addObject:[_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]]];
+						extrusionOff = NO;
+					}
+					lastEValue = eValue;
+				} else {
+					// For MakerWare 1.1 only
+					// Makerware does not insert 101 and 103s into the G-Code, so coloring fails
+					// Snort and squirt are used
+					if(hasSnort) {
+						[currentPane addObject:(id)_extrusionOffColor];
+					} else if(hasSquirt) {
+						extrusionNumber++;
+						[currentPane addObject:[_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]]];
+					}
+				}
+				
+			}
+			else if([lineScanner scanString:@"G1" intoString:nil])
 			{
 				[lineScanner updateLocation:currentLocation];
 				[currentPane addObject:[[currentLocation copy] autorelease]];
@@ -138,11 +179,13 @@ static CGColorRef _extrusionOffColor=nil;
 			}
 			else if([lineScanner scanString:@"M101" intoString:nil])
 			{
+				makerWareInUse = NO;
 				extrusionNumber++;
 				[currentPane addObject:[_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]]];
 			}
 			else if([lineScanner scanString:@"M103" intoString:nil])
 			{
+				makerWareInUse = NO;
 				[currentPane addObject:(id)_extrusionOffColor];
 			}			
 			else if([lineScanner scanString:@"(<extrusionWidth>" intoString:nil])
