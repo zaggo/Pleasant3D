@@ -1,3 +1,5 @@
+(Original readme.txt file from the author)
+
 This are the complete sources for Pleasant 3D
 
 Author: Eberhard Rensch
