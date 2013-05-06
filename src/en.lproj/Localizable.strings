@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Pleasant3D
+
+  Created by tchap (CKAB) on 06/05/13.
+  Copyright (c) 2013 Pleasant Software. All rights reserved.
+*/
+
+
+// Prefs Pane
+"General" = "General";
+"Machines" = "Machines";
+
+// Gcode
+"Layer - of -: - mm" = "Layer - of -: - mm";
+"Layer %d of %d: %@" = "Layer %d of %d: %@";

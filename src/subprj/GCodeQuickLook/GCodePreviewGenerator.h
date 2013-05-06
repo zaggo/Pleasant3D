@@ -52,7 +52,7 @@
 	Vector3* zeroBuildPlattform;
 	
 	NSArray* extrusionColors;
-	CGColorRef extrusionOffColor;
+	NSColor* extrusionOffColor;
 }
 
 @property (retain) NSArray* gCodePanes;

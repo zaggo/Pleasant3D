@@ -58,8 +58,8 @@
 
 	if([[self documents] count] == 0)
 	{
-		//[self openDocument:self];
-		[self newDocument:self];
+		[self openDocument:self];
+		//[self newDocument:self];
 	}		
 }
 
