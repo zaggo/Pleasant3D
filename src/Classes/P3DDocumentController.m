@@ -55,12 +55,7 @@
 	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, printer, nil]];
 	[general release];
 	[printer release];
-
-	if([[self documents] count] == 0)
-	{
-		[self openDocument:self];
-		//[self newDocument:self];
-	}		
+		
 }
 
 - (IBAction)showToolbox:(id)sender
