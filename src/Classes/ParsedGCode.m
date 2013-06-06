@@ -29,6 +29,11 @@
 #import "ParsedGCode.h"
 #import <P3DCore/NSArray+GCode.h>
 
+
+const float __filamentDiameter = 1.75; // mm
+const float __averageDensity = 1050; // kg.m-3
+const float __averageDirectionChangeCost = 0.0015; // s
+
 @interface NSScanner (ParseGCode)
 - (void)updateLocation:(Vector3*)currentLocation;
 - (BOOL)isLayerStartWithCurrentLocation:(Vector3*)currentLocation oldZ:(float*)oldZ layerStartWordExists:(BOOL)layerStartWordExist;
@@ -53,6 +58,75 @@
 		[self scanFloat:&value];
 		currentLocation.z = value;
 	}
+}
+
+- (void)updateStats:(struct stats*)GCODE_stats with:(Vector3*)currentLocation
+{
+    float newExtrudedLength = 0;
+    float feedRate = 0;
+    
+    [self setScanLocation:0];    
+    // are we G0/1, or M101/3 ?
+    if([self scanString:@"G1 " intoString:nil] || [self scanString:@"G0 " intoString:nil])
+	{
+        // travelling
+        GCODE_stats->currentLocation = currentLocation;
+        GCODE_stats->movementLinesCount++;
+            
+    } else {
+        // Nothing important, skip.
+        return;
+    }
+    
+    // Look for an extrusion length
+    if([self scanUpToString:@"E" intoString:nil])
+	{
+        [self scanString:@"E" intoString:nil];
+		[self scanFloat:&newExtrudedLength]; // mm
+        [self setScanLocation:0];
+	}
+    
+    // Look for a feedrate
+    if([self scanUpToString:@"F" intoString:nil])
+	{
+        [self scanString:@"F" intoString:nil];
+		[self scanFloat:&feedRate]; // mm/min
+	}
+    
+    //NSLog(@" ## Previous : %@", [GCODE_stats->previousLocation description]);
+    //NSLog(@" ## Current : %@", [GCODE_stats->currentLocation description]);
+    
+    Vector3* travelVector = [GCODE_stats->currentLocation sub:GCODE_stats->previousLocation];
+    float longestDistanceToMove = MAX(ABS(travelVector.x), ABS(travelVector.y)); // mm
+    float cartesianDistance = [travelVector abs]; // mm
+
+    // No FR information ?
+    if (feedRate == 0){
+        // Take previous feedRate
+        GCODE_stats->currentFeedRate = GCODE_stats->defaultFeedRate; // mm/min
+    } else {
+        if ([GCODE_stats->previousLocation isEqual:GCODE_stats->currentLocation])
+        {
+            GCODE_stats->defaultFeedRate = GCODE_stats->currentFeedRate = feedRate; // mm/min
+        }
+    }
+    
+    // Extrusion in progress
+    if (newExtrudedLength > 0){
+        GCODE_stats->totalExtrudedLength = newExtrudedLength; // mm
+        GCODE_stats->totalExtrudedDistance += cartesianDistance; // mm
+        GCODE_stats->totalExtrudedTime += (longestDistanceToMove / GCODE_stats->currentFeedRate + __averageDirectionChangeCost); // min
+    } else {
+        GCODE_stats->totalTravelledDistance += cartesianDistance; // mm
+        GCODE_stats->totalTravelledTime += (longestDistanceToMove / GCODE_stats->currentFeedRate + __averageDirectionChangeCost); // min
+    }
+            
+    GCODE_stats->previousLocation = [[GCODE_stats->currentLocation copy] autorelease];
+    
+    //NSLog(@" ## tel= %f; tet= %f; ttt=%f; nel=%f; D=%f; fr=%f; extr=%d", GCODE_stats->totalExtrudedLength, GCODE_stats->totalExtrudedTime, GCODE_stats->totalTravelledTime, newExtrudedLength, longestDistanceToMove, GCODE_stats->currentFeedRate, newExtrudedLength > 0);
+    
+    [self setScanLocation:0];
+    
 }
 
 - (BOOL)isLayerStartWithCurrentLocation:(Vector3*)currentLocation oldZ:(float*)oldZ layerStartWordExists:(BOOL)layerStartWordExist
@@ -86,7 +160,7 @@
 
 
 @implementation ParsedGCode
-@synthesize cornerHigh, cornerLow, extrusionWidth, panes;
+@synthesize cornerHigh, cornerLow, extrusionWidth, panes, statistics;
 
 static NSArray* _extrusionColors=nil;
 static NSColor* _extrusionOffColor=nil;
@@ -107,11 +181,44 @@ static NSColor* _extrusionOffColor=nil;
 
 }
 
+- (float)getTotalMachiningTime
+{
+    return statistics.totalExtrudedTime + statistics.totalTravelledTime;
+}
+- (float)getObjectWeight
+{
+    return statistics.totalExtrudedLength * pi/4 * pow(__filamentDiameter,2) * __averageDensity * pow(10,-6); // in g
+}
+- (float)getFilamentLength
+{
+    return statistics.totalExtrudedLength / 10 ; // in mm
+}
+- (float)getTravelPercentage
+{
+    return statistics.totalTravelledTime / statistics.totalExtrudedTime ; // ratio
+}
+
+
 - (id)initWithGCodeString:(NSString*)gcode;
 {
 	self = [super init];
 	if(self)
 	{
+        // Init stats
+        statistics.defaultFeedRate = 4800.0; // (mm/min)
+        
+        statistics.currentLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
+        statistics.previousLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
+        statistics.totalTravelledTime = 0;
+        statistics.totalTravelledDistance = 0;
+        statistics.totalExtrudedTime = 0;
+        statistics.totalExtrudedDistance = 0;
+        
+        statistics.totalExtrudedLength = 0;
+        
+        statistics.movementLinesCount = 0;
+        statistics.extruding = NO;
+        
 		// Create an array of linescanners
 		NSMutableArray* gCodeLineScanners = [NSMutableArray array];
 		NSArray* untrimmedLines = [gcode componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -139,6 +246,7 @@ static NSColor* _extrusionOffColor=nil;
 		__block BOOL makerWareInUse = YES;
 		
 		[gCodeLineScanners enumerateObjectsUsingBlock:^(id scanner, NSUInteger idx, BOOL *stop) {
+            
 			NSScanner* lineScanner = (NSScanner*)scanner;
 			[lineScanner setScanLocation:0];
 			if([lineScanner isLayerStartWithCurrentLocation:currentLocation oldZ:&oldZ layerStartWordExists:isThereALayerStartWord])
@@ -150,7 +258,7 @@ static NSColor* _extrusionOffColor=nil;
 			BOOL hasG1E = [lineScanner scanString:@"G1 E" intoString:nil];
 			BOOL hasSnort = [[lineScanner string] rangeOfString:@"(snort)"].length != 0;
 			BOOL hasSquirt = [[lineScanner string] rangeOfString:@"(squirt)"].length != 0;
-		
+                        
 			if(makerWareInUse && (hasG1E || hasSnort || hasSquirt))
 			{
 				// Track E value for MakerWare 1.0 only
@@ -186,6 +294,7 @@ static NSColor* _extrusionOffColor=nil;
 				[currentPane addObject:[[currentLocation copy] autorelease]];
 				[lowCorner minimizeWith:currentLocation];
 				[highCorner maximizeWith:currentLocation];
+
 			}
 			else if([lineScanner scanString:@"M101" intoString:nil])
 			{
@@ -202,10 +311,33 @@ static NSColor* _extrusionOffColor=nil;
 			{
 				[lineScanner scanFloat:&localExtrutionWidth];
 			}
+            
+            // Current Location is now updated
+            //NSLog(@"%@", [lineScanner string]);
+            
+            // Update stats
+            [lineScanner updateStats:&statistics with:currentLocation];
+
+            
 		}];
+        
 		cornerLow = lowCorner;
 		cornerHigh = highCorner;
 		extrusionWidth = localExtrutionWidth;
+
+        /*
+        NSLog(@" Total Extruded length (mm): %f", statistics.totalExtrudedLength);
+        NSLog(@" Grams : %f", statistics.totalExtrudedLength * pi/4 * pow(1.75,2) * 1050 * pow(10,-6));
+        
+        NSLog(@" Lines : %d",statistics.movementLinesCount );
+        
+        NSLog(@" Total Extruded time (min): %f", statistics.totalExtrudedTime);
+        NSLog(@" Total Travelled time (min): %f", statistics.totalTravelledTime);
+        
+        NSLog(@" Total Extruded distance (mm): %f", statistics.totalExtrudedDistance);
+        NSLog(@" Total Travelled distance (mm): %f", statistics.totalTravelledDistance);
+         */
+    
 	}
 	return self;
 }

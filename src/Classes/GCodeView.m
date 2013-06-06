@@ -130,6 +130,44 @@ static GLuint makeMask(NSInteger n)
 	return self.currentLayer+1;
 }
 
+// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+- (CGFloat)objectWeight
+{
+	return [parsedGCode getObjectWeight];
+}
++ (NSSet *)keyPathsForValuesAffectingObjectWeight {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (CGFloat)totalMachiningTime
+{
+	return [parsedGCode getTotalMachiningTime];
+}
++ (NSSet *)keyPathsForValuesAffectingTotalMachiningTime {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (CGFloat)filamentLength
+{
+	return [parsedGCode getFilamentLength];
+}
++ (NSSet *)keyPathsForValuesAffectingFilamentLength {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (CGFloat)travelPercentage
+{
+	return [parsedGCode getTravelPercentage];
+}
++ (NSSet *)keyPathsForValuesAffectingTravelPercentage {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (CGFloat)movementLinesCount
+{
+	return parsedGCode.statistics.movementLinesCount;
+}
++ (NSSet *)keyPathsForValuesAffectingMovementLinesCount {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
 + (NSSet *)keyPathsForValuesAffectingDimX {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }

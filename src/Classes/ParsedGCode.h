@@ -29,18 +29,46 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
+struct stats {
+    
+    float totalExtrudedLength;
+    float totalExtrudedTime;
+    float totalExtrudedDistance;
+    
+    float totalTravelledTime;
+    float totalTravelledDistance;
+    
+    float currentFeedRate;
+    float defaultFeedRate;
+    
+    int movementLinesCount;
+    
+    Vector3* currentLocation;
+    Vector3* previousLocation;
+    
+    BOOL extruding;
+};
+
 @interface ParsedGCode : NSObject {
 	Vector3* cornerHigh;
 	Vector3* cornerLow;
 	float extrusionWidth;
 	
-	NSMutableArray* panes;	
+    struct stats statistics;
+    
+	NSMutableArray* panes;
 }
+
 
 @property (readonly) Vector3* cornerHigh;
 @property (readonly) Vector3* cornerLow;
 @property (readonly) float extrusionWidth;
+@property (readonly) struct stats statistics;
 @property (readonly) NSArray* panes;
 
 - (id)initWithGCodeString:(NSString*)gcode;
+- (float)getTotalMachiningTime;
+- (float)getObjectWeight;
+- (float)getTravelPercentage;
+- (float)getFilamentLength;
 @end
