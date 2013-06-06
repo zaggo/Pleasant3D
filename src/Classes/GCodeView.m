@@ -130,7 +130,6 @@ static GLuint makeMask(NSInteger n)
 	return self.currentLayer+1;
 }
 
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 - (CGFloat)objectWeight
 {
 	return [parsedGCode getObjectWeight];
@@ -138,9 +137,18 @@ static GLuint makeMask(NSInteger n)
 + (NSSet *)keyPathsForValuesAffectingObjectWeight {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
-- (CGFloat)totalMachiningTime
+- (NSString*)totalMachiningTime
 {
-	return [parsedGCode getTotalMachiningTime];
+    float raw = [parsedGCode getTotalMachiningTime];
+    
+    int hours = floor(raw / 60);
+    int minutes = floor(raw - hours * 60);
+    
+    if (hours > 0){
+        return [NSString stringWithFormat:@"%dh%02dmin", hours, minutes];
+    } else {
+        return [NSString stringWithFormat:@"%02dmin", minutes];
+    }
 }
 + (NSSet *)keyPathsForValuesAffectingTotalMachiningTime {
     return [NSSet setWithObjects:@"parsedGCode", nil];
@@ -152,13 +160,6 @@ static GLuint makeMask(NSInteger n)
 + (NSSet *)keyPathsForValuesAffectingFilamentLength {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
-- (CGFloat)travelPercentage
-{
-	return [parsedGCode getTravelPercentage];
-}
-+ (NSSet *)keyPathsForValuesAffectingTravelPercentage {
-    return [NSSet setWithObjects:@"parsedGCode", nil];
-}
 - (CGFloat)movementLinesCount
 {
 	return parsedGCode.statistics.movementLinesCount;
@@ -166,7 +167,32 @@ static GLuint makeMask(NSInteger n)
 + (NSSet *)keyPathsForValuesAffectingMovementLinesCount {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+- (NSInteger)layerThickness
+{
+    int count = parsedGCode.panes.count;
+    float topLayerMinZ = 0;
+    
+    // That's a hack since the last layer is always maximum height (Z axis is going all the way donw)
+    NSArray* lastPane = [parsedGCode.panes objectAtIndex:(parsedGCode.panes.count -1)];
+    for(id elem in lastPane)
+    {
+        if([elem isKindOfClass:[Vector3 class]])
+        {
+            if (topLayerMinZ ==0){
+                topLayerMinZ = ((Vector3*)elem).z;
+            } else {
+                topLayerMinZ = MIN(((Vector3*)elem).z, topLayerMinZ);
+            }
+        }
+    }
+    
+	if(count>0)
+		return (ceil(topLayerMinZ*10)/count)*100;
+	return 1.;
+}
++ (NSSet *)keyPathsForValuesAffectingLayerThickness {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
 
 + (NSSet *)keyPathsForValuesAffectingDimX {
     return [NSSet setWithObjects:@"parsedGCode", nil];

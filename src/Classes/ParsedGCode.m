@@ -124,7 +124,7 @@ const float __averageDirectionChangeCost = 0.0015; // s
     GCODE_stats->previousLocation = [[GCODE_stats->currentLocation copy] autorelease];
     
     //NSLog(@" ## tel= %f; tet= %f; ttt=%f; nel=%f; D=%f; fr=%f; extr=%d", GCODE_stats->totalExtrudedLength, GCODE_stats->totalExtrudedTime, GCODE_stats->totalTravelledTime, newExtrudedLength, longestDistanceToMove, GCODE_stats->currentFeedRate, newExtrudedLength > 0);
-    
+
     [self setScanLocation:0];
     
 }
@@ -192,10 +192,6 @@ static NSColor* _extrusionOffColor=nil;
 - (float)getFilamentLength
 {
     return statistics.totalExtrudedLength / 10 ; // in mm
-}
-- (float)getTravelPercentage
-{
-    return statistics.totalTravelledTime / statistics.totalExtrudedTime ; // ratio
 }
 
 

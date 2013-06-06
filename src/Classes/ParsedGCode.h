@@ -69,6 +69,5 @@ struct stats {
 - (id)initWithGCodeString:(NSString*)gcode;
 - (float)getTotalMachiningTime;
 - (float)getObjectWeight;
-- (float)getTravelPercentage;
 - (float)getFilamentLength;
 @end
