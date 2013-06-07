@@ -30,9 +30,9 @@
 #import <P3DCore/NSArray+GCode.h>
 
 
-const float __filamentDiameter = 1.75; // mm
+const float __filamentDiameter = 1.75 + 0.07; // mm + bias (mm)
 const float __averageDensity = 1050; // kg.m-3
-const float __averageDirectionChangeCost = 0.0015; // s
+const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
 
 @interface NSScanner (ParseGCode)
 - (void)updateLocation:(Vector3*)currentLocation;
@@ -115,10 +115,10 @@ const float __averageDirectionChangeCost = 0.0015; // s
     if (newExtrudedLength > 0){
         GCODE_stats->totalExtrudedLength = newExtrudedLength; // mm
         GCODE_stats->totalExtrudedDistance += cartesianDistance; // mm
-        GCODE_stats->totalExtrudedTime += (longestDistanceToMove / GCODE_stats->currentFeedRate + __averageDirectionChangeCost); // min
+        GCODE_stats->totalExtrudedTime += (longestDistanceToMove / (GCODE_stats->currentFeedRate *  __averageAccelerationEfficiency)); // min
     } else {
         GCODE_stats->totalTravelledDistance += cartesianDistance; // mm
-        GCODE_stats->totalTravelledTime += (longestDistanceToMove / GCODE_stats->currentFeedRate + __averageDirectionChangeCost); // min
+        GCODE_stats->totalTravelledTime += (longestDistanceToMove / (GCODE_stats->currentFeedRate * __averageAccelerationEfficiency)); // min
     }
             
     GCODE_stats->previousLocation = [[GCODE_stats->currentLocation copy] autorelease];
