@@ -85,6 +85,13 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
 		[self scanFloat:&newExtrudedLength]; // mm
         [self setScanLocation:0];
 	}
+    if([self scanUpToString:@"A" intoString:nil])
+	{
+        [self scanString:@"A" intoString:nil];
+		[self scanFloat:&newExtrudedLength]; // mm
+        [self setScanLocation:0];
+	}
+    
     
     // Look for a feedrate
     if([self scanUpToString:@"F" intoString:nil])
@@ -312,8 +319,9 @@ static NSColor* _extrusionOffColor=nil;
             //NSLog(@"%@", [lineScanner string]);
             
             // Update stats
-            [lineScanner updateStats:&statistics with:currentLocation];
-
+            if(!hasSnort && !hasSquirt) {
+                [lineScanner updateStats:&statistics with:currentLocation];
+            }
             
 		}];
         
