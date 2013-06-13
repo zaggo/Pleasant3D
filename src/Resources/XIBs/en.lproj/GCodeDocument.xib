@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -327,7 +327,7 @@
 													<string key="NSFrameSize">{0, 658}</string>
 													<reference key="NSSuperview" ref="878233260"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView" ref="420805382"/>
+													<reference key="NSNextKeyView" ref="312999825"/>
 													<object class="NSTextContainer" key="NSTextContainer" id="118381890">
 														<object class="NSLayoutManager" key="NSLayoutManager">
 															<object class="NSTextStorage" key="NSTextStorage">
@@ -458,7 +458,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 									<string key="NSFrameSize">{0, 660}</string>
 									<reference key="NSSuperview" ref="608136738"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="312999825"/>
+									<reference key="NSNextKeyView" ref="878233260"/>
 									<int key="NSsFlags">133138</int>
 									<reference key="NSVScroller" ref="217201672"/>
 									<reference key="NSHScroller" ref="312999825"/>
@@ -1069,7 +1069,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 																			<string key="NSFrame">{{59, 12}, {71, 15}}</string>
 																			<reference key="NSSuperview" ref="1072675317"/>
 																			<reference key="NSWindow"/>
-																			<reference key="NSNextKeyView"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<object class="NSSliderCell" key="NSCell" id="115250686">
 																				<int key="NSCellFlags">-2080112384</int>
@@ -1199,7 +1198,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 																		<object class="NSTextField" id="297294656">
 																			<reference key="NSNextResponder" ref="926462778"/>
 																			<int key="NSvFlags">268</int>
-																			<string key="NSFrame">{{10, 51}, {107, 14}}</string>
+																			<string key="NSFrame">{{10, 51}, {100, 14}}</string>
 																			<reference key="NSSuperview" ref="926462778"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="608102"/>
@@ -1207,8 +1206,12 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 																			<object class="NSTextFieldCell" key="NSCell" id="552219778">
 																				<int key="NSCellFlags">68157504</int>
 																				<int key="NSCellFlags2">71435264</int>
-																				<string key="NSContents">Extruded filament :</string>
-																				<reference key="NSSupport" ref="26"/>
+																				<string key="NSContents">Extruded filament</string>
+																				<object class="NSFont" key="NSSupport">
+																					<string key="NSName">LucidaGrande-Bold</string>
+																					<double key="NSSize">11</double>
+																					<int key="NSfFlags">3357</int>
+																				</object>
 																				<reference key="NSControlView" ref="297294656"/>
 																				<reference key="NSBackgroundColor" ref="976247868"/>
 																				<reference key="NSTextColor" ref="390399167"/>
@@ -1411,13 +1414,15 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 																						<reference key="locale" ref="648893786"/>
 																						<integer value="1" key="maximumFractionDigits"/>
 																						<integer value="1" key="minimumFractionDigits"/>
+																						<string key="negativeFormat">#,##</string>
 																						<string key="negativeInfinitySymbol">-∞</string>
 																						<string key="nilSymbol"/>
 																						<integer value="1" key="numberStyle"/>
+																						<string key="positiveFormat">#,##</string>
 																						<string key="positiveInfinitySymbol">+∞</string>
 																					</dictionary>
-																					<string key="NS.positiveformat">#,##0.0</string>
-																					<string key="NS.negativeformat">#,##0.0</string>
+																					<string key="NS.positiveformat">#,##</string>
+																					<string key="NS.negativeformat">#,##</string>
 																					<nil key="NS.positiveattrs"/>
 																					<nil key="NS.negativeattrs"/>
 																					<nil key="NS.zero"/>
@@ -1468,13 +1473,15 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 																						<reference key="locale" ref="648893786"/>
 																						<integer value="1" key="maximumFractionDigits"/>
 																						<integer value="1" key="minimumFractionDigits"/>
+																						<string key="negativeFormat">#,##</string>
 																						<string key="negativeInfinitySymbol">-∞</string>
 																						<string key="nilSymbol"/>
 																						<integer value="1" key="numberStyle"/>
+																						<string key="positiveFormat">#,##</string>
 																						<string key="positiveInfinitySymbol">+∞</string>
 																					</dictionary>
-																					<string key="NS.positiveformat">#,##0.0</string>
-																					<string key="NS.negativeformat">#,##0.0</string>
+																					<string key="NS.positiveformat">#,##</string>
+																					<string key="NS.negativeformat">#,##</string>
 																					<nil key="NS.positiveattrs"/>
 																					<nil key="NS.negativeattrs"/>
 																					<nil key="NS.zero"/>
