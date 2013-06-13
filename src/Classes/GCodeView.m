@@ -169,26 +169,25 @@ static GLuint makeMask(NSInteger n)
 }
 - (NSInteger)layerThickness
 {
-    int count = parsedGCode.panes.count;
-    float topLayerMinZ = 0;
+
+    float firstLayerMinZ = 0;
     
-    // That's a hack since the last layer is always maximum height (Z axis is going all the way donw)
-    NSArray* lastPane = [parsedGCode.panes objectAtIndex:(parsedGCode.panes.count -1)];
-    for(id elem in lastPane)
+    // That's a hack since the first layer is always of the delta height, normally
+    NSArray* firstPane = [parsedGCode.panes objectAtIndex:0];
+    for(id elem in firstPane)
     {
         if([elem isKindOfClass:[Vector3 class]])
         {
-            if (topLayerMinZ ==0){
-                topLayerMinZ = ((Vector3*)elem).z;
+            if (firstLayerMinZ == 0){
+                firstLayerMinZ = ((Vector3*)elem).z;
             } else {
-                topLayerMinZ = MIN(((Vector3*)elem).z, topLayerMinZ);
+                firstLayerMinZ = MIN(((Vector3*)elem).z, firstLayerMinZ);
             }
         }
     }
-    
-	if(count>0)
-		return (ceil(topLayerMinZ*10)/count)*100;
-	return 1.;
+
+    return ceil(firstLayerMinZ*100)*10;
+
 }
 + (NSSet *)keyPathsForValuesAffectingLayerThickness {
     return [NSSet setWithObjects:@"parsedGCode", nil];

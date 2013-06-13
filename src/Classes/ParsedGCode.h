@@ -32,6 +32,7 @@
 struct stats {
     
     float totalExtrudedLength;
+    float previousExtrudedLength;
     float totalExtrudedTime;
     float totalExtrudedDistance;
     
