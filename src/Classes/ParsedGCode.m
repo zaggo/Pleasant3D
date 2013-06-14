@@ -92,7 +92,6 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
         [self setScanLocation:0];
 	}
     
-    
     // Look for a feedrate
     if([self scanUpToString:@"F" intoString:nil])
 	{
@@ -118,6 +117,7 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
         }
     }
     
+    // Are we extruding ? (MiracleGrue in Makerware 2.2 HACK for Retract)
     GCODE_stats->extruding = (newExtrudedLength > GCODE_stats->previousExtrudedLength) && (newExtrudedLength > 0);
     
     // Extrusion in progress
@@ -131,7 +131,8 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
         GCODE_stats->totalTravelledDistance += cartesianDistance; // mm
         GCODE_stats->totalTravelledTime += (longestDistanceToMove / (GCODE_stats->currentFeedRate * __averageAccelerationEfficiency)); // min
     }
-            
+    
+    // Bumps new to old
     GCODE_stats->previousLocation = [[GCODE_stats->currentLocation copy] autorelease];
     GCODE_stats->previousExtrudedLength = newExtrudedLength;
     
@@ -145,27 +146,34 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
 {
 	BOOL isLayerStart = NO;
 	
-	if(layerStartWordExist)
-	{
+	if(layerStartWordExist) {
+        
 		if([self scanString:@"(<layer>" intoString:nil])
 			isLayerStart = YES;
 		if([self scanString:@"(Slice" intoString:nil])
 			isLayerStart = YES;
-	}
-	else if([self scanString:@"G1" intoString:nil] || 
+        
+	} else if([self scanString:@"G1" intoString:nil] || 
 			[self scanString:@"G2" intoString:nil] ||
 			[self scanString:@"G3" intoString:nil])
 	{
                    
 		[self updateLocation:currentLocation];
-        if(ABS(currentLocation.z-*oldZ) >.1 && ABS(currentLocation.z-*oldZ) < 100.0) // Hack to bypass first move from home position and last move to home position
-		{
+        
+        // Hack to bypass first move from home position and last move to home position
+        BOOL layerChange = ABS(currentLocation.z-*oldZ) >.1 && ABS(currentLocation.z-*oldZ) < 100.0;
+        
+        if(layerChange) {
             //NSLog(@"New layer created NOW");
-			*oldZ=currentLocation.z;
+			*oldZ = currentLocation.z;
 			isLayerStart = YES;
 		}
+        
 	}
-	[self setScanLocation:0];
+	
+    // Reset scan of line
+    [self setScanLocation:0];
+    
 	return isLayerStart;
 }
 
@@ -205,7 +213,7 @@ static NSColor* _extrusionOffColor=nil;
 }
 - (float)getFilamentLength
 {
-    return statistics.totalExtrudedLength / 10 ; // in mm
+    return statistics.totalExtrudedLength / 10.0 ; // in mm
 }
 
 
