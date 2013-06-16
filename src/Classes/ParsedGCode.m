@@ -67,7 +67,7 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
     
     [self setScanLocation:0];    
     // are we G0/1, or M101/3 ?
-    if([self scanString:@"G1 " intoString:nil] || [self scanString:@"G0 " intoString:nil])
+    if([self scanString:@"G1 " intoString:nil])
 	{
         // travelling
         GCODE_stats->currentLocation = currentLocation;
@@ -78,25 +78,38 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
         return;
     }
     
-    // Look for an extrusion length
-    if([self scanUpToString:@"E" intoString:nil])
-	{
-        [self scanString:@"E" intoString:nil];
-		[self scanFloat:&newExtrudedLength]; // mm
-        [self setScanLocation:0];
-	}
-    if([self scanUpToString:@"A" intoString:nil])
-	{
-        [self scanString:@"A" intoString:nil];
-		[self scanFloat:&newExtrudedLength]; // mm
-        [self setScanLocation:0];
-	}
-    
-    // Look for a feedrate
+    // Look for a feedrate FIRST
     if([self scanUpToString:@"F" intoString:nil])
 	{
         [self scanString:@"F" intoString:nil];
 		[self scanFloat:&feedRate]; // mm/min
+	}
+    
+    // Look for an extrusion length
+    if([self scanString:@"E" intoString:nil]) // E or A is the first extruder head
+	{
+        GCODE_stats->usingSecondExtruder =  NO;
+        
+        [self scanString:@"E" intoString:nil];
+		[self scanFloat:&newExtrudedLength]; // mm
+        [self setScanLocation:0];
+	}
+    if([self scanString:@"A" intoString:nil]) // E or A is the first extruder head
+	{
+        GCODE_stats->usingSecondExtruder =  NO;
+        
+        [self scanString:@"A" intoString:nil];
+		[self scanFloat:&newExtrudedLength]; // mm
+        [self setScanLocation:0];
+	}
+    if([self scanString:@"B" intoString:nil]) // B is the other extruder
+	{
+        GCODE_stats->usingSecondExtruder = YES;
+        
+        [self scanString:@"B" intoString:nil];
+		[self scanFloat:&newExtrudedLength]; // mm
+        [self setScanLocation:0];
+    
 	}
     
     // NSLog(@" ## Previous : %@", [GCODE_stats->previousLocation description]);
@@ -185,9 +198,12 @@ const float  __averageAccelerationEfficiency = 0.3; // ratio : theoricalSpeed * 
 @synthesize cornerHigh, cornerLow, extrusionWidth, panes, statistics;
 
 static NSArray* _extrusionColors=nil;
+static NSArray* _extrusionColors_A=nil;
+static NSArray* _extrusionColors_B=nil;
 static NSColor* _extrusionOffColor=nil;
 + (void)initialize
 {
+    // For single head extrusions
 	// 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
     _extrusionColors = [NSArray arrayWithObjects:
      [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
@@ -199,6 +215,22 @@ static NSColor* _extrusionOffColor=nil;
      [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
      nil];
 
+    // For dual head extrusions
+    // different shades of the same color
+    _extrusionColors_A = [NSArray arrayWithObjects:
+                        [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        nil];
+
+    _extrusionColors_B = [NSArray arrayWithObjects:
+                          [[NSColor cyanColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor magentaColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor blueColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          nil];
+    
     _extrusionOffColor = [[[NSColor grayColor] colorWithAlphaComponent:0.6] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
 
 }
@@ -237,6 +269,7 @@ static NSColor* _extrusionOffColor=nil;
         
         statistics.movementLinesCount = 0;
         statistics.extruding = NO;
+        statistics.usingSecondExtruder = NO;
         
 		// Create an array of linescanners
 		NSMutableArray* gCodeLineScanners = [NSMutableArray array];
@@ -323,7 +356,13 @@ static NSColor* _extrusionOffColor=nil;
 			{
 				makerWareInUse = NO;
 				extrusionNumber++;
-				[currentPane addObject:[_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]]];
+                NSLog(@"%d", statistics.usingSecondExtruder);
+                
+                if (statistics.usingSecondExtruder == YES) {
+                    [currentPane addObject:[_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]]];
+                } else {
+                    [currentPane addObject:[_extrusionColors_A objectAtIndex:extrusionNumber%[_extrusionColors_A count]]];
+                }
 			}
 			else if([lineScanner scanString:@"M103" intoString:nil] || !statistics.extruding)
 			{
@@ -335,7 +374,7 @@ static NSColor* _extrusionOffColor=nil;
 				[lineScanner scanFloat:&localExtrutionWidth];
 			}
             
-            // NSLog(@"%@", [lineScanner string]);
+            //NSLog(@"%@", [lineScanner string]);
             
             
 		}];

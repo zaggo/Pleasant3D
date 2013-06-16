@@ -48,6 +48,7 @@ struct stats {
     Vector3* previousLocation;
     
     BOOL extruding;
+    BOOL usingSecondExtruder;
 };
 
 @interface ParsedGCode : NSObject {
