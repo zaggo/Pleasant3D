@@ -39,19 +39,23 @@ struct stats {
     float totalTravelledTime;
     float totalTravelledDistance;
     
-    float currentFeedRate;
     float defaultFeedRate;
+    float currentFeedRate;
     
     int movementLinesCount;
+    int layersCount;
+    float layerHeight;
     
     Vector3* currentLocation;
     Vector3* previousLocation;
     
     BOOL extruding;
     BOOL usingSecondExtruder;
+    
 };
 
 @interface ParsedGCode : NSObject {
+    
 	Vector3* cornerHigh;
 	Vector3* cornerLow;
 	float extrusionWidth;
@@ -59,8 +63,8 @@ struct stats {
     struct stats statistics;
     
 	NSMutableArray* panes;
-}
 
+}
 
 @property (readonly) Vector3* cornerHigh;
 @property (readonly) Vector3* cornerLow;
@@ -72,4 +76,6 @@ struct stats {
 - (float)getTotalMachiningTime;
 - (float)getObjectWeight;
 - (float)getFilamentLength;
+- (NSInteger)getLayerHeight;
+
 @end

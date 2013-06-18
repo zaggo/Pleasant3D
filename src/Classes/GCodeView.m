@@ -169,25 +169,7 @@ static GLuint makeMask(NSInteger n)
 }
 - (NSInteger)layerThickness
 {
-
-    float firstLayerMinZ = 0;
-    
-    // That's a hack since the first layer is always of the delta height, normally
-    NSArray* firstPane = [parsedGCode.panes objectAtIndex:0];
-    for(id elem in firstPane)
-    {
-        if([elem isKindOfClass:[Vector3 class]])
-        {
-            if (firstLayerMinZ == 0){
-                firstLayerMinZ = ((Vector3*)elem).z;
-            } else {
-                firstLayerMinZ = MIN(((Vector3*)elem).z, firstLayerMinZ);
-            }
-        }
-    }
-
-    return ceil(firstLayerMinZ*100)*10;
-
+    return [parsedGCode getLayerHeight];
 }
 + (NSSet *)keyPathsForValuesAffectingLayerThickness {
     return [NSSet setWithObjects:@"parsedGCode", nil];
