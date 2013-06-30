@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>Pleasant 3D Changelog</title>
+      <link>http://ckab.com/appcasts/pleasant3D.xml</link>
+      <description>Pleasant3D's most recent changes with links to updates.</description>
+      <language>en</language>
+         <item>
+            <title>Version 2.2</title>
+						<sparkle:releaseNotesLink>
+							- Added Sparkle to update automatically the application
+              - New algorithms to estimate time taken for a build from a gcode file
+              - Bugfixes and improvements
+						</sparkle:releaseNotesLink>
+            <pubDate>Wed, 30 Jun 2013 20:00:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.2.zip" sparkle:version="2.2" length="1623481" type="application/octet-stream" sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
+         </item>
+
+         <item>
+            <title>Version 2.0 (initial release)</title>
+						<sparkle:releaseNotesLink>
+							- Minro bugfixes and improvements
+						</sparkle:releaseNotesLink>
+            <pubDate>Wed, 01 Jan 2013 12:20:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.0.zip" sparkle:version="2.0" length="1623481" type="application/octet-stream" sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
+         </item>
+
+   </channel>
+</rss>
