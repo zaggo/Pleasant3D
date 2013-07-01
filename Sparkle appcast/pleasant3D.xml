@@ -7,22 +7,52 @@
       <language>en</language>
          <item>
             <title>Version 2.2</title>
-						<sparkle:releaseNotesLink>
-							- Added Sparkle to update automatically the application
-              - New algorithms to estimate time taken for a build from a gcode file
-              - Bugfixes and improvements
-						</sparkle:releaseNotesLink>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Added Sparkle to update automatically the application</li>
+                <li>New algorithms to estimate time taken for a build from a gcode file</li>
+                <li>Bugfixes and improvements</li>
+              </ul>
+            ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Ajout du framework Sparkle pour les mises à jour automatiques</li>
+                <li>Nouvel algorithme pour le calcul estimé du temps d'impression d'un gcode</li>
+                <li>Amélioration et corrections de bug</li>
+              </ul>
+            ]]>
+            </description>
             <pubDate>Wed, 30 Jun 2013 20:00:11 +0000</pubDate>
-            <enclosure url="http://ckab.com/releases/Pleasant3D_2.2.zip" sparkle:version="2.2" length="1623481" type="application/octet-stream" sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.2.zip" 
+                       sparkle:version="2"
+                       sparkle:shortVersionString="2.2"
+                       length="1623481"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
          </item>
 
          <item>
             <title>Version 2.0 (initial release)</title>
-						<sparkle:releaseNotesLink>
-							- Minro bugfixes and improvements
-						</sparkle:releaseNotesLink>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Minor bugfixes and improvements</li>
+              </ul>
+              ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Quelques améliorations et corrections mineures</li>
+              </ul>
+              ]]>
+            </description>
             <pubDate>Wed, 01 Jan 2013 12:20:11 +0000</pubDate>
-            <enclosure url="http://ckab.com/releases/Pleasant3D_2.0.zip" sparkle:version="2.0" length="1623481" type="application/octet-stream" sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.0.zip" 
+                       sparkle:version="1"
+                       sparkle:shortVersionString="2.0"
+                       length="1623481"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
          </item>
 
    </channel>
