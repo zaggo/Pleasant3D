@@ -327,7 +327,7 @@
 													<string key="NSFrameSize">{0, 658}</string>
 													<reference key="NSSuperview" ref="878233260"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView" ref="420805382"/>
+													<reference key="NSNextKeyView" ref="312999825"/>
 													<object class="NSTextContainer" key="NSTextContainer" id="118381890">
 														<object class="NSLayoutManager" key="NSLayoutManager">
 															<object class="NSTextStorage" key="NSTextStorage">
@@ -458,7 +458,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 									<string key="NSFrameSize">{0, 660}</string>
 									<reference key="NSSuperview" ref="608136738"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="312999825"/>
+									<reference key="NSNextKeyView" ref="878233260"/>
 									<int key="NSsFlags">133138</int>
 									<reference key="NSVScroller" ref="217201672"/>
 									<reference key="NSHScroller" ref="312999825"/>
