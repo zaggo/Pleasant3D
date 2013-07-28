@@ -32,22 +32,22 @@
 struct stats {
     
     float totalExtrudedLength;
-    float previousExtrudedLength;
+    float currentExtrudedLength;
+    float currentExtrudedLengthSecondExtruder;
     float totalExtrudedTime;
     float totalExtrudedDistance;
     
     float totalTravelledTime;
     float totalTravelledDistance;
     
-    float defaultFeedRate;
     float currentFeedRate;
     
     int movementLinesCount;
     int layersCount;
     float layerHeight;
+    BOOL dualExtrusion;
     
     Vector3* currentLocation;
-    Vector3* previousLocation;
     
     BOOL extruding;
     BOOL usingSecondExtruder;

@@ -323,8 +323,11 @@ static GLuint makeMask(NSInteger n)
 					}
 					else
 					{
-						const CGFloat* color = CGColorGetComponents((CGColorRef)elem);
-						glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], (GLfloat)color[3]);
+                        NSColor *color = elem;
+						glColor4f((GLfloat)color.redComponent,
+                                  (GLfloat)color.greenComponent, 
+                                  (GLfloat)color.blueComponent, 
+                                  (GLfloat)color.alphaComponent);
 					}
 				}
 			}
