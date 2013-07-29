@@ -69,30 +69,39 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
     GCODE_stats->currentLocation = [[currentLocation copy] autorelease];
     GCODE_stats->movementLinesCount++;
             
-    // Look for a feedrate FIRST
+    // == Look for a feedrate FIRST ==
     if([self scanString:@"F" intoString:nil])
 	{
 		[self scanFloat:&GCODE_stats->currentFeedRate]; // mm/min
     }
     
-    // Look for an extrusion length
-    // E or A is the first extruder head
-    // B is the other extruder
-    float previousExtrudedLength = GCODE_stats->usingSecondExtruder
-        ? GCODE_stats->currentExtrudedLengthSecondExtruder
-        : GCODE_stats->currentExtrudedLength;
-    float currentExtrudedLength = previousExtrudedLength; // Default value: no change.
-    if([self scanString:@"E" intoString:nil]
-       || [self scanString:@"A" intoString:nil]
-       || [self scanString:@"B" intoString:nil])
-	{
+    // == Look for an extrusion length ==
+    // E or A is the first extruder head ("ToolA")
+    // B is the other extruder ("ToolB")
+    float currentExtrudedLength;
+    
+    if([self scanString:@"E" intoString:nil] || [self scanString:@"A" intoString:nil]) {
+        
+        // We're using ToolA for this move
         [self scanFloat:&currentExtrudedLength];
-        if (GCODE_stats->usingSecondExtruder) {
-            GCODE_stats->currentExtrudedLengthSecondExtruder = currentExtrudedLength;
-        } else {
-            GCODE_stats->currentExtrudedLength = currentExtrudedLength;
+        GCODE_stats->extruding = (currentExtrudedLength > GCODE_stats->currentExtrudedLengthToolA);
+        if (GCODE_stats->extruding) {
+            // Real life test
+            GCODE_stats->currentExtrudedLengthToolA = currentExtrudedLength;
         }
-	}
+        GCODE_stats->usingToolB = NO;
+        
+	} else if ([self scanString:@"B" intoString:nil]) {
+        
+        // We're using ToolB for this move
+        [self scanFloat:&currentExtrudedLength];
+        GCODE_stats->extruding = (currentExtrudedLength > GCODE_stats->currentExtrudedLengthToolB);
+        if (GCODE_stats->extruding) {
+            // Real life test
+            GCODE_stats->currentExtrudedLengthToolB = currentExtrudedLength;
+        }
+        GCODE_stats->usingToolB = YES;
+    }
     
     //NSLog(@" ## Previous : %@", [previousLocation description]);
     //NSLog(@" ## Current : %@", [GCODE_stats->currentLocation description]);
@@ -101,22 +110,22 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
     float longestDistanceToMove = MAX(ABS(travelVector.x), ABS(travelVector.y)); // mm
     float cartesianDistance = [travelVector abs]; // mm
     
-    // Are we extruding ?
-    GCODE_stats->extruding = (currentExtrudedLength > previousExtrudedLength);
-    GCODE_stats->totalExtrudedLength += (currentExtrudedLength - previousExtrudedLength); // mm
-
-    // Extrusion in progress
+    // == Calculating time taken to move or extrude ==
     if (GCODE_stats->extruding){
-        //NSLog(@"Extruding %f  > %f", currentExtrudedLength, previousExtrudedLength);
+        
+        // Extrusion in progress, let's calculate the time taken
+        // NSLog(@"Extruding %f  > %f", currentExtrudedLength, previousExtrudedLength);
         GCODE_stats->totalExtrudedDistance += cartesianDistance; // mm
         GCODE_stats->totalExtrudedTime += (longestDistanceToMove / (GCODE_stats->currentFeedRate *  __averageAccelerationEfficiencyWhenExtruding)); // min
     } else {
-        // NSLog(@"TRAVELLING");
+        
+        // We're only travelling, let's calculate the time taken
+        // NSLog(@"Travelling");
         GCODE_stats->totalTravelledDistance += cartesianDistance; // mm
         GCODE_stats->totalTravelledTime += (longestDistanceToMove / (GCODE_stats->currentFeedRate * __averageAccelerationEfficiencyWhenTravelling)); // min
     }
     
-    // NSLog(@" ## tel= %f; tet= %f; ttt=%f; nel=%f; D=%f; fr=%f; extr=%d", GCODE_stats->totalExtrudedLength, GCODE_stats->totalExtrudedTime, GCODE_stats->totalTravelledTime, newExtrudedLength, longestDistanceToMove, GCODE_stats->currentFeedRate, GCODE_stats->extruding);
+    // NSLog(@" ## tel= %f; tet= %f; ttt=%f; D=%f; fr=%f; extr=%d", GCODE_stats->currentExtrudedLengthToolA, GCODE_stats->totalExtrudedTime, GCODE_stats->totalTravelledTime, longestDistanceToMove, GCODE_stats->currentFeedRate, GCODE_stats->extruding);
 
     [self setScanLocation:0];
     
@@ -190,6 +199,7 @@ static NSColor* _extrusionOffColor=nil;
                           [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           nil];
     
+    // Off color
     _extrusionOffColor = [[[NSColor grayColor] colorWithAlphaComponent:0.6] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
 
 }
@@ -200,11 +210,15 @@ static NSColor* _extrusionOffColor=nil;
 }
 - (float)getObjectWeight
 {
-    return statistics.totalExtrudedLength * pi/4 * pow(__filamentDiameter,2) * __averageDensity * pow(10,-6); // in g
+    return (statistics.totalExtrudedLengthToolA + statistics.totalExtrudedLengthToolB) * pi/4 * pow(__filamentDiameter,2) * __averageDensity * pow(10,-6); // in g
 }
-- (float)getFilamentLength
+- (float)getFilamentLengthToolA
 {
-    return statistics.totalExtrudedLength / 10.0 ; // in cm
+    return statistics.totalExtrudedLengthToolA / 10.0 ; // in cm
+}
+- (float)getFilamentLengthToolB
+{
+    return statistics.totalExtrudedLengthToolB / 10.0 ; // in cm
 }
 - (NSInteger)getLayerHeight
 {
@@ -225,16 +239,19 @@ static NSColor* _extrusionOffColor=nil;
         statistics.totalExtrudedTime = 0;
         statistics.totalExtrudedDistance = 0;
         
-        statistics.totalExtrudedLength = 0;
-        statistics.currentExtrudedLength = 0;
+        statistics.currentExtrudedLengthToolA = 0;
+        statistics.currentExtrudedLengthToolB = 0;
+        
+        statistics.totalExtrudedLengthToolA = 0;
+        statistics.totalExtrudedLengthToolB = 0;
         
         statistics.movementLinesCount = 0;
         statistics.layersCount = 0;
-        statistics.layerHeight = -1.0;
+        statistics.layerHeight = 0;
         
         statistics.extruding = NO;
         statistics.dualExtrusion = NO;
-        statistics.usingSecondExtruder = NO;
+        statistics.usingToolB = NO;
         
 		NSArray* untrimmedLines = [gcode componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 		NSCharacterSet* whiteSpaceSet = [NSCharacterSet whitespaceCharacterSet];
@@ -260,12 +277,15 @@ static NSColor* _extrusionOffColor=nil;
                 [panes addObject:currentPane];
                 statistics.layersCount++;
                 
-                if (statistics.layerHeight == - 1.0){
-                    NSLog(@"INFO : Faking layer height calculation - skipping first result");
-                    statistics.layerHeight = 0;
-                } else if (statistics.layerHeight == 0.0){
-                    NSLog(@"INFO : Layer height : %fµ", roundf(ABS(oldZ - currentLocation.z)*100)*10);
-                    statistics.layerHeight = roundf(ABS(oldZ - currentLocation.z)*100)/100 ;
+                // If height has not been found yet
+                if (statistics.layerHeight == 0.0){
+                    
+                    float theoreticalHeight = roundf((currentLocation.z - oldZ)*100)/100;
+                    
+                    if (theoreticalHeight > 0 && theoreticalHeight < 1){ // We assume that a layer is less than 1mm thick
+                        statistics.layerHeight = theoreticalHeight;
+                    }
+                    
                 }
                 
             }
@@ -294,7 +314,7 @@ static NSColor* _extrusionOffColor=nil;
                 if(statistics.extruding)
                 {
                     if (statistics.dualExtrusion) {
-                        if (statistics.usingSecondExtruder) {
+                        if (statistics.usingToolB) {
                             [currentPane addObject:[_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]]];
                         } else {
                             [currentPane addObject:[_extrusionColors_A objectAtIndex:extrusionNumber%[_extrusionColors_A count]]];
@@ -316,15 +336,20 @@ static NSColor* _extrusionOffColor=nil;
                 // Slic3r uses this to reset the extruded distance.
                 
                 // We assume that an E value appears first.
+                // Generally, it's " G92 E0 ", but in case ...
                 if ([lineScanner scanString:@"E" intoString:nil]) {
                     float currentExtrudedLength;
                     [lineScanner scanFloat:&currentExtrudedLength];
-                    if (statistics.usingSecondExtruder) {
-                        statistics.currentExtrudedLengthSecondExtruder = currentExtrudedLength;
+                    if (statistics.usingToolB) {
+                        statistics.totalExtrudedLengthToolB += statistics.currentExtrudedLengthToolB;
+                        statistics.currentExtrudedLengthToolB = currentExtrudedLength;
                     } else {
-                        statistics.currentExtrudedLength = currentExtrudedLength;
+                        statistics.totalExtrudedLengthToolA += statistics.currentExtrudedLengthToolA;
+                        statistics.currentExtrudedLengthToolA = currentExtrudedLength;
                     }
                 }
+                
+                
             } else if ([command isEqualToString:@"M135"] || [command isEqualToString:@"M108"]) {
                 // M135: tool switch.
                 // M108: Set Extruder Speed.
@@ -333,23 +358,39 @@ static NSColor* _extrusionOffColor=nil;
                 if ([lineScanner scanString:@"T" intoString:nil]) {
                     int toolIndex;
                     [lineScanner scanInt:&toolIndex];
-                    statistics.usingSecondExtruder = (toolIndex >= 1);
-                    if (statistics.usingSecondExtruder) {
-                        statistics.dualExtrusion = TRUE;
+                    
+                    BOOL previouslyUsingToolB = statistics.usingToolB;
+                    statistics.usingToolB = (toolIndex >= 1);
+                    
+                    // The tool changed : we're sure we have a double extrusion print
+                    if (statistics.usingToolB == !previouslyUsingToolB) {
+                        statistics.dualExtrusion = YES;
                     }
                 }
             } else if ([command isEqualToString:@"T0"]) {
                 // T0: Switch to the first extruder.
                 // Slic3r and KISSlicer use this to switch the current extruder.
-                statistics.usingSecondExtruder =  NO;
+                BOOL previouslyUsingToolB = statistics.usingToolB;
+                statistics.usingToolB =  NO;
+                // The tool changed : we're sure we have a double extrusion print
+                if (statistics.usingToolB == !previouslyUsingToolB) {
+                    statistics.dualExtrusion = YES;
+                }
             } else if ([command isEqualToString:@"T1"]) {
                 // T1: Switch to the second extruder.
                 // Slic3r and KISSlicer use this to switch the current extruder.
-                statistics.usingSecondExtruder =  YES;
-                statistics.dualExtrusion = YES;
+                BOOL previouslyUsingToolB = statistics.usingToolB;
+                statistics.usingToolB =  YES;
+                // The tool changed : we're sure we have a double extrusion print
+                if (statistics.usingToolB == !previouslyUsingToolB) {
+                    statistics.dualExtrusion = YES;
+                }
             }
             
 		}];
+        
+        statistics.totalExtrudedLengthToolA += statistics.currentExtrudedLengthToolA;
+        statistics.totalExtrudedLengthToolB += statistics.currentExtrudedLengthToolB;
         
         // Correct height:
         highCorner.z = statistics.layersCount * statistics.layerHeight;
@@ -358,12 +399,13 @@ static NSColor* _extrusionOffColor=nil;
 		cornerHigh = highCorner;
 		extrusionWidth = statistics.layerHeight;
 
-        /*
+        
         NSLog(@" High corner: %@", cornerHigh);
         NSLog(@" Low corner: %@", cornerLow);
-        NSLog(@" Total Extruded length (mm): %f", statistics.totalExtrudedLength);
+        NSLog(@" Total Extruded length Tool A (mm): %f", statistics.totalExtrudedLengthToolA);
+        NSLog(@" Total Extruded length Tool B (mm): %f", statistics.totalExtrudedLengthToolB);
         NSLog(@" Using dual extrusion: %@", statistics.dualExtrusion ? @"Yes" : @"No");
-        NSLog(@" Grams : %f", statistics.totalExtrudedLength * pi/4 * pow(1.75,2) * 1050 * pow(10,-6));
+        NSLog(@" Grams : %f", (statistics.totalExtrudedLengthToolA + statistics.totalExtrudedLengthToolB) * pi/4 * pow(1.75,2) * 1050 * pow(10,-6));
         
         NSLog(@" G1 Lines : %d",statistics.movementLinesCount );
         

@@ -9,6 +9,7 @@ Pleasant 3D
 **Contributors in this repo:** 
   - Cyril Chapellier (https://github.com/tchapi)
   - Lawrence Johnston (https://github.com/lawrencejohnston)
+  - Maryla (https://github.com/miwucs)
 
 Build it with XCode 4+ (GC is ON but with a hack to avoid warnings on XCode 4.6+).
 

@@ -31,9 +31,18 @@
 
 struct stats {
     
-    float totalExtrudedLength;
-    float currentExtrudedLength;
-    float currentExtrudedLengthSecondExtruder;
+    BOOL dualExtrusion;
+    
+    // Tool-specific stats
+     /* TOOL A */
+      float currentExtrudedLengthToolA;
+      float totalExtrudedLengthToolA;
+     /* TOOL B */
+      float currentExtrudedLengthToolB;
+      float totalExtrudedLengthToolB;
+      BOOL usingToolB;
+    
+    // Common stats
     float totalExtrudedTime;
     float totalExtrudedDistance;
     
@@ -45,12 +54,10 @@ struct stats {
     int movementLinesCount;
     int layersCount;
     float layerHeight;
-    BOOL dualExtrusion;
     
     Vector3* currentLocation;
     
     BOOL extruding;
-    BOOL usingSecondExtruder;
     
 };
 
@@ -75,7 +82,8 @@ struct stats {
 - (id)initWithGCodeString:(NSString*)gcode;
 - (float)getTotalMachiningTime;
 - (float)getObjectWeight;
-- (float)getFilamentLength;
+- (float)getFilamentLengthToolA;
+- (float)getFilamentLengthToolB;
 - (NSInteger)getLayerHeight;
 
 @end

@@ -153,11 +153,18 @@ static GLuint makeMask(NSInteger n)
 + (NSSet *)keyPathsForValuesAffectingTotalMachiningTime {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
-- (CGFloat)filamentLength
+- (CGFloat)filamentLengthToolA
 {
-	return [parsedGCode getFilamentLength];
+	return [parsedGCode getFilamentLengthToolA];
 }
-+ (NSSet *)keyPathsForValuesAffectingFilamentLength {
+- (CGFloat)filamentLengthToolB
+{
+	return [parsedGCode getFilamentLengthToolB];
+}
++ (NSSet *)keyPathsForValuesAffectingFilamentLengthToolA {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
++ (NSSet *)keyPathsForValuesAffectingFilamentLengthToolB {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
 - (CGFloat)movementLinesCount
