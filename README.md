@@ -13,11 +13,11 @@ A useful utility that displays STL and GCode files.
 
 ### Compatible slicers ##
 
-  * Cura : not tested
   * Makerware (Skeinforge) : 100%
   * Makerware (MiracleGrue) : 100%
   * Slic3r : 100%
-
+  * Cura : only tested on single-extrusion gcodes
+ 
 
  - - -
 
