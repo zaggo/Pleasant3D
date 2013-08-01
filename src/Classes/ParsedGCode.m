@@ -450,6 +450,7 @@ static NSColor* _extrusionOffColor=nil;
 		extrusionWidth = statistics.layerHeight;
 
         
+        /*
         NSLog(@" High corner: %@", cornerHigh);
         NSLog(@" Low corner: %@", cornerLow);
         NSLog(@" Total Extruded length Tool A (mm): %f", statistics.totalExtrudedLengthToolA);
@@ -468,7 +469,8 @@ static NSColor* _extrusionOffColor=nil;
         
         NSLog(@" Total Extruded distance (mm): %f", statistics.totalExtrudedDistance);
         NSLog(@" Total Travelled distance (mm): %f", statistics.totalTravelledDistance);
-    
+        // */
+        
 	}
     
 	return self;
