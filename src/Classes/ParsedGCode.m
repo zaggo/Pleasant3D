@@ -103,8 +103,8 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
         GCODE_stats->usingToolB = YES;
     }
     
-    //NSLog(@" ## Previous : %@", [previousLocation description]);
-    //NSLog(@" ## Current : %@", [GCODE_stats->currentLocation description]);
+    // NSLog(@" ## Previous : %@", [previousLocation description]);
+    // NSLog(@" ## Current : %@", [GCODE_stats->currentLocation description]);
     
     Vector3* travelVector = [GCODE_stats->currentLocation sub:previousLocation];
     float longestDistanceToMove = MAX(ABS(travelVector.x), ABS(travelVector.y)); // mm
@@ -304,11 +304,14 @@ static NSColor* _extrusionOffColor=nil;
                 return;
             }
 
-            if([command isEqualToString:@"M104"] || [command isEqualToString:@"M109"] || [command isEqualToString:@"G10"]) {
+            if([command isEqualToString:@"M104"] /*|| [command isEqualToString:@"M109"]*/ || [command isEqualToString:@"G10"]) {
                 // M104: Set Extruder Temperature
                 // Set the temperature of the current extruder and return control to the host immediately
                 // (i.e. before that temperature has been reached by the extruder). See also M109 that does the same but waits.
                 // /!\ This is deprecated because temperatures should be set using the G10 and T commands.
+                
+                // M109
+                // Makerware uses M109 for the heating bed ...
                 
                 // G10
                 // Example: G10 P3 X17.8 Y-19.3 Z0.0 R140 S205
@@ -442,6 +445,10 @@ static NSColor* _extrusionOffColor=nil;
         statistics.totalExtrudedLengthToolA += statistics.currentExtrudedLengthToolA;
         statistics.totalExtrudedLengthToolB += statistics.currentExtrudedLengthToolB;
         
+        // Correct extruded lengths for extruder primes
+        statistics.totalExtrudedLengthToolA = statistics.dualExtrusion?statistics.totalExtrudedLengthToolA:(statistics.totalExtrudedLengthToolA>statistics.totalExtrudedLengthToolB?statistics.totalExtrudedLengthToolA:0);
+        statistics.totalExtrudedLengthToolB = statistics.dualExtrusion?statistics.totalExtrudedLengthToolB:(statistics.totalExtrudedLengthToolB>statistics.totalExtrudedLengthToolA?statistics.totalExtrudedLengthToolB:0);
+        
         // Correct height:
         highCorner.z = statistics.layersCount * statistics.layerHeight;
         
@@ -450,7 +457,7 @@ static NSColor* _extrusionOffColor=nil;
 		extrusionWidth = statistics.layerHeight;
 
         
-        /*
+        
         NSLog(@" High corner: %@", cornerHigh);
         NSLog(@" Low corner: %@", cornerLow);
         NSLog(@" Total Extruded length Tool A (mm): %f", statistics.totalExtrudedLengthToolA);
