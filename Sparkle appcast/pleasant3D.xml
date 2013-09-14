@@ -9,7 +9,7 @@
             <title>Version 2.3</title>
             <description xml:lang="en"><![CDATA[
               <ul>
-                <li>Added Slic3r and Cura Support (beta)</li>
+                <li>Added Slic3r and Cura Support</li>
                 <li>Refactored Gcode parsing for double extrusion</li>
                 <li>Bugfixes and improvements</li>
               </ul>

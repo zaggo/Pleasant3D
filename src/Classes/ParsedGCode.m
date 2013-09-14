@@ -141,7 +141,7 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
         float oldZ = currentLocation.z;
 		[self updateLocation:currentLocation];
         
-        BOOL layerChange = ABS(currentLocation.z - oldZ) > .09 && ABS(currentLocation.z - oldZ) < 100.0;
+        BOOL layerChange = ABS(currentLocation.z - oldZ) > .04 && ABS(currentLocation.z - oldZ) < 100.0;
         // NSLog(@"%f", ABS(currentLocation.z - oldZ));
         
         if(layerChange) {
