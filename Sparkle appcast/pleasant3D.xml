@@ -6,6 +6,30 @@
       <description>Pleasant3D's most recent changes with links to updates.</description>
       <language>en</language>
           <item>
+            <title>Version 2.3.1</title>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Minor fixes</li>
+                <li>Takes into account extruder primes for Makerware</li>
+              </ul>
+            ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Améliorations mineures</li>
+                <li>Prise en compte des débuts d'extrusion sous Makerware</li>
+              </ul>
+            ]]>
+            </description>
+            <pubDate>Sat, 14 Sep 2013 16:00:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.3.1.zip" 
+                       sparkle:version="2"
+                       sparkle:shortVersionString="2.3.1"
+                       length="5160031"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="MCwCFGPZOEdOeFyUIO/gzWOzKqslmWQaAhQ5DcNvLac7TUiFXb5FZ9SWpDvYWg==" />
+         </item>
+          <item>
             <title>Version 2.3</title>
             <description xml:lang="en"><![CDATA[
               <ul>
