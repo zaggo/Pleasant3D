@@ -43,6 +43,8 @@
 - (Vector3*)sub:(Vector3*)other;
 - (Vector3*)isub:(Vector3*)other;
 - (Vector3*)idiv:(float)other;
+- (float)distance:(Vector3*)other;
+- (void)setToVec3:(Vector3*)other;
 - (void)maximizeWith:(Vector3*)other;
 - (void)minimizeWith:(Vector3*)other;
 - (void)maximizeWithX:(float)x Y:(float)y Z:(float)z;

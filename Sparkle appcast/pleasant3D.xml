@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>Pleasant 3D Changelog</title>
+      <link>http://ckab.com/appcasts/pleasant3D.xml</link>
+      <description>Pleasant3D's most recent changes with links to updates.</description>
+      <language>en</language>
+          <item>
+            <title>Version 2.3.1</title>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Minor fixes</li>
+                <li>Takes into account extruder primes for Makerware</li>
+              </ul>
+            ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Améliorations mineures</li>
+                <li>Prise en compte des débuts d'extrusion sous Makerware</li>
+              </ul>
+            ]]>
+            </description>
+            <pubDate>Sat, 14 Sep 2013 16:00:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.3.1.zip" 
+                       sparkle:version="2"
+                       sparkle:shortVersionString="2.3.1"
+                       length="5160031"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="MCwCFGPZOEdOeFyUIO/gzWOzKqslmWQaAhQ5DcNvLac7TUiFXb5FZ9SWpDvYWg==" />
+         </item>
+          <item>
+            <title>Version 2.3</title>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Added Slic3r and Cura Support</li>
+                <li>Refactored Gcode parsing for double extrusion</li>
+                <li>Bugfixes and improvements</li>
+              </ul>
+            ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Ajout du support de Cura (beta) et Slic3r</li>
+                <li>Nouvel algorithme de visualisation du gcode, amélioré pour la double extrusion</li>
+                <li>Amélioration et corrections de bug</li>
+              </ul>
+            ]]>
+            </description>
+            <pubDate>Wed, 01 Aug 2013 13:00:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.3.zip" 
+                       sparkle:version="2"
+                       sparkle:shortVersionString="2.3"
+                       length="5162324"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="MC0CFALupngnx+P9hGimLubE3Ed52WokAhUAr2AgTTFkfQImpTXEROKK7fUoOLY=" />
+         </item>
+
+         <item>
+            <title>Version 2.2</title>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Added Sparkle to update automatically the application</li>
+                <li>New algorithms to estimate time taken for a build from a gcode file</li>
+                <li>Bugfixes and improvements</li>
+              </ul>
+            ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Ajout du framework Sparkle pour les mises à jour automatiques</li>
+                <li>Nouvel algorithme pour le calcul estimé du temps d'impression d'un gcode</li>
+                <li>Amélioration et corrections de bug</li>
+              </ul>
+            ]]>
+            </description>
+            <pubDate>Wed, 30 Jun 2013 20:00:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.2.zip" 
+                       sparkle:version="2"
+                       sparkle:shortVersionString="2.2"
+                       length="5157374"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="MC0CFQCnrGtpmmwnC09uS72BcMVIBo7SwQIUe1RjBRGi104PQYVrslsvKwdn5/Q=" />
+         </item>
+
+         <item>
+            <title>Version 2.0 (initial release)</title>
+            <description xml:lang="en"><![CDATA[
+              <ul>
+                <li>Minor bugfixes and improvements</li>
+              </ul>
+              ]]>
+            </description>
+            <description xml:lang="fr"><![CDATA[
+              <ul>
+                <li>Quelques améliorations et corrections mineures</li>
+              </ul>
+              ]]>
+            </description>
+            <pubDate>Wed, 01 Jan 2013 12:20:11 +0000</pubDate>
+            <enclosure url="http://ckab.com/releases/Pleasant3D_2.0.zip" 
+                       sparkle:version="1"
+                       sparkle:shortVersionString="2.0"
+                       length="1623481"
+                       type="application/octet-stream"
+                       sparkle:dsaSignature="BAFJW4B6B1K1JyW30nbkBwainOzrN6EQuAh" />
+         </item>
+
+   </channel>
+</rss>

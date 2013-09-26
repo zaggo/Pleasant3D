@@ -1,3 +1,7 @@
 /* Localized versions of Info.plist keys */
 
 p3dProject = "Pleasant3D Project";
+
+// Sparkle Updater
+SUPublicDSAKeyFile = "dsa_pub.pem";
+SUFeedURL = "http://ckab.com/appcasts/pleasant3D.xml";

@@ -166,10 +166,17 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	if(self)
 	{
 		// 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
-		extrusionColors = [[NSArray alloc] initWithObjects:[NSMakeCollectable(CGColorCreateGenericRGB(0.855, 0.429, 0.002, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.000, 0.000, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(1.000, 0.689, 0.064, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(1.000, 1.000, 0.000, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(0.367, 0.742, 0.008, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(0.607, 0.598, 1.000, 1.000)) autorelease], [NSMakeCollectable(CGColorCreateGenericRGB(0.821, 0.000, 0.833, 1.000)) autorelease], nil];        
+		extrusionColors = [NSArray arrayWithObjects:
+                        [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor greenColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor blueColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        nil];
+        extrusionOffColor = [[[NSColor grayColor] colorWithAlphaComponent:0.6] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
         
-		extrusionOffColor = (CGColorRef)CFMakeCollectable(CGColorCreateGenericRGB(0.902, 0.902, 0.902, .1));
-
 		thumbnail = forThumbnail;
 		
 		othersAlpha = .75;
@@ -364,13 +371,19 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 }
                 else
                 {
-                    const CGFloat* color = CGColorGetComponents((CGColorRef)elem);
+                    NSColor *color = elem;
+                    GLfloat alphaMultiplier;
                     if(currentLayer > layer)
-                        glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], (GLfloat)color[3]*powf((GLfloat)othersAlpha,3.f)); 
+                        alphaMultiplier = powf((GLfloat)othersAlpha,3.f); 
                     else if(currentLayer < layer)
-                        glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], ((GLfloat)color[3]*powf((GLfloat)othersAlpha,3.f))/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f))); 
+                        alphaMultiplier = powf((GLfloat)othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
                     else
-                        glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], (GLfloat)color[3]);
+                        alphaMultiplier = 1;
+                    
+                    glColor4f((GLfloat)color.redComponent,
+                     (GLfloat)color.greenComponent,
+                     (GLfloat)color.blueComponent,
+                     (GLfloat)color.alphaComponent*alphaMultiplier);
                 }
             }
             layer++;

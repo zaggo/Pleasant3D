@@ -19,4 +19,5 @@ build/*
 xcuserdata
 
 # Pleasant3D specific
+dsa_priv.pem
 notVersionized/
