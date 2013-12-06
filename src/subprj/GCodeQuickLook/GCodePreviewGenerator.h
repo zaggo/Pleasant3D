@@ -55,7 +55,7 @@
 	NSColor* extrusionOffColor;
 }
 
-@property (retain) NSArray* gCodePanes;
+@property (strong) NSArray* gCodePanes;
 @property (assign) CGSize renderSize;
 
 - (id)initWithURL:(NSURL*)gCodeURL size:(CGSize)size forThumbnail:(BOOL)forThumbnail;

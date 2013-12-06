@@ -38,13 +38,12 @@
 
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options)
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
+	@autoreleasepool {
 	CGSize renderSize = CGSizeMake(800., 600.);
 	CGContextRef cgContext = QLPreviewRequestCreateContext(preview, renderSize, YES, nil);
 	if(cgContext) 
 	{
-		GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(NSURL *)url size:renderSize forThumbnail:NO];
+            GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(__bridge NSURL *)url size:renderSize forThumbnail:NO];
 		CGImageRef cgImage = [previewGen newPreviewImage];
 		if(cgImage)
 		{
@@ -52,11 +51,9 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 			CFRelease(cgImage);
 			QLPreviewRequestFlushContext(preview, cgContext);
 		}
-				
-		[previewGen release];
 		CFRelease(cgContext);
 	}
-	[pool drain];
+    }
 	return noErr;
 }
 

@@ -39,9 +39,8 @@
 
 OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize)
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
-	BOOL thumbnailIcon = [[(NSDictionary*)options objectForKey:@"IconMode"] boolValue];
+    @autoreleasepool {
+        BOOL thumbnailIcon = [[(__bridge NSDictionary*)options objectForKey:@"IconMode"] boolValue];
 	CGSize renderSize;
 	if(thumbnailIcon)
 		renderSize = CGSizeMake(400., 512.);
@@ -50,7 +49,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	CGContextRef cgContext = QLThumbnailRequestCreateContext(thumbnail, renderSize, YES, nil);
 	if(cgContext) 
 	{	
-		GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(NSURL *)url size:renderSize forThumbnail:thumbnailIcon];
+            GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(__bridge NSURL *)url size:renderSize forThumbnail:thumbnailIcon];
 		
 		CGImageRef cgImage = [previewGen newPreviewImage];
 		if(cgImage)
@@ -60,10 +59,9 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 			QLThumbnailRequestFlushContext(thumbnail, cgContext);
 			CFRelease(cgImage);
 		}
-		[previewGen release];
 		CFRelease(cgContext);
 	}
-	[pool drain];
+	}
     return noErr;
 }
 

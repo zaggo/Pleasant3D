@@ -133,12 +133,11 @@ const CGFloat kRenderUpsizeFaktor=3.;
 			extrusionNumber = 0;
 			currentPane = [[NSMutableArray alloc] init];
 			[panes addObject:currentPane];
-			[currentPane release];
 		}
 		if([lineScanner scanString:@"G1" intoString:nil])
 		{
 			[lineScanner updateLocation:currentLocation];
-			[currentPane addObject:[[currentLocation copy] autorelease]]; // Add the centered point
+			[currentPane addObject:[currentLocation copy]]; // Add the centered point
 			[lowCorner minimizeWith:currentLocation];
 			[highCorner maximizeWith:currentLocation];
 		}
@@ -149,14 +148,12 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		}
 		else if([lineScanner scanString:@"M103" intoString:nil])
 		{
-			[currentPane addObject:(id)extrusionOffColor];
+			[currentPane addObject:extrusionOffColor];
 		}			
 	}];
 	cornerMinimum = lowCorner;
 	cornerMaximum = highCorner;
 	
-	[currentLocation release];
-		
 	return panes;
 }
 
@@ -203,8 +200,6 @@ const CGFloat kRenderUpsizeFaktor=3.;
 								
 			self.gCodePanes = [self parseLines:gCodeLineScanners];
 			
-			[gCodeLineScanners release];
-			
 			if([gCodePanes count]>0)
 			{
 				NSInteger maxLayers = [self.gCodePanes count]-1;
@@ -220,26 +215,12 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		else
 			NSLog(@"Error while reading: %@: %@",gCodeURL, [error localizedDescription]);
 		
-		[gCode release];
-		
 		cameraOffset =- 2*MAX( dimBuildPlattform.x, dimBuildPlattform.y);
 		
 		rotateX = 0.;
 		rotateY = -45.;
 	}
 	return self;
-}
-
-- (void) dealloc
-{
-	[gCodePanes release];
-
-	[extrusionColors release];
-	CFRelease(extrusionOffColor);
-	[dimBuildPlattform release];
-	[zeroBuildPlattform release];
-	
-	[super dealloc];
 }
 
 - (CGImageRef)newPreviewImage
