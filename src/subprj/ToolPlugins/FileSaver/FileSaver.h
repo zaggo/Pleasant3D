@@ -36,7 +36,7 @@
 }
 
 @property (assign) NSInteger selectedTargetPath;
-@property (retain) NSString* targetPath;
+@property (strong, nonatomic) NSString* targetPath;
 @property (assign) BOOL manualSave;
 
 - (IBAction)saveFile:(id)sender;
