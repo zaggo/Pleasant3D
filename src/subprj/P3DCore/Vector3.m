@@ -252,7 +252,7 @@
 	return [[[Vector3 alloc] initVectorWithX:x-distance*normale.x Y:y-distance*normale.y Z:z-distance*normale.z] autorelease];
 }
 
-- (void)setToVec3:(Vector3*)other
+- (void)setToVector3:(Vector3*)other
 {
 	x = other.x;
 	y = other.y;

@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">11A480b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1592</string>
-		<string key="IBDocument.AppKitVersion">1127</string>
-		<string key="IBDocument.HIToolboxVersion">561.00</string>
+		<int key="IBDocument.SystemTarget">1080</int>
+		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1592</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSSegmentedControl</string>
-			<string>NSScroller</string>
 			<string>NSArrayController</string>
-			<string>NSScrollView</string>
-			<string>NSTextFieldCell</string>
 			<string>NSBox</string>
-			<string>NSProgressIndicator</string>
+			<string>NSCollectionView</string>
 			<string>NSCollectionViewItem</string>
 			<string>NSCustomObject</string>
+			<string>NSProgressIndicator</string>
+			<string>NSScrollView</string>
+			<string>NSScroller</string>
 			<string>NSSegmentedCell</string>
+			<string>NSSegmentedControl</string>
+			<string>NSTextField</string>
+			<string>NSTextFieldCell</string>
 			<string>NSView</string>
 			<string>NSWindowTemplate</string>
-			<string>NSCollectionView</string>
-			<string>NSTextField</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.Metadata">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys" id="0">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-			</object>
-			<reference key="dict.values" ref="0"/>
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -54,7 +51,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{98, 399}, {438, 264}}</string>
 				<int key="NSWTFlags">-469761024</int>
-				<string key="NSWindowTitle">Toolbox</string>
+				<string key="NSWindowTitle">Boîte à outils</string>
 				<string key="NSWindowClass">PSToolboxPanel</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
@@ -119,6 +116,7 @@
 									<reference key="NSSuperview" ref="408032792"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="52919060"/>
+									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<int key="NSsFlags">256</int>
 									<reference key="NSTarget" ref="408032792"/>
 									<string key="NSAction">_doScroller:</string>
@@ -132,6 +130,7 @@
 									<reference key="NSSuperview" ref="408032792"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="819218329"/>
+									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="408032792"/>
 									<string key="NSAction">_doScroller:</string>
@@ -146,17 +145,20 @@
 							<reference key="NSVScroller" ref="201529922"/>
 							<reference key="NSHScroller" ref="467370530"/>
 							<reference key="NSContentView" ref="819218329"/>
+							<double key="NSMinMagnification">0.25</double>
+							<double key="NSMaxMagnification">4</double>
+							<double key="NSMagnification">1</double>
 						</object>
 						<object class="NSSegmentedControl" id="1040796792">
 							<reference key="NSNextResponder" ref="349118042"/>
 							<int key="NSvFlags">269</int>
-							<string key="NSFrame">{{169, 241}, {99, 17}}</string>
+							<string key="NSFrame">{{168, 241}, {102, 17}}</string>
 							<reference key="NSSuperview" ref="349118042"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="408032792"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSegmentedCell" key="NSCell" id="471899495">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">262144</int>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
@@ -167,11 +169,11 @@
 								<object class="NSMutableArray" key="NSSegmentImages">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="NSSegmentItem">
-										<string key="NSSegmentItemLabel">By Name</string>
+										<string key="NSSegmentItemLabel">Par Nom</string>
 										<int key="NSSegmentItemImageScaling">0</int>
 									</object>
 									<object class="NSSegmentItem">
-										<string key="NSSegmentItemLabel">By Type</string>
+										<string key="NSSegmentItemLabel">Par Type</string>
 										<int key="NSSegmentItemTag">1</int>
 										<bool key="NSSegmentItemSelected">YES</bool>
 										<int key="NSSegmentItemImageScaling">0</int>
@@ -180,6 +182,7 @@
 								<int key="NSSelectedSegment">1</int>
 								<int key="NSSegmentStyle">4</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSBox" id="52919060">
 							<reference key="NSNextResponder" ref="349118042"/>
@@ -194,7 +197,6 @@
 										<object class="NSProgressIndicator" id="870868342">
 											<reference key="NSNextResponder" ref="32345933"/>
 											<int key="NSvFlags">1292</int>
-											<object class="NSPSMatrix" key="NSDrawMatrix"/>
 											<string key="NSFrame">{{72, 15}, {32, 32}}</string>
 											<reference key="NSSuperview" ref="32345933"/>
 											<reference key="NSWindow"/>
@@ -205,15 +207,15 @@
 										<object class="NSTextField" id="908140837">
 											<reference key="NSNextResponder" ref="32345933"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{54, 62}, {68, 17}}</string>
+											<string key="NSFrame">{{39, 62}, {98, 17}}</string>
 											<reference key="NSSuperview" ref="32345933"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="870868342"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="677987972">
-												<int key="NSCellFlags">68288064</int>
+												<int key="NSCellFlags">68157504</int>
 												<int key="NSCellFlags2">272630784</int>
-												<string key="NSContents">Loading…</string>
+												<string key="NSContents">Chargement ...</string>
 												<object class="NSFont" key="NSSupport">
 													<string key="NSName">LucidaGrande</string>
 													<double key="NSSize">13</double>
@@ -229,6 +231,7 @@
 													</object>
 												</object>
 											</object>
+											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										</object>
 									</object>
 									<string key="NSFrameSize">{177, 114}</string>
@@ -243,7 +246,7 @@
 							<reference key="NSNextKeyView" ref="32345933"/>
 							<string key="NSOffsets">{0, 0}</string>
 							<object class="NSTextFieldCell" key="NSTitleCell">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">0</int>
 								<string key="NSContents">Box</string>
 								<object class="NSFont" key="NSSupport">
@@ -277,7 +280,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1040796792"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -302,6 +305,46 @@
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">toolbox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="859066393"/>
+					</object>
+					<int key="connectionID">20</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: toolPool.availableTools</string>
+						<reference key="source" ref="693218446"/>
+						<reference key="destination" ref="228424326"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="693218446"/>
+							<reference key="NSDestination" ref="228424326"/>
+							<string key="NSLabel">contentArray: toolPool.availableTools</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">toolPool.availableTools</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">33</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">collectionView</string>
+						<reference key="source" ref="228424326"/>
+						<reference key="destination" ref="919049945"/>
+					</object>
+					<int key="connectionID">19</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">toolCollection</string>
+						<reference key="source" ref="228424326"/>
+						<reference key="destination" ref="693218446"/>
+					</object>
+					<int key="connectionID">32</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">content: arrangedObjects</string>
 						<reference key="source" ref="919049945"/>
@@ -316,22 +359,6 @@
 						</object>
 					</object>
 					<int key="connectionID">12</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedIndex: sortingMode</string>
-						<reference key="source" ref="1040796792"/>
-						<reference key="destination" ref="228424326"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1040796792"/>
-							<reference key="NSDestination" ref="228424326"/>
-							<string key="NSLabel">selectedIndex: sortingMode</string>
-							<string key="NSBinding">selectedIndex</string>
-							<string key="NSKeyPath">sortingMode</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">15</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -350,44 +377,20 @@
 					<int key="connectionID">18</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">collectionView</string>
-						<reference key="source" ref="228424326"/>
-						<reference key="destination" ref="919049945"/>
-					</object>
-					<int key="connectionID">19</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">toolbox</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="859066393"/>
-					</object>
-					<int key="connectionID">20</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">toolCollection</string>
-						<reference key="source" ref="228424326"/>
-						<reference key="destination" ref="693218446"/>
-					</object>
-					<int key="connectionID">32</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: toolPool.availableTools</string>
-						<reference key="source" ref="693218446"/>
+						<string key="label">selectedIndex: sortingMode</string>
+						<reference key="source" ref="1040796792"/>
 						<reference key="destination" ref="228424326"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="693218446"/>
+							<reference key="NSSource" ref="1040796792"/>
 							<reference key="NSDestination" ref="228424326"/>
-							<string key="NSLabel">contentArray: toolPool.availableTools</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">toolPool.availableTools</string>
+							<string key="NSLabel">selectedIndex: sortingMode</string>
+							<string key="NSBinding">selectedIndex</string>
+							<string key="NSKeyPath">sortingMode</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">33</int>
+					<int key="connectionID">15</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -431,7 +434,9 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
-						<reference key="object" ref="0"/>
+						<object class="NSArray" key="object" id="0">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
 						<reference key="children" ref="1000"/>
 						<nil key="parent"/>
 					</object>
@@ -569,8 +574,6 @@
 					<string>10.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
-					<string>13.IBSegmentedControlTracker.RoundRobinState</string>
-					<string>13.IBSegmentedControlTracker.WasGrowing</string>
 					<string>14.IBPluginDependency</string>
 					<string>16.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
@@ -587,7 +590,7 @@
 					<string>9.IBCollectionViewIntegration.primaryColor</string>
 					<string>9.IBPluginDependency</string>
 				</object>
-				<object class="NSMutableArray" key="dict.values">
+				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -595,8 +598,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<integer value="0"/>
-					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -641,7 +642,7 @@
 							<string>showMachiningQueue:</string>
 							<string>showPreferences:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -654,7 +655,7 @@
 							<string>showMachiningQueue:</string>
 							<string>showPreferences:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">showMachiningQueue:</string>
@@ -673,7 +674,7 @@
 							<string>machiningQueueWindow</string>
 							<string>toolbox</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSWindow</string>
 							<string>PSToolboxPanel</string>
@@ -686,7 +687,7 @@
 							<string>machiningQueueWindow</string>
 							<string>toolbox</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">machiningQueueWindow</string>
@@ -713,7 +714,7 @@
 							<string>collectionView</string>
 							<string>toolCollection</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSCollectionView</string>
 							<string>NSArrayController</string>
@@ -726,7 +727,7 @@
 							<string>collectionView</string>
 							<string>toolCollection</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">collectionView</string>
@@ -755,10 +756,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1060" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
 			<integer value="3000" key="NS.object.0"/>

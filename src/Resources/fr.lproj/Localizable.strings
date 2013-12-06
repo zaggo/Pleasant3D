@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Pleasant3D
+
+  Created by tchap (CKAB) on 06/05/13.
+  Copyright (c) 2013 Pleasant Software. All rights reserved.
+*/
+
+// Prefs Pane
+"General" = "Général";
+"Machines" = "Imprimantes";
+
+// Gcode
+"Layer - of -: - mm" = "Couche - / -: - mm";
+"Layer %d of %d: %@" = "Couche %d / %d: %@";

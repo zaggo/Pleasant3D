@@ -33,7 +33,7 @@
 
 static GLuint makeMask(NSInteger n)
 {
-	return (2L<<n-1) - 1;
+	return (2L<<(n-1)) - 1;
 }
 
 @implementation GCodeView
@@ -130,6 +130,58 @@ static GLuint makeMask(NSInteger n)
 	return self.currentLayer+1;
 }
 
+- (CGFloat)objectWeight
+{
+	return [parsedGCode getObjectWeight];
+}
++ (NSSet *)keyPathsForValuesAffectingObjectWeight {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (NSString*)totalMachiningTime
+{
+    float raw = [parsedGCode getTotalMachiningTime];
+    
+    int hours = floor(raw / 60);
+    int minutes = floor(raw - hours * 60);
+    
+    if (hours > 0){
+        return [NSString stringWithFormat:@"%dh%02dmin", hours, minutes];
+    } else {
+        return [NSString stringWithFormat:@"%02dmin", minutes];
+    }
+}
++ (NSSet *)keyPathsForValuesAffectingTotalMachiningTime {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (CGFloat)filamentLengthToolA
+{
+	return [parsedGCode getFilamentLengthToolA];
+}
+- (CGFloat)filamentLengthToolB
+{
+	return [parsedGCode getFilamentLengthToolB];
+}
++ (NSSet *)keyPathsForValuesAffectingFilamentLengthToolA {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
++ (NSSet *)keyPathsForValuesAffectingFilamentLengthToolB {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (CGFloat)movementLinesCount
+{
+	return parsedGCode.statistics.movementLinesCount;
+}
++ (NSSet *)keyPathsForValuesAffectingMovementLinesCount {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+- (NSInteger)layerThickness
+{
+    return [parsedGCode getLayerHeight];
+}
++ (NSSet *)keyPathsForValuesAffectingLayerThickness {
+    return [NSSet setWithObjects:@"parsedGCode", nil];
+}
+
 + (NSSet *)keyPathsForValuesAffectingDimX {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
@@ -219,13 +271,20 @@ static GLuint makeMask(NSInteger n)
 					}
 					else
 					{
-						const CGFloat* color = CGColorGetComponents((CGColorRef)elem);
+						NSColor *color = elem;
+                        GLfloat alphaMultiplier;
+                        
 						if(currentLayer > layer)
-							glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], (GLfloat)color[3]*powf((GLfloat)othersAlpha,3.f)); 
+							alphaMultiplier = powf((GLfloat)othersAlpha,3.f);  
 						else if(currentLayer < layer)
-							glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], ((GLfloat)color[3]*powf((GLfloat)othersAlpha,3.f))/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f))); 
+							alphaMultiplier = powf((GLfloat)othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f)); 
 						else
-							glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], (GLfloat)color[3]);
+							alphaMultiplier = 1;
+                        
+                        glColor4f((GLfloat)color.redComponent,
+                          (GLfloat)color.greenComponent,
+                          (GLfloat)color.blueComponent,
+                          (GLfloat)color.alphaComponent*alphaMultiplier);
 					}
 				}
 				layer++;
@@ -271,8 +330,11 @@ static GLuint makeMask(NSInteger n)
 					}
 					else
 					{
-						const CGFloat* color = CGColorGetComponents((CGColorRef)elem);
-						glColor4f((GLfloat)color[0], (GLfloat)color[1], (GLfloat)color[2], (GLfloat)color[3]);
+                        NSColor *color = elem;
+						glColor4f((GLfloat)color.redComponent,
+                                  (GLfloat)color.greenComponent, 
+                                  (GLfloat)color.blueComponent, 
+                                  (GLfloat)color.alphaComponent);
 					}
 				}
 			}
