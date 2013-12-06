@@ -41,7 +41,7 @@
 	StepperFieldEnabledTransformer *stepperFieldEnabledTransformer;
 	
 	// create an autoreleased instance of our value transformer
-	stepperFieldEnabledTransformer = [[[StepperFieldEnabledTransformer alloc] init] autorelease];
+	stepperFieldEnabledTransformer = [[StepperFieldEnabledTransformer alloc] init];
 	
 	// register it with the name that we refer to it with
 	[NSValueTransformer setValueTransformer:stepperFieldEnabledTransformer forName:@"StepperFieldEnabledTransformer"];

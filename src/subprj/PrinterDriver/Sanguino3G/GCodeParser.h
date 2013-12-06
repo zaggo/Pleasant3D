@@ -11,7 +11,7 @@
 
 @class Sanguino3G, PacketBuilder;
 @interface GCodeParser : NSObject {
-	Sanguino3G* driver;
+	Sanguino3G* __weak driver;
 	Vector3* stepsPerMM;
 	Vector3* maxFeedrate;
 	
@@ -39,7 +39,7 @@
 	NSInteger bytecodeWritePosition;
 }
 
-@property (assign) Sanguino3G* driver;
+@property (weak, nonatomic) Sanguino3G* driver;
 
 - (NSArray*)parse:(NSString*)gCode;
 
