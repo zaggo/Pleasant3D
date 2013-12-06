@@ -39,6 +39,6 @@
 }
 
 @property (assign) float travelFeedRate;
-@property (retain) NSMutableArray* layerSettings;
+@property (strong) NSMutableArray* layerSettings;
 
 @end
