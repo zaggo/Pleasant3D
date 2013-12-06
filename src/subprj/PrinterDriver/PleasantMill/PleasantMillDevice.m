@@ -8,7 +8,6 @@
 
 #import "PleasantMillDevice.h"
 #import "PleasantMill.h"
-#import <P3DCore/AMSerialPortAdditions.h>
 
 @interface PleasantMillDevice (Private)
 - (NSInteger)motherboardVersion;
@@ -16,6 +15,11 @@
 @end
 
 @implementation PleasantMillDevice
+{
+    BOOL _synchronReceivedFlag;
+    BOOL _synchronReceiveMode;
+    NSString* _synchronReceivedResponse;
+}
 
 // Return the driver class, this device driver is part of
 - (Class)driverClass
@@ -48,25 +52,51 @@
 	return fetchedName;
 }
 
+// TODO: This code needs to be rewritten (block based code)
 - (NSString*)sendCommandSynchron:(NSString*)cmd
 {
-    NSString* response=nil;
+    _synchronReceivedResponse=nil;
 	if ([cmd length]>0)
 	{
-        NSError* error=nil;
+        _synchronReceivedFlag = NO;
+        _synchronReceiveMode = YES;
 		NSString* sendString = [cmd stringByAppendingString:@"\r"];
         if([port isOpen]) {
-            if(![port writeString:sendString usingEncoding:NSUTF8StringEncoding error:&error] && !quiet)
-                PSErrorLog(@"Error writing to device - %@.", [error description]);
+            if(![port sendData:[sendString dataUsingEncoding:NSUTF8StringEncoding]] && !quiet)
+                 PSErrorLog(@"Error writing to device "); // TODO Error Handling via serialPort:didEncounterError: delegate method
 		}
-        NSTimeInterval oldTimeout = [port readTimeout];
-        [port setReadTimeout:4.];
-        response = [port readUpToChar:(char)'\n' usingEncoding:NSUTF8StringEncoding error:&error];
-        if(response==nil && !quiet)
-            PSErrorLog(@"Error reading from printer - %@.", [error description]);
-        [port setReadTimeout:oldTimeout];
+        
+        NSDate* timeout = [NSDate dateWithTimeIntervalSinceNow:4.f];
+        while(!_synchronReceivedFlag && [timeout timeIntervalSinceNow]<0.f)
+        {
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
+        }
+        _synchronReceiveMode = NO;
+
+        if([_synchronReceivedResponse rangeOfString:@"\n"].location!=NSNotFound)
+            _synchronReceivedResponse = [_synchronReceivedResponse substringToIndex:[_synchronReceivedResponse rangeOfString:@"\n"].location];
+        if(_synchronReceivedResponse==nil && !quiet)
+            PSErrorLog(@"Error reading from printer");
 	}
-	return response;
+	return _synchronReceivedResponse;
+}
+
+- (void)serialPort:(ORSSerialPort *)serialPort didReceiveData:(NSData *)data
+{
+    if(_synchronReceiveMode)
+    {
+        if ([data length] > 0) {
+            _synchronReceivedResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+            _synchronReceivedFlag=YES;
+        } else {
+            // port closed
+            NSLog(@"Port was closed on a readData operation...not good!");
+        }
+    }
+    else
+    {
+        [super serialPort:serialPort didReceiveData:data];
+    }
 }
 
 #pragma mark -
