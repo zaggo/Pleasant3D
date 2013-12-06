@@ -74,7 +74,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		dimBuildPlattform = [[Vector3 alloc] initVectorWithX:100. Y:100. Z:0.];
 		zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:50. Y:50. Z:0.];
 
-		stlModel = [model retain];
+		stlModel = model;
 		
 		cameraOffset = - 2.*MAX( dimBuildPlattform.x, dimBuildPlattform.y);
 		
@@ -91,13 +91,6 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	return self;
 }
 
-- (void) dealloc
-{
-	[stlModel release];
-	[dimBuildPlattform release];
-	[zeroBuildPlattform release];
-	[super dealloc];
-}
 
 - (CGImageRef)newPreviewImage
 {	

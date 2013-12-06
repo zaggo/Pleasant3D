@@ -46,7 +46,7 @@
 	Vector3* zeroBuildPlattform;
 }
 
-@property (retain) STLModel* stlModel;
+@property (strong) STLModel* stlModel;
 @property (assign) BOOL wireframe;
 @property (assign) CGSize renderSize;
 

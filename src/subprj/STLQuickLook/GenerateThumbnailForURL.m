@@ -39,12 +39,11 @@
 
 OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize)
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 	STLImportPlugin* plugin = [[STLImportPlugin alloc] init];
-	STLModel* model = [plugin readSTLModel:[NSData dataWithContentsOfURL:(NSURL*)url]];
-	[plugin release];
+		STLModel* model = [plugin readSTLModel:[NSData dataWithContentsOfURL:(__bridge NSURL*)url]];
 	
-	BOOL thumbnailIcon = [[(NSDictionary*)options objectForKey:@"IconMode"] boolValue];
+		BOOL thumbnailIcon = [[(__bridge NSDictionary*)options objectForKey:@"IconMode"] boolValue];
 	CGSize renderSize;
 	if(thumbnailIcon)
 		renderSize = CGSizeMake(400., 512.);
@@ -116,11 +115,10 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 			QLThumbnailRequestFlushContext(thumbnail, cgContext);
 			CFRelease(cgImage);
 		}
-		[previewGen release];
 		CFRelease(cgContext);
 	}
-	[pool drain];
     return noErr;
+}
 }
 
 void CancelThumbnailGeneration(void* thisInterface, QLThumbnailRequestRef thumbnail)

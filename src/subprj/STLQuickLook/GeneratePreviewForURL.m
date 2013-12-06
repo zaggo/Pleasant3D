@@ -37,10 +37,9 @@
 
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options)
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 	STLImportPlugin* plugin = [[STLImportPlugin alloc] init];
-	STLModel* model = [plugin readSTLModel:[NSData dataWithContentsOfURL:(NSURL*)url]];
-	[plugin release];
+		STLModel* model = [plugin readSTLModel:[NSData dataWithContentsOfURL:(__bridge NSURL*)url]];
 	
 	CGSize renderSize = CGSizeMake(800., 600.);
 	CGContextRef cgContext = QLPreviewRequestCreateContext(preview, renderSize, YES, nil);
@@ -58,11 +57,10 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 		//		QTMovie* previewMovie = [previewGen generatePreviewMovie];
 		//		QLPreviewRequestSetDataRepresentation(preview, (CFDataRef)[previewMovie movieFormatRepresentation], kUTTypeMovie, nil);
 		
-		[previewGen release];
 		CFRelease(cgContext);
 	}
-	[pool drain];
 	return noErr;
+}
 }
 
 void CancelPreviewGeneration(void* thisInterface, QLPreviewRequestRef preview)
