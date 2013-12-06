@@ -382,7 +382,7 @@ static void inverseSlicedEdge(SlicedEdge* edge)
 		dispatch_group_t dpGroup = dispatch_group_create();
 	#endif
 		
-		for(NSInteger layerIndex = 0; layerIndex<totalLayers-1; layerIndex++)
+		for(NSInteger layerIndex = 0; layerIndex<MIN(totalLayers, layerCatalogLength-1); layerIndex++)
 		{
 	#if !__disable_gcd	
 		
