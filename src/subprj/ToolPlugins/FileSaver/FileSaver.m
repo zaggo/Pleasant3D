@@ -80,7 +80,9 @@
 - (void)saveSettingsToPreset:(NSMutableDictionary*)preset
 {
 	[preset setObject:[NSNumber numberWithInt:self.selectedTargetPath] forKey:@"selectedTargetPath"];
-	[preset setObject:self.targetPath forKey:@"targetPath"];
+    NSString* path = self.targetPath;
+    if(path!=nil)
+        [preset setObject:path forKey:@"targetPath"];
 	[preset setObject:[NSNumber numberWithBool:self.manualSave] forKey:@"manualSave"];
 }
 
