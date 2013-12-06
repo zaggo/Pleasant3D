@@ -70,7 +70,7 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 		if(err==noErr)
 		{
 			CFURLRef fileURL = CFURLCreateFromFSRef(NULL, &target);
-			path = [(NSURL*)fileURL path];
+			path = [[(__bridge NSURL*)fileURL path] copy];
 			CFRelease(fileURL);
 		}
 		DisposeHandle((Handle)aliasHandle);
@@ -153,16 +153,15 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 
 - (void)loadSettingsFromPreset:(NSDictionary*)preset
 {
-	self.loadPolicy = [[preset objectForKey:@"layerThickness"] integerValue];
+	self.loadPolicy = [[preset objectForKey:@"loadPolicy"] integerValue];
 }
 
-- (void)finalize
+- (void)dealloc
 {		
 	if(self.outData)
 	{
 		[self.outData unbind:@"gCodeString"];
 	}
-	[super finalize];
 }
 
 - (void)setSliceNDiceHost:(id <SliceNDiceHost>)value
@@ -221,7 +220,7 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 		
 		__block NSMutableArray* fileTypes = [[NSMutableArray alloc] init];
 		[self.requiredInputFormats enumerateObjectsUsingBlock:^(id formatString, NSUInteger idx, BOOL *stop) {
-			NSDictionary* utiDict = (NSDictionary*)NSMakeCollectable(UTTypeCopyDeclaration((CFStringRef)formatString));
+			NSDictionary* utiDict = (NSDictionary*)CFBridgingRelease(UTTypeCopyDeclaration((__bridge CFStringRef)formatString));
 			[fileTypes addObjectsFromArray:[[utiDict objectForKey:(id)kUTTypeTagSpecificationKey] objectForKey:(id)kUTTagClassFilenameExtension]];
             
 		}];
@@ -242,7 +241,7 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 	
 	self.sourceFileUTI = nil;
 	[self.requiredInputFormats enumerateObjectsUsingBlock:^(id formatString, NSUInteger idx, BOOL *stop) {
-		NSDictionary* utiDict = (NSDictionary*)NSMakeCollectable(UTTypeCopyDeclaration((CFStringRef)formatString));
+		NSDictionary* utiDict = (NSDictionary*)CFBridgingRelease(UTTypeCopyDeclaration((__bridge CFStringRef)formatString));
 		
 		for(NSString* extension in [[utiDict objectForKey:(id)kUTTypeTagSpecificationKey] objectForKey:(id)kUTTagClassFilenameExtension])
 		{

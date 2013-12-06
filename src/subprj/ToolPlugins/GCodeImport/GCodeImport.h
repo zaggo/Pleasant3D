@@ -49,7 +49,7 @@ enum {
 }
 
 @property (assign) NSInteger loadPolicy;
-@property (retain) NSString* sourceFilePath;
-@property (retain) NSString* sourceFileUTI;
-@property (retain) NSData* sourceData;
+@property (strong, nonatomic) NSString* sourceFilePath;
+@property (strong, nonatomic) NSString* sourceFileUTI;
+@property (strong) NSData* sourceData;
 @end
