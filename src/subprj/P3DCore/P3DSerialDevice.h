@@ -28,31 +28,31 @@
 #import <Cocoa/Cocoa.h>
 //#import <termios.h>
 #import <P3DCore/P3DCore.h>
-#import "AMSerialPort.h"
+#import "ORSSerialPort.h"
 
 @class P3DMachineJob;
-@interface P3DSerialDevice : NSObject {
+@interface P3DSerialDevice : NSObject <ORSSerialPortDelegate> {
 	BOOL quiet;
     
-    AMSerialPort* port;
+    ORSSerialPort* port;
     NSString* deviceName;
 
 	BOOL deviceIsValid;
 	NSString* errorMessage;
-    P3DMachineJob* activeMachineJob;
+    P3DMachineJob* __strong activeMachineJob;
 }
 
-@property (readonly) AMSerialPort* port;
-@property (readonly) NSString* deviceName;
+@property (strong, readonly) ORSSerialPort* port;
+@property (strong, readonly) NSString* deviceName;
 @property (readonly) Class	  driverClass;
 @property (assign) BOOL deviceIsValid;
 @property (readonly) BOOL deviceIsBusy;
 @property (assign) BOOL quiet;
-@property (assign) P3DMachineJob* activeMachineJob;
+@property (strong) P3DMachineJob* activeMachineJob;
 @property (copy) NSString* errorMessage;
 @property (readonly) NSInteger baudRate;
 
-- (id)initWithPort:(AMSerialPort*)port;
+- (id)initWithPort:(ORSSerialPort*)port;
 - (BOOL)registerDeviceIfValid;
 
 // Overload in derivates:

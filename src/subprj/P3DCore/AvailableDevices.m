@@ -30,8 +30,7 @@
 #import "P3DSerialDevice.h"
 #import "ConfiguredMachines.h"
 
-#import "AMSerialPortList.h"
-#import "AMSerialPortAdditions.h"
+#import "ORSSerialPortManager.h"
 
 // Needed for _NSGetArgc/_NSGetArgv
 // "crt_externs.h" has no C++ guards [3126393], so we have to provide them 
@@ -157,13 +156,14 @@ extern "C" {
     {
         started=YES;
         /// set up notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddPorts:) name:AMSerialPortListDidAddPortsNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRemovePorts:) name:AMSerialPortListDidRemovePortsNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddPorts:) name:ORSSerialPortsWereConnectedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRemovePorts:) name:ORSSerialPortsWereDisconnectedNotification object:nil];
 
-        AMSerialPortList* portList = [AMSerialPortList sharedPortList];
-        NSArray* ports = [portList serialPortsOfType:(NSString*)CFSTR(kIOSerialBSDRS232Type)];
-        [self didAddPorts:[NSNotification notificationWithName:AMSerialPortListDidAddPortsNotification object:self userInfo:[NSDictionary dictionaryWithObject:ports forKey:AMSerialPortListAddedPorts]]];
+        NSArray* portList = [[ORSSerialPortManager sharedSerialPortManager] availablePorts];
+        for(ORSSerialPort* port in portList) {
+            [self didAddPorts:[NSNotification notificationWithName:ORSSerialPortsWereConnectedNotification object:self userInfo:[NSDictionary dictionaryWithObject:port forKey:ORSConnectedSerialPortsKey]]];
     }
+}
 }
 
 + (NSSet *)keyPathsForValuesAffectingAvailableDevices {
@@ -178,18 +178,15 @@ extern "C" {
     
     self.discovering = YES;
 
-    NSArray* addedPorts = [[theNotification userInfo] objectForKey:AMSerialPortListAddedPorts];
-    NSMutableArray* newDevices = [[NSMutableArray alloc] initWithCapacity:addedPorts.count];
-    dispatch_group_t dpGroup = dispatch_group_create();
+    ORSSerialPort* port = [[theNotification userInfo] objectForKey:ORSConnectedSerialPortsKey];
+
+    NSMutableArray* newDevices = [[NSMutableArray alloc] initWithCapacity:1];
     dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
-    // Iterate across all serial devices found.
-    for(AMSerialPort* port in addedPorts)
-    {
         BOOL alreadyValidated=NO;
         for(P3DSerialDevice* device in availableSerialDevices)
         {
-            if([[port bsdPath] isEqualToString:[device.port bsdPath]])
+        if([[port path] isEqualToString:[device.port path]])
             {
                 alreadyValidated=YES;
                 break;
@@ -197,7 +194,7 @@ extern "C" {
         }
         if(!alreadyValidated)
         {
-            dispatch_group_async(dpGroup, globalQueue, ^{        
+        dispatch_async(globalQueue, ^{
                 for(Class driverClass in availableDrivers)
                 {
                     Class deviceDriverClass = [driverClass deviceDriverClass];
@@ -219,13 +216,7 @@ extern "C" {
                         }
                     }
                 }
-            });
-        }
-    }
     
-    dispatch_async(globalQueue, ^{
-        dispatch_group_wait(dpGroup, DISPATCH_TIME_FOREVER);
-        dispatch_release(dpGroup);
         dispatch_async(dispatch_get_main_queue(), ^{
             [[ConfiguredMachines sharedInstance] reconnectDevices:newDevices];
             self.discovering = NO;
@@ -233,23 +224,24 @@ extern "C" {
        });
     });
 }
+}
 
 - (void)didRemovePorts:(NSNotification *)theNotification
 {
 	NSLog(@"A port was removed");
 	[self willChangeValueForKey:@"availableDevices"];
-	for(AMSerialPort* port in [[theNotification userInfo] objectForKey:AMSerialPortListRemovedPorts])
-    {
+    
+    ORSSerialPort* port = [[theNotification userInfo] objectForKey:ORSDisconnectedSerialPortsKey];
+
         NSLog(@"%@", [port description]);
         for(P3DSerialDevice* device in availableSerialDevices)
         {
-            if([[device.port bsdPath] isEqualToString:[port bsdPath]])
+        if([[device.port path] isEqualToString:[port path]])
             {
                 [availableSerialDevices removeObject:device];
                 break;
             }
         }
-    }
 	[self didChangeValueForKey:@"availableDevices"];
 }
 
@@ -263,7 +255,7 @@ extern "C" {
 		NSDictionary* machineDict = [NSDictionary dictionaryWithObjectsAndKeys:
 									 device.deviceName, @"deviceName",
 									 [device.driverClass driverName], @"driverName",
-									 [[device.port bsdPath] lastPathComponent], @"serialPort",
+									 [[device.port path] lastPathComponent], @"serialPort",
 									 device, @"device",
 									 nil];
 									 
@@ -306,7 +298,7 @@ extern "C" {
     {
         for(P3DSerialDevice* device in availableSerialDevices)
         {
-            if([bsdPath isEqualToString:[device.port bsdPath]] && [deviceDriverClass isKindOfClass:device.driverClass])
+            if([bsdPath isEqualToString:[device.port path]] && [deviceDriverClass isKindOfClass:device.driverClass])
             {
                 foundDevice = device;
                 break;
@@ -315,11 +307,10 @@ extern "C" {
         NSArray* ports = nil;
         if(foundDevice==nil) // Nothing found yet
         {        
-            AMSerialPortList* portList = [AMSerialPortList sharedPortList];
-            ports = [portList serialPortsOfType:(NSString*)CFSTR(kIOSerialBSDRS232Type)];
-            for(AMSerialPort* port in ports)
+            ports = [[ORSSerialPortManager sharedSerialPortManager] availablePorts];
+            for(ORSSerialPort* port in ports)
             {
-                if([[port bsdPath] isEqualToString:bsdPath])
+                if([[port path] isEqualToString:bsdPath])
                 {
                     P3DSerialDevice* device = [[deviceDriverClass alloc] initWithPort:port];
                     device.quiet=YES;
@@ -339,11 +330,11 @@ extern "C" {
         }
         if(foundDevice==nil) // Nothing found yet
         {
-            for(AMSerialPort* port in ports)
-            {
+//            for(ORSSerialPort* port in ports)
+//            {
+//            }
             }
         }
-    }
     return foundDevice;
 }
 

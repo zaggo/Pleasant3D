@@ -121,11 +121,10 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 	// Don't load showPreview!
 }
 
-- (void)finalize
+- (void)dealloc
 {
 	if(inputProvider)
 		[inputProvider removeObserver:self forKeyPath:@"outData.uuid"];
-	[super finalize];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDataFlowButtonImage {
@@ -229,7 +228,7 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 	if([[self class] requiredInputFormats]==nil)
 		return NSLocalizedStringFromTableInBundle(@"None", nil, [NSBundle bundleForClass:[self class]], @"Localized fallback input format name (requiredInputFormat = nil)");
 		
-	__block NSMutableString* names = [[NSMutableString alloc] init];
+	NSMutableString* names = [[NSMutableString alloc] init];
 	[self.requiredInputFormats enumerateObjectsUsingBlock:^(id format, NSUInteger idx, BOOL *stop) {
 		[names appendFormat:@"%@\n", [[P3DFormatRegistration sharedInstance] localizedNameOfFormat:format]];
 		}];
@@ -503,7 +502,7 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 	CFStringRef strRef = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
 	if(strRef)
 	{
-		uuid = [NSString stringWithString:(NSString*)strRef];
+		uuid = [NSString stringWithString:(__bridge NSString*)strRef];
 		CFRelease(strRef);
 	}
 	if(uuidRef)

@@ -32,7 +32,7 @@
 
 @class P3DToolBase;
 @protocol SliceNDiceHost
-@property (retain) NSViewController* previewController;
+@property (strong, nonatomic) NSViewController* previewController;
 @property (readonly) BOOL encodeLightWeight;
 //@property (readonly) NSDictionary* currentMachineDescription;
 //

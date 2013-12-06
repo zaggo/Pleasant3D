@@ -34,7 +34,7 @@
 
 void switchToFileLogging()
 {
-	NSAutoreleasePool* pool = [NSAutoreleasePool new];
+	@autoreleasepool {
 	NSString* path = [[NSBundle mainBundle] pathForResource:@"debugScopes" ofType:@"plist"];
 	NSDictionary* scopeDict = [NSDictionary dictionaryWithContentsOfFile:path];
 	
@@ -46,7 +46,7 @@ void switchToFileLogging()
         
 		NSLog(@"=========== Log for run at %@ ===========",[jetzt description]);
 	}
-	[pool drain];
+}
 }
 
 void PSoftLog(char* filename, NSInteger line, NSString* scope, NSInteger priority, NSString* logTxt, ...)
@@ -60,7 +60,7 @@ void PSoftLog(char* filename, NSInteger line, NSString* scope, NSInteger priorit
     static BOOL showNoneScoped=NO;
     if(enabledScopes==nil)
     {
-		NSAutoreleasePool* pool=[NSAutoreleasePool new];
+		@autoreleasepool {
         NSString* path = [[NSBundle mainBundle] pathForResource:@"debugScopes" ofType:@"plist"];
         NSDictionary* scopeDict = [NSDictionary dictionaryWithContentsOfFile:path];
 		enabledScopes = [NSMutableArray new];
@@ -84,12 +84,12 @@ void PSoftLog(char* filename, NSInteger line, NSString* scope, NSInteger priorit
 		}
         verbosity = [[scopeDict objectForKey:@"verbosity"] intValue];
 		NSLog(@"PSLogging is ON and shows priorities %@ and above", ((verbosity==PSPrioLow)?@"LOW":(verbosity==PSPrioNormal)?@"NORMAL":(verbosity==PSPrioHigh)?@"HIGH":[NSString stringWithFormat:@"<%d>",(int32_t)verbosity]));
-		[pool drain];
+    }
     }
     
 	if(verbosity <= priority)
 	{
-		NSAutoreleasePool* pool=[NSAutoreleasePool new];
+		@autoreleasepool {
 		NSString* fileNameCleaned = [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent];
 		
 		BOOL logInScope=NO;
@@ -118,8 +118,8 @@ void PSoftLog(char* filename, NSInteger line, NSString* scope, NSInteger priorit
 				log = @"";
 			NSLogv(log, ap);
 		}
-		[pool drain];
 	}
+}
 }
 #endif
 
@@ -127,10 +127,10 @@ void PSoftErrorLog(char* filename, NSInteger line, NSString* logTxt, ...)
 {
     va_list ap;
     va_start(ap, logTxt);
-    NSAutoreleasePool* pool=[NSAutoreleasePool new];
+    @autoreleasepool {
 	NSString* log = [NSString stringWithFormat:@"%@ (%@:%d)",logTxt, [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent], (int32_t)line];
 	NSLogv(log, ap);
-	[pool drain];
+}
 }
 
 
@@ -140,7 +140,7 @@ BOOL PSoftAssert(char* filename, NSInteger line, BOOL condition, NSString* logTx
 	{
 		va_list ap;
 		va_start(ap, logTxt);
-		NSAutoreleasePool* pool=[NSAutoreleasePool new];
+		@autoreleasepool {
 		NSString* log = [NSString stringWithFormat:@"*** ASSERTION FAILED!! %@ (%@:%d)",logTxt, [[NSString stringWithCString:filename encoding:NSMacOSRomanStringEncoding] lastPathComponent], (int32_t)line];
 		NSLogv(log, ap);
 		
@@ -148,7 +148,7 @@ BOOL PSoftAssert(char* filename, NSInteger line, BOOL condition, NSString* logTx
         NSAlert* fatalError = [NSAlert alertWithMessageText:@"Assertion failed!" defaultButton:@"Fail" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@",log ];
         [fatalError runModal];
 #endif
-		[pool drain];
+	}
 	}
 	
 	return condition;

@@ -63,12 +63,12 @@ extern NSString* const P3DToolUTI;
 	NSMutableArray* toolPresetNames;
 	NSUInteger selectedPresetIndex;
 }
-@property (retain) id <SliceNDiceHost>sliceNDiceHost;
-@property (assign) BOOL isWorking;
-@property (assign) BOOL abortRequested;
+@property (strong) id <SliceNDiceHost>sliceNDiceHost;
+@property (assign, nonatomic) BOOL isWorking;
+@property (assign, nonatomic) BOOL abortRequested;
 
 @property (readonly) BOOL showsProgress;
-@property (assign) CGFloat toolProgress;
+@property (assign, nonatomic) CGFloat toolProgress;
 
 @property (copy) NSString* toolInfo1;
 @property (copy) NSString* toolInfo2;
@@ -89,14 +89,14 @@ extern NSString* const P3DToolUTI;
 // The default implementation returns providesOutputFormat
 @property (readonly) NSString* providesPreviewFormat;
 
-@property (retain) P3DToolBase* inputProvider;
-@property (retain) P3DProcessedObject* outData;
+@property (strong, nonatomic) P3DToolBase* inputProvider;
+@property (strong, nonatomic) P3DProcessedObject* outData;
 
 // Will be bound to the previewViewController.
 // Default implementation returns outData if showPreview==YES
 @property (readonly) id previewData; 
 
-@property (assign) BOOL showPreview;
+@property (assign, nonatomic) BOOL showPreview;
 
 @property (readonly) NSImage* dataFlowButtonImage;
 @property (readonly) NSImage* dataFlowButtonAltImage;
@@ -126,9 +126,9 @@ extern NSString* const P3DToolUTI;
 @property (readonly) NSViewController* previewViewController;
 
 // Preset Menu handling
-@property (retain) NSArray* toolPresets;
-@property (retain) NSArray* toolPresetNames;
-@property (assign) NSUInteger selectedPresetIndex;
+@property (strong, nonatomic) NSArray* toolPresets;
+@property (strong, nonatomic) NSArray* toolPresetNames;
+@property (assign, nonatomic) NSUInteger selectedPresetIndex;
 
 - (id) initWithHost:(id <SliceNDiceHost>)host;
 

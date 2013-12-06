@@ -115,7 +115,7 @@
 	SCDynamicStoreRef dynRef = SCDynamicStoreCreate(kCFAllocatorSystemDefault, CFSTR("MyName"), NULL, NULL); 
 	CFStringRef computerName = SCDynamicStoreCopyComputerName(dynRef, &theEncoding);
 	
-	NSString* localComputerName = [(NSString*)computerName copy];
+	NSString* localComputerName = [(__bridge NSString*)computerName copy];
 	CFRelease(computerName);
 	CFRelease(dynRef);
 	
@@ -129,7 +129,7 @@
 	NSMutableDictionary* printerDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 								 [P3DToolBase uuid], @"uuid",
 								 device, @"device",
-								 [device.port bsdPath], @"lastKnownBSDPath",
+								 [device.port path], @"lastKnownBSDPath",
 								 device.deviceName, @"localMachineName",
 								 driver, @"driver",
 								 [self localComputerName], @"locationString",
@@ -193,7 +193,7 @@
 	for(P3DSerialDevice* device in newDevices)
 	{
 		Class driverClass = device.driverClass;
-		NSString* bsdPath = [device.port bsdPath];
+		NSString* bsdPath = [device.port path];
 
 		NSMutableArray* matchingMachineDicts = [NSMutableArray array];
 		
@@ -226,7 +226,7 @@
 			{
 				[[matchingMachineDict objectForKey:@"driver"] setCurrentDevice:device];
 				[matchingMachineDict setObject:device forKey:@"device"];
-				[matchingMachineDict setObject:[device.port bsdPath] forKey:@"lastKnownBSDPath"];
+				[matchingMachineDict setObject:[device.port path] forKey:@"lastKnownBSDPath"];
 				if([[matchingMachineDict objectForKey:@"localMachineName"] isEqualToString:[device.driverClass defaultMachineName]])
 					[matchingMachineDict setObject:device.deviceName forKey:@"localMachineName"];
 				//[matchingMachineDict setObject:[self localComputerName] forKey:@"configuredMachines];

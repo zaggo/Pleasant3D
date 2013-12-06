@@ -46,13 +46,11 @@
         NSDisableScreenUpdates();
         [self setFrame:_originalWidowFrame display:NO];
         [self setContentView:_oldContentView];
-        [_oldContentView release];
         _oldContentView = nil;
         
         [self makeFirstResponder:_oldFirstResponder];
         _oldFirstResponder = nil;
         
-        [_animationView release];
         _animationView = nil;
         
         _animationLayer = nil; // Non retained
@@ -130,7 +128,7 @@
     }
     
     // Grab the content view and cache its contents
-    _oldContentView = [[self contentView] retain];
+    _oldContentView = [self contentView];
     // We also want to restore the current first responder
     _oldFirstResponder = [self firstResponder];
 

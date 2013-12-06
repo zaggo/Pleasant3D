@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		E204586F18526B7B00199C1C /* ORSSerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = E204586B18526B7B00199C1C /* ORSSerialPort.h */; };
+		E204587018526B7B00199C1C /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = E204586C18526B7B00199C1C /* ORSSerialPort.m */; };
+		E204587118526B7B00199C1C /* ORSSerialPortManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E204586D18526B7B00199C1C /* ORSSerialPortManager.h */; };
+		E204587218526B7B00199C1C /* ORSSerialPortManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E204586E18526B7B00199C1C /* ORSSerialPortManager.m */; };
 		E21E14EF14FDAA4500A4FC02 /* GCodeShapeShifter.h in Headers */ = {isa = PBXBuildFile; fileRef = E21E14ED14FDAA4500A4FC02 /* GCodeShapeShifter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E21E14F014FDAA4500A4FC02 /* GCodeShapeShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E14EE14FDAA4500A4FC02 /* GCodeShapeShifter.m */; };
 		E21FB65B112D78C50024B53B /* P3DMachinableDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = E21FB659112D78C50024B53B /* P3DMachinableDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,18 +44,6 @@
 		E26D97E21150F01300914392 /* AvailableDevices.h in Headers */ = {isa = PBXBuildFile; fileRef = E26D97E01150F01300914392 /* AvailableDevices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E26D97E31150F01300914392 /* AvailableDevices.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D97E11150F01300914392 /* AvailableDevices.m */; };
 		E26D97EE1150F3D000914392 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D97ED1150F3D000914392 /* IOKit.framework */; };
-		E2743614139003810062643A /* AMSerialErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = E27436081390037F0062643A /* AMSerialErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2743615139003810062643A /* AMSerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = E27436091390037F0062643A /* AMSerialPort.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2743616139003810062643A /* AMSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = E274360A1390037F0062643A /* AMSerialPort.m */; };
-		E2743617139003810062643A /* AMSerialPortAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = E274360B1390037F0062643A /* AMSerialPortAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2743618139003810062643A /* AMSerialPortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E274360C139003800062643A /* AMSerialPortAdditions.m */; };
-		E2743619139003810062643A /* AMSerialPortList_Deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = E274360D139003800062643A /* AMSerialPortList_Deprecated.h */; };
-		E274361A139003810062643A /* AMSerialPortList_Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = E274360E139003800062643A /* AMSerialPortList_Deprecated.m */; };
-		E274361B139003810062643A /* AMSerialPortList.h in Headers */ = {isa = PBXBuildFile; fileRef = E274360F139003800062643A /* AMSerialPortList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E274361C139003810062643A /* AMSerialPortList.m in Sources */ = {isa = PBXBuildFile; fileRef = E2743610139003810062643A /* AMSerialPortList.m */; };
-		E274361D139003810062643A /* AMSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = E2743611139003810062643A /* AMSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E274361E139003810062643A /* AMStandardEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = E2743612139003810062643A /* AMStandardEnumerator.h */; };
-		E274361F139003810062643A /* AMStandardEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = E2743613139003810062643A /* AMStandardEnumerator.m */; };
 		E274362413929DD30062643A /* P3DMachineDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E274362313929DD10062643A /* P3DMachineDriverBase.m */; };
 		E27C8048139C8296000010FD /* P3DMachinableDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C8047139C8295000010FD /* P3DMachinableDocument.m */; };
 		E281DF17112D5D6200C05C08 /* preprocessOpenCL.pl in XCode Helper Files */ = {isa = PBXBuildFile; fileRef = E2ABC5771100EB95004CE17C /* preprocessOpenCL.pl */; };
@@ -132,6 +124,10 @@
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* P3DCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = P3DCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E204586B18526B7B00199C1C /* ORSSerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialPort.h; sourceTree = "<group>"; };
+		E204586C18526B7B00199C1C /* ORSSerialPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSSerialPort.m; sourceTree = "<group>"; };
+		E204586D18526B7B00199C1C /* ORSSerialPortManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialPortManager.h; sourceTree = "<group>"; };
+		E204586E18526B7B00199C1C /* ORSSerialPortManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSSerialPortManager.m; sourceTree = "<group>"; };
 		E21E14ED14FDAA4500A4FC02 /* GCodeShapeShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCodeShapeShifter.h; sourceTree = "<group>"; };
 		E21E14EE14FDAA4500A4FC02 /* GCodeShapeShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCodeShapeShifter.m; sourceTree = "<group>"; };
 		E21FB659112D78C50024B53B /* P3DMachinableDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachinableDocument.h; sourceTree = "<group>"; };
@@ -163,18 +159,6 @@
 		E26D97E01150F01300914392 /* AvailableDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableDevices.h; sourceTree = "<group>"; };
 		E26D97E11150F01300914392 /* AvailableDevices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableDevices.m; sourceTree = "<group>"; };
 		E26D97ED1150F3D000914392 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		E27436081390037F0062643A /* AMSerialErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialErrors.h; sourceTree = "<group>"; };
-		E27436091390037F0062643A /* AMSerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPort.h; sourceTree = "<group>"; };
-		E274360A1390037F0062643A /* AMSerialPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPort.m; sourceTree = "<group>"; };
-		E274360B1390037F0062643A /* AMSerialPortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortAdditions.h; sourceTree = "<group>"; };
-		E274360C139003800062643A /* AMSerialPortAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortAdditions.m; sourceTree = "<group>"; };
-		E274360D139003800062643A /* AMSerialPortList_Deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortList_Deprecated.h; sourceTree = "<group>"; };
-		E274360E139003800062643A /* AMSerialPortList_Deprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortList_Deprecated.m; sourceTree = "<group>"; };
-		E274360F139003800062643A /* AMSerialPortList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortList.h; sourceTree = "<group>"; };
-		E2743610139003810062643A /* AMSerialPortList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortList.m; sourceTree = "<group>"; };
-		E2743611139003810062643A /* AMSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSDKCompatibility.h; sourceTree = "<group>"; };
-		E2743612139003810062643A /* AMStandardEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMStandardEnumerator.h; sourceTree = "<group>"; };
-		E2743613139003810062643A /* AMStandardEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMStandardEnumerator.m; sourceTree = "<group>"; };
 		E274362313929DD10062643A /* P3DMachineDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachineDriverBase.m; sourceTree = "<group>"; };
 		E27C8047139C8295000010FD /* P3DMachinableDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachinableDocument.m; sourceTree = "<group>"; };
 		E29708751121B6180060FA0C /* P3DFormatRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DFormatRegistration.h; sourceTree = "<group>"; };
@@ -318,7 +302,7 @@
 		E21FB89E112D99320024B53B /* Printing */ = {
 			isa = PBXGroup;
 			children = (
-				E27436201390038D0062643A /* Serial Flotsam */,
+				E27436201390038D0062643A /* Serial */,
 				E26D97E01150F01300914392 /* AvailableDevices.h */,
 				E26D97E11150F01300914392 /* AvailableDevices.m */,
 				E2FC66701164BA8F00DC2E16 /* ConfiguredMachines.h */,
@@ -350,23 +334,15 @@
 			name = PopupWindow;
 			sourceTree = "<group>";
 		};
-		E27436201390038D0062643A /* Serial Flotsam */ = {
+		E27436201390038D0062643A /* Serial */ = {
 			isa = PBXGroup;
 			children = (
-				E27436081390037F0062643A /* AMSerialErrors.h */,
-				E27436091390037F0062643A /* AMSerialPort.h */,
-				E274360A1390037F0062643A /* AMSerialPort.m */,
-				E274360B1390037F0062643A /* AMSerialPortAdditions.h */,
-				E274360C139003800062643A /* AMSerialPortAdditions.m */,
-				E274360D139003800062643A /* AMSerialPortList_Deprecated.h */,
-				E274360E139003800062643A /* AMSerialPortList_Deprecated.m */,
-				E274360F139003800062643A /* AMSerialPortList.h */,
-				E2743610139003810062643A /* AMSerialPortList.m */,
-				E2743611139003810062643A /* AMSDKCompatibility.h */,
-				E2743612139003810062643A /* AMStandardEnumerator.h */,
-				E2743613139003810062643A /* AMStandardEnumerator.m */,
+				E204586B18526B7B00199C1C /* ORSSerialPort.h */,
+				E204586C18526B7B00199C1C /* ORSSerialPort.m */,
+				E204586D18526B7B00199C1C /* ORSSerialPortManager.h */,
+				E204586E18526B7B00199C1C /* ORSSerialPortManager.m */,
 			);
-			name = "Serial Flotsam";
+			name = Serial;
 			sourceTree = "<group>";
 		};
 		E29A03AD111F0F8B006CD3C9 /* ProcessedDataModels */ = {
@@ -476,6 +452,7 @@
 				E24FAE6610FB6B370081C559 /* P3DPopupWindow.h in Headers */,
 				E24FAE6C10FB6B570081C559 /* SliceNDiceHost.h in Headers */,
 				E24FB29210FBE8270081C559 /* NSView+SearchSubview.h in Headers */,
+				E204586F18526B7B00199C1C /* ORSSerialPort.h in Headers */,
 				E2ABBFB51100A6E4004CE17C /* PSLog.h in Headers */,
 				E2ABBFBE1100A72F004CE17C /* BinarySTLStructs.h in Headers */,
 				E2ABBFBF1100A72F004CE17C /* STLModel.h in Headers */,
@@ -507,14 +484,8 @@
 				E2FC63B71162436100DC2E16 /* DAEImportPlugin.h in Headers */,
 				E2FC66721164BA8F00DC2E16 /* ConfiguredMachines.h in Headers */,
 				E24F6BE9116F58B500285948 /* MachineOptionsViewController.h in Headers */,
+				E204587118526B7B00199C1C /* ORSSerialPortManager.h in Headers */,
 				E24F706E1172245200285948 /* P3DMachineJob.h in Headers */,
-				E2743614139003810062643A /* AMSerialErrors.h in Headers */,
-				E2743615139003810062643A /* AMSerialPort.h in Headers */,
-				E2743617139003810062643A /* AMSerialPortAdditions.h in Headers */,
-				E2743619139003810062643A /* AMSerialPortList_Deprecated.h in Headers */,
-				E274361B139003810062643A /* AMSerialPortList.h in Headers */,
-				E274361D139003810062643A /* AMSDKCompatibility.h in Headers */,
-				E274361E139003810062643A /* AMStandardEnumerator.h in Headers */,
 				E21E14EF14FDAA4500A4FC02 /* GCodeShapeShifter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,6 +562,7 @@
 				E24FAE5810FB68E60081C559 /* P3DToolBase.m in Sources */,
 				E24FAE6310FB6B370081C559 /* ToolSettingsViewController.m in Sources */,
 				E24FAE6510FB6B370081C559 /* P3DBorderView.m in Sources */,
+				E204587018526B7B00199C1C /* ORSSerialPort.m in Sources */,
 				E24FAE6710FB6B370081C559 /* P3DPopupWindow.m in Sources */,
 				E24FB29310FBE8270081C559 /* NSView+SearchSubview.m in Sources */,
 				E2ABBFB61100A6E4004CE17C /* PSLog.m in Sources */,
@@ -614,13 +586,9 @@
 				E26D97E31150F01300914392 /* AvailableDevices.m in Sources */,
 				E2FC63B81162436100DC2E16 /* DAEImportPlugin.m in Sources */,
 				E2FC66731164BA8F00DC2E16 /* ConfiguredMachines.m in Sources */,
+				E204587218526B7B00199C1C /* ORSSerialPortManager.m in Sources */,
 				E24F6BEA116F58B500285948 /* MachineOptionsViewController.m in Sources */,
 				E24F706F1172245200285948 /* P3DMachineJob.m in Sources */,
-				E2743616139003810062643A /* AMSerialPort.m in Sources */,
-				E2743618139003810062643A /* AMSerialPortAdditions.m in Sources */,
-				E274361A139003810062643A /* AMSerialPortList_Deprecated.m in Sources */,
-				E274361C139003810062643A /* AMSerialPortList.m in Sources */,
-				E274361F139003810062643A /* AMStandardEnumerator.m in Sources */,
 				E274362413929DD30062643A /* P3DMachineDriverBase.m in Sources */,
 				E27C8048139C8296000010FD /* P3DMachinableDocument.m in Sources */,
 				E21E14F014FDAA4500A4FC02 /* GCodeShapeShifter.m in Sources */,
@@ -650,7 +618,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
@@ -672,7 +639,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
@@ -688,31 +654,30 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_GC = required;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = __DEBUG__;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_GC = required;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};

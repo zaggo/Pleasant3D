@@ -33,7 +33,7 @@
 @interface P3DProcessedObject : NSObject <NSCoding, NSCopying> {
 	NSString* uuid;
 }
-@property (retain) NSString* uuid;
+@property (strong) NSString* uuid;
 @property (readonly) NSUInteger byteLength;
 
 @property (readonly) NSString* dataFormat;

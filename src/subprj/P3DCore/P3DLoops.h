@@ -43,7 +43,7 @@
 @property (readonly) InsetLoopCorner* loopCorners;
 @property (readonly) NSUInteger loopCornerCount;
 
-@property (assign) NSArray* layers;
+@property (strong) NSArray* layers;
 @property (assign) float extrusionHeight;
 @property (assign) float extrusionWidth;
 @property (copy) Vector3* cornerMaximum;

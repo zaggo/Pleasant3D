@@ -29,10 +29,10 @@
 
 @protocol MachineOptionsDelegate;
 @interface MachineOptionsViewController : NSViewController {
-	id <MachineOptionsDelegate> machineOptionsDelegate;
+	id <MachineOptionsDelegate> __strong machineOptionsDelegate;
 }
 
-@property (assign) id <MachineOptionsDelegate> machineOptionsDelegate;
+@property (strong) id <MachineOptionsDelegate> machineOptionsDelegate;
 
 - (BOOL)validateAndSaveChanges;
 

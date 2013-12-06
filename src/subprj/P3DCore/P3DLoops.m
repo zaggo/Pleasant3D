@@ -65,10 +65,6 @@
 	return [insetLoopCornerData length]/sizeof(InsetLoopCorner);
 }
 
-- (void)finalize
-{
-	[super finalize];
-}
 
 - (NSString*)dataFormat
 {

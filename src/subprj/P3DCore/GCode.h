@@ -31,7 +31,7 @@
 @interface GCode : P3DProcessedObject {
 	NSString* gCodeString;
 }
-@property (retain) NSString* gCodeString;
+@property (strong) NSString* gCodeString;
 @property (readonly) NSInteger lineCount;
 - (id) initWithGCodeString:(NSString*)value;
 @end

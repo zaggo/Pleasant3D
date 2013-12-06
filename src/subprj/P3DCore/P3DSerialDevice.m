@@ -27,7 +27,6 @@
 //
 #import "P3DSerialDevice.h"
 #import "AvailableDevices.h"
-#import "AMSerialPortAdditions.h"
 
 @interface P3DSerialDevice (Private)
 - (BOOL)openSerialPort;
@@ -39,38 +38,36 @@
 @synthesize port, deviceName, deviceIsValid, quiet, errorMessage, activeMachineJob;
 @dynamic driverClass, baudRate, deviceIsBusy;
 
-- (id)initWithPort:(AMSerialPort*)p
+- (id)initWithPort:(ORSSerialPort*)p
 {
     self = [super init];
     if(self)
     {
         port = p;
+        port.delegate = self;
     }
     return self;
 }
 
-- (void)finalize
+- (void)dealloc
 {
 	[port close];
-	[super finalize];
 }
 
 - (BOOL)registerDeviceIfValid
 {
     PSLog(@"Machining",PSPrioNormal, @"Trying %@ on %@",[port name], [self className]);
-    if ([port open]) {
-        //Then I suppose we connected!
-        //NSLog(@"successfully connected");
-        [port setSpeed:self.baudRate];
+    [port open];
+    if(port.isOpen)
+    {
+        port.baudRate = @(self.baudRate);
         if([self validateSerialDevice])
         {
             deviceName = [self fetchDeviceName];
             self.deviceIsValid = YES;
-            
-            // listen for data in a separate thread
-            [port readDataInBackground];
         }
-        
+        else
+            [port close];
     }
     return deviceIsValid;
 }
@@ -81,31 +78,11 @@
 	if ([string length]>0)
 	{
         if([port isOpen]) {
-            if(![port writeString:string usingEncoding:NSUTF8StringEncoding error:&error] && !quiet)
+            if(![port sendData:[string dataUsingEncoding:NSUTF8StringEncoding]] && ! quiet)
                 PSErrorLog(@"Error writing to device - %@.", [error description]);
         }
     }
     return error;
-}
-
-- (void)serialPortReadData:(NSDictionary *)dataDictionary
-{
-    NSData *data = [dataDictionary objectForKey:@"data"];
-	if ([data length] > 0) {
-		
-		NSString *receivedText = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-		NSLog(@"Serial Port Data Received: %@",receivedText);
-        
-        [activeMachineJob handleDeviceResponse:receivedText];
-
-        // continue listening
-		[port readDataInBackground];
-		
-	} else { 
-		// port closed
-		NSLog(@"Port was closed on a readData operation...not good!");
-	}
-	
 }
 
 - (NSInteger)baudRate
@@ -139,5 +116,29 @@
 - (BOOL)deviceIsBusy
 {
     return activeMachineJob!=nil;
+}
+     
+#pragma mark ORSSerialPortDelegate
+- (void)serialPortWasOpened:(ORSSerialPort *)serialPort {
+     PSLog(@"Machining",PSPrioNormal, @"Port %@ opened on %@",[port name], [self className]);
+}
+
+- (void)serialPort:(ORSSerialPort *)serialPort didReceiveData:(NSData *)data
+{
+	if ([data length] > 0) {
+		
+		NSString *receivedText = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+		NSLog(@"Serial Port Data Received: %@",receivedText);
+        
+        [activeMachineJob handleDeviceResponse:receivedText];		
+	} else {
+		// port closed
+		NSLog(@"Port was closed on a readData operation...not good!");
+	}
+}
+
+- (void)serialPortWasRemovedFromSystem:(ORSSerialPort *)serialPort
+{
+     // TODO: Handle this
 }
 @end

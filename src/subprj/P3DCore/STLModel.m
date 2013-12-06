@@ -94,16 +94,7 @@
 	[encoder encodeBool:hasNormals forKey:@"hasNormals"];
 }
 
-- (void) dealloc
-{
-	[clFacetsData release];
-	[stlData release];
-	[cornerMaximum release];
-	[cornerMinimum release];
 	
-	[super dealloc];
-}
-
 - (STLModel*)copyWithZone:(NSZone *)zone
 {
 	return [[STLModel alloc] initWithStlData:stlData cornerMinimum:cornerMinimum cornerMaximum:cornerMaximum hasNormals:hasNormals];

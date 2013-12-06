@@ -38,10 +38,10 @@
 	BOOL		hasNormals;
 }
 
-@property (retain) NSData* stlData;
+@property (strong) NSData* stlData;
 @property (readonly) STLFacetCL* facets;
-@property (retain) Vector3*	cornerMinimum;
-@property (retain) Vector3*	cornerMaximum;
+@property (strong) Vector3*	cornerMinimum;
+@property (strong) Vector3*	cornerMaximum;
 @property (assign) BOOL		hasNormals;
 
 - (id)initWithStlData:(NSData*)data;

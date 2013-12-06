@@ -68,7 +68,7 @@
 
 - (Vector2*)vectorByAddingVector:(Vector2*)other
 {
-	return [[[Vector2 alloc] initVectorWithX:x+other.x Y:y+other.y] autorelease];
+	return [[Vector2 alloc] initVectorWithX:x+other.x Y:y+other.y];
 }
 
 - (Vector2*)addVector:(Vector2*)other
@@ -80,7 +80,7 @@
 
 - (Vector2*)vectorBySubtractingVector:(Vector2*)other
 {
-	return [[[Vector2 alloc] initVectorWithX:x-other.x Y:y-other.y] autorelease];
+	return [[Vector2 alloc] initVectorWithX:x-other.x Y:y-other.y];
 }
 
 - (Vector2*)subtractVector:(Vector2*)other
@@ -92,7 +92,7 @@
 
 - (Vector2*)vectorByMultiplyingVector:(Vector2*)other
 {
-	return [[[Vector2 alloc] initVectorWithX:x*other.x-y*other.y Y:x*other.y+y*other.x] autorelease];
+	return [[Vector2 alloc] initVectorWithX:x*other.x-y*other.y Y:x*other.y+y*other.x];
 }
 
 - (Vector2*)multiplyVector:(Vector2*)other
@@ -106,7 +106,7 @@
 
 - (Vector2*)vectorByMultiplyingScalar:(float)scalar
 {
-	return [[[Vector2 alloc] initVectorWithX:x*scalar Y:y*scalar] autorelease];
+	return [[Vector2 alloc] initVectorWithX:x*scalar Y:y*scalar];
 }
 
 - (Vector2*)multiplyScalar:(float)scalar
@@ -118,7 +118,7 @@
 
 - (Vector2*)vectorByDividingScalar:(float)scalar
 {
-	return [[[Vector2 alloc] initVectorWithX:x/scalar Y:y/scalar] autorelease];
+	return [[Vector2 alloc] initVectorWithX:x/scalar Y:y/scalar];
 }
 
 - (Vector2*)divideScalar:(float)scalar
@@ -201,6 +201,6 @@
 {
 	float a = atan2(y, x);
 	float r = sqrtf([self length]);
-	return [[[Vector2 alloc] initVectorWithX:cos(a)*r Y:sin(a)*r] autorelease];	
+	return [[Vector2 alloc] initVectorWithX:cos(a)*r Y:sin(a)*r];	
 }
 @end

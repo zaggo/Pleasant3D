@@ -76,7 +76,7 @@
 		[scanner scanUpToString:@"normal" intoString:nil];
 		facet = nextFacet(facet);
 	}
-	return [converted autorelease];
+	return converted;
 }
 
 - (STLModel*)readSTLModel:(NSData*)stlData
@@ -88,24 +88,28 @@
 	{		
 		// Check for a Text-STL file
 		NSInteger numberOfVertexStrings = 0;
-		NSInteger dataLength = stlData.length;
+		NSUInteger dataLength = stlData.length;
 		NSData* vertexKeyWord = [@"vertex" dataUsingEncoding:NSUTF8StringEncoding];
 		NSRange searchRange = NSMakeRange(0, dataLength);
 
 		NSRange foundKeyword = [stlData rangeOfData:vertexKeyWord options:0 range:searchRange];
-		while(foundKeyword.location != NSNotFound)
+		//while(foundKeyword.location !=  NSNotFound) // didn't work... WHY???
+        while(foundKeyword.location < dataLength)
 		{
 			numberOfVertexStrings++;
 			searchRange.location = NSMaxRange(foundKeyword);
 			searchRange.length = dataLength-searchRange.location;
 			foundKeyword = [stlData rangeOfData:vertexKeyWord options:0 range:searchRange];
 		}		
-		NSInteger requiredVertexStringsForText = MAX( 2, dataLength/8000);
+        
+        NSLog(@"foundKeyword.location = %lx", foundKeyword.location);
+        NSLog(@"NSNotFound = %lx", NSNotFound);
+        
+        NSUInteger requiredVertexStringsForText = MAX( 2, dataLength/8000);
 		if(numberOfVertexStrings > requiredVertexStringsForText)
 		{
 			NSString* asciiSTL = [[NSString alloc] initWithBytesNoCopy:(char*)[stlData bytes] length:[stlData length] encoding:NSUTF8StringEncoding freeWhenDone:NO];
 			stlData = [self convertASCIISTL:asciiSTL];
-			[asciiSTL release];
 		}
         else
         {
@@ -114,7 +118,7 @@
 		
 		if(stlData)
 		{
-			result = [[[STLModel alloc] initWithStlData:stlData] autorelease]; // Calculates min/max corner
+			result = [[STLModel alloc] initWithStlData:stlData]; // Calculates min/max corner
 		}
 	}
 	

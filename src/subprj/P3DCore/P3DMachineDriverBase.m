@@ -31,7 +31,6 @@
 #import "P3DSerialDevice.h"
 #import "P3DMachineJob.h"
 #import "AvailableDevices.h"
-#import "AMSerialPortList.h"
 
 @implementation P3DMachineDriverBase
 @synthesize isMachining, isPaused, currentDevice, discovered, lastKnownBSDPath;

@@ -36,7 +36,7 @@
 	BOOL isPaused;
     NSString* lastKnownBSDPath;
     
-	P3DSerialDevice* currentDevice;
+	P3DSerialDevice* __strong currentDevice;
 }
 
 @property (assign) BOOL discovered;
@@ -46,7 +46,7 @@
 @property (readonly) NSString* statusString;
 @property (readonly) NSView* printDialogView;
 
-@property (assign) P3DSerialDevice* currentDevice;
+@property (strong, nonatomic) P3DSerialDevice* currentDevice;
 
 @property (readonly) NSImage* statusLightImage;
 

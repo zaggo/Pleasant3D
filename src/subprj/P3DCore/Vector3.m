@@ -77,20 +77,20 @@
 // Get the sum of this Vector3 and other one.
 - (Vector3*)add:(Vector3*)other;
 {
-	return [[[Vector3 alloc] initVectorWithX:x+other.x Y:y+other.y Z:z+other.z] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x+other.x Y:y+other.y Z:z+other.z];
 }
 
 
 // Get a new Vector3 by dividing each component of this one.
 - (Vector3*)div:(float)other
 {
-	return [[[Vector3 alloc] initVectorWithX:x/other Y:y/other Z:z/other] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x/other Y:y/other Z:z/other];
 }
 
 // Get a new Vector3 by dividing each component of this one.
 - (Vector3*)floordiv:(float)other
 {
-	return [[[Vector3 alloc] initVectorWithX:floorf(x/other) Y:floorf(y/other) Z:floorf(z/other)] autorelease];
+	return [[Vector3 alloc] initVectorWithX:floorf(x/other) Y:floorf(y/other) Z:floorf(z/other)];
 }
 
 - (BOOL)isEqual:(Vector3*)other
@@ -147,12 +147,12 @@
 
 - (Vector3*)mul:(float)other
 {
-	return [[[Vector3 alloc] initVectorWithX:x*other Y:y*other Z:z*other] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x*other Y:y*other Z:z*other];
 }
 
 - (Vector3*)neg
 {
-	return [[[Vector3 alloc] initVectorWithX:-x Y:-y Z:-z] autorelease];
+	return [[Vector3 alloc] initVectorWithX:-x Y:-y Z:-z];
 }
 
 - (BOOL)nonzero
@@ -172,27 +172,27 @@
 
 - (Vector3*)rdiv:(Vector3*)other
 {
-	return [[[Vector3 alloc] initVectorWithX:x/other.x Y:y/other.y Z:z/other.z] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x/other.x Y:y/other.y Z:z/other.z];
 }
 
 - (Vector3*)rfloordiv:(Vector3*)other
 {
-	return [[[Vector3 alloc] initVectorWithX:floorf(x/other.x) Y:floorf(y/other.y) Z:floorf(z/other.z)] autorelease];
+	return [[Vector3 alloc] initVectorWithX:floorf(x/other.x) Y:floorf(y/other.y) Z:floorf(z/other.z)];
 }
 
 - (Vector3*)rmul:(Vector3*)other
 {
-	return [[[Vector3 alloc] initVectorWithX:x*other.x Y:y*other.y Z:z*other.z] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x*other.x Y:y*other.y Z:z*other.z];
 }
 
 - (Vector3*)sub:(Vector3*)other
 {
-	return [[[Vector3 alloc] initVectorWithX:x-other.x Y:y-other.y Z:z-other.z] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x-other.x Y:y-other.y Z:z-other.z];
 }
 
 - (Vector3*)cross:(Vector3*)other
 {
-	return [[[Vector3 alloc] initVectorWithX:y*other.z-z*other.y Y:-x*other.z+z*other.x Z:x*other.y-y*other.x] autorelease];
+	return [[Vector3 alloc] initVectorWithX:y*other.z-z*other.y Y:-x*other.z+z*other.x Z:x*other.y-y*other.x];
 }
 
 - (float)distanceSquared:(Vector3*)other
@@ -218,11 +218,11 @@
 	switch(which)
 	{
 		case 0:
-			return [[[Vector2 alloc] initVectorWithX:y Y:z] autorelease];
+			return [[Vector2 alloc] initVectorWithX:y Y:z];
 		case 1:
-			return [[[Vector2 alloc] initVectorWithX:x Y:z] autorelease];
+			return [[Vector2 alloc] initVectorWithX:x Y:z];
 		default:
-			return [[[Vector2 alloc] initVectorWithX:x Y:y] autorelease];
+			return [[Vector2 alloc] initVectorWithX:x Y:y];
 	}
 }
 
@@ -230,7 +230,7 @@
 {
 	float magnitude = [self abs];
 	if(magnitude<FLT_EPSILON)
-		return [[self copy] autorelease];
+		return [self copy];
 	return [self div:magnitude];
 }
 
@@ -249,7 +249,7 @@
 - (Vector3*)reflect:(Vector3*)normale
 {
 	float distance = 2.*(x*normale.x+y*normale.y+z*normale.z);
-	return [[[Vector3 alloc] initVectorWithX:x-distance*normale.x Y:y-distance*normale.y Z:z-distance*normale.z] autorelease];
+	return [[Vector3 alloc] initVectorWithX:x-distance*normale.x Y:y-distance*normale.y Z:z-distance*normale.z];
 }
 
 - (void)setToVector3:(Vector3*)other

@@ -32,7 +32,7 @@
 CGImageRef CreateCGImageFromFile( NSString *path )
 {
     CGImageRef image = NULL;
-    CFURLRef url = (CFURLRef) [NSURL fileURLWithPath: path];
+    CFURLRef url = (__bridge CFURLRef) [NSURL fileURLWithPath: path];
     CGImageSourceRef src = CGImageSourceCreateWithURL(url, NULL);
     if( src ) {
         image = CGImageSourceCreateImageAtIndex(src, 0, NULL);
@@ -55,7 +55,7 @@ CGImageRef GetCGImageNamedFromBundleWithClass( NSString *name, Class bundleClass
     if( ! sMap )
         sMap = [[NSMutableDictionary alloc] init];
     
-    CGImageRef image = (CGImageRef) [sMap objectForKey: name];
+    CGImageRef image = (__bridge CGImageRef) [sMap objectForKey: name];
     if( ! image ) {
         // Hasn't been cached yet, so load it:
         NSString *path;
@@ -70,7 +70,7 @@ CGImageRef GetCGImageNamedFromBundleWithClass( NSString *name, Class bundleClass
         }
         image = CreateCGImageFromFile(path);
         NSCAssert1(image,@"Failed to load image from %@",path);
-        [sMap setObject: (id)image forKey: name];
+        [sMap setObject: (__bridge id)image forKey: name];
         CFRelease(image);
     }
     return image;

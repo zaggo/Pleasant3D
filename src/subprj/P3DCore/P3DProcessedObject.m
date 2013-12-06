@@ -41,7 +41,7 @@
 	CFStringRef strRef = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
 	if(strRef)
 	{
-		uuid = [NSString stringWithString:(NSString*)strRef];
+		uuid = [NSString stringWithString:(__bridge NSString*)strRef];
 		CFRelease(strRef);
 	}
 	if(uuidRef)

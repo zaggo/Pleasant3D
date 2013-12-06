@@ -39,6 +39,6 @@
 	
 	CGFloat offsetX;
 }
-@property (assign) CGFloat offsetX;
+@property (assign, nonatomic) CGFloat offsetX;
 @property (assign) BOOL isUnanchoredView;
 @end

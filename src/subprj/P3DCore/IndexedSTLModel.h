@@ -33,7 +33,7 @@
 	IndexedEdges* edgeIndex;
 }
 
-@property (retain) STLModel* stlModel;
-@property (retain) IndexedEdges* edgeIndex;
+@property (strong, nonatomic) STLModel* stlModel;
+@property (strong, nonatomic) IndexedEdges* edgeIndex;
 
 @end

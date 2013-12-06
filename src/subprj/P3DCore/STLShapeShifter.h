@@ -49,23 +49,23 @@
 	
 	NSUndoManager* undoManager;
 }
-@property (retain) STLModel* sourceSTLModel;
+@property (strong, nonatomic) STLModel* sourceSTLModel;
 @property (readonly) STLModel* processedSTLModel;
 
-@property (retain) NSUndoManager* undoManager;
+@property (strong, nonatomic) NSUndoManager* undoManager;
 
-@property (assign) CGFloat dimX;
-@property (assign) CGFloat dimY;
-@property (assign) CGFloat dimZ;
+@property (assign, nonatomic) CGFloat dimX;
+@property (assign, nonatomic) CGFloat dimY;
+@property (assign, nonatomic) CGFloat dimZ;
 
-@property (assign) CGFloat centerX;
-@property (assign) CGFloat centerY;
-@property (assign) CGFloat minZ;
+@property (assign, nonatomic) CGFloat centerX;
+@property (assign, nonatomic) CGFloat centerY;
+@property (assign, nonatomic) CGFloat minZ;
 
-@property (assign) CGFloat objectRotateX;
-@property (assign) CGFloat objectRotateY;
-@property (assign) CGFloat objectRotateZ;
-@property (assign) CGFloat objectScale;
+@property (assign, nonatomic) CGFloat objectRotateX;
+@property (assign, nonatomic) CGFloat objectRotateY;
+@property (assign, nonatomic) CGFloat objectRotateZ;
+@property (assign, nonatomic) CGFloat objectScale;
 
 - (void)resetWithSTLModel:(STLModel*)value;
 - (void)rotateBy90OnAxis:(NSInteger)axis;
