@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		E204586F18526B7B00199C1C /* ORSSerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = E204586B18526B7B00199C1C /* ORSSerialPort.h */; };
+		E204586F18526B7B00199C1C /* ORSSerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = E204586B18526B7B00199C1C /* ORSSerialPort.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E204587018526B7B00199C1C /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = E204586C18526B7B00199C1C /* ORSSerialPort.m */; };
-		E204587118526B7B00199C1C /* ORSSerialPortManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E204586D18526B7B00199C1C /* ORSSerialPortManager.h */; };
+		E204587118526B7B00199C1C /* ORSSerialPortManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E204586D18526B7B00199C1C /* ORSSerialPortManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E204587218526B7B00199C1C /* ORSSerialPortManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E204586E18526B7B00199C1C /* ORSSerialPortManager.m */; };
 		E21E14EF14FDAA4500A4FC02 /* GCodeShapeShifter.h in Headers */ = {isa = PBXBuildFile; fileRef = E21E14ED14FDAA4500A4FC02 /* GCodeShapeShifter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E21E14F014FDAA4500A4FC02 /* GCodeShapeShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E14EE14FDAA4500A4FC02 /* GCodeShapeShifter.m */; };
