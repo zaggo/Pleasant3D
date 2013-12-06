@@ -30,26 +30,19 @@
 
 @class MachineOptionsViewController;
 @interface MachineOptionsController : NSWindowController {
-	NSMutableDictionary* machineOptions;
-	
-	MachineOptionsViewController* machineOptionsViewController;
-	
-	id representedMachine;
-	
-	IBOutlet NSTextField* machineName;
-//	IBOutlet NSTextField* deviceName;
-	IBOutlet NSTextField* machineLocation;
-    IBOutlet NSTabView* tabView;
-    
-	IBOutlet NSView* machineOptionsContainer;
 }
 
-@property (assign) id representedMachine;
-@property (assign) NSMutableDictionary* machineOptions;
-@property (assign) MachineOptionsViewController* machineOptionsViewController;
+@property (weak, nonatomic) id representedMachine;
+@property (weak, nonatomic) NSMutableDictionary* machineOptions;
+@property (weak, nonatomic) MachineOptionsViewController* machineOptionsViewController;
+
+@property (weak) IBOutlet NSTextField* machineName;
+@property (weak) IBOutlet NSTextField* machineLocation;
+@property (weak) IBOutlet NSTabView* tabView;
+
+@property (weak) IBOutlet NSView* machineOptionsContainer;
 
 - (IBAction)machineOptionsOkPressed:(id)sender;
 - (IBAction)machineOptionsCancelPressed:(id)sender;
-//- (IBAction)machineOptionsChangeMachineName:(id)sender;
 
 @end

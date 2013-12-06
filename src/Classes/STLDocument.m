@@ -31,7 +31,7 @@
 #import <P3DCore/STLImportPlugin.h>
 #import <P3DCore/DAEImportPlugin.h>
 #import <P3DCore/STLShapeShifter.h>
-
+#import "STLPreviewView.h"
 @implementation STLDocument
 @synthesize stlShapeShifter, stlPreviewView, loadedSTLModel;
 

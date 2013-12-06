@@ -30,11 +30,8 @@
 
 @class GCodeView, ParsedGCode, GCode;
 @interface P3DGCodePreviewController : NSViewController {
-	IBOutlet GCodeView* previewView;
-	ParsedGCode* parsedGCode;
-	GCode* gCode;
 }
-@property (retain) IBOutlet GCodeView* previewView;
-@property (assign) GCode* gCode;
+@property (weak) IBOutlet GCodeView* previewView;
+@property (assign, nonatomic) GCode* gCode;
 
 @end

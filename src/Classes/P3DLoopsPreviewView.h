@@ -30,16 +30,12 @@
 #import "ThreeDPreviewView.h"
 
 @class P3DLoops;
-@interface P3DLoopsPreviewView : ThreeDPreviewView	{
-	P3DLoops* loops;
+@interface P3DLoopsPreviewView : ThreeDPreviewView	
 	
-	BOOL showNoExtrusionPaths;
-}
-
-@property (retain) P3DLoops* loops;
+@property (strong, nonatomic) P3DLoops* loops;
 
 @property (readonly) NSString* layerInfoString;
 @property (readonly) NSString* dimensionsString;
 
-@property (assign) BOOL showNoExtrusionPaths;
+@property (assign, nonatomic) BOOL showNoExtrusionPaths;
 @end

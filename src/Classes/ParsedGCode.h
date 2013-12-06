@@ -29,55 +29,15 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-struct stats {
-    
-    BOOL dualExtrusion;
-    
-    // Tool-specific stats
-     /* TOOL A */
-      float currentExtrudedLengthToolA;
-      float totalExtrudedLengthToolA;
-     /* TOOL B */
-      float currentExtrudedLengthToolB;
-      float totalExtrudedLengthToolB;
-      BOOL usingToolB;
-    
-    // Common stats
-    float totalExtrudedTime;
-    float totalExtrudedDistance;
-    
-    float totalTravelledTime;
-    float totalTravelledDistance;
-    
-    float currentFeedRate;
-    
-    int movementLinesCount;
-    int layersCount;
-    float layerHeight;
-    
-    Vector3* currentLocation;
-    
-    BOOL extruding;
-    
-};
-
+@class GCodeStatistics;
 @interface ParsedGCode : NSObject {
-    
-	Vector3* cornerHigh;
-	Vector3* cornerLow;
-	float extrusionWidth;
-	
-    struct stats statistics;
-    
-	NSMutableArray* panes;	
-
 }
 
-@property (readonly) Vector3* cornerHigh;
-@property (readonly) Vector3* cornerLow;
+@property (readonly, strong) Vector3* cornerHigh;
+@property (readonly, strong) Vector3* cornerLow;
 @property (readonly) float extrusionWidth;
-@property (readonly) struct stats statistics;
-@property (readonly) NSArray* panes;
+@property (readonly, strong) GCodeStatistics* gCodeStatistics;
+@property (readonly, strong) NSArray* panes;
 
 - (id)initWithGCodeString:(NSString*)gcode;
 - (float)getTotalMachiningTime;

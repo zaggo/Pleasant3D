@@ -498,9 +498,12 @@ typedef enum
 				{
                     if(currentFirstTool && [currentFirstTool.requiredInputFormats containsObject:uti])
                     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                         SEL pathSetterSel = [currentFirstTool pathSetterForImportContentDataWithUTI:uti];
                         if(pathSetterSel && [currentFirstTool respondsToSelector:pathSetterSel])
                             [currentFirstTool performSelector:pathSetterSel withObject:[[draggedFiles lastObject] path]];
+#pragma clang diagnostic pop
                         result = YES;
                     }
                     else
@@ -514,9 +517,12 @@ typedef enum
                             {								
 								currentFirstTool = [[toolClass alloc] initWithHost:[[[self window] windowController] document]];
 								[self insertTool:currentFirstTool atIndex:0];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                                 SEL pathSetterSel = [currentFirstTool pathSetterForImportContentDataWithUTI:uti];
                                 if(pathSetterSel && [currentFirstTool respondsToSelector:pathSetterSel])
                                     [currentFirstTool performSelector:pathSetterSel withObject:[[draggedFiles lastObject] path]];
+#pragma clang diagnostic pop
                                 result = YES;
                                 break;
                             }
@@ -569,9 +575,12 @@ typedef enum
                                     tool = [[toolClass alloc] initWithHost:[[[self window] windowController] document]];
                                     [self insertTool:tool atIndex:nextIndex];
                                     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                                     SEL pathSetterSel = [tool pathSetterForImportContentDataWithUTI:uti];
                                     if(pathSetterSel && [tool respondsToSelector:pathSetterSel])
                                         [tool performSelector:pathSetterSel withObject:[[draggedFiles lastObject] path]];
+#pragma clang diagnostic pop
                                     result = YES;
                                     break; // TODO: What's about multiple matches?
                                 }

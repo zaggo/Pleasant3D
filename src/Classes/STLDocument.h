@@ -32,14 +32,9 @@
 
 @class STLModel, STLPreviewView, STLShapeShifter;
 @interface STLDocument : P3DMachinableDocument
-{
-	STLModel* loadedSTLModel;
-	IBOutlet STLShapeShifter* stlShapeShifter;
-	IBOutlet STLPreviewView* stlPreviewView;
-}
 
-@property (retain) STLModel* loadedSTLModel;
-@property (retain) IBOutlet STLShapeShifter* stlShapeShifter;
-@property (retain) IBOutlet STLPreviewView* stlPreviewView;
+@property (strong) STLModel* loadedSTLModel;
+@property (weak) IBOutlet STLShapeShifter* stlShapeShifter;
+@property (weak) IBOutlet STLPreviewView* stlPreviewView;
 
 @end

@@ -50,63 +50,23 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 		[prefsWindow setShowsToolbarButton:NO];
 		self.window = prefsWindow;
 		[self.window setDelegate:self];
-		[prefsWindow release];
 		
 		[self _setupToolbar];
 	}
 	return self;
 }
 
-- (void)dealloc
-{
-	self.modules = nil;
-	[super dealloc];
-}
-
-static MBPreferencesController *sharedPreferencesController = nil;
-
 + (MBPreferencesController *)sharedController
 {
-	@synchronized(self) {
-		if (sharedPreferencesController == nil) {
-			[[self alloc] init]; // assignment not done here
-		}
-	}
+    static MBPreferencesController *sharedPreferencesController = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedPreferencesController = [[self alloc] init];
+    });
 	return sharedPreferencesController;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
-{
-	@synchronized(self) {
-		if (sharedPreferencesController == nil) {
-			sharedPreferencesController = [super allocWithZone:zone];
-			return sharedPreferencesController;
-		}
-	}
-	return nil; // on subsequent allocation attempts return nil
-}
-
 - (id)copyWithZone:(NSZone *)zone
-{
-	return self;
-}
-
-- (id)retain
-{
-	return self;
-}
-
-- (NSUInteger)retainCount
-{
-	return UINT_MAX; // denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-	// do nothing
-}
-
-- (id)autorelease
 {
 	return self;
 }
@@ -166,14 +126,13 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	
 	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 	if (!module)
-		return [item autorelease];
-	
+		return item;
 	
 	[item setLabel:[module title]];
 	[item setImage:[module image]];
 	[item setTarget:self];
 	[item setAction:@selector(_selectModule:)];
-	return [item autorelease];
+	return item;
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
@@ -197,12 +156,11 @@ static MBPreferencesController *sharedPreferencesController = nil;
 - (void)setModules:(NSArray *)newModules
 {
 	if (_modules) {
-		[_modules release];
 		_modules = nil;
 	}
 	
 	if (newModules != _modules) {
-		_modules = [newModules retain];
+		_modules = newModules;
 		
 		// Reset the toolbar items
 		NSToolbar *toolbar = [self.window toolbar];

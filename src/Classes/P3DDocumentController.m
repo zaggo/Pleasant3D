@@ -45,7 +45,9 @@
 {
 	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
 	[ddef setObject:[P3DToolBase uuid] forKey:@"defaultMachine"];
-	[[NSUserDefaults standardUserDefaults] registerDefaults:ddef];
+
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+	[userDefaults registerDefaults:ddef];
 
     [AvailableDevices sharedInstance]; // Load MachineDriver Plugins
 	
@@ -53,9 +55,12 @@
 	PreferencesGeneralViewController *general = [[PreferencesGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
 	PreferencesMachinesViewController *printer = [[PreferencesMachinesViewController alloc] initWithNibName:@"PreferencesMachines" bundle:nil];
 	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, printer, nil]];
-	[general release];
-	[printer release];
 		
+	if([[self documents] count] == 0 && [userDefaults boolForKey:@"ExperimentalSlicerSupport"])
+	{
+		//[self openDocument:self];
+		[self newDocument:self];
+}
 }
 
 - (IBAction)showToolbox:(id)sender

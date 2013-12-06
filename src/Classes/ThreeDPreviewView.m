@@ -37,7 +37,6 @@
 
 
 @implementation ThreeDPreviewView
-@synthesize currentLayer, threeD, othersAlpha, showArrows, currentLayerHeight, currentMachine;
 @dynamic userRequestedAutorotate, autorotate, maxLayers, layerHeight, objectDimensions;
 
 - (void)awakeFromNib
@@ -65,7 +64,7 @@
 - (void)setupProjection
 {
 	// NSLog(@"Called: %s", _cmd);
-	if(readyToDraw)
+	if(_readyToDraw)
 	{
 		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
 		glViewport(0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
@@ -73,7 +72,7 @@
 		glMatrixMode( GL_PROJECTION );
 		glLoadIdentity();
 		
-		if(threeD)
+		if(_threeD)
 			gluPerspective( 45., boundsInPixelUnits.size.width / boundsInPixelUnits.size.height, 0.1, 1000.0 );
 		else
 		{
@@ -126,8 +125,8 @@
 
 - (void)setCurrentLayerHeight:(float)value
 {
-	currentLayerHeight = value;
-	currentLayer = (NSUInteger)(value/self.layerHeight);
+	_currentLayerHeight = value;
+	_currentLayer = (NSUInteger)(value/self.layerHeight);
 	[self setNeedsDisplay:YES];
 }
 
@@ -137,8 +136,8 @@
 
 - (void)setCurrentLayer:(NSUInteger)value
 {
-	currentLayer = value;
-	currentLayerHeight = currentLayer*self.layerHeight;
+	_currentLayer = value;
+	_currentLayerHeight = _currentLayer*self.layerHeight;
 	[self setNeedsDisplay:YES];
 }
 
@@ -159,7 +158,7 @@
 
 - (BOOL)autorotate
 {
-	return (autorotateTimer!=nil);
+	return (_autorotateTimer!=nil);
 }
 
 - (void)setAutorotate:(BOOL)value
@@ -168,14 +167,14 @@
 	{
 		if(value)
 		{
-			[autorotateTimer invalidate];
-			autorotateTimer = [NSTimer timerWithTimeInterval:1./120. target:self selector:@selector(autorotate:) userInfo:nil repeats:YES];
-			[[NSRunLoop currentRunLoop] addTimer:autorotateTimer forMode:NSRunLoopCommonModes];
+			[_autorotateTimer invalidate];
+			_autorotateTimer = [NSTimer timerWithTimeInterval:1./120. target:self selector:@selector(autorotate:) userInfo:nil repeats:YES];
+			[[NSRunLoop currentRunLoop] addTimer:_autorotateTimer forMode:NSRunLoopCommonModes];
 		}
 		else
 		{
-			[autorotateTimer invalidate];
-			autorotateTimer=nil;
+			[_autorotateTimer invalidate];
+			_autorotateTimer=nil;
 		}
 	}
 }
@@ -189,25 +188,25 @@
 - (void)setThreeD:(BOOL)value
 {
 	//NSLog(@"setThreeD: %@", value?@"YES":@"NO");
-	threeD = value;
+	_threeD = value;
 	self.autorotate=NO;
-	[[NSUserDefaults standardUserDefaults] setBool:threeD forKey:@"gCode3d"];
-	validPerspective=NO;
+	[[NSUserDefaults standardUserDefaults] setBool:_threeD forKey:@"gCode3d"];
+	_validPerspective=NO;
 	[self resetGraphics];
 }
 
 - (void)setShowArrows:(BOOL)value
 {
 	//NSLog(@"setShowArrows: %@", value?@"YES":@"NO");
-	showArrows = value;
-	[[NSUserDefaults standardUserDefaults] setBool:showArrows forKey:@"gCodeShowArrows"];
+	_showArrows = value;
+	[[NSUserDefaults standardUserDefaults] setBool:_showArrows forKey:@"gCodeShowArrows"];
 	[self setNeedsDisplay:YES];
 }
 
 - (void)setOthersAlpha:(CGFloat)value
 {
-	othersAlpha = value;
-	[[NSUserDefaults standardUserDefaults] setFloat:othersAlpha forKey:@"gCodeAlpha"];
+	_othersAlpha = value;
+	[[NSUserDefaults standardUserDefaults] setFloat:_othersAlpha forKey:@"gCodeAlpha"];
 	[self setNeedsDisplay:YES];
 }
 
@@ -219,33 +218,33 @@
 - (IBAction)resetPerspective:(id)sender
 {
 	self.autorotate=NO;
-	cameraTranslateX = 0.;
-	cameraTranslateY = 0.;
+	_cameraTranslateX = 0.;
+	_cameraTranslateY = 0.;
     if(self.currentMachine.dimBuildPlattform)
     {
-        cameraOffset = - 2*MAX( self.currentMachine.dimBuildPlattform.x, self.currentMachine.dimBuildPlattform.y);
-        validPerspective=YES;
+        _cameraOffset = - 2*MAX( self.currentMachine.dimBuildPlattform.x, self.currentMachine.dimBuildPlattform.y);
+        _validPerspective=YES;
     }
     else
     {
         Vector3* dim = self.objectDimensions;
         if(dim)
         {
-            cameraOffset = - 2*MAX( dim.x, dim.y);
-            validPerspective=YES;
-            cameraTranslateY = -dim.y/4.;
+            _cameraOffset = - 2*MAX( dim.x, dim.y);
+            _validPerspective=YES;
+            _cameraTranslateY = -dim.y/4.;
         }
     }
-	worldRotation[0] = -45.f;
-	worldRotation[1] = 1.f;
-	worldRotation[2] = worldRotation[3] = 0.0f;
+	_worldRotation[0] = -45.f;
+	_worldRotation[1] = 1.f;
+	_worldRotation[2] = _worldRotation[3] = 0.0f;
 	[self setNeedsDisplay:YES];
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent
 {
-	cameraOffset += [theEvent deltaY];
-	cameraOffset = MIN(MAX(-900., cameraOffset), 1.);
+	_cameraOffset += [theEvent deltaY];
+	_cameraOffset = MIN(MAX(-900., _cameraOffset), 1.);
 	[self setNeedsDisplay:YES];
 }
 
@@ -253,7 +252,7 @@
 {
 	self.autorotate=NO;
 	NSPoint event_location = [theEvent locationInWindow];
-	localMousePoint = [self convertPoint:event_location fromView:nil];
+	_localMousePoint = [self convertPoint:event_location fromView:nil];
 }
 
 - (void)rightMouseDragged:(NSEvent *)theEvent
@@ -261,11 +260,11 @@
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint localPoint = [self convertPoint:event_location fromView:nil];
 	
-	cameraTranslateX += (localPoint.x-localMousePoint.x)/((threeD)?(-1000./cameraOffset):5.);
-	cameraTranslateY += (localPoint.y-localMousePoint.y)/((threeD)?(-1000./cameraOffset):5.);
+	_cameraTranslateX += (localPoint.x-_localMousePoint.x)/((_threeD)?(-1000./_cameraOffset):5.);
+	_cameraTranslateY += (localPoint.y-_localMousePoint.y)/((_threeD)?(-1000./_cameraOffset):5.);
 	
 	[self setNeedsDisplay:YES];
-	localMousePoint=localPoint;
+	_localMousePoint=localPoint;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -273,14 +272,14 @@
 	self.autorotate=NO;
 
 	NSPoint event_location = [theEvent locationInWindow];
-	localMousePoint = [self convertPoint:event_location fromView:nil];
-	zoomCamera=([theEvent modifierFlags]&NSCommandKeyMask)!=0;
-	translateCamera=!zoomCamera && ((([theEvent modifierFlags]&NSAlternateKeyMask)!=0)||!threeD);
+	_localMousePoint = [self convertPoint:event_location fromView:nil];
+	_zoomCamera=([theEvent modifierFlags]&NSCommandKeyMask)!=0;
+	_translateCamera=!_zoomCamera && ((([theEvent modifierFlags]&NSAlternateKeyMask)!=0)||!_threeD);
 	
-	if(!translateCamera && !zoomCamera)
+	if(!_translateCamera && !_zoomCamera)
 	{
 		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
-		startTrackball (localMousePoint.x, localMousePoint.y, 0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
+		startTrackball (_localMousePoint.x, _localMousePoint.y, 0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
 	}
 
 }
@@ -290,34 +289,34 @@
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint localPoint = [self convertPoint:event_location fromView:nil];
 	
-	if(zoomCamera)
+	if(_zoomCamera)
 	{
-		cameraOffset += (localPoint.x-localMousePoint.x);
-		cameraOffset = MIN(MAX(-900., cameraOffset), 1.);
+		_cameraOffset += (localPoint.x-_localMousePoint.x);
+		_cameraOffset = MIN(MAX(-900., _cameraOffset), 1.);
 	}
-	else if(translateCamera)
+	else if(_translateCamera)
 	{
-		cameraTranslateX += (localPoint.x-localMousePoint.x)/((threeD)?(-1000./cameraOffset):5.);
-		cameraTranslateY += (localPoint.y-localMousePoint.y)/((threeD)?(-1000./cameraOffset):5.);
+		_cameraTranslateX += (localPoint.x-_localMousePoint.x)/((_threeD)?(-1000./_cameraOffset):5.);
+		_cameraTranslateY += (localPoint.y-_localMousePoint.y)/((_threeD)?(-1000./_cameraOffset):5.);
 	}
-	else if(threeD)
+	else if(_threeD)
 	{
-        rollToTrackball (localPoint.x, localPoint.y, trackBallRotation);
+        rollToTrackball (localPoint.x, localPoint.y, _trackBallRotation);
 	}
 	
 	[self setNeedsDisplay:YES];
-	localMousePoint=localPoint;
+	_localMousePoint=localPoint;
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-	if(threeD)
+	if(_threeD)
 	{
-		if(!translateCamera && !zoomCamera)
+		if(!_translateCamera && !_zoomCamera)
 		{
-			if (trackBallRotation[0] != 0.0)
-				addToRotationTrackball (trackBallRotation, worldRotation);
-			trackBallRotation [0] = trackBallRotation [1] = trackBallRotation [2] = trackBallRotation [3] = 0.0f;
+			if (_trackBallRotation[0] != 0.0)
+				addToRotationTrackball (_trackBallRotation, _worldRotation);
+			_trackBallRotation [0] = _trackBallRotation [1] = _trackBallRotation [2] = _trackBallRotation [3] = 0.0f;
 			
 			[self setNeedsDisplay:YES];
 		}
@@ -336,7 +335,7 @@
 		{
 			self.currentLayer = self.maxLayers;
 		}
-		if(currentLayer<self.maxLayers)
+		if(_currentLayer<self.maxLayers)
 			self.currentLayer++;
 	}
 	else if([chars characterAtIndex:0]==NSDownArrowFunctionKey)
@@ -345,7 +344,7 @@
 		{
 			self.currentLayer = 0;
 		}
-		if(currentLayer>0)
+		if(_currentLayer>0)
 			self.currentLayer--;
 	}
 }
@@ -358,7 +357,7 @@
 - (void)autorotate:(NSTimer*)timer
 {
 	GLfloat autorotation[] = {1.f, 0.f, 1.f, 0.f};
-	addToRotationTrackball (autorotation, worldRotation);
+	addToRotationTrackball (autorotation, _worldRotation);
 	[self setNeedsDisplay:YES];
 }
 
@@ -370,8 +369,8 @@
 {
 	const GLfloat kArrowLen = .4f;
 	
-	arrowDL = glGenLists(1);
-	glNewList(arrowDL, GL_COMPILE);
+	_arrowDL = glGenLists(1);
+	glNewList(_arrowDL, GL_COMPILE);
 	
 	glBegin(GL_TRIANGLES);
 	glVertex3f(kArrowLen, kArrowLen, 0.f);
@@ -388,12 +387,12 @@
 
 - (void)drawRect:(NSRect)aRect {
  	// NSLog(@"Called: %s", _cmd);
-	if(!readyToDraw)
+	if(!_readyToDraw)
 	{
-		readyToDraw=YES;
+		_readyToDraw=YES;
 		[self setupProjection];
 	}
-    if(!validPerspective)
+    if(!_validPerspective)
     {
         [self resetPerspective:nil];
     }
@@ -410,20 +409,20 @@
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glLoadIdentity();	
-	if(threeD)
+	if(_threeD)
 	{
-		glTranslatef((GLfloat)cameraTranslateX, (GLfloat)cameraTranslateY, (GLfloat)cameraOffset);
-		//glTranslatef((GLfloat)cameraTranslateX, (GLfloat)cameraTranslateY, 0.f);
-		if (trackBallRotation[0] != 0.0f) 
-			glRotatef (trackBallRotation[0], trackBallRotation[1], trackBallRotation[2], trackBallRotation[3]);
+		glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, (GLfloat)_cameraOffset);
+		//glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, 0.f);
+		if (_trackBallRotation[0] != 0.0f)
+			glRotatef (_trackBallRotation[0], _trackBallRotation[1], _trackBallRotation[2], _trackBallRotation[3]);
 		// accumlated world rotation via trackball
-		glRotatef (worldRotation[0], worldRotation[1], worldRotation[2], worldRotation[3]);
-//		glTranslatef(0.f, 0.f, (GLfloat)cameraOffset);
+		glRotatef (_worldRotation[0], _worldRotation[1], _worldRotation[2], _worldRotation[3]);
+//		glTranslatef(0.f, 0.f, (GLfloat)_cameraOffset);
 	}
 	else
 	{
-		glTranslatef((GLfloat)cameraTranslateX, (GLfloat)cameraTranslateY, 0.f);
-		glScalef(-200.f/(GLfloat)cameraOffset, -200.f/(GLfloat)cameraOffset, 1.f);
+		glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, 0.f);
+		glScalef(-200.f/(GLfloat)_cameraOffset, -200.f/(GLfloat)_cameraOffset, 1.f);
 	}
 
     // Build Platform
@@ -470,7 +469,7 @@
 
 - (void)setCurrentMachine:(P3DMachineDriverBase*)value
 {
-    currentMachine=value;
+    _currentMachine=value;
     [self setNeedsDisplay:YES];
 }
 @end

@@ -29,14 +29,10 @@
 #import <Cocoa/Cocoa.h>
 
 @class ToolPool;
-@interface P3DToolPoolController : NSObject {
-	NSCollectionView* collectionView;
-	NSArrayController* toolCollection;
-	NSUInteger sortingMode;
-}
+@interface P3DToolPoolController : NSObject
 
-@property (assign) IBOutlet NSCollectionView* collectionView;
-@property (assign) IBOutlet NSArrayController* toolCollection;
-@property (assign) NSUInteger sortingMode;
+@property (weak) IBOutlet NSCollectionView* collectionView;
+@property (weak) IBOutlet NSArrayController* toolCollection;
+@property (assign, nonatomic) NSUInteger sortingMode;
 @property (readonly) ToolPool* toolPool;
 @end

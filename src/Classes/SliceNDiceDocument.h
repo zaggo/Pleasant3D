@@ -32,23 +32,12 @@
 
 @class ToolBinView, MachinePool;
 @interface SliceNDiceDocument : P3DMachinableDocument <NSBrowserDelegate, SliceNDiceHost>
-{
-	IBOutlet ToolBinView* toolBin;	
-	IBOutlet NSView* previewView;
-	NSViewController* previewController;
 
-	NSInteger saveMode;
-	BOOL saveToDisk;
-	
-	float currentPreviewLayerHeight;
-	
-	NSData* loadedDocData;
-}
-@property (assign) IBOutlet NSView* previewView;
-@property (assign) IBOutlet ToolBinView* toolBin;
-@property (retain) NSViewController* previewController;
+@property (weak, nonatomic) IBOutlet NSView* previewView;
+@property (weak) IBOutlet ToolBinView* toolBin;
 @property (assign) float currentPreviewLayerHeight;
 @property (assign) NSInteger saveMode;
+@property (strong, nonatomic) NSViewController* previewController;
 @property (readonly) BOOL encodeLightWeight;
 
 @end

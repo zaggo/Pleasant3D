@@ -36,9 +36,14 @@
 #import "P3DLoopsPreviewController.h"
 #import "P3DGCodePreviewController.h"
 #import "P3DMachiningController.h"
+#import "PSToolboxPanel.h"
 
 @implementation SliceNDiceDocument
-@synthesize previewView, toolBin, previewController, currentPreviewLayerHeight, saveMode;
+{
+	BOOL _saveToDisk;
+	NSData* _loadedDocData;
+}
+
 @dynamic encodeLightWeight, gCodeToMachine;
 
 - (NSString *)windowNibName
@@ -51,7 +56,7 @@
 - (BOOL)handleLoadedDocData
 {
 	BOOL success = YES;
-	if(loadedDocData)
+	if(_loadedDocData)
 	{		
 		[[self undoManager] disableUndoRegistration];
 		
@@ -59,9 +64,9 @@
 		while(toolPool.loading)
 			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
 			
-		NSDictionary* docDict = [NSKeyedUnarchiver unarchiveObjectWithData:loadedDocData];
-		success = [toolBin deserializeTools:[docDict objectForKey:@"tools"]];
-		toolBin.indexOfPreviewedTool = [[docDict objectForKey:@"indexOfPreviewedTool"] unsignedIntegerValue];
+		NSDictionary* docDict = [NSKeyedUnarchiver unarchiveObjectWithData:_loadedDocData];
+		success = [_toolBin deserializeTools:[docDict objectForKey:@"tools"]];
+		_toolBin.indexOfPreviewedTool = [[docDict objectForKey:@"indexOfPreviewedTool"] unsignedIntegerValue];
 		
 		self.saveMode = [[docDict objectForKey:@"saveMode"] integerValue];
 		if([self.configuredMachines configuredMachineForUUID:[docDict objectForKey:@"selectedMachineUUID"]]!=nil)
@@ -70,7 +75,7 @@
 		[[self undoManager] enableUndoRegistration];
 	}
 	[[self undoManager] removeAllActions];
-	loadedDocData=nil;
+	_loadedDocData=nil;
 	return success;
 }
 
@@ -78,7 +83,7 @@
 {
     [super windowControllerDidLoadNib:aController];
 	
-	saveMode = 0;// [[NSUserDefaults standardUserDefaults] integerForKey:@"P3DDocumentSaveMode"];
+	_saveMode = 0;// [[NSUserDefaults standardUserDefaults] integerForKey:@"P3DDocumentSaveMode"];
 	
 	self.selectedMachineUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
 		
@@ -91,16 +96,16 @@
 	NSData* docData = nil;
 	if([typeName isEqualToString:@"com.pleasantsoftware.uti.p3d"])
 	{
-		saveToDisk = YES; // see encodeLightWeight
+		_saveToDisk = YES; // see encodeLightWeight
 		NSDictionary* docDict = [NSDictionary dictionaryWithObjectsAndKeys:
-									[toolBin currentToolsArray], @"tools",
-									[NSNumber numberWithUnsignedInteger:toolBin.indexOfPreviewedTool], @"indexOfPreviewedTool",
+									[_toolBin currentToolsArray], @"tools",
+									[NSNumber numberWithUnsignedInteger:_toolBin.indexOfPreviewedTool], @"indexOfPreviewedTool",
 								 [NSNumber numberWithInteger:self.saveMode], @"saveMode",
 								 self.selectedMachineUUID, @"selectedMachineUUID",
 									nil];
 									
 		docData = [NSKeyedArchiver archivedDataWithRootObject:docDict];
-		saveToDisk = NO; // see encodeLightWeight
+		_saveToDisk = NO; // see encodeLightWeight
 
 	}
     if ( docData==nil && outError!=nil ) {
@@ -111,9 +116,9 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-	loadedDocData = data;
-	BOOL success = (loadedDocData!=nil);
-	if(toolBin && loadedDocData)
+	_loadedDocData = data;
+	BOOL success = (_loadedDocData!=nil);
+	if(_toolBin && _loadedDocData)
 	{
 		[self handleLoadedDocData];	
 	}
@@ -127,7 +132,7 @@
 - (BOOL)encodeLightWeight
 {
 	// The save mode is only relevant for Disk Saving (i.e. Drag & Drop is always "full")
-	return	saveToDisk && saveMode == kP3DSaveModeLightWeight;
+	return	_saveToDisk && _saveMode == kP3DSaveModeLightWeight;
 }
 
 - (void)setPreviewController:(NSViewController*)controller
@@ -135,15 +140,15 @@
 	if(controller)
 	{
 		PSLog(@"Preview", PSPrioNormal, @"Set preview to %@", NSStringFromClass([[controller view] class]));
-		[[previewView animator] addSubview:[controller view]];
-		[[controller view] setFrame:[previewView bounds]];
+		[[_previewView animator] addSubview:[controller view]];
+		[[controller view] setFrame:[_previewView bounds]];
 	}
 	else
 	{
-		PSLog(@"Preview", PSPrioNormal, @"Remove preview of %@", NSStringFromClass([[previewController view] class]));
-		[[[previewController view] animator] removeFromSuperview];
+		PSLog(@"Preview", PSPrioNormal, @"Remove preview of %@", NSStringFromClass([[_previewController view] class]));
+		[[[_previewController view] animator] removeFromSuperview];
 	}
-	previewController = controller;
+	_previewController = controller;
 }
 
 - (void)setSelectedMachineUUID:(NSString*)value
@@ -152,7 +157,7 @@
 	{
 		[[[self undoManager] prepareWithInvocationTarget:self] setSelectedMachineUUID:selectedMachineUUID];
 		selectedMachineUUID = value;
-		[toolBin reprocessProject]; // TODO: Necessary?
+		[_toolBin reprocessProject]; // TODO: Necessary?
 	}
 }
 

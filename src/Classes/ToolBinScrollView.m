@@ -44,7 +44,7 @@
 	
 	layer.frame = NSRectToCGRect(frame);
 	CGImageRef backgroundImage = GetCGImageNamed(@"ToolBinBackground.png");
-	layer.contents = (id)backgroundImage;
+	layer.contents = (__bridge id)backgroundImage;
 	layer.contentsGravity = kCAGravityResize;
 	layer.autoresizingMask = kCALayerWidthSizable;
 	[self.layer insertSublayer:layer atIndex:0];

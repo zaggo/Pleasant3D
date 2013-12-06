@@ -33,35 +33,37 @@
 
 
 @implementation P3DGCodePreviewController
-@synthesize previewView, gCode;
+{
+    ParsedGCode* _parsedGCode;
+}
 
 - (void)awakeFromNib
 {
 	[self bind:@"gCode" toObject:self withKeyPath:@"representedObject.previewData" options:nil];
-	[previewView bind:@"currentLayerHeight" toObject:self withKeyPath:@"representedObject.sliceNDiceHost.currentPreviewLayerHeight" options:nil];
+	[_previewView bind:@"currentLayerHeight" toObject:self withKeyPath:@"representedObject.sliceNDiceHost.currentPreviewLayerHeight" options:nil];
 }
 
 - (void)setGCode:(GCode*)value
 {
-	if(value != gCode)
+	if(value != _gCode)
 	{
-		gCode = value;
-		NSString* gCodeString = gCode.gCodeString;
-		parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gCodeString];
+		_gCode = value;
+		NSString* gCodeString = _gCode.gCodeString;
+		_parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gCodeString];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			if([parsedGCode.panes count]>0)
+			if([_parsedGCode.panes count]>0)
 			{
-				previewView.parsedGCode =parsedGCode;
+				_previewView.parsedGCode = _parsedGCode;
 				
 				// This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
 				// Not sure if this is a SnowLeopard Bug...
-				NSRect b = [previewView bounds];
-				[previewView setFrame:NSInsetRect(b, 1, 1)];
-				[previewView setFrame:b];
+				NSRect b = [_previewView bounds];
+				[_previewView setFrame:NSInsetRect(b, 1, 1)];
+				[_previewView setFrame:b];
 			}
 			else
 			{
-				previewView.parsedGCode = nil;
+				_previewView.parsedGCode = nil;
 			}
 		});
 	}

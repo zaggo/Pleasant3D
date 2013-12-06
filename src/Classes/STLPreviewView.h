@@ -31,12 +31,6 @@
 
 @class STLModel;
 @interface STLPreviewView : ThreeDPreviewView 
-{
-	STLModel* stlModel;
-	
-	BOOL wireframe;
-}
-
-@property (retain) STLModel* stlModel;
-@property (assign) BOOL wireframe;
+@property (strong, nonatomic) STLModel* stlModel;
+@property (assign, nonatomic) BOOL wireframe;
 @end

@@ -31,7 +31,6 @@
 #import "ToolPool.h"
 
 @implementation P3DToolPoolController
-@synthesize collectionView, toolCollection, sortingMode;
 @dynamic toolPool;
 
 + (void)initialize
@@ -44,9 +43,9 @@
 
 - (void)awakeFromNib
 {
-	[collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
-	[collectionView setMinItemSize:NSMakeSize(90, 80)];
-	[collectionView setMaxItemSize:NSMakeSize(90, 80)];
+	[_collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+	[_collectionView setMinItemSize:NSMakeSize(90, 80)];
+	[_collectionView setMaxItemSize:NSMakeSize(90, 80)];
 	self.sortingMode=[[NSUserDefaults standardUserDefaults] integerForKey:@"toolPoolSortingMode"];
 }
 
@@ -60,14 +59,14 @@
 // -------------------------------------------------------------------------------
 - (void)setSortingMode:(NSUInteger)newMode
 {
-    sortingMode = newMode;
-	[[NSUserDefaults standardUserDefaults] setInteger:sortingMode forKey:@"toolPoolSortingMode"];
+    _sortingMode = newMode;
+	[[NSUserDefaults standardUserDefaults] setInteger:_sortingMode forKey:@"toolPoolSortingMode"];
 	
-    NSSortDescriptor *sort = [[[NSSortDescriptor alloc]
-                               initWithKey:(sortingMode == 0)?@"localizedToolName":@"toolType"
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                               initWithKey:(_sortingMode == 0)?@"localizedToolName":@"toolType"
                                ascending:YES
-                               selector:@selector(caseInsensitiveCompare:)] autorelease];
-    [toolCollection setSortDescriptors:[NSArray arrayWithObject:sort]];
+                               selector:@selector(caseInsensitiveCompare:)];
+    [_toolCollection setSortDescriptors:[NSArray arrayWithObject:sort]];
 }
 
 - (BOOL)collectionView:(NSCollectionView *)cv writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard

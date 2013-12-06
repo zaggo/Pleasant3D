@@ -29,45 +29,37 @@
 #import <Cocoa/Cocoa.h>
 
 @class Vector3, P3DMachineDriverBase;
-@interface ThreeDPreviewView : NSOpenGLView {
-	NSUInteger currentLayer;
-	float currentLayerHeight;
-	
-	CGFloat cameraOffset;
-	CGFloat cameraTranslateX;
-	CGFloat cameraTranslateY;
-	GLfloat trackBallRotation[4];
-	GLfloat worldRotation[4];
-
-	BOOL zoomCamera;
-	BOOL translateCamera;
-	
-	NSTimer* autorotateTimer;
-	
-	NSPoint localMousePoint;
-
-    BOOL validPerspective;
+@interface ThreeDPreviewView : NSOpenGLView
+{
+	CGFloat _cameraOffset;
+	CGFloat _cameraTranslateX;
+	CGFloat _cameraTranslateY;
+	GLfloat _trackBallRotation[4];
+	GLfloat _worldRotation[4];
     
-	BOOL threeD;
-	BOOL showArrows;
-	CGFloat othersAlpha;
+	BOOL _zoomCamera;
+	BOOL _translateCamera;
 	
-	GLuint arrowDL;
-	BOOL readyToDraw;	
+	NSTimer* _autorotateTimer;
+	
+	NSPoint _localMousePoint;
     
-    P3DMachineDriverBase* currentMachine;
+    BOOL _validPerspective;
+    
+	GLuint _arrowDL;
+	BOOL _readyToDraw;
 }
 
-@property (assign) NSUInteger currentLayer;
-@property (assign) BOOL showArrows;
-@property (assign) BOOL threeD;
-@property (assign) CGFloat othersAlpha;
+@property (assign, nonatomic) NSUInteger currentLayer;
+@property (assign, nonatomic) BOOL showArrows;
+@property (assign, nonatomic) BOOL threeD;
+@property (assign, nonatomic) CGFloat othersAlpha;
 @property (assign) BOOL autorotate;
 @property (assign) BOOL userRequestedAutorotate;
 @property (readonly) NSInteger maxLayers;
-@property (assign) float currentLayerHeight;
+@property (assign, nonatomic) float currentLayerHeight;
 @property (readonly) float layerHeight;
-@property (assign) P3DMachineDriverBase* currentMachine;
+@property (weak, nonatomic) P3DMachineDriverBase* currentMachine;
 @property (readonly) Vector3* objectDimensions;
 
 - (IBAction)resetPerspective:(id)sender;

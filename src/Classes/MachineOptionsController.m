@@ -30,11 +30,10 @@
 #import <P3DCore/P3DCore.h>
 
 @implementation MachineOptionsController
-@synthesize machineOptions, representedMachine, machineOptionsViewController;
 
 - (void)setRepresentedMachine:(id)machine
 {
-	representedMachine = machine;
+	_representedMachine = machine;
 	
 	NSMutableDictionary* options = [[NSMutableDictionary alloc] init];
 	NSString* value;
@@ -51,8 +50,8 @@
 		[options setObject:value forKey:@"driverVersionString"];
     
     P3DSerialDevice* device = [driver currentDevice];
-    AMSerialPort* port = [device port];
-	if((value = [port bsdPath])!=nil)
+    ORSSerialPort* port = [device port];
+	if((value = [port path])!=nil)
 		[options setObject:value forKey:@"bsdPath"];
 
 	self.machineOptionsViewController = [(P3DMachineDriverBase*)[machine valueForKey:@"driver"] machineOptionsViewController];
@@ -67,37 +66,37 @@
 	
 	// Validate
 	if(shouldClose && 
-	   ![[representedMachine valueForKey:@"localMachineName"] isEqualToString:[machineOptions objectForKey:@"localMachineName"]] && 
-	   [(NSString*)[machineOptions objectForKey:@"localMachineName"] length]==0)
+	   ![[_representedMachine valueForKey:@"localMachineName"] isEqualToString:[_machineOptions objectForKey:@"localMachineName"]] &&
+	   [(NSString*)[_machineOptions objectForKey:@"localMachineName"] length]==0)
 	{
 		shouldClose = NO;
-        [tabView selectTabViewItemAtIndex:0];
-		[self.window makeFirstResponder:machineName];
+        [_tabView selectTabViewItemAtIndex:0];
+		[self.window makeFirstResponder:_machineName];
 	}
 	
 	if(shouldClose && 
-	   ![[representedMachine valueForKey:@"locationString"] isEqualToString:[machineOptions objectForKey:@"locationString"]] && 
-	   [(NSString*)[machineOptions objectForKey:@"locationString"] length]==0)
+	   ![[_representedMachine valueForKey:@"locationString"] isEqualToString:[_machineOptions objectForKey:@"locationString"]] &&
+	   [(NSString*)[_machineOptions objectForKey:@"locationString"] length]==0)
 	{
 		shouldClose = NO;
-        [tabView selectTabViewItemAtIndex:0];
-		[self.window makeFirstResponder:machineLocation];
+        [_tabView selectTabViewItemAtIndex:0];
+		[self.window makeFirstResponder:_machineLocation];
 	}
 
 	if(shouldClose)
     {
-		shouldClose = [machineOptionsViewController validateAndSaveChanges];
+		shouldClose = [_machineOptionsViewController validateAndSaveChanges];
         if(!shouldClose)
-            [tabView selectTabViewItemAtIndex:1];
+            [_tabView selectTabViewItemAtIndex:1];
     }
 		
 	// Set Values
 	if(shouldClose)
 	{
-		if(![[representedMachine valueForKey:@"localMachineName"] isEqualToString:[machineOptions objectForKey:@"localMachineName"]])
-			[representedMachine setValue:[machineOptions objectForKey:@"localMachineName"] forKey:@"localMachineName"];
-		if(![[representedMachine valueForKey:@"locationString"] isEqualToString:[machineOptions objectForKey:@"locationString"]])
-			[representedMachine setValue:[machineOptions objectForKey:@"locationString"] forKey:@"locationString"];
+		if(![[_representedMachine valueForKey:@"localMachineName"] isEqualToString:[_machineOptions objectForKey:@"localMachineName"]])
+			[_representedMachine setValue:[_machineOptions objectForKey:@"localMachineName"] forKey:@"localMachineName"];
+		if(![[_representedMachine valueForKey:@"locationString"] isEqualToString:[_machineOptions objectForKey:@"locationString"]])
+			[_representedMachine setValue:[_machineOptions objectForKey:@"locationString"] forKey:@"locationString"];
 		[NSApp endSheet:self.window returnCode:YES];
 	}
 	else
@@ -109,21 +108,14 @@
 	[NSApp endSheet:self.window returnCode:NO];
 }
 
-//- (IBAction)machineOptionsChangeMachineName:(id)sender
-//{
-//	[sender setEnabled:NO];
-//	[deviceName setHidden:NO];
-//	[self.window makeFirstResponder:deviceName];
-//}
-//
 - (void)setMachineOptionsViewController:(MachineOptionsViewController*)value
 {
-	machineOptionsViewController = value;
-	NSView* optionView = machineOptionsViewController.view;
+	_machineOptionsViewController = value;
+	NSView* optionView = _machineOptionsViewController.view;
 	
 	NSRect wFrame = self.window.frame;
 	NSRect oFrame = optionView.frame;
-	NSRect ocFrame = machineOptionsContainer.frame;
+	NSRect ocFrame = _machineOptionsContainer.frame;
 	CGFloat optionContentHeight = NSHeight(ocFrame);
 	CGFloat wantedHeight = NSHeight(oFrame);
 	
@@ -133,7 +125,7 @@
 		[self.window setFrame:wFrame display:NO];
 		ocFrame.size.height=wantedHeight;
 		ocFrame.origin.y+=(wantedHeight-optionContentHeight);
-		machineOptionsContainer.frame = ocFrame;
+		_machineOptionsContainer.frame = ocFrame;
 		[self.window setMinSize:wFrame.size];
 	}
 	else
@@ -144,7 +136,7 @@
 	wFrame.size.height=1200.;
 	[self.window setMaxSize:wFrame.size];
 
-	[machineOptionsContainer addSubview:optionView];
+	[_machineOptionsContainer addSubview:optionView];
 }
 
 @end

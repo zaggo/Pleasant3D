@@ -30,6 +30,7 @@
 #import <OpenGL/glu.h>
 #import <P3DCore/P3DCore.h>
 #import "ParsedGCode.h"
+#import "GCodeStatistics.h"
 
 static GLuint makeMask(NSInteger n)
 {
@@ -37,7 +38,6 @@ static GLuint makeMask(NSInteger n)
 }
 
 @implementation GCodeView
-@synthesize parsedGCode, currentLayerMaxZ, currentLayerMinZ;
 
 + (NSSet *)keyPathsForValuesAffectingCurrentZ {
     return [NSSet setWithObjects:@"currentLayerMaxZ", @"currentLayerMinZ", nil];
@@ -46,19 +46,19 @@ static GLuint makeMask(NSInteger n)
 - (NSString*)currentZ
 {
 	NSString* currentZ = @"- mm";
-	if(currentLayerMinZ<FLT_MAX && currentLayerMaxZ>-FLT_MAX)
+	if(_currentLayerMinZ<FLT_MAX && _currentLayerMaxZ>-FLT_MAX)
 	{
 		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 		[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		[numberFormatter setFormat:@"0.0mm;0.0mm;-0.0mm"];
 
-		if(fabsf(currentLayerMaxZ-currentLayerMinZ)<0.1)
+		if(fabsf(_currentLayerMaxZ-_currentLayerMinZ)<0.1)
 		{
-			currentZ = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentLayerMaxZ]];
+			currentZ = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:_currentLayerMaxZ]];
 		}
 		else
 		{
-			currentZ = [NSString stringWithFormat:@"%@ - %@",[numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentLayerMinZ]], [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentLayerMaxZ]]];
+			currentZ = [NSString stringWithFormat:@"%@ - %@",[numberFormatter stringFromNumber:[NSNumber numberWithFloat:_currentLayerMinZ]], [numberFormatter stringFromNumber:[NSNumber numberWithFloat:_currentLayerMaxZ]]];
 		}
 	}
 	return currentZ;
@@ -78,17 +78,17 @@ static GLuint makeMask(NSInteger n)
 
 - (NSInteger)maxLayers
 {
-	return parsedGCode.panes.count-1;
+	return _parsedGCode.panes.count-1;
 }
 
 - (Vector3*)objectDimensions
 {
-    return [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];
+    return [_parsedGCode.cornerHigh sub:_parsedGCode.cornerLow];
 }
 
 - (NSString*)dimensionsString
 {
-	Vector3* dimension = [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];
+	Vector3* dimension = [_parsedGCode.cornerHigh sub:_parsedGCode.cornerLow];
 	
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -101,16 +101,16 @@ static GLuint makeMask(NSInteger n)
 - (NSString*)layerInfoString
 {
 	NSString* infoString = NSLocalizedString(@"Layer - of -: - mm",nil);
-	if(parsedGCode)
+	if(_parsedGCode)
 	{
-		infoString = [NSString stringWithFormat: NSLocalizedString(@"Layer %d of %d: %@",nil), currentLayer+1, parsedGCode.panes.count,[self currentZ]];
+		infoString = [NSString stringWithFormat: NSLocalizedString(@"Layer %d of %d: %@",nil), self.currentLayer+1, _parsedGCode.panes.count,[self currentZ]];
 	}
 	return infoString;
 }
 
 - (void)setParsedGCode:(ParsedGCode*)value
 {
-	parsedGCode = value;
+	_parsedGCode = value;
 	[self setNeedsDisplay:YES];
 }
 
@@ -132,14 +132,16 @@ static GLuint makeMask(NSInteger n)
 
 - (CGFloat)objectWeight
 {
-	return [parsedGCode getObjectWeight];
+	return [_parsedGCode getObjectWeight];
 }
+
 + (NSSet *)keyPathsForValuesAffectingObjectWeight {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
+
 - (NSString*)totalMachiningTime
 {
-    float raw = [parsedGCode getTotalMachiningTime];
+    float raw = [_parsedGCode getTotalMachiningTime];
     
     int hours = floor(raw / 60);
     int minutes = floor(raw - hours * 60);
@@ -150,34 +152,43 @@ static GLuint makeMask(NSInteger n)
         return [NSString stringWithFormat:@"%02dmin", minutes];
     }
 }
+
 + (NSSet *)keyPathsForValuesAffectingTotalMachiningTime {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
+
 - (CGFloat)filamentLengthToolA
 {
-	return [parsedGCode getFilamentLengthToolA];
+	return [_parsedGCode getFilamentLengthToolA];
 }
+
 - (CGFloat)filamentLengthToolB
 {
-	return [parsedGCode getFilamentLengthToolB];
+	return [_parsedGCode getFilamentLengthToolB];
 }
+
 + (NSSet *)keyPathsForValuesAffectingFilamentLengthToolA {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
+
 + (NSSet *)keyPathsForValuesAffectingFilamentLengthToolB {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
+
 - (CGFloat)movementLinesCount
 {
-	return parsedGCode.statistics.movementLinesCount;
+	return _parsedGCode.gCodeStatistics->movementLinesCount;
 }
+
 + (NSSet *)keyPathsForValuesAffectingMovementLinesCount {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
+
 - (NSInteger)layerThickness
 {
-    return [parsedGCode getLayerHeight];
+    return [_parsedGCode getLayerHeight];
 }
+
 + (NSSet *)keyPathsForValuesAffectingLayerThickness {
     return [NSSet setWithObjects:@"parsedGCode", nil];
 }
@@ -188,7 +199,7 @@ static GLuint makeMask(NSInteger n)
 
 - (CGFloat)dimX
 {
-	Vector3* dimension = [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];
+	Vector3* dimension = [_parsedGCode.cornerHigh sub:_parsedGCode.cornerLow];
 	return dimension.x;
 }
 
@@ -198,7 +209,7 @@ static GLuint makeMask(NSInteger n)
 
 - (CGFloat)dimY
 {
-	Vector3* dimension = [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];
+	Vector3* dimension = [_parsedGCode.cornerHigh sub:_parsedGCode.cornerLow];
 	return dimension.y;
 }
 
@@ -208,14 +219,14 @@ static GLuint makeMask(NSInteger n)
 
 - (CGFloat)dimZ
 {
-	Vector3* dimension = [parsedGCode.cornerHigh sub:parsedGCode.cornerLow];
+	Vector3* dimension = [_parsedGCode.cornerHigh sub:_parsedGCode.cornerLow];
 	return dimension.z;
 }
 
 - (float)layerHeight
 {
-	if(parsedGCode.panes.count>0)
-		return self.dimZ/parsedGCode.panes.count;
+	if(_parsedGCode.panes.count>0)
+		return self.dimZ/_parsedGCode.panes.count;
 	return 1.;
 }
 
@@ -223,7 +234,7 @@ static GLuint makeMask(NSInteger n)
 {		
 	float minLayerZ=FLT_MAX;
 	float maxLayerZ=-FLT_MAX;
-	if(parsedGCode)
+	if(_parsedGCode)
 	{
 		glDisable(GL_COLOR_MATERIAL);
 		glDisable(GL_LIGHTING);
@@ -231,12 +242,12 @@ static GLuint makeMask(NSInteger n)
 
 		unsigned long indx=0; // Für Selection
 		
-		if(threeD)
+		if(self.threeD)
 		{
 			NSUInteger layer=0;
-			for(NSArray* pane in parsedGCode.panes)
+			for(NSArray* pane in _parsedGCode.panes)
 			{
-				glLineWidth((layer==currentLayer)?1.f:2.f);
+				glLineWidth((layer==self.currentLayer)?1.f:2.f);
 
 				Vector3* lastPoint = nil;
 				for(id elem in pane)
@@ -251,17 +262,17 @@ static GLuint makeMask(NSInteger n)
 							glVertex3f((GLfloat)point.x,(GLfloat)point.y, (GLfloat)point.z);
 							glEnd();
 							
-							if(layer==currentLayer)
+							if(layer==self.currentLayer)
 							{
 								minLayerZ = MIN(minLayerZ, point.z);
 								maxLayerZ = MAX(minLayerZ, point.z);
 
-								if(showArrows)
+								if(self.showArrows)
 								{								
 									glPushMatrix();
 									glTranslatef((GLfloat)((point.x+lastPoint.x)/2.f), (GLfloat)((point.y+lastPoint.y)/2.f), (GLfloat)((point.z+lastPoint.z)/2.f));
 									glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
-									glCallList(arrowDL);
+									glCallList(_arrowDL);
 									glPopMatrix();
 								}
 							}
@@ -274,10 +285,10 @@ static GLuint makeMask(NSInteger n)
 						NSColor *color = elem;
                         GLfloat alphaMultiplier;
                         
-						if(currentLayer > layer)
-							alphaMultiplier = powf((GLfloat)othersAlpha,3.f);  
-						else if(currentLayer < layer)
-							alphaMultiplier = powf((GLfloat)othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f)); 
+						if(self.currentLayer > layer)
+							alphaMultiplier = powf((GLfloat)self.othersAlpha,3.f);
+						else if(self.currentLayer < layer)
+							alphaMultiplier = powf((GLfloat)self.othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)self.othersAlpha, 3.f));
 						else
 							alphaMultiplier = 1;
                         
@@ -292,10 +303,10 @@ static GLuint makeMask(NSInteger n)
 		}
 		else
 		{
-			if(currentLayer<[parsedGCode.panes count])
+			if(self.currentLayer<[_parsedGCode.panes count])
 			{
 				glLineWidth(2.f);
-				NSArray* pane = [parsedGCode.panes objectAtIndex:currentLayer];
+				NSArray* pane = [_parsedGCode.panes objectAtIndex:self.currentLayer];
 				Vector3* lastPoint=nil;
 				for(id elem in pane)
 				{
@@ -314,12 +325,12 @@ static GLuint makeMask(NSInteger n)
 								glVertex3f((GLfloat)lastPoint.x, (GLfloat)lastPoint.y, 0.f);
 								glVertex3f((GLfloat)point.x, (GLfloat)point.y, 0.f);
 							glEnd();
-							if(showArrows)
+							if(self.showArrows)
 							{
 								glPushMatrix();
 								glTranslatef((GLfloat)(point.x+lastPoint.x)/2.f, (GLfloat)(point.y+lastPoint.y)/2.f, 0.f);
 								glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
-								glCallList(arrowDL);
+								glCallList(_arrowDL);
 								glPopMatrix();
 							}
 							indx++;

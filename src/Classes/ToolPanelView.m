@@ -50,7 +50,17 @@ static NSShadow* _nonLayeredShadow = nil;
 static NSShadow* _nonLayeredUnShadow = nil;
 
 @implementation ToolPanelView
-@synthesize isSelected, viewController, contextMenu;
+{
+	CAGradientLayer* _backgroundLayer;
+	
+	// Since NSView::cacheDisplayInRect doesn't capture CAGradientLayer, we need the
+	// following "ordinary" background while capturing the panel for a drag operation
+	// It will be used as long the useCocoaBackground flag is set to YES
+	BOOL _useCocoaBackground;
+	NSBezierPath* _panelShape;
+	NSGradient* _nonLayeredBackground;
+}
+
 + (void) initialize
 {
 	_panelColorTop = [NSColor colorWithDeviceRed:0.891 green:0.500 blue:0.138 alpha:1.];
@@ -67,57 +77,51 @@ static NSShadow* _nonLayeredUnShadow = nil;
 	NSRect backgroundRect = NSInsetRect([self bounds], 2., 2.);
 	backgroundRect.origin.y=NSHeight([self bounds])-NSHeight(backgroundRect);
 	
-	backgroundLayer = [CAGradientLayer layer];
+	_backgroundLayer = [CAGradientLayer layer];
 	
 	CGColorRef cgTop = CGColorCreateFromNSColor(_panelColorTop);
 	CGColorRef cgBottom = CGColorCreateFromNSColor(_panelColorBottom);
-	backgroundLayer.colors = [NSArray arrayWithObjects:(id)cgTop, (id)cgBottom, nil];
-	CGColorRelease(cgTop);
-	CGColorRelease(cgBottom);
+	_backgroundLayer.colors = [NSArray arrayWithObjects:(id)CFBridgingRelease(cgTop), (id)CFBridgingRelease(cgBottom), nil];
 	
-	backgroundLayer.frame = NSRectToCGRect(backgroundRect);
-	backgroundLayer.cornerRadius=5.;
-	backgroundLayer.shadowOpacity = .75;
-	backgroundLayer.shadowOffset = CGSizeMake(0., -2.);
-	backgroundLayer.shadowRadius = 2.;
-	backgroundLayer.opaque=YES;
-	[self.layer insertSublayer:backgroundLayer atIndex:0];
+	_backgroundLayer.frame = NSRectToCGRect(backgroundRect);
+	_backgroundLayer.cornerRadius=5.;
+	_backgroundLayer.shadowOpacity = .75;
+	_backgroundLayer.shadowOffset = CGSizeMake(0., -2.);
+	_backgroundLayer.shadowRadius = 2.;
+	_backgroundLayer.opaque=YES;
+	[self.layer insertSublayer:_backgroundLayer atIndex:0];
 
-	panelShape = [NSBezierPath bezierPathWithRoundedRect:backgroundRect xRadius:5. yRadius:5.];
-	nonLayeredBackground = [[NSGradient alloc] initWithColors:[NSArray arrayWithObjects:_panelColorTop, _panelColorBottom, nil]];
+	_panelShape = [NSBezierPath bezierPathWithRoundedRect:backgroundRect xRadius:5. yRadius:5.];
+	_nonLayeredBackground = [[NSGradient alloc] initWithColors:[NSArray arrayWithObjects:_panelColorTop, _panelColorBottom, nil]];
 }
 
 - (void)setIsSelected:(BOOL)value
 {
-	if(value!=isSelected)
+	if(value!=_selected)
 	{
-		isSelected = value;
-		if(isSelected)
+		_selected = value;
+		if(_selected)
 		{
 			CGColorRef cgTop = CGColorCreateGenericRGB(.369, .576, .98, 1.);
 			CGColorRef cgBottom = CGColorCreateGenericRGB(.337, .545, .976, 1.);
-			backgroundLayer.colors = [NSArray arrayWithObjects:(id)cgTop, (id)cgBottom, nil];
-			CGColorRelease(cgTop);
-			CGColorRelease(cgBottom);
+			_backgroundLayer.colors = [NSArray arrayWithObjects:(id)CFBridgingRelease(cgTop), (id)CFBridgingRelease(cgBottom), nil];
 		}			
 		else
 		{
 			CGColorRef cgTop = CGColorCreateFromNSColor(_panelColorTop);
 			CGColorRef cgBottom = CGColorCreateFromNSColor(_panelColorBottom);
-			backgroundLayer.colors = [NSArray arrayWithObjects:(id)cgTop, (id)cgBottom, nil];
-			CGColorRelease(cgTop);
-			CGColorRelease(cgBottom);
+			_backgroundLayer.colors = [NSArray arrayWithObjects:(id)CFBridgingRelease(cgTop), (id)CFBridgingRelease(cgBottom), nil];
 		}			
 	}
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	if(useCocoaBackground)
+	if(_useCocoaBackground)
 	{
 		[_nonLayeredShadow set];
-		[panelShape fill];
-		[nonLayeredBackground drawInBezierPath:panelShape angle:-90.];
+		[_panelShape fill];
+		[_nonLayeredBackground drawInBezierPath:_panelShape angle:-90.];
 		[_nonLayeredUnShadow set];
 	}
 }
@@ -129,7 +133,7 @@ static NSShadow* _nonLayeredUnShadow = nil;
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
 	NSLog(@"rightMouseDown: %@", [(P3DToolBase*)[[self viewController] representedObject] localizedToolName]);
-	[contextMenu popUpMenuPositioningItem:nil atLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil]  inView:self];
+	[_contextMenu popUpMenuPositioningItem:nil atLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil]  inView:self];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -187,9 +191,9 @@ static NSShadow* _nonLayeredUnShadow = nil;
 	NSRect visibleRect = [self visibleRect];
 	
 	NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:visibleRect];
-	useCocoaBackground=YES;
+	_useCocoaBackground=YES;
 	[self cacheDisplayInRect:visibleRect toBitmapImageRep:bitmap];
-	useCocoaBackground=NO;		
+	_useCocoaBackground=NO;
 	
 	NSImage* dragImage = [[NSImage alloc] initWithSize:visibleRect.size];
 	[dragImage addRepresentation:bitmap];

@@ -34,8 +34,20 @@
 #import "P3DMachiningController.h"
 
 @implementation GCodeDocument
-@synthesize gCodeString, openGLView, calculatingPreview, maxLayers, currentPreviewLayerHeight;
-@dynamic gCodeToMachine, formattedGCode;
+{
+    NSArray* _gCodeLineScanners;
+	
+	Vector3* _cornerHigh;
+	Vector3* _cornerLow;
+	CGFloat _extrusionWidth;
+	CGFloat _scale;
+	Vector2d* _scaleCornerHigh;
+	Vector2d* _scaleCornerLow;
+    
+    NSTimer* _changesCommitTimer;
+}
+
+// ??? @dynamic gCodeToMachine, formattedGCode;
 
 + (NSSet *)keyPathsForValuesAffectingCorrectedMaxLayers {
     return [NSSet setWithObjects:@"maxLayers", nil];
@@ -49,22 +61,22 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
-    [openGLView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
+    [_openGLView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
 }
 
 - (NSInteger)correctedMaxLayers
 {
-	return maxLayers+1;
+	return _maxLayers+1;
 }
 
 - (NSString*)gCodeToMachine
 {
-	return self.gCodeString;
+	return _gCodeString;
 }
 
 - (NSAttributedString*)formattedGCode
 {
-    return [[NSAttributedString alloc] initWithString:gCodeString];
+    return [[NSAttributedString alloc] initWithString:_gCodeString];
 }
 
 - (void)setFormattedGCode:(NSAttributedString*)value
@@ -74,12 +86,12 @@
 
 - (void)setGCodeString:(NSString*)value;
 {
-	if(gCodeString!=value)
+	if(_gCodeString!=value)
 	{
 		self.calculatingPreview=YES;
-		gCodeString = value;
+		_gCodeString = value;
 		
-		if(gCodeString)
+		if(_gCodeString)
 		{
 			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
@@ -88,20 +100,20 @@
 					if([parsedGCode.panes count]>0)
 					{
 						self.maxLayers = [parsedGCode.panes count]-1;
-						self.currentPreviewLayerHeight=0.;
-						openGLView.parsedGCode = parsedGCode;
+						self.currentPreviewLayerHeight=0.f;
+						_openGLView.parsedGCode = parsedGCode;
 						
 						// This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
 						// Not sure if this is a SnowLeopard Bug...
-						NSRect b = [openGLView bounds];
-						[openGLView setFrame:NSInsetRect(b, 1, 1)];
-						[openGLView setFrame:b];
+						NSRect b = [_openGLView bounds];
+						[_openGLView setFrame:NSInsetRect(b, 1, 1)];
+						[_openGLView setFrame:b];
 					}
 					else
 					{
 						self.maxLayers = 0;
-						self.currentPreviewLayerHeight=0.;
-						openGLView.parsedGCode = nil;
+						self.currentPreviewLayerHeight=0.f;
+						_openGLView.parsedGCode = nil;
 					}
 					self.calculatingPreview=NO;
 				});
@@ -110,8 +122,8 @@
 		else
 		{
 			self.maxLayers = 0;
-			self.currentPreviewLayerHeight=0.;
-			openGLView.parsedGCode = nil;
+			self.currentPreviewLayerHeight=0.f;
+			_openGLView.parsedGCode = nil;
 			self.calculatingPreview=NO;
 		}
 	}
@@ -122,13 +134,12 @@
 {
 	self.gCodeString = nil;
 	if([typeName isEqualToString:@"com.pleasantsoftware.uti.gcode"])
-	{
 		self.gCodeString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	}
-    if (gCodeString==nil && outError != NULL ) {
+
+    if (_gCodeString==nil && outError != nil )
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
-    return (gCodeString!=nil);
+
+    return (_gCodeString!=nil);
 }
 
 - (BOOL)canPrintDocument
@@ -144,8 +155,8 @@
 
 - (void)textDidChange:(NSNotification *)aNotification
 {
-    [changesCommitTimer invalidate];
-    changesCommitTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(commitChanges:) userInfo:[aNotification object] repeats:NO];
+    [_changesCommitTimer invalidate];
+    _changesCommitTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(commitChanges:) userInfo:[aNotification object] repeats:NO];
 }
 
 - (void)commitChanges:(NSTimer*)timer

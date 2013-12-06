@@ -29,25 +29,11 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface ToolPanelView : NSView {
-	BOOL isSelected;
-	NSViewController* viewController;
-	CAGradientLayer* backgroundLayer;
-	NSMenu* contextMenu;
-	
-	
-	
-	// Since NSView::cacheDisplayInRect doesn't capture CAGradientLayer, we need the
-	// following "ordinary" background while capturing the panel for a drag operation
-	// It will be used as long the useCocoaBackground flag is set to YES
-	BOOL useCocoaBackground;
-	NSBezierPath* panelShape;
-	NSGradient* nonLayeredBackground;
-}
+@interface ToolPanelView : NSView
 
-@property (assign) IBOutlet NSViewController* viewController;
-@property (assign) IBOutlet NSMenu* contextMenu;
-@property (assign) BOOL isSelected;
+@property (weak) IBOutlet NSViewController* viewController;
+@property (weak) IBOutlet NSMenu* contextMenu;
+@property (assign, getter=isSelected) BOOL selected;
 
 - (NSImage*)imageForDragging;
 @end

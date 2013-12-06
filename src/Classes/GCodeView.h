@@ -31,14 +31,9 @@
 
 @class ParsedGCode;
 @interface GCodeView : ThreeDPreviewView	{
-	ParsedGCode* parsedGCode;
-		
-	CGFloat currentLayerMinZ;
-	CGFloat currentLayerMaxZ;
-
 }
 
-@property (assign) ParsedGCode* parsedGCode;
+@property (strong, nonatomic) ParsedGCode* parsedGCode;
 @property (assign) CGFloat currentLayerMinZ;
 @property (assign) CGFloat currentLayerMaxZ;
 @end
