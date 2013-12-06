@@ -241,7 +241,7 @@ static GLuint makeMask(NSInteger n)
 				Vector3* lastPoint = nil;
 				for(id elem in pane)
 				{
-					if([elem isKindOfClass:[Vector3 class]])
+                    if([elem isKindOfClass:[Vector3 class]])
 					{
 						Vector3* point = (Vector3*)elem;
 						if(lastPoint)
