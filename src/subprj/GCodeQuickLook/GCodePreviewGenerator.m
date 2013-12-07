@@ -28,7 +28,6 @@
 //
 
 #import "GCodePreviewGenerator.h"
-//#import <P3DCore/NSArray+GCode.h>
 #import "NSArray+GCode.h"
 #import <OpenGL/glu.h>
 
@@ -225,10 +224,15 @@ const CGFloat kRenderUpsizeFaktor=3.;
 
 - (CGImageRef)newPreviewImage
 {	
-	CGImageRef cgImage=nil;
-	CGLPixelFormatAttribute attribs[] = // 1
+	CGImageRef cgImage=NULL;
+    CGLError glError = kCGLNoError;
+    
+	CGLPixelFormatObj pixelFormatObj=NULL;
+    CGLContextObj contextObj=NULL;
+	GLint numPixelFormats=0;
+
+	CGLPixelFormatAttribute attribs[] =
 	{
-//		kCGLPFAOffScreen,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
 		kCGLPFASupersample,
@@ -236,176 +240,178 @@ const CGFloat kRenderUpsizeFaktor=3.;
         kCGLPFARemotePBuffer,
 		(CGLPixelFormatAttribute)0
 	} ;
-	CGLPixelFormatObj pixelFormatObj;
-	GLint numPixelFormats;
-	CGLChoosePixelFormat (attribs, &pixelFormatObj, &numPixelFormats);
-	
-	long bytewidth = (GLsizei)renderSize.width * 4; // Assume 4 bytes/pixel for now
-	bytewidth = (bytewidth + 3) & ~3; // Align to 4 bytes
-	
-	/* Build bitmap context */
-	void *data;
-	data = malloc((GLsizei)renderSize.height * bytewidth);
-	if (data == NULL) {
-		return nil;
-	}
-	
-	CGColorSpaceRef cSpace = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB);
-	CGContextRef bitmap;
-	bitmap = CGBitmapContextCreate(data, (GLsizei)renderSize.width, (GLsizei)renderSize.height, 8, bytewidth, cSpace, kCGImageAlphaPremultipliedFirst /* RGBA */);
-	CFRelease(cSpace);
     
-	CGLContextObj contextObj;
-	CGLCreateContext (pixelFormatObj, NULL, &contextObj);
-	CGLDestroyPixelFormat (pixelFormatObj);
-	CGLSetCurrentContext (contextObj);
+	glError = CGLChoosePixelFormat (attribs, &pixelFormatObj, &numPixelFormats);
+	
+    if(pixelFormatObj==NULL)
+        NSLog(@"############ pixelFormatObj == NULL!! numPixelFormats=%d, err = %d", numPixelFormats, glError);
+    else {
+        CGLCreateContext (pixelFormatObj, NULL, &contextObj);
+        CGLDestroyPixelFormat (pixelFormatObj);
+        glError = CGLSetCurrentContext (contextObj);
+    }
     
-    // FBO
-    GLuint fb;
-    GLuint fboRenderBuffers[2];
-    glGenFramebuffersEXT(1, &fb);
-    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb);
-    glGenRenderbuffers(2, fboRenderBuffers);
-    glBindRenderbuffer(GL_RENDERBUFFER_EXT, fboRenderBuffers[0]);
-    glRenderbufferStorage(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, renderSize.width, renderSize.height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, fboRenderBuffers[0]);
-    glBindRenderbuffer(GL_RENDERBUFFER_EXT, fboRenderBuffers[1]);
-    glRenderbufferStorage(GL_RENDERBUFFER_EXT, GL_RGBA, renderSize.width, renderSize.height);
-    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, fboRenderBuffers[1]);
-    
-    GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
-    if(GL_FRAMEBUFFER_COMPLETE_EXT == status)
-    {
-        glViewport(0, 0, renderSize.width, renderSize.height);
+    if(pixelFormatObj && glError == kCGLNoError) {
         
-        glMatrixMode( GL_PROJECTION );
-        glLoadIdentity();
-        gluPerspective( 32., renderSize.width / renderSize.height, 10., MAX(1000.,- 2. *cameraOffset) );
+        void *bitmapContextData=NULL;
         
-        // Clear the framebuffer.
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();						// Reset The View
+        long bytewidth = (GLsizei)renderSize.width * 4; // Assume 4 bytes/pixel for now
+        bytewidth = (bytewidth + 3) & ~3; // Align to 4 bytes
         
-        glClearColor( 0., 0., 0., 0. );
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-        glLoadIdentity();	
-        
-        glEnable (GL_LINE_SMOOTH); 
-        glEnable (GL_BLEND); 
-        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                        
-        glTranslatef(0.f,0.f,(GLfloat)cameraOffset);
-        glRotatef((GLfloat)rotateX, 0.f, 1.f, 0.f);
-        glRotatef((GLfloat)rotateY, 1.f, 0.f, 0.f);
-        
-        if(thumbnail)
-            glColor4f(.252f, .212f, .122f, 1.f);
-        else
-            glColor4f(1.f, .749f, 0.f, .1f);
-        glBegin(GL_QUADS);
-        glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-        glEnd();
-        
-        glColor4f(1., 0., 0., .4);
-        glBegin(GL_LINES);
-        for(float x=-zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.f)
-        {
-            glVertex3f((GLfloat)x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-            glVertex3f((GLfloat)x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-        }
-        glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-        
-        for(float y=-zeroBuildPlattform.y; y<dimBuildPlattform.y-zeroBuildPlattform.y; y+=10.f)
-        {
-            glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)y, 0.f);
-            glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)y, 0.f);
-        }
-        glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-        glEnd();
-
-
-        NSInteger layer=0;
-        for(NSArray* pane in gCodePanes)
-        {
-            glLineWidth((layer==currentLayer)?1.f:2.f);
+        /* Build bitmap context */
+        bitmapContextData = malloc((GLsizei)renderSize.height * bytewidth);
+        if (bitmapContextData) {
             
-            Vector3* lastPoint = nil;
-            for(id elem in pane)
-            {
-                if([elem isKindOfClass:[Vector3 class]])
-                {
-                    Vector3* point = (Vector3*)elem;
-                    if(lastPoint)
-                    {
-                        glBegin(GL_LINES);
-                        glVertex3f((GLfloat)lastPoint.x,(GLfloat)lastPoint.y, (GLfloat)lastPoint.z);
-                        glVertex3f((GLfloat)point.x,(GLfloat)point.y, (GLfloat)point.z);
-                        glEnd();
-                    }
-
-                    lastPoint = point;
-                }
+            CGColorSpaceRef cSpace = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB);
+            CGContextRef bitmap;
+            bitmap = CGBitmapContextCreate(bitmapContextData, (GLsizei)renderSize.width, (GLsizei)renderSize.height, 8, bytewidth, cSpace, kCGImageAlphaPremultipliedFirst /* RGBA */);
+            CFRelease(cSpace);
+            
+            // FBO
+            GLuint fb;
+            GLuint fboRenderBuffers[2];
+            glGenFramebuffers(1, &fb);
+            glBindFramebuffer(GL_FRAMEBUFFER, fb);
+            glGenRenderbuffers(2, fboRenderBuffers);
+            glBindRenderbuffer(GL_RENDERBUFFER, fboRenderBuffers[0]);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, renderSize.width, renderSize.height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, fboRenderBuffers[0]);
+            glBindRenderbuffer(GL_RENDERBUFFER, fboRenderBuffers[1]);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, renderSize.width, renderSize.height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, fboRenderBuffers[1]);
+            
+            GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if(GL_FRAMEBUFFER_COMPLETE == status) {
+                glViewport(0, 0, renderSize.width, renderSize.height);
+                
+                glMatrixMode( GL_PROJECTION );
+                glLoadIdentity();
+                gluPerspective( 32., renderSize.width / renderSize.height, 10., MAX(1000.,- 2. *cameraOffset) );
+                
+                // Clear the framebuffer.
+                glMatrixMode(GL_MODELVIEW);
+                glLoadIdentity();						// Reset The View
+                
+                glClearColor( 0., 0., 0., 0. );
+                glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+                glLoadIdentity();	
+                
+                glEnable (GL_LINE_SMOOTH); 
+                glEnable (GL_BLEND); 
+                glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                                
+                glTranslatef(0.f,0.f,(GLfloat)cameraOffset);
+                glRotatef((GLfloat)rotateX, 0.f, 1.f, 0.f);
+                glRotatef((GLfloat)rotateY, 1.f, 0.f, 0.f);
+                
+                if(thumbnail)
+                    glColor4f(.252f, .212f, .122f, 1.f);
                 else
-                {
-                    NSColor *color = elem;
-                    GLfloat alphaMultiplier;
-                    if(currentLayer > layer)
-                        alphaMultiplier = powf((GLfloat)othersAlpha,3.f); 
-                    else if(currentLayer < layer)
-                        alphaMultiplier = powf((GLfloat)othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
-                    else
-                        alphaMultiplier = 1;
-                    
-                    glColor4f((GLfloat)color.redComponent,
-                     (GLfloat)color.greenComponent,
-                     (GLfloat)color.blueComponent,
-                     (GLfloat)color.alphaComponent*alphaMultiplier);
+                    glColor4f(1.f, .749f, 0.f, .1f);
+                glBegin(GL_QUADS);
+                glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
+                glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
+                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
+                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
+                glEnd();
+                
+                glColor4f(1., 0., 0., .4);
+                glBegin(GL_LINES);
+                for(float x=-zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.f) {
+                    glVertex3f((GLfloat)x, (GLfloat)-zeroBuildPlattform.y, 0.f);
+                    glVertex3f((GLfloat)x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
                 }
-            }
-            layer++;
-        }
-        
-        glFlush();
-        
-        /* Read framebuffer into our bitmap */
-        glPixelStorei(GL_PACK_ALIGNMENT, (GLint)4); /* Force 4-byte alignment */
-        glPixelStorei(GL_PACK_ROW_LENGTH, (GLint)0);
-        glPixelStorei(GL_PACK_SKIP_ROWS, (GLint)0);
-        glPixelStorei(GL_PACK_SKIP_PIXELS, (GLint)0);
-        
-        /* Fetch the data in XRGB format, matching the bitmap context. */
-        glReadPixels((GLint)0, (GLint)0, (GLsizei)renderSize.width, (GLsizei)renderSize.width, GL_BGRA,
-                     GL_UNSIGNED_INT_8_8_8_8, // for Intel! http://lists.apple.com/archives/quartz-dev/2006/May/msg00100.html
-                     data);
-    
-        //  NSLog(@"alpha = %d", ((char*) data)[3]);
-    
-        swizzleBitmap(data, bytewidth, (GLsizei)renderSize.height);
-	
-        /* Make an image out of our bitmap; does a cheap vm_copy of the bitmap */
-        cgImage = CGBitmapContextCreateImage(bitmap);
-	}
-    else
-        NSLog(@"FBO not complete: %d", status);
-    
-    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-    glDeleteRenderbuffersEXT(2, fboRenderBuffers);
-    glDeleteFramebuffersEXT(1, &fb);
-    
-    /* Get rid of bitmap */
-    CFRelease(bitmap);
-    free(data);
-	
-	CGLSetCurrentContext (NULL);
-	CGLClearDrawable (contextObj);
-	CGLDestroyContext (contextObj);
+                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
+                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
+                
+                for(float y=-zeroBuildPlattform.y; y<dimBuildPlattform.y-zeroBuildPlattform.y; y+=10.f) {
+                    glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)y, 0.f);
+                    glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)y, 0.f);
+                }
+                glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
+                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
+                glEnd();
 
+
+                NSInteger layer=0;
+                for(NSArray* pane in gCodePanes)
+                {
+                    glLineWidth((layer==currentLayer)?1.f:2.f);
+                    
+                    Vector3* lastPoint = nil;
+                    for(id elem in pane)
+                    {
+                        if([elem isKindOfClass:[Vector3 class]])
+                        {
+                            Vector3* point = (Vector3*)elem;
+                            if(lastPoint) {
+                                glBegin(GL_LINES);
+                                glVertex3f((GLfloat)lastPoint.x,(GLfloat)lastPoint.y, (GLfloat)lastPoint.z);
+                                glVertex3f((GLfloat)point.x,(GLfloat)point.y, (GLfloat)point.z);
+                                glEnd();
+                            }
+
+                            lastPoint = point;
+                        }
+                        else
+                        {
+                            NSColor *color = elem;
+                            GLfloat alphaMultiplier;
+                            if(currentLayer > layer)
+                                alphaMultiplier = powf((GLfloat)othersAlpha, 3.f);
+                            else if(currentLayer < layer)
+                                alphaMultiplier = powf((GLfloat)othersAlpha, 3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
+                            else
+                                alphaMultiplier = 1.f;
+                            
+                            glColor4f((GLfloat)color.redComponent,
+                             (GLfloat)color.greenComponent,
+                             (GLfloat)color.blueComponent,
+                             (GLfloat)color.alphaComponent*alphaMultiplier);
+                        }
+                    }
+                    layer++;
+                }
+                
+                glFlush();
+                
+                /* Read framebuffer into our bitmap */
+                glPixelStorei(GL_PACK_ALIGNMENT, (GLint)4); /* Force 4-byte alignment */
+                glPixelStorei(GL_PACK_ROW_LENGTH, (GLint)0);
+                glPixelStorei(GL_PACK_SKIP_ROWS, (GLint)0);
+                glPixelStorei(GL_PACK_SKIP_PIXELS, (GLint)0);
+                
+                /* Fetch the data in XRGB format, matching the bitmap context. */
+                glReadPixels((GLint)0, (GLint)0, (GLsizei)renderSize.width, (GLsizei)renderSize.width, GL_BGRA,
+                             GL_UNSIGNED_INT_8_8_8_8, // for Intel! http://lists.apple.com/archives/quartz-dev/2006/May/msg00100.html
+                             bitmapContextData);
+                
+                swizzleBitmap(bitmapContextData, bytewidth, (GLsizei)renderSize.height);
+            
+                /* Make an image out of our bitmap; does a cheap vm_copy of the bitmap */
+                cgImage = CGBitmapContextCreateImage(bitmap);
+            }
+            else
+                NSLog(@"FBO not complete: %d", status);
+            
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            glDeleteRenderbuffers(2, fboRenderBuffers);
+            glDeleteFramebuffers(1, &fb);
+            
+            /* Get rid of bitmap */
+            CFRelease(bitmap);
+            free(bitmapContextData);
+        }
+    }
+    
+    CGLSetCurrentContext (NULL);
+    if(contextObj) {
+        CGLClearDrawable (contextObj);
+        CGLDestroyContext (contextObj);
+    }
+    
 	return cgImage;
 }
+
 
 @end

@@ -29,6 +29,25 @@
 #import "STLImportPlugin.h"
 #import "STLPreviewGenerator.h"
 
+static CGImageRef CGImageCreateWithNSImage(NSImage *image, CGSize renderSize) {
+    NSSize imageSize = [image size];
+    CGFloat ratio = imageSize.width/imageSize.height;
+    
+    CGFloat renderWidth = renderSize.height*ratio;
+    
+    CGContextRef bitmapContext = CGBitmapContextCreate(NULL, renderSize.width, renderSize.height, 8, 0, [[NSColorSpace genericRGBColorSpace] CGColorSpace], kCGBitmapByteOrder32Host|kCGImageAlphaPremultipliedFirst);
+    
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:bitmapContext flipped:NO]];
+    [image drawInRect:NSMakeRect((renderSize.width-renderWidth)/2.f, 0.f, renderWidth, renderSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+    [NSGraphicsContext restoreGraphicsState];
+    
+    CGImageRef cgImage = CGBitmapContextCreateImage(bitmapContext);
+    CGContextRelease(bitmapContext);
+    return cgImage;
+}
+
+
 /* -----------------------------------------------------------------------------
    Generate a preview for file
 
@@ -38,29 +57,32 @@
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options)
 {
     @autoreleasepool {
-	STLImportPlugin* plugin = [[STLImportPlugin alloc] init];
-		STLModel* model = [plugin readSTLModel:[NSData dataWithContentsOfURL:(__bridge NSURL*)url]];
-	
-	CGSize renderSize = CGSizeMake(800., 600.);
-	CGContextRef cgContext = QLPreviewRequestCreateContext(preview, renderSize, YES, nil);
-	if(cgContext) 
-	{
-		STLPreviewGenerator* previewGen = [[STLPreviewGenerator alloc] initWithSTLModel:model size:renderSize forThumbnail:NO];
-		CGImageRef cgImage = [previewGen newPreviewImage];
-		if(cgImage)
-		{
-			CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);
-			CFRelease(cgImage);
-			QLPreviewRequestFlushContext(preview, cgContext);
-		}
-		
-		//		QTMovie* previewMovie = [previewGen generatePreviewMovie];
-		//		QLPreviewRequestSetDataRepresentation(preview, (CFDataRef)[previewMovie movieFormatRepresentation], kUTTypeMovie, nil);
-		
-		CFRelease(cgContext);
-	}
-	return noErr;
-}
+        STLImportPlugin* plugin = [[STLImportPlugin alloc] init];
+            STLModel* model = [plugin readSTLModel:[NSData dataWithContentsOfURL:(__bridge NSURL*)url]];
+        
+        CGSize renderSize = CGSizeMake(800., 600.);
+        CGContextRef cgContext = QLPreviewRequestCreateContext(preview, renderSize, YES, nil);
+        if(cgContext) 
+        {
+            STLPreviewGenerator* previewGen = [[STLPreviewGenerator alloc] initWithSTLModel:model size:renderSize forThumbnail:NO];
+            CGImageRef cgImage = [previewGen newPreviewImage];
+            if(cgImage == NULL) {
+                NSImage *theicon = [[NSWorkspace sharedWorkspace] iconForFile:[(__bridge NSURL*)url path]];
+                cgImage = CGImageCreateWithNSImage(theicon, renderSize);
+            }
+            if(cgImage)
+            {
+                CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);
+                CFRelease(cgImage);
+            }
+            QLPreviewRequestFlushContext(preview, cgContext);
+            //		QTMovie* previewMovie = [previewGen generatePreviewMovie];
+            //		QLPreviewRequestSetDataRepresentation(preview, (CFDataRef)[previewMovie movieFormatRepresentation], kUTTypeMovie, nil);
+            
+            CFRelease(cgContext);
+        }
+        return noErr;
+    }
 }
 
 void CancelPreviewGeneration(void* thisInterface, QLPreviewRequestRef preview)

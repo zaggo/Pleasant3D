@@ -59,6 +59,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-z"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-c com.pleasantsoftware.uti.gcode"
             isEnabled = "YES">
          </CommandLineArgument>

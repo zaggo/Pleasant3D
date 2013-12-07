@@ -31,6 +31,25 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GCodePreviewGenerator.h"
 
+static CGImageRef CGImageCreateWithNSImage(NSImage *image, CGSize renderSize) {
+    NSSize imageSize = [image size];
+    CGFloat ratio = imageSize.width/imageSize.height;
+    
+    CGFloat renderWidth = renderSize.height*ratio;
+    
+    CGContextRef bitmapContext = CGBitmapContextCreate(NULL, renderSize.width, renderSize.height, 8, 0, [[NSColorSpace genericRGBColorSpace] CGColorSpace], kCGBitmapByteOrder32Host|kCGImageAlphaPremultipliedFirst);
+    
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:bitmapContext flipped:NO]];
+    [image drawInRect:NSMakeRect((renderSize.width-renderWidth)/2.f, 0.f, renderWidth, renderSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+    [NSGraphicsContext restoreGraphicsState];
+    
+    CGImageRef cgImage = CGBitmapContextCreateImage(bitmapContext);
+    CGContextRelease(bitmapContext);
+    return cgImage;
+}
+
+
 /* -----------------------------------------------------------------------------
     Generate a thumbnail for file
 
@@ -41,26 +60,30 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 {
     @autoreleasepool {
         BOOL thumbnailIcon = [[(__bridge NSDictionary*)options objectForKey:@"IconMode"] boolValue];
-	CGSize renderSize;
-	if(thumbnailIcon)
-		renderSize = CGSizeMake(400., 512.);
-	else
-		renderSize = CGSizeMake(800., 600.);
-	CGContextRef cgContext = QLThumbnailRequestCreateContext(thumbnail, renderSize, YES, nil);
-	if(cgContext) 
-	{	
+        CGSize renderSize;
+        if(thumbnailIcon)
+            renderSize = CGSizeMake(400., 512.);
+        else
+            renderSize = CGSizeMake(800., 600.);
+        CGContextRef cgContext = QLThumbnailRequestCreateContext(thumbnail, renderSize, YES, nil);
+        if(cgContext) 
+        {	
             GCodePreviewGenerator* previewGen = [[GCodePreviewGenerator alloc] initWithURL:(__bridge NSURL *)url size:renderSize forThumbnail:thumbnailIcon];
-		
-		CGImageRef cgImage = [previewGen newPreviewImage];
-		if(cgImage)
-		{
-            CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);
-			
-			QLThumbnailRequestFlushContext(thumbnail, cgContext);
-			CFRelease(cgImage);
-		}
-		CFRelease(cgContext);
-	}
+            
+            CGImageRef cgImage = [previewGen newPreviewImage];
+            if(cgImage == NULL) {
+                NSImage *theicon = [[NSWorkspace sharedWorkspace] iconForFile:[(__bridge NSURL *)url path]];
+                cgImage = CGImageCreateWithNSImage(theicon, renderSize);
+            }
+            
+            if(cgImage)
+            {
+                CGContextDrawImage(cgContext, CGRectMake(0.,0.,renderSize.width,renderSize.height), cgImage);
+                CFRelease(cgImage);
+            }
+            QLThumbnailRequestFlushContext(thumbnail, cgContext);
+            CFRelease(cgContext);
+        }
 	}
     return noErr;
 }

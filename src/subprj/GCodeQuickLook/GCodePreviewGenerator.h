@@ -29,7 +29,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/OpenGL.h>
-//#import <P3DCore/P3DCore.h>
 #import "Vector3.h"
 
 @interface GCodePreviewGenerator : NSObject {
