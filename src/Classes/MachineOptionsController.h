@@ -41,6 +41,7 @@
 @property (weak) IBOutlet NSTabView* tabView;
 
 @property (weak) IBOutlet NSView* machineOptionsContainer;
+@property (weak) NSWindow* presentingWindow;
 
 - (IBAction)machineOptionsOkPressed:(id)sender;
 - (IBAction)machineOptionsCancelPressed:(id)sender;

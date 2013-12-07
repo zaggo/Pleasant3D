@@ -97,7 +97,11 @@
 			[_representedMachine setValue:[_machineOptions objectForKey:@"localMachineName"] forKey:@"localMachineName"];
 		if(![[_representedMachine valueForKey:@"locationString"] isEqualToString:[_machineOptions objectForKey:@"locationString"]])
 			[_representedMachine setValue:[_machineOptions objectForKey:@"locationString"] forKey:@"locationString"];
-		[NSApp endSheet:self.window returnCode:YES];
+        if([_presentingWindow respondsToSelector:@selector(endSheet:returnCode:)]) {
+            [_presentingWindow endSheet:self.window returnCode:YES];
+        } else {
+            [NSApp endSheet:self.window returnCode:YES];
+        }
 	}
 	else
 		NSBeep();
@@ -105,7 +109,11 @@
 
 - (IBAction)machineOptionsCancelPressed:(id)sender
 {
-	[NSApp endSheet:self.window returnCode:NO];
+    if([_presentingWindow respondsToSelector:@selector(endSheet:returnCode:)]) {
+        [_presentingWindow endSheet:self.window returnCode:NO];
+    } else {
+        [NSApp endSheet:self.window returnCode:NO];
+    }
 }
 
 - (void)setMachineOptionsViewController:(MachineOptionsViewController*)value

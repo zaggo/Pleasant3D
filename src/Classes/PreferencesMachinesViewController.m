@@ -32,12 +32,15 @@
 #import <IOKit/IOMessage.h>
 
 @implementation PreferencesMachinesViewController
-@synthesize machinesController;
+{
+	NSTimer* _deviceAlivePoll;
+    MachineOptionsController* _machineOptionsController;
+}
 @dynamic configuredMachines, availableDevices, windowForSheet, defaultMachineSelectedIndex;
 
 - (void)awakeFromNib
 {
-	[machinesController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"machineName" ascending:YES]]];
+	[_machinesController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"machineName" ascending:YES]]];
 }
 
 - (NSString *)title
@@ -74,17 +77,24 @@
 
 - (IBAction)addMachine:(id)sender
 {
-	if(addMachineSheet==nil)
+	if(_addMachineSheet==nil)
 	{
 		[NSBundle loadNibNamed:@"AddMachine" owner:self];
 	}
 	
-	[NSApp beginSheet:addMachineSheet modalForWindow:self.windowForSheet modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];	
+    if([self.windowForSheet respondsToSelector:@selector(beginSheet:completionHandler:)]) {
+        [self.windowForSheet beginSheet:_addMachineSheet completionHandler:^(NSModalResponse returnCode) {
+            if(returnCode)
+                [[ConfiguredMachines sharedInstance] syncConfiguredMachinesToPreferences];
+        }];
+    } else {
+        [NSApp beginSheet:_addMachineSheet modalForWindow:self.windowForSheet modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    }
 }
 
 - (IBAction)removeMachine:(id)sender
 {
-    for(NSDictionary* printer in [machinesController selectedObjects])
+    for(NSDictionary* printer in [_machinesController selectedObjects])
     {
         NSLog(@"Delete %@", [printer description]);
         [[ConfiguredMachines sharedInstance] removeMachine:[printer objectForKey:@"uuid"]];
@@ -98,6 +108,7 @@
     }
 }
 
+// This callback is only used on Mac OS 10.8 and older
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 {
 	[sheet close];
@@ -105,6 +116,7 @@
 	{
 		[[ConfiguredMachines sharedInstance] syncConfiguredMachinesToPreferences];
 	}
+    _machineOptionsController=nil;
 }
 
 - (NSInteger)defaultMachineSelectedIndex
@@ -114,7 +126,7 @@
 	NSString* uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
 	if(uuid)
 	{
-		[[machinesController arrangedObjects] enumerateObjectsUsingBlock:^(id printerDict, NSUInteger idx, BOOL *stop) {
+		[[_machinesController arrangedObjects] enumerateObjectsUsingBlock:^(id printerDict, NSUInteger idx, BOOL *stop) {
 			if([uuid isEqualToString:[printerDict objectForKey:@"uuid"]])
 			{	
 				selectedIndex = idx;
@@ -127,7 +139,7 @@
 
 - (void)setDefaultMachineSelectedIndex:(NSInteger)value
 {
-	NSDictionary* printerDict = [[machinesController arrangedObjects] objectAtIndex:value];
+	NSDictionary* printerDict = [[_machinesController arrangedObjects] objectAtIndex:value];
 	[[NSUserDefaults standardUserDefaults] setObject:[printerDict objectForKey:@"uuid"] forKey:@"defaultMachine"];
 }
 	 
@@ -146,20 +158,37 @@
         [[NSUserDefaults standardUserDefaults] setObject:[[[[ConfiguredMachines sharedInstance] configuredMachines] objectAtIndex:0] objectForKey:@"uuid"] forKey:@"defaultMachine"];
 	[self didChangeValueForKey:@"defaultMachineSelectedIndex"];
 
-	[NSApp endSheet:addMachineSheet returnCode:YES];
+    if([self.windowForSheet respondsToSelector:@selector(endSheet:returnCode:)]) {
+        [self.windowForSheet endSheet:_addMachineSheet returnCode:YES];
+    } else {
+        [NSApp endSheet:_addMachineSheet returnCode:YES];
+    }
 }
 
 - (IBAction)addMachineCancelPressed:(id)sender
 {
-	[NSApp endSheet:addMachineSheet returnCode:NO];
+    if([self.windowForSheet respondsToSelector:@selector(endSheet:returnCode:)]) {
+        [self.windowForSheet endSheet:_addMachineSheet returnCode:NO];
+    } else {
+        [NSApp endSheet:_addMachineSheet returnCode:NO];
+    }
 }
 
 - (IBAction)showMachineOptions:(id)selectedMachine
 {
-	MachineOptionsController* poc = [[MachineOptionsController alloc] initWithWindowNibName:@"MachineOptionSheet"];	
-	poc.representedMachine = selectedMachine;
-	
-	[NSApp beginSheet:poc.window modalForWindow:self.windowForSheet modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];	
+	_machineOptionsController = [[MachineOptionsController alloc] initWithWindowNibName:@"MachineOptionSheet"];
+	_machineOptionsController.representedMachine = selectedMachine;
+	_machineOptionsController.presentingWindow = self.windowForSheet;
+    
+    if([_machineOptionsController.presentingWindow respondsToSelector:@selector(beginSheet:completionHandler:)]) {
+        [_machineOptionsController.presentingWindow beginSheet:_machineOptionsController.window completionHandler:^(NSModalResponse returnCode) {
+            if(returnCode)
+                [[ConfiguredMachines sharedInstance] syncConfiguredMachinesToPreferences];
+            _machineOptionsController=nil;
+        }];
+    } else {
+        [NSApp beginSheet:_machineOptionsController.window modalForWindow:_machineOptionsController.presentingWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    }
 }
 
 @end

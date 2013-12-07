@@ -30,19 +30,15 @@
 #import "MBPreferencesController.h"
 
 @class AvailableDevices, ConfiguredMachines;
-@interface PreferencesMachinesViewController : NSViewController <MBPreferencesModule> {
-	IBOutlet NSWindow* addMachineSheet;
-	IBOutlet NSArrayController* machinesController;
-	
-	NSTimer* deviceAlivePoll;
-}
+@interface PreferencesMachinesViewController : NSViewController <MBPreferencesModule>
 
 @property (readonly) ConfiguredMachines* configuredMachines;
 @property (readonly) AvailableDevices* availableDevices; // For Add Machine Sheet
 @property (assign) NSInteger defaultMachineSelectedIndex;
 
 @property (readonly) NSWindow* windowForSheet;
-@property (readonly) NSArrayController* machinesController;
+@property (weak) IBOutlet NSArrayController* machinesController;
+@property (weak) IBOutlet NSWindow* addMachineSheet;
 
 - (NSString *)identifier;
 - (NSImage *)image;

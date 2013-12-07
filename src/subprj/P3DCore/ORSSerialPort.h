@@ -64,7 +64,7 @@ enum {
 - (void)cleanup;
 - (BOOL)sendData:(NSData *)data;
 
-@property (nonatomic, unsafe_unretained) id<ORSSerialPortDelegate> delegate;
+@property (weak, nonatomic) id<ORSSerialPortDelegate> delegate;
 
 // Port settings
 @property (readonly, getter = isOpen) BOOL open;
