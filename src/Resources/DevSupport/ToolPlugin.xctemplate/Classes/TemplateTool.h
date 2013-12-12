@@ -14,9 +14,6 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-@interface ___PROJECTNAME___ : P3DToolBase {
-	float sampleAttribute;
-}
-
+@interface ___PROJECTNAME___ : P3DToolBase
 @property (assign) float sampleAttribute;
 @end

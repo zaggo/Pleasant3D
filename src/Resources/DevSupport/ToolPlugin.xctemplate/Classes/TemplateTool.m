@@ -15,7 +15,6 @@
 #import <dispatch/dispatch.h>
 
 @implementation ___PACKAGENAME___
-@synthesize sampleAttribute;
 
 + (void)initialize
 {
@@ -42,7 +41,7 @@
 	self = [super initWithCoder:decoder];
 	if(self)
 	{
-		sampleAttribute = [decoder decodeFloatForKey:@"sampleAttribute"];
+		_sampleAttribute = [decoder decodeFloatForKey:@"sampleAttribute"];
 	}
 	return self;
 }
@@ -51,7 +50,7 @@
 {
 	[super encodeWithCoder:encoder];
 	
-	[encoder encodeFloat:sampleAttribute forKey:@"sampleAttribute"];
+	[encoder encodeFloat:_sampleAttribute forKey:@"sampleAttribute"];
 }
 
 #pragma mark Preset Handling
