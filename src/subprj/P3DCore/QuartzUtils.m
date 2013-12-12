@@ -37,7 +37,8 @@ CGImageRef CreateCGImageFromFile( NSString *path )
     if( src ) {
         image = CGImageSourceCreateImageAtIndex(src, 0, NULL);
         CFRelease(src);
-        if(!image) NSLog(@"Warning: CGImageSourceCreateImageAtIndex failed on file %@ (ptr size=%d)", path, (int)sizeof(void*));
+        if(!image)
+            NSLog(@"Warning: CGImageSourceCreateImageAtIndex failed on file %@ (ptr size=%d)", path, (int)sizeof(void*));
     }
     return image;
 }

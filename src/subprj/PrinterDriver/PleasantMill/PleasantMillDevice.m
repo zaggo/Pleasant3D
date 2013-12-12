@@ -90,7 +90,7 @@
             _synchronReceivedFlag=YES;
         } else {
             // port closed
-            NSLog(@"Port was closed on a readData operation...not good!");
+            PSErrorLog(@"Port was closed on a readData operation...not good!");
         }
     }
     else

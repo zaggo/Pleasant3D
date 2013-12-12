@@ -34,9 +34,7 @@
 @implementation DAEImportPlugin
 
 - (STLModel*)readDAEModel:(NSData*)daeData error:(NSError**)error
-{
-	//	NSLog(@"Sizeof float: %d CGFloat: %d GLfloat: %d NSInteger: %d long: %d", sizeof(float), sizeof(CGFloat), sizeof(GLfloat), sizeof(NSInteger), sizeof(long));
-	
+{	
 	STLModel* result = nil;
 	if(daeData)
 	{

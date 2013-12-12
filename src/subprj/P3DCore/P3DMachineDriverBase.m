@@ -34,7 +34,7 @@
 
 @implementation P3DMachineDriverBase
 @synthesize isMachining, isPaused, currentDevice, discovered, lastKnownBSDPath;
-@dynamic statusString, printDialogView, driverImagePath, statusLightImage, driverName, driverManufacturer, driverVersionString, dimBuildPlattform, zeroBuildPlattform;
+@dynamic statusString, printDialogView, driverImagePath, statusLightImage, driverName, driverManufacturer, driverVersionString, dimBuildPlattform, zeroBuildPlattform, canPrint;
 
 - (id)initWithOptionPropertyList:(NSDictionary*)options
 {
@@ -92,6 +92,11 @@
 
 #pragma mark -
 
+- (BOOL)canPrint
+{
+    return [[self class] deviceDriverClass] != nil;
+}
+
 - (NSString*)driverImagePath
 {
 	return [[self class] driverImagePath];
@@ -116,7 +121,9 @@
 {
 	NSImage* statusLight;
 	
-	if(self.currentDevice)
+    if(!self.canPrint)
+        statusLight = [NSImage imageNamed:@"GrayLight.png"];
+	else if(self.currentDevice)
 	{
 		if(self.currentDevice.errorMessage)
 			statusLight = [NSImage imageNamed:@"RedLight.png"];
@@ -136,29 +143,24 @@
 - (NSString*)statusString
 {
 	NSString* statusDisplayString=nil;
-	if(self.currentDevice)
-	{
-		if(self.currentDevice.errorMessage)
-		{
+    if(!self.canPrint) {
+        statusDisplayString = NSLocalizedStringFromTableInBundle(@"Virtual Device", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
+    } else if(self.currentDevice) {
+		if(self.currentDevice.errorMessage) {
 			statusDisplayString =  self.currentDevice.errorMessage;
-		}
-		else if(self.currentDevice.deviceIsBusy)
-		{
+		} else if(self.currentDevice.deviceIsBusy) {
 			if(self.isPaused)
 				statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Paused", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
 			else
 				statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Machining", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
-		}
-		else
+		} else {
 			statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Idle", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
-	}
-	else if(discovered)
+        }
+	} else if(discovered) {
 		statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Offline", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
-    else
-    {
+    } else {
         statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Unknown", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
-        if(!discovering)
-        {
+        if(!discovering) {
             discovering=YES;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 P3DSerialDevice* device = [[AvailableDevices sharedInstance] reconnectDevice:[[self class] deviceDriverClass] withBSDPath:lastKnownBSDPath];
@@ -184,7 +186,7 @@
 	}
 	else
 	{
-		NSLog(@"Device %@ is not the correct serial driver device (%@)", NSStringFromClass([device class]), NSStringFromClass([[self class] deviceDriverClass]));
+		PSErrorLog(@"Device %@ is not the correct serial driver device (%@)", NSStringFromClass([device class]), NSStringFromClass([[self class] deviceDriverClass]));
 	}	
 }
 

@@ -128,12 +128,12 @@
 	if ([data length] > 0) {
 		
 		NSString *receivedText = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-		NSLog(@"Serial Port Data Received: %@",receivedText);
+		PSLog(@"devices", PSPrioNormal, @"Serial Port Data Received: %@",receivedText);
         
         [activeMachineJob handleDeviceResponse:receivedText];		
 	} else {
 		// port closed
-		NSLog(@"Port was closed on a readData operation...not good!");
+		PSErrorLog(@"Port was closed on a readData operation...not good!");
 	}
 }
 

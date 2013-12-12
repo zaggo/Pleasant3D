@@ -32,9 +32,9 @@
 @interface MachineOptionsController : NSWindowController {
 }
 
-@property (weak, nonatomic) id representedMachine;
-@property (weak, nonatomic) NSMutableDictionary* machineOptions;
-@property (weak, nonatomic) MachineOptionsViewController* machineOptionsViewController;
+@property (strong, nonatomic) id representedMachine;
+@property (strong, nonatomic) NSMutableDictionary* machineOptions;
+@property (strong, nonatomic) MachineOptionsViewController* machineOptionsViewController;
 
 @property (weak) IBOutlet NSTextField* machineName;
 @property (weak) IBOutlet NSTextField* machineLocation;

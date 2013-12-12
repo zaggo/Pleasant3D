@@ -80,11 +80,9 @@ NSString* const P3DToolSettingsWindowCloseNotification = @"P3DToolSettingsWindow
 }
 
 - (void)_panelShouldClose:(NSNotification *)note {
-	//NSLog(@"[note object] = %p self.representedObject = %p representedObject = %@", [note object], self.representedObject, NSStringFromClass([self.representedObject class]));
 	if([note object]==nil || [note object] == self.representedObject)
 	{
 		[_panelWindow close];
-	//	NSLog(@"-> closing");
 	}
 }
 

@@ -333,7 +333,7 @@ static NSString* absolutePathForAliasData(NSData* aliasData)
 					{
 						sucess=YES;
 						NSTimeInterval duration = -[startTime timeIntervalSinceNow];
-						NSLog(@"It took %1.1f seconds to import the file", duration );
+						PSLog(@"timing", PSPrioNormal, @"It took %1.1f seconds to import the file", duration );
 						
 						// Since output is possibly bound to GUI-Elements, the setter has to run in the main thread!
 						dispatch_async(dispatch_get_main_queue(), ^{

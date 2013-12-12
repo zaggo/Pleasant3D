@@ -115,13 +115,13 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
     if (gCodeStatistics->extruding) {
         
         // Extrusion in progress, let's calculate the time taken
-        // NSLog(@"Extruding %f  > %f", currentExtrudedLength, previousExtrudedLength);
+        //PSLog(@"parseGCode", PSPrioLow, @"Extruding %f  > %f", currentExtrudedLength, previousExtrudedLength);
         gCodeStatistics->totalExtrudedDistance += cartesianDistance; // mm
         gCodeStatistics->totalExtrudedTime += (longestDistanceToMove / (gCodeStatistics->currentFeedRate *  __averageAccelerationEfficiencyWhenExtruding)); // min
     } else {
         
         // We're only travelling, let's calculate the time taken
-        // NSLog(@"Travelling");
+        PSLog(@"parseGCode", PSPrioLow, @"Travelling");
         gCodeStatistics->totalTravelledDistance += cartesianDistance; // mm
         gCodeStatistics->totalTravelledTime += (longestDistanceToMove / (gCodeStatistics->currentFeedRate * __averageAccelerationEfficiencyWhenTravelling)); // min
     }
@@ -141,11 +141,11 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
 		[self updateLocation:currentLocation];
         
         BOOL layerChange = ABS(currentLocation.z - oldZ) > .04 && ABS(currentLocation.z - oldZ) < 100.0;
-        // NSLog(@"%f", ABS(currentLocation.z - oldZ));
+        PSLog(@"parseGCode", PSPrioLow, @"%f", ABS(currentLocation.z - oldZ));
         
         if(layerChange) {
             
-            // NSLog(@"New layer created at z = %f", currentLocation.z);
+            PSLog(@"parseGCode", PSPrioLow, @"New layer created at z = %f", currentLocation.z);
 			isNewLayer = YES;
 		}
         

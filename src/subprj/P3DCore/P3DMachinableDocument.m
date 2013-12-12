@@ -32,14 +32,20 @@
 @synthesize selectedMachineUUID;
 @dynamic configuredMachines, selectedMachineIndex, currentMachine;
 
-+ (void)initialize
+//+ (void)initialize
+//{
+//	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
+//	[ddef setObject:[NSNumber numberWithInteger:0] forKey:@"DefaultMachineIndex"];
+//	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+//	[userDefaults registerDefaults:ddef];
+//}
+//
+- (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
-	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
-	[ddef setObject:[NSNumber numberWithInteger:0] forKey:@"DefaultMachineIndex"];
-	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-	[userDefaults registerDefaults:ddef];
+    [super windowControllerDidLoadNib:aController];
+	
+	self.selectedMachineUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
 }
-
 
 - (NSString*)gCodeToMachine
 {

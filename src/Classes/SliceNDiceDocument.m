@@ -84,8 +84,6 @@
     [super windowControllerDidLoadNib:aController];
 	
 	_saveMode = 0;// [[NSUserDefaults standardUserDefaults] integerForKey:@"P3DDocumentSaveMode"];
-	
-	self.selectedMachineUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
 		
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
 	[self handleLoadedDocData];	

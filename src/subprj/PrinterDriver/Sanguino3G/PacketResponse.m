@@ -77,8 +77,6 @@ enum { kPacketStateSTART, kPacketStateLEN, kPacketStatePAYLOAD, kPacketStateCRC,
 				{
 					if (crc != byte)
 						PSErrorLog(@"CRC mismatch on reply");
-//					else
-//						NSLog(@"Packet successfully received: %@", [payload description]);
 				}
 				complete=YES;
 				break;

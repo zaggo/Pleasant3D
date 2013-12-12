@@ -58,10 +58,7 @@ extern "C" {
 	static AvailableDevices* _singleton = nil;
 	static dispatch_once_t	justOnce=(dispatch_once_t)nil;
 	dispatch_once(&justOnce, ^{
-		if([[NSUserDefaults standardUserDefaults] boolForKey:@"ExperimentalMachineDriverSupport"])
-		{
-            _singleton = [[AvailableDevices alloc] init];
-        }
+        _singleton = [[AvailableDevices alloc] init];
     });
 	return _singleton;
 }
@@ -92,7 +89,7 @@ extern "C" {
 			if([arg hasPrefix:@"-m"])
 			{
 				NSString* pluginPath = [arg substringFromIndex:[@"-m" length]];
-				NSLog(@"Additional bundleSearchPaths for MachineDriver added: %@",pluginPath);
+				PSLog(@"devices", PSPrioNormal, @"Additional bundleSearchPaths for MachineDriver added: %@",pluginPath);
 				[bundleSearchPaths addObject:pluginPath];
 			}
 		}
@@ -174,7 +171,7 @@ extern "C" {
 
 - (void)didAddPorts:(NSNotification *)theNotification
 {
-	NSLog(@"A port was added");
+	PSLog(@"devices", PSPrioNormal, @"A port was added");
     
     self.discovering = YES;
 
@@ -206,7 +203,7 @@ extern "C" {
                         {
                             device.quiet=NO;
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                NSLog(@"Discovered Valid Serial Service %@. Checking for known drivers", [port name]);
+                                PSLog(@"devices", PSPrioNormal, @"Discovered Valid Serial Service %@. Checking for known drivers", [port name]);
                                 [newDevices addObject:device];
                                 [self willChangeValueForKey:@"availableDevices"];
                                 [availableSerialDevices addObject:device];
@@ -228,12 +225,12 @@ extern "C" {
 
 - (void)didRemovePorts:(NSNotification *)theNotification
 {
-	NSLog(@"A port was removed");
+	PSLog(@"devices", PSPrioNormal, @"A port was removed");
 	[self willChangeValueForKey:@"availableDevices"];
     
     ORSSerialPort* port = [[theNotification userInfo] objectForKey:ORSDisconnectedSerialPortsKey];
 
-        NSLog(@"%@", [port description]);
+        PSLog(@"devices", PSPrioNormal, @"%@", [port description]);
         for(P3DSerialDevice* device in availableSerialDevices)
         {
         if([[device.port path] isEqualToString:[port path]])

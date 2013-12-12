@@ -68,6 +68,7 @@
 		E25A6D7C1852542B00CBB9D1 /* STLDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25A6D6A1852542B00CBB9D1 /* STLDocument.xib */; };
 		E25A6D7D1852542B00CBB9D1 /* STLImportPreviewGUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25A6D6C1852542B00CBB9D1 /* STLImportPreviewGUI.xib */; };
 		E25A6D7E1852542B00CBB9D1 /* Toolbox.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25A6D6E1852542B00CBB9D1 /* Toolbox.xib */; };
+		E270B4051859FD8A0013EF19 /* Generic3DPrinter.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E270B4041859FBFC0013EF19 /* Generic3DPrinter.bundle */; };
 		E27435AE138FD7530062643A /* P3DCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27435AD138FD7530062643A /* P3DCore.framework */; };
 		E27435FA138FEC6A0062643A /* PleasantMill.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E27435F6138FE6270062643A /* PleasantMill.bundle */; };
 		E27435FB138FEC6F0062643A /* Sanguino3G.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E24338B9138FB988007B347E /* Sanguino3G.bundle */; };
@@ -209,6 +210,20 @@
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = GCodeGenerator;
 		};
+		E270B4031859FBFC0013EF19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E270B3FF1859FBFB0013EF19 /* Generic3DPrinter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = Generic3DPrinter;
+		};
+		E270B4061859FD940013EF19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E270B3FF1859FBFB0013EF19 /* Generic3DPrinter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = Generic3DPrinter;
+		};
 		E27435AB138FD73A0062643A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E2D62227138FD0A50052777A /* P3DCore.xcodeproj */;
@@ -290,6 +305,7 @@
 			files = (
 				E27435FB138FEC6F0062643A /* Sanguino3G.bundle in CopyMachineDrivers */,
 				E27435FA138FEC6A0062643A /* PleasantMill.bundle in CopyMachineDrivers */,
+				E270B4051859FD8A0013EF19 /* Generic3DPrinter.bundle in CopyMachineDrivers */,
 			);
 			name = CopyMachineDrivers;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +444,7 @@
 		E25A6D8B1852546900CBB9D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/STLDocument.xib; sourceTree = "<group>"; };
 		E25A6D8C1852546D00CBB9D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/STLImportPreviewGUI.xib; sourceTree = "<group>"; };
 		E25A6D8D1852547100CBB9D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/Toolbox.xib; sourceTree = "<group>"; };
+		E270B3FF1859FBFB0013EF19 /* Generic3DPrinter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Generic3DPrinter.xcodeproj; path = subprj/PrinterDriver/Generic3DPrinter/Generic3DPrinter.xcodeproj; sourceTree = "<group>"; };
 		E27435AD138FD7530062643A /* P3DCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = P3DCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PleasantMill.xcodeproj; path = subprj/PrinterDriver/PleasantMill/PleasantMill.xcodeproj; sourceTree = "<group>"; };
 		E27435F6138FE6270062643A /* PleasantMill.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = PleasantMill.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -688,6 +705,7 @@
 		E2433826138FB487007B347E /* Printer Drivers */ = {
 			isa = PBXGroup;
 			children = (
+				E270B3FF1859FBFB0013EF19 /* Generic3DPrinter.xcodeproj */,
 				E27435E9138FE50F0062643A /* PleasantMill.xcodeproj */,
 				E243381D138FB483007B347E /* Sanguino3G.xcodeproj */,
 			);
@@ -825,6 +843,14 @@
 				E254219A10FB5991005D08F7 /* ToolBinView.m */,
 			);
 			name = ToolBin;
+			sourceTree = "<group>";
+		};
+		E270B4001859FBFB0013EF19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E270B4041859FBFC0013EF19 /* Generic3DPrinter.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		E27435EA138FE50F0062643A /* Products */ = {
@@ -988,6 +1014,7 @@
 				E243389F138FB53F007B347E /* PBXTargetDependency */,
 				E24338A3138FB53F007B347E /* PBXTargetDependency */,
 				E2433899138FB536007B347E /* PBXTargetDependency */,
+				E270B4071859FD940013EF19 /* PBXTargetDependency */,
 				E24338A1138FB53F007B347E /* PBXTargetDependency */,
 				E27435F5138FE6160062643A /* PBXTargetDependency */,
 			);
@@ -1046,6 +1073,10 @@
 				{
 					ProductGroup = E2871341138FAF9600439C45 /* Products */;
 					ProjectRef = E2871340138FAF9600439C45 /* GCodeQuickLook.xcodeproj */;
+				},
+				{
+					ProductGroup = E270B4001859FBFB0013EF19 /* Products */;
+					ProjectRef = E270B3FF1859FBFB0013EF19 /* Generic3DPrinter.xcodeproj */;
 				},
 				{
 					ProductGroup = E2D62228138FD0A50052777A /* Products */;
@@ -1127,6 +1158,13 @@
 			fileType = wrapper.cfbundle;
 			path = Sanguino3G.bundle;
 			remoteRef = E2433824138FB483007B347E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E270B4041859FBFC0013EF19 /* Generic3DPrinter.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Generic3DPrinter.bundle;
+			remoteRef = E270B4031859FBFC0013EF19 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E27435F1138FE5100062643A /* PleasantMill.bundle */ = {
@@ -1309,6 +1347,11 @@
 			isa = PBXTargetDependency;
 			name = GCodeGenerator;
 			targetProxy = E24338A2138FB53F007B347E /* PBXContainerItemProxy */;
+		};
+		E270B4071859FD940013EF19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Generic3DPrinter;
+			targetProxy = E270B4061859FD940013EF19 /* PBXContainerItemProxy */;
 		};
 		E27435AC138FD73A0062643A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

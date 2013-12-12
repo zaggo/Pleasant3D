@@ -51,6 +51,7 @@
 @property (readonly) NSImage* statusLightImage;
 
 // Properties for Class Methods (for binding)
+@property (readonly) BOOL canPrint;
 @property (readonly) NSString* driverImagePath;
 @property (readonly) NSString* driverName;
 @property (readonly) NSString* driverVersionString;

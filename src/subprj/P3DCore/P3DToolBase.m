@@ -467,7 +467,7 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 	if(!showPreview)
 		[self.sliceNDiceHost disableOtherPreviews:self];
 	self.showPreview = !self.showPreview;
-	NSLog(@"previewbutton in %@ pressed, will be %@", NSStringFromClass([self class]), showPreview?@"Visible":@"Hidden");
+	PSLog(@"tools", PSPrioNormal, @"previewbutton in %@ pressed, will be %@", NSStringFromClass([self class]), showPreview?@"Visible":@"Hidden");
 }
 
 - (IBAction)reprocessData:(id)sender
@@ -607,7 +607,7 @@ NSString* const P3DToolUTI=@"com.pleasantsoftware.P3DTool";
 
 - (void)loadSettingsFromPreset:(NSDictionary*)preset
 {
-	NSLog(@"loadSettingsFromPreset (%@)", [preset objectForKey:@"presetName"]);
+	PSLog(@"tools", PSPrioNormal, @"loadSettingsFromPreset (%@)", [preset objectForKey:@"presetName"]);
 }
 
 - (IBAction)savePreset:(id)sender

@@ -16,19 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="570" height="306"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button id="8">
-                    <rect key="frame" x="18" y="270" width="292" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Enable experimental printer driver support" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="9">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="10" name="value" keyPath="values.ExperimentalMachineDriverSupport" id="12"/>
-                    </connections>
-                </button>
                 <button id="iSk-yb-7RY">
-                    <rect key="frame" x="18" y="241" width="534" height="18"/>
+                    <rect key="frame" x="18" y="270" width="534" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable experimental slicer/G-Code generator support" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z6h-GC-kzN">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

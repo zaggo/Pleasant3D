@@ -1,10 +1,9 @@
 //
-//  P3DCore.h
-//  Pleasant3D
+//  Generic3DPrinter.h
+//  Generic3DPrinter
 //
-//  Created by Eberhard Rensch on 07.01.10.
-//  Copyright 2010 Pleasant Software. All rights reserved.
-//
+//  Created by Eberhard Rensch on 12.12.2013.
+//  Copyright 2013 Pleasant Software. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under
 //  the terms of the GNU General Public License as published by the Free Software 
@@ -27,30 +26,12 @@
 //  resulting work.
 //
 
-#import "PSLog.h"
-#import "Vector2.h"
-#import "Vector3.h"
-#import "P3DFormatRegistration.h"
-#import "PSMutableIntegerArray.h"
-#import "P3DMutableLoopIndexArray.h"
-#import "BinarySTLStructs.h"
-#import "P3DProcessedObject.h"
-#import "SliceNDiceHost.h"
-#import "STLModel.h"
-#import "IndexedEdges.h"
-#import "IndexedSTLModel.h"
-#import "P3DLoops.h"
-#import "GCode.h"
-#import "P3DToolBase.h"
-#import "NSView+SearchSubview.h"
-#import "ToolSettingsViewController.h"
-#import "QuartzUtils.h"
-#import "P3DMachineDriverBase.h"
-#import "P3DMachinableDocument.h"
-#import "P3DMachiningQueue.h"
-#import "P3DSerialDevice.h"
-#import "AvailableDevices.h"
-#import "ConfiguredMachines.h"
-#import "MachineOptionsViewController.h"
-#import "P3DMachineJob.h"
-#import "P3DNotifications.h"
+#import <Cocoa/Cocoa.h>
+#import <P3DCore/P3DCore.h>
+
+@interface Generic3DPrinter : P3DMachineDriverBase <MachineOptionsDelegate>
+
+@property (strong) IBOutlet NSView* printerDialogView;
+@property (readonly) NSMutableDictionary* driverOptions;
+
+@end

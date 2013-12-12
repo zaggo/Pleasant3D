@@ -155,7 +155,7 @@ typedef enum
 
 		[toolViewControllers removeObjectAtIndex:indexOfTool];
 		count--;
-		//NSLog(@"Close Gap at %d",indexOfTool);
+		PSLog(@"tools", PSPrioLow, @"Close Gap at %d",indexOfTool);
 		for(NSInteger i = indexOfTool; i<count;i++)
 			[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
 		[self resizeToolBin];
@@ -230,7 +230,7 @@ typedef enum
 			
 			if(dragOp == NSDragOperationDelete && gapAtIndex!=-1)
 			{
-				//NSLog(@"Close Gap at %d",gapAtIndex);
+				PSLog(@"tools", PSPrioLow, @"Close Gap at %d",gapAtIndex);
 				for(NSInteger i = gapAtIndex; i<[toolViewControllers count];i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
 				gapAtIndex=-1;
@@ -348,7 +348,7 @@ typedef enum
                                 
                                 if(dragOp == NSDragOperationNone && gapAtIndex!=-1)
                                 {
-                                    //NSLog(@"Close Gap at %d",gapAtIndex);
+                                    PSLog(@"tools", PSPrioLow, @"Close Gap at %d",gapAtIndex);
                                     for(NSInteger i = gapAtIndex; i<[toolViewControllers count];i++)
                                         [(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
                                     gapAtIndex=-1;
@@ -402,7 +402,7 @@ typedef enum
 	{
 		if(gapAtIndex!=-1)
 		{
-			//NSLog(@"Close Gap at %d",gapAtIndex);
+			PSLog(@"tools", PSPrioLow, @"Close Gap at %d",gapAtIndex);
 			for(NSInteger i = gapAtIndex; i<[toolViewControllers count];i++)
 				[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
 			gapAtIndex=-1;
@@ -424,7 +424,7 @@ typedef enum
 		NSPasteboard* pboard = [sender draggingPasteboard];
 		[pboard clearContents];
 
-		//NSLog(@"DraggingEmptied");
+		PSLog(@"tools", PSPrioLow, @"DraggingEmptied");
 	}
 }
 
@@ -730,13 +730,13 @@ typedef enum
 		{
 			if(part == kBeforeTool || part == kLeftOnTool)
 			{
-				//NSLog(@"Create (A) new Gap at %d",gapNeededAtIndex);
+				PSLog(@"tools", PSPrioLow, @"Create (A) new Gap at %d",gapNeededAtIndex);
 				for(NSInteger i = gapNeededAtIndex; i<[toolViewControllers count];i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i+kToolBinEntryViewWidth animated:YES];
 			}
 			else
 			{
-				//NSLog(@"Create (B) new Gap at %d",gapNeededAtIndex+1);
+				PSLog(@"tools", PSPrioLow, @"Create (B) new Gap at %d",gapNeededAtIndex+1);
 				for(NSInteger i = gapNeededAtIndex+1; i<[toolViewControllers count];i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i+kToolBinEntryViewWidth animated:YES];
 			}
@@ -745,13 +745,13 @@ typedef enum
 		{
 			if(part == kBeforeTool || part == kLeftOnTool)
 			{
-				//NSLog(@"Move (A) Gap from %d to %d",gapAtIndex, gapNeededAtIndex);
+				PSLog(@"tools", PSPrioLow, @"Move (A) Gap from %d to %d",gapAtIndex, gapNeededAtIndex);
 				for(NSInteger i = gapAtIndex; i<=gapNeededAtIndex-1;i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
 			}
 			else
 			{
-				//NSLog(@"Move (B) Gap from %d to %d",gapAtIndex, gapNeededAtIndex+1);
+				PSLog(@"tools", PSPrioLow, @"Move (B) Gap from %d to %d",gapAtIndex, gapNeededAtIndex+1);
 				for(NSInteger i = gapAtIndex; i<=gapNeededAtIndex;i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i animated:YES];
 			}
@@ -760,13 +760,13 @@ typedef enum
 		{
 			if(part == kBeforeTool || part == kLeftOnTool)
 			{
-				//NSLog(@"Move (C) Gap from %d to %d",gapAtIndex, gapNeededAtIndex);
+				PSLog(@"tools", PSPrioLow, @"Move (C) Gap from %d to %d",gapAtIndex, gapNeededAtIndex);
 				for(NSInteger i = gapNeededAtIndex; i<=gapAtIndex-1;i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i+kToolBinEntryViewWidth animated:YES];
 			}
 			else
 			{
-				//NSLog(@"Move (D) Gap from %d to %d",gapAtIndex, gapNeededAtIndex+1);
+				PSLog(@"tools", PSPrioLow, @"Move (D) Gap from %d to %d",gapAtIndex, gapNeededAtIndex+1);
 				for(NSInteger i = gapNeededAtIndex+1; i<=gapAtIndex-1;i++)
 					[(ToolBinEntryView*)[[toolViewControllers objectAtIndex:i] view] moveToX:kToolBinEntryViewWidth*(CGFloat)i+kToolBinEntryViewWidth animated:YES];
 			}
@@ -786,7 +786,7 @@ typedef enum
 		P3DToolBase* tool = (P3DToolBase*)[viewCtrl representedObject];
 		if(tool!=exclude && tool.showPreview)
 		{
-			//NSLog(@"autohide %@", [tool localizedToolName]);
+			PSLog(@"tools", PSPrioLow, @"autohide %@", [tool localizedToolName]);
 			tool.showPreview=NO;
 		}
 	}

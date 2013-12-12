@@ -121,7 +121,7 @@
 			if ((versionBytes[0] != EEPROM_CHECK_LOW) ||
 				(versionBytes[1] != EEPROM_CHECK_HIGH)) 
 			{
-				NSLog(@"Cleaning EEPROM");
+				PSLog(@"device", PSPrioNormal, @"Cleaning EEPROM");
 				
 				// Wipe EEPROM
 //				NSMutableData *eepromWipe = [[NSMutableData alloc] initWithLength:16];

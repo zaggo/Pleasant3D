@@ -59,11 +59,17 @@
 	[self resetGraphics];
 	
 	self.autorotate=[[NSUserDefaults standardUserDefaults] boolForKey:@"gCodeAutorotate"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(threeDPreviewInvalidated:) name:P3DThreeDPreviewInvalidatedNotifiaction object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupProjection
 {
-	// NSLog(@"Called: %s", _cmd);
 	if(_readyToDraw)
 	{
 		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
@@ -156,6 +162,11 @@
 	[[NSUserDefaults standardUserDefaults] setBool:value forKey:@"P3DLoopsPreviewAutorotate"];
 }
 
+- (void)threeDPreviewInvalidated:(NSNotification*)notification
+{
+    [self setNeedsDisplay:YES];
+}
+
 - (BOOL)autorotate
 {
 	return (_autorotateTimer!=nil);
@@ -187,7 +198,6 @@
 
 - (void)setThreeD:(BOOL)value
 {
-	//NSLog(@"setThreeD: %@", value?@"YES":@"NO");
 	_threeD = value;
 	self.autorotate=NO;
 	[[NSUserDefaults standardUserDefaults] setBool:_threeD forKey:@"gCode3d"];
@@ -197,7 +207,6 @@
 
 - (void)setShowArrows:(BOOL)value
 {
-	//NSLog(@"setShowArrows: %@", value?@"YES":@"NO");
 	_showArrows = value;
 	[[NSUserDefaults standardUserDefaults] setBool:_showArrows forKey:@"gCodeShowArrows"];
 	[self setNeedsDisplay:YES];
@@ -386,7 +395,6 @@
 }
 
 - (void)drawRect:(NSRect)aRect {
- 	// NSLog(@"Called: %s", _cmd);
 	if(!_readyToDraw)
 	{
 		_readyToDraw=YES;

@@ -144,7 +144,7 @@ static ORSSerialPortManager *sharedInstance = nil;
 	// If AppKit isn't available, as in a Foundation command-line tool, cleanup upon exit. Sleep/wake
 	// notifications don't seem to be available without NSWorkspace.
 	int result = atexit_b(terminationBlock);
-	if (result) NSLog(@"ORSSerialPort was unable to register its termination handler for serial port cleanup: %i", errno);
+	if (result) PSErrorLog(@"ORSSerialPort was unable to register its termination handler for serial port cleanup: %i", errno);
 #endif
 }
 
@@ -155,7 +155,7 @@ static ORSSerialPortManager *sharedInstance = nil;
 
 - (void)systemWillSleep:(NSNotification *)notification;
 {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//PSLog(@"serial", PSPrioNormal, @"%s", __PRETTY_FUNCTION__);
 	NSArray *ports = self.availablePorts;
 	for (ORSSerialPort *port in ports)
 	{
@@ -168,7 +168,7 @@ static ORSSerialPortManager *sharedInstance = nil;
 
 - (void)systemDidWake:(NSNotification *)notification;
 {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//PSLog(@"serial", PSPrioNormal, @"%s", __PRETTY_FUNCTION__);
 	NSArray *portsToReopen = [self.portsToReopenAfterSleep copy];
 	for (ORSSerialPort *port in portsToReopen)
 	{

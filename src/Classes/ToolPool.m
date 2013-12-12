@@ -93,7 +93,7 @@ extern "C" {
 			if([arg hasPrefix:@"-i"])
 			{
 				NSString* pluginPath = [arg substringFromIndex:[@"-i" length]];
-				NSLog(@"Additional bundleSearchPaths added: %@",pluginPath);
+				NSLog(@"Additional bundleSearchPaths added: %@",pluginPath); // Log this always (i.e. not PSLog)
 				[bundleSearchPaths addObject:pluginPath];
 			}
 		}

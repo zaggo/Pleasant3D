@@ -102,8 +102,8 @@
 			foundKeyword = [stlData rangeOfData:vertexKeyWord options:0 range:searchRange];
 		}		
         
-        NSLog(@"foundKeyword.location = %lx", foundKeyword.location);
-        NSLog(@"NSNotFound = %lx", NSNotFound);
+//        NSLog(@"foundKeyword.location = %lx", foundKeyword.location);
+//        NSLog(@"NSNotFound = %lx", NSNotFound);
         
         NSUInteger requiredVertexStringsForText = MAX( 2, dataLength/8000);
 		if(numberOfVertexStrings > requiredVertexStringsForText)

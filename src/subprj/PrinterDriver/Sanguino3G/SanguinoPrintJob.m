@@ -77,7 +77,7 @@
 			if((NSInteger)(self.progress*100.f)<(NSInteger)(percent*100.f))
 				dispatch_async(dispatch_get_main_queue(), ^{
 					self.progress = percent;
-					NSLog(@"Sent Job: %f%%",(percent*100.f));
+					PSLog(@"print", PSPrioNormal, @"Sent Job: %f%%",(percent*100.f));
 				});
 		}
 		

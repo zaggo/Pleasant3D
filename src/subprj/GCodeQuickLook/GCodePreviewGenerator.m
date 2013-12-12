@@ -212,7 +212,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
 			}
 		}
 		else
-			NSLog(@"Error while reading: %@: %@",gCodeURL, [error localizedDescription]);
+			NSLog(@"Error while reading: %@: %@", gCodeURL, [error localizedDescription]);
 		
 		cameraOffset =- 2*MAX( dimBuildPlattform.x, dimBuildPlattform.y);
 		

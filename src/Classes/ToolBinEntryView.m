@@ -47,24 +47,4 @@
 		[self setFrame:myFrame];
 	}
 }
-
-//- (void)moveBy:(CGFloat)moveBy animated:(BOOL)animated;
-//{	
-//	NSRect myFrame = [self frame];
-//	myFrame.origin.x +=moveBy;
-//	CGFloat newx=myFrame.origin.x;
-//	NSLog(@"Move ToolBinEntryView to X=%f %@",newx, animated?@"animated":@"immediate");
-//	if(animated)
-//	{
-//		[NSAnimationContext beginGrouping];
-//		[[NSAnimationContext currentContext] setDuration:.3];
-//		[[self animator] setFrame:myFrame];
-//		[NSAnimationContext endGrouping];
-//	}
-//	else
-//	{
-//		[self setFrame:myFrame];
-//	}
-//}
-
 @end

@@ -96,7 +96,7 @@
 {
     for(NSDictionary* printer in [_machinesController selectedObjects])
     {
-        NSLog(@"Delete %@", [printer description]);
+        PSLog(@"devices", PSPrioNormal, @"Delete %@", [printer description]);
         [[ConfiguredMachines sharedInstance] removeMachine:[printer objectForKey:@"uuid"]];
         if([[[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"] isEqualToString:[printer objectForKey:@"uuid"]])
         {

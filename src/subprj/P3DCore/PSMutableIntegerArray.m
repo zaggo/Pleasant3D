@@ -134,7 +134,6 @@ static NSInteger sortLexically(NSNumber* n1, NSNumber* n2, void * context)
 
 - (NSData*)dataForIntegers
 {
-//	NSLog(@"create chunk");
 	NSInteger numBytes = sizeof(NSInteger)*integersPerChunk;
 	return [NSData dataWithBytesNoCopy:malloc(numBytes) length:numBytes freeWhenDone:YES];
 }

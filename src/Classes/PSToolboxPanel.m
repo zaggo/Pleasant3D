@@ -35,12 +35,6 @@
 	[self setMovableByWindowBackground:NO];
 }
 
-//- (void)orderFront:(id)sender
-//{
-//	NSLog(@"orderFront");
-//	[super orderFront:sender];
-//}
-
 - (void)fadeIn
 {
 	[self setAlphaValue:[self isVisible]?1.:0.];

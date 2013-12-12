@@ -132,7 +132,7 @@ static NSShadow* _nonLayeredUnShadow = nil;
 
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
-	NSLog(@"rightMouseDown: %@", [(P3DToolBase*)[[self viewController] representedObject] localizedToolName]);
+	PSLog(@"tools", PSPrioLow, @"rightMouseDown: %@", [(P3DToolBase*)[[self viewController] representedObject] localizedToolName]);
 	[_contextMenu popUpMenuPositioningItem:nil atLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil]  inView:self];
 }
 
