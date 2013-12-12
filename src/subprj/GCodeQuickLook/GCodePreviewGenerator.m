@@ -233,10 +233,12 @@ const CGFloat kRenderUpsizeFaktor=3.;
 
 	CGLPixelFormatAttribute attribs[] =
 	{
+        kCGLPFAOpenGLProfile, kCGLOGLPVersion_Legacy,
+        kCGLPFAMinimumPolicy,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
-		kCGLPFASupersample,
-		kCGLPFASampleAlpha,
+//		kCGLPFASupersample,
+//		kCGLPFASampleAlpha,
         kCGLPFARemotePBuffer,
 		(CGLPixelFormatAttribute)0
 	} ;
@@ -304,75 +306,64 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 glRotatef((GLfloat)rotateX, 0.f, 1.f, 0.f);
                 glRotatef((GLfloat)rotateY, 1.f, 0.f, 0.f);
                 
+
+                glEnableClientState(GL_COLOR_ARRAY);
+                glEnableClientState(GL_VERTEX_ARRAY);
+                
+                GLuint vbo[3];
+                glGenBuffers(3, vbo);
                 if(thumbnail)
-                    glColor4f(.252f, .212f, .122f, 1.f);
+                    [self setupPlatformVBOWithBufferName:vbo[0] colorR:.252f G:.212f B:.122f A:1.f];
                 else
-                    glColor4f(1.f, .749f, 0.f, .1f);
-                glBegin(GL_QUADS);
-                glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-                glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-                glEnd();
+                    [self setupPlatformVBOWithBufferName:vbo[0] colorR:1.f G:.749f B:0.f A:.1f];
+                GLsizei platformRasterVerticesCount = [self setupPlatformRasterVBOWithBufferName:vbo[1]];
                 
-                glColor4f(1., 0., 0., .4);
-                glBegin(GL_LINES);
-                for(float x=-zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.f) {
-                    glVertex3f((GLfloat)x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-                    glVertex3f((GLfloat)x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-                }
-                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)-zeroBuildPlattform.y, 0.f);
-                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
+                GLint layerVertexIndex[gCodePanes.count+1];
+                GLsizei objectVerticesCount = [self setupObjectVBOWithBufferName:vbo[2] layerVertexIndex:layerVertexIndex];
                 
-                for(float y=-zeroBuildPlattform.y; y<dimBuildPlattform.y-zeroBuildPlattform.y; y+=10.f) {
-                    glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)y, 0.f);
-                    glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)y, 0.f);
-                }
-                glVertex3f((GLfloat)-zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-                glVertex3f((GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x, (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y, 0.f);
-                glEnd();
+                const char* base = NULL;
+                const GLsizei stride = sizeof(GLfloat)*8; // RGBA + XYZW
+                
+                // Draw Platform
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+                glColorPointer(/*rgba*/4, GL_FLOAT, stride, base+0*sizeof(GLfloat));
+                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, base+4*sizeof(GLfloat));
+                glDrawArrays(GL_QUADS, /*firstIndex*/0, /*indexCount*/4);
+                
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+                glColorPointer(/*rgba*/4, GL_FLOAT, stride, base+0*sizeof(GLfloat));
+                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, base+4*sizeof(GLfloat));
+                glDrawArrays(GL_LINES, 0, platformRasterVerticesCount);
 
-
-                NSInteger layer=0;
-                for(NSArray* pane in gCodePanes)
-                {
-                    glLineWidth((layer==currentLayer)?1.f:2.f);
-                    
-                    Vector3* lastPoint = nil;
-                    for(id elem in pane)
-                    {
-                        if([elem isKindOfClass:[Vector3 class]])
-                        {
-                            Vector3* point = (Vector3*)elem;
-                            if(lastPoint) {
-                                glBegin(GL_LINES);
-                                glVertex3f((GLfloat)lastPoint.x,(GLfloat)lastPoint.y, (GLfloat)lastPoint.z);
-                                glVertex3f((GLfloat)point.x,(GLfloat)point.y, (GLfloat)point.z);
-                                glEnd();
-                            }
-
-                            lastPoint = point;
-                        }
-                        else
-                        {
-                            NSColor *color = elem;
-                            GLfloat alphaMultiplier;
-                            if(currentLayer > layer)
-                                alphaMultiplier = powf((GLfloat)othersAlpha, 3.f);
-                            else if(currentLayer < layer)
-                                alphaMultiplier = powf((GLfloat)othersAlpha, 3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
-                            else
-                                alphaMultiplier = 1.f;
-                            
-                            glColor4f((GLfloat)color.redComponent,
-                             (GLfloat)color.greenComponent,
-                             (GLfloat)color.blueComponent,
-                             (GLfloat)color.alphaComponent*alphaMultiplier);
-                        }
-                    }
-                    layer++;
+                // Draw Object
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+                glColorPointer(/*rgba*/4, GL_FLOAT, stride, base+0*sizeof(GLfloat));
+                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, base+4*sizeof(GLfloat));
+               
+                GLint startIndex = 0;
+                GLsizei count = 0;
+                if(currentLayer>0) {
+                    glLineWidth(1.f);
+                    count = layerVertexIndex[currentLayer];
+                    glDrawArrays(GL_LINES, startIndex, count);
+                    startIndex += count;
                 }
                 
+                glLineWidth(2.f);
+                count = layerVertexIndex[currentLayer+1]-startIndex;
+                glDrawArrays(GL_LINES, startIndex, count);
+                startIndex += count;
+
+                if(currentLayer<gCodePanes.count-1) {
+                    glLineWidth(1.f);
+                    count = objectVerticesCount-startIndex;
+                    glDrawArrays(GL_LINES, startIndex, count);
+                }
+                
+                // Cleanup
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                glDeleteBuffers(3, vbo);
+
                 glFlush();
                 
                 /* Read framebuffer into our bitmap */
@@ -413,5 +404,193 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	return cgImage;
 }
 
+- (void)setupPlatformVBOWithBufferName:(GLuint)bufferName colorR:(GLfloat)r G:(GLfloat)g B:(GLfloat)b A:(GLfloat)a
+{
+
+    const GLsizei stride = sizeof(GLfloat)*8;
+    const GLint numVertices = 4;
+    const GLsizeiptr bufferSize = stride * numVertices;
+    
+    GLfloat * varray = (GLfloat*)malloc(bufferSize); // 4 Dimensional, 4 Corners, 2 Components (Coordinate + Color)
+    NSInteger i = 0;
+    
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    free(varray);
+}
+
+- (GLsizei)setupPlatformRasterVBOWithBufferName:(GLuint)bufferName
+{
+    const GLsizei stride = sizeof(GLfloat)*8;
+    const GLint numVertices = ((GLint)(dimBuildPlattform.x/10.f)+1+(GLint)(dimBuildPlattform.y/10.f)+1)*2;
+    const GLsizeiptr bufferSize = stride * numVertices;
+   
+    GLfloat * varray = (GLfloat*)malloc(bufferSize);
+    NSInteger i = 0;
+
+    GLfloat r = 1.f;
+    GLfloat g = 0.f;
+    GLfloat b = 0.f;
+    GLfloat a = .4f;
+    
+    for(float x=-zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.f) {
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)x;
+        varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+        varray[i++] = 0.f;
+        varray[i++] = 0.f;
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)x;
+        varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+        varray[i++] = 0.f;
+        varray[i++] = 0.f;
+    }
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+
+
+    for(float y=-zeroBuildPlattform.y; y<dimBuildPlattform.y-zeroBuildPlattform.y; y+=10.f) {
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+        varray[i++] = (GLfloat)y;
+        varray[i++] = 0.f;
+        varray[i++] = 0.f;
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+        varray[i++] = (GLfloat)y;
+        varray[i++] = 0.f;
+        varray[i++] = 0.f;
+    }
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+    varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+    varray[i++] = 0.f;
+    varray[i++] = 0.f;
+
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    free(varray);
+    
+    return numVertices;
+}
+
+- (GLsizei)setupObjectVBOWithBufferName:(GLuint)bufferName layerVertexIndex:(GLint*)layerVertexIndex
+{
+    const GLsizei stride = sizeof(GLfloat)*8;
+    
+    GLint numVertices = 0;
+    for(NSArray* pane in gCodePanes)
+        numVertices+=(GLint)pane.count; // This results in a numVertices larger than the actually needed
+    
+    numVertices*=2;
+    
+    GLsizeiptr bufferSize = stride * numVertices;
+
+    GLfloat * varray = (GLfloat*)malloc(bufferSize);
+
+    GLfloat r = 0.f;
+    GLfloat g = 0.f;
+    GLfloat b = 0.f;
+    GLfloat a = 0.f;
+
+    numVertices = 0;
+    NSInteger i = 0;
+    NSInteger layer=0;
+    for(NSArray* pane in gCodePanes) {
+        layerVertexIndex[layer] = numVertices;
+        
+        Vector3* lastPoint = nil;
+        for(id elem in pane) {
+            if([elem isKindOfClass:[Vector3 class]]) {
+                Vector3* point = (Vector3*)elem;
+                if(lastPoint) {
+                    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                    varray[i++] = (GLfloat)lastPoint.x;
+                    varray[i++] = (GLfloat)lastPoint.y;
+                    varray[i++] = (GLfloat)lastPoint.z;
+                    varray[i++] = 0.f;
+                    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                    varray[i++] = (GLfloat)point.x;
+                    varray[i++] = (GLfloat)point.y;
+                    varray[i++] = (GLfloat)point.z;
+                    varray[i++] = 0.f;
+                    
+                    numVertices+=2;
+                }
+                lastPoint = point;
+            } else {
+                NSColor *color = elem;
+                GLfloat alphaMultiplier;
+                if(currentLayer > layer)
+                    alphaMultiplier = powf((GLfloat)othersAlpha, 3.f);
+                else if(currentLayer < layer)
+                    alphaMultiplier = powf((GLfloat)othersAlpha, 3.f); //powf((GLfloat)othersAlpha, 3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
+                else
+                    alphaMultiplier = 1.f;
+                
+                r = (GLfloat)color.redComponent;
+                g = (GLfloat)color.greenComponent;
+                b = (GLfloat)color.blueComponent;
+                a = (GLfloat)color.alphaComponent*alphaMultiplier;
+            }
+        }
+        layer++;
+    }
+    
+    layerVertexIndex[layer] = numVertices;
+    bufferSize = stride * numVertices;
+    
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    free(varray);
+    
+    return numVertices;
+}
 
 @end
