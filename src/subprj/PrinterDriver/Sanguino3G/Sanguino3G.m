@@ -101,12 +101,12 @@
 
 + (NSString*)driverName
 {
-	return NSLocalizedStringFromTableInBundle(@"MakerBot Sanguino 3G", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Driver");
+	return NSLocalizedStringFromTableInBundle(@"Sanguino 3G", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Driver");
 }
 
 + (NSString*)defaultMachineName;
 {
-	return NSLocalizedStringFromTableInBundle(@"MakerBot", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Default Printer this driver is for");
+	return NSLocalizedStringFromTableInBundle(@"Cupcake", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Default Printer this driver is for");
 }
 
 + (NSString*)driverVersionString

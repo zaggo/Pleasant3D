@@ -1,6 +1,6 @@
 //
-//  ConnectedMakerbots.h
-//  Sanguino3G
+//  AvailableDevices.h
+//  P3DCore
 //
 //  Created by Eberhard Rensch on 16.03.10.
 //  Copyright 2010 Pleasant Software. All rights reserved.

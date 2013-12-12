@@ -65,7 +65,7 @@
 	if(end!=NSNotFound)
 		fetchedName = [fetchedName substringToIndex:end];
 	if([fetchedName length]==0)
-		fetchedName = NSLocalizedStringFromTableInBundle(@"MakerBot", nil, [NSBundle bundleForClass:[self class]], @"Localized fallback Display Name for Makerbot");
+		fetchedName = NSLocalizedStringFromTableInBundle(@"Cupcake", nil, [NSBundle bundleForClass:[self class]], @"Localized fallback Display Name for Cupcake");
 	return fetchedName;
 }
 

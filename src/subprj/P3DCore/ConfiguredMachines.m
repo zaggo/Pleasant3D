@@ -45,46 +45,34 @@
 
 + (void)initialize
 {
-//	CFStringEncoding theEncoding;
-//	SCDynamicStoreRef dynRef = SCDynamicStoreCreate(kCFAllocatorSystemDefault, CFSTR("MyName"), NULL, NULL); 
-//	CFStringRef computerName = SCDynamicStoreCopyComputerName(dynRef, &theEncoding);
-//	
-//	NSString* localComputerName = [(NSString*)computerName copy];
-//	CFRelease(computerName);
-//	CFRelease(dynRef);
-//	
-//	NSString* defaultMachineUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
-	
-//	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
-//	[ddef setObject:@"Sanguino3G" forKey:@"driverClassName"];
-//	[ddef setObject:defaultMachineUUID forKey:@"uuid"];
-//	[ddef setObject:@"MakerBot" forKey:@"localMachineName"];
-//	[ddef setObject:localComputerName forKey:@"locationString"];
-//	NSArray* darr = [NSArray arrayWithObject:ddef];
-//		
-//	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:darr forKey:@"configuredMachines"]];
+    Class driverClass = NSClassFromString(@"Generic3DPrinter");
+    if(driverClass) {
+        NSArray* ddef = @[@{@"uuid": [P3DToolBase uuid],
+                      @"driverClassName": NSStringFromClass(driverClass),
+                      @"localMachineName": [driverClass defaultMachineName],
+                      @"locationString": [self localComputerName]}];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:ddef forKey:@"configuredMachines"]];
+    }
 }
 
 - (id) init
 {
 	self = [super init];
-	if (self != nil) {
+	if(self) {
 		configuredMachines = [[NSMutableArray alloc] init];
 		NSArray* configs = [[NSUserDefaults standardUserDefaults] objectForKey:@"configuredMachines"];
-		for(NSDictionary* dict in configs)
-		{
-			Class driverClass = NSClassFromString([dict objectForKey:@"driverClassName"]);
-			if(driverClass)
-			{
-				P3DMachineDriverBase* driver = [[driverClass alloc] initWithOptionPropertyList:[dict objectForKey:@"driverOptions"]];
+        for(NSDictionary* dict in configs) {
+            Class driverClass = NSClassFromString([dict objectForKey:@"driverClassName"]);
+            if(driverClass) {
+                P3DMachineDriverBase* driver = [[driverClass alloc] initWithOptionPropertyList:[dict objectForKey:@"driverOptions"]];
                 if([dict objectForKey:@"lastKnownBSDPath"])
                     driver.lastKnownBSDPath = [dict objectForKey:@"lastKnownBSDPath"];
-				NSMutableDictionary* printerDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-				[printerDict removeObjectForKey:@"driverClassName"];
-				[printerDict setObject:driver forKey:@"driver"];
-				[configuredMachines addObject:printerDict];
-			}
-		}
+                NSMutableDictionary* printerDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+                [printerDict removeObjectForKey:@"driverClassName"];
+                [printerDict setObject:driver forKey:@"driver"];
+                [configuredMachines addObject:printerDict];
+            }
+        }
 	}
 	return self;
 }
@@ -109,7 +97,7 @@
 	[[NSUserDefaults standardUserDefaults] setObject:configs forKey:@"configuredMachines"];
 }
 
-- (NSString*)localComputerName
++ (NSString*)localComputerName
 {
 	CFStringEncoding theEncoding;
 	SCDynamicStoreRef dynRef = SCDynamicStoreCreate(kCFAllocatorSystemDefault, CFSTR("MyName"), NULL, NULL); 
@@ -132,7 +120,7 @@
 								 [device.port path], @"lastKnownBSDPath",
 								 device.deviceName, @"localMachineName",
 								 driver, @"driver",
-								 [self localComputerName], @"locationString",
+								 [[self class] localComputerName], @"locationString",
 								 nil];
 	[self willChangeValueForKey:@"configuredMachines"];
 	[[printerDict objectForKey:@"driver"] setCurrentDevice:device];
@@ -150,7 +138,7 @@
 								 [P3DToolBase uuid], @"uuid",
 								 [driverClass defaultMachineName], @"localMachineName",
 								 driver, @"driver",
-								 [self localComputerName], @"locationString",
+								 [[self class] localComputerName], @"locationString",
 								 nil];
 	[self willChangeValueForKey:@"configuredMachines"];
 	[configuredMachines addObject:printerDict];

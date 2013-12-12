@@ -90,6 +90,8 @@
     NSInteger selected = self.selectedMachineIndex;
     if(selected>=0 && selected < self.configuredMachines.configuredMachines.count)
         machine = [[self.configuredMachines.configuredMachines objectAtIndex:selected] objectForKey:@"driver"];
+    else if(self.configuredMachines.configuredMachines.count>0)
+        machine = self.configuredMachines.configuredMachines[0][@"driver"];
     return machine;
 }
 @end
