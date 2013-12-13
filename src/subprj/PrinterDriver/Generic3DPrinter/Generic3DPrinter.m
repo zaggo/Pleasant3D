@@ -118,7 +118,7 @@ enum NSInteger {
 	NSMutableDictionary* options = [[NSMutableDictionary alloc] initWithDictionary:_driverOptions copyItems:YES];
 	
 	NSString* value;
-	if((value = [currentDevice.deviceName copy])!=nil)
+	if((value = [self.currentDevice.deviceName copy])!=nil)
 		[options setObject:value forKey:@"deviceName"];	
 	
 	optionController.representedObject = options;

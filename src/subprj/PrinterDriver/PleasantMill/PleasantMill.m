@@ -110,7 +110,7 @@
 	NSMutableDictionary* options = [[NSMutableDictionary alloc] initWithDictionary:driverOptions copyItems:YES];
 	
 	NSString* value;
-	if((value = [currentDevice.deviceName copy])!=nil)
+	if((value = [self.currentDevice.deviceName copy])!=nil)
 		[options setObject:value forKey:@"deviceName"];	
 	
 	optionController.representedObject = options;
@@ -125,9 +125,9 @@
 //	[driverOptions setObject:[changedValues objectForKey:@"zAxis"] forKey:@"zAxis"];
 //	[driverOptions setObject:[changedValues objectForKey:@"toolheads"] forKey:@"toolheads"];
 	
-	if(![currentDevice.deviceName isEqualToString:[changedValues objectForKey:@"deviceName"]])
+	if(![self.currentDevice.deviceName isEqualToString:[changedValues objectForKey:@"deviceName"]])
 	{
-		[(PleasantMillDevice*)currentDevice changeMachineName:[changedValues objectForKey:@"deviceName"]];
+		[(PleasantMillDevice*)self.currentDevice changeMachineName:[changedValues objectForKey:@"deviceName"]];
 	}
 	
 	return YES;

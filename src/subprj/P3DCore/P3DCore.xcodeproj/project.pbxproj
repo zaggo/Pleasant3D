@@ -386,8 +386,6 @@
 				E24FAE5D10FB6B370081C559 /* PopupWindow */,
 				E24FAE5B10FB6B370081C559 /* ToolSettingsViewController.h */,
 				E24FAE5C10FB6B370081C559 /* ToolSettingsViewController.m */,
-				E270B408185A16FD0013EF19 /* P3DNotifications.h */,
-				E270B409185A16FD0013EF19 /* P3DNotifications.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -424,6 +422,8 @@
 				E2A43A6111028076003F5907 /* PSMutableIntegerArray.m */,
 				E221D2C41143DD8100C6A685 /* P3DMutableLoopIndexArray.h */,
 				E221D2C51143DD8100C6A685 /* P3DMutableLoopIndexArray.m */,
+				E270B408185A16FD0013EF19 /* P3DNotifications.h */,
+				E270B409185A16FD0013EF19 /* P3DNotifications.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";

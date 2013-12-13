@@ -32,8 +32,9 @@
 #import "P3DMachineJob.h"
 #import "AvailableDevices.h"
 
-@implementation P3DMachineDriverBase
-@synthesize isMachining, isPaused, currentDevice, discovered, lastKnownBSDPath;
+@implementation P3DMachineDriverBase {
+    BOOL _discovering;
+}
 @dynamic statusString, printDialogView, driverImagePath, statusLightImage, driverName, driverManufacturer, driverVersionString, dimBuildPlattform, zeroBuildPlattform, canPrint;
 
 - (id)initWithOptionPropertyList:(NSDictionary*)options
@@ -132,7 +133,7 @@
 		else
 			statusLight = [NSImage imageNamed:@"GreenLight.png"];
 	}
-	else if(discovered)
+	else if(self.isDiscovered)
 		statusLight = [NSImage imageNamed:@"RedLight.png"];
     else
         statusLight = [NSImage imageNamed:@"GrayLight.png"];
@@ -156,14 +157,14 @@
 		} else {
 			statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Idle", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
         }
-	} else if(discovered) {
+	} else if(self.isDiscovered) {
 		statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Offline", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
     } else {
         statusDisplayString =  NSLocalizedStringFromTableInBundle(@"Unknown", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Status Message");
-        if(!discovering) {
-            discovering=YES;
+        if(!_discovering) {
+            _discovering=YES;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                P3DSerialDevice* device = [[AvailableDevices sharedInstance] reconnectDevice:[[self class] deviceDriverClass] withBSDPath:lastKnownBSDPath];
+                P3DSerialDevice* device = [[AvailableDevices sharedInstance] reconnectDevice:[[self class] deviceDriverClass] withBSDPath:self.lastKnownBSDPath];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.currentDevice = device;
                     self.discovered = YES;
@@ -180,14 +181,13 @@
 
 - (void)setCurrentDevice:(P3DSerialDevice*)device
 {
-	if(device==nil || [device isKindOfClass:[[self class] deviceDriverClass]])
-	{
-		currentDevice = device;
-	}
-	else
-	{
-		PSErrorLog(@"Device %@ is not the correct serial driver device (%@)", NSStringFromClass([device class]), NSStringFromClass([[self class] deviceDriverClass]));
-	}	
+    if(_currentDevice!=device) {
+        if(device==nil || [device isKindOfClass:[[self class] deviceDriverClass]]) {
+            _currentDevice = device;
+        } else {
+            PSErrorLog(@"Device %@ is not the correct serial driver device (%@)", NSStringFromClass([device class]), NSStringFromClass([[self class] deviceDriverClass]));
+        }
+    }
 }
 
 - (P3DMachineJob*)createMachineJob:(P3DMachinableDocument*)doc

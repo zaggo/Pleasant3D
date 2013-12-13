@@ -29,19 +29,11 @@
 
 @class P3DMachinableDocument, Vector3;
 @class P3DSerialDevice, MachineOptionsViewController, P3DMachineJob;
-@interface P3DMachineDriverBase : NSObject {
-    BOOL discovered;
-    BOOL discovering;
-	BOOL isMachining;
-	BOOL isPaused;
-    NSString* lastKnownBSDPath;
-    
-	P3DSerialDevice* __strong currentDevice;
-}
+@interface P3DMachineDriverBase : NSObject
 
-@property (assign) BOOL discovered;
-@property (assign) BOOL isMachining;
-@property (assign) BOOL isPaused;
+@property (assign, getter=isDiscovered) BOOL discovered;
+@property (assign, getter=isMachining) BOOL machining;
+@property (assign, getter=isPaused) BOOL paused;
 @property (copy) NSString* lastKnownBSDPath;
 @property (readonly) NSString* statusString;
 @property (readonly) NSView* printDialogView;
