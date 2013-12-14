@@ -29,7 +29,7 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-@interface Sanguino3G : P3DMachineDriverBase <MachineOptionsDelegate> {
+@interface Sanguino3G : P3DPrinterDriverBase <MachineOptionsDelegate> {
 	IBOutlet NSView* printerDialogView;
 	NSMutableDictionary* driverOptions;
 }

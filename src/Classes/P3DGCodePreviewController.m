@@ -49,7 +49,7 @@
 	{
 		_gCode = value;
 		NSString* gCodeString = _gCode.gCodeString;
-		_parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gCodeString];
+		_parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gCodeString printer:nil];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if([_parsedGCode.panes count]>0)
 			{

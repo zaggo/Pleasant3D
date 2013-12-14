@@ -59,7 +59,12 @@ enum {
 		if(options) {
 			_driverOptions = [[NSMutableDictionary alloc] initWithDictionary:options copyItems:YES];
         } else {
-			_driverOptions = [@{@"machinableAreaX": @200., @"machinableAreaY": @200., @"machinableAreaZ": @150., @"horizontalOrigin":@(kMidXMidY)} mutableCopy];
+			_driverOptions = [@{@"machinableAreaX": @200.f,
+                                @"machinableAreaY": @200.f,
+                                @"machinableAreaZ": @150.f,
+                                @"horizontalOrigin":@(kMidXMidY),
+                                @"filamentDiameter":@1.75f
+                                } mutableCopy];
         }
 	}
 	
@@ -138,18 +143,21 @@ enum {
         changesValid=NO;
     if([changedValues[@"horizontalOrigin"] integerValue]<0 || [changedValues[@"horizontalOrigin"] integerValue]>8)
         changesValid=NO;
-    
+    if([changedValues[@"filamentDiameter"] floatValue]<=0.f)
+        changesValid=NO;
+   
     if(changesValid) {
         _driverOptions[@"machinableAreaX"] = changedValues[@"machinableAreaX"];
         _driverOptions[@"machinableAreaY"] = changedValues[@"machinableAreaY"];
         _driverOptions[@"machinableAreaZ"] = changedValues[@"machinableAreaZ"];
-
-        _dimBuildPlatform=nil;
+        _dimBuildPlatform=nil; // Invalidate Cache
 
         _driverOptions[@"horizontalOrigin"] = changedValues[@"horizontalOrigin"];
-        _zeroBuildPlattform=nil;
+        _zeroBuildPlattform=nil; // Invalidate Cache
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:P3DThreeDPreviewInvalidatedNotifiaction object:self];
+        _driverOptions[@"filamentDiameter"] = changedValues[@"filamentDiameter"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:P3DCurrentMachineSettingsChangedNotifiaction object:self];
     }
     
 	return changesValid;
@@ -201,6 +209,11 @@ enum {
         }
     }
     return _zeroBuildPlattform;
+}
+
+- (float)filamentDiameter
+{
+    return [_driverOptions[@"filamentDiameter"] floatValue];
 }
 
 @end

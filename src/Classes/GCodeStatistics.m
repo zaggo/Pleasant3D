@@ -15,27 +15,8 @@
     self = [super init];
     if (self) {
         // Init stats
-        currentFeedRate = 4800.0; // Default feed rate (mm/min)
-        
-        currentLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
-        totalTravelledTime = 0;
-        totalTravelledDistance = 0;
-        totalExtrudedTime = 0;
-        totalExtrudedDistance = 0;
-        
-        currentExtrudedLengthToolA = 0;
-        currentExtrudedLengthToolB = 0;
-        
-        totalExtrudedLengthToolA = 0;
-        totalExtrudedLengthToolB = 0;
-        
-        movementLinesCount = 0;
-        layersCount = 0;
-        layerHeight = 0;
-        
-        extruding = NO;
-        dualExtrusion = NO;
-        usingToolB = NO;
+        _currentFeedRate = 4800.0; // Default feed rate (mm/min)
+        _currentLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
     }
     return self;
 }

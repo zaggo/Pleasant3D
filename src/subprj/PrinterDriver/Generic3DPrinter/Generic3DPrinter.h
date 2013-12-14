@@ -29,7 +29,7 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-@interface Generic3DPrinter : P3DMachineDriverBase <MachineOptionsDelegate>
+@interface Generic3DPrinter : P3DPrinterDriverBase <MachineOptionsDelegate>
 
 @property (strong) IBOutlet NSView* printerDialogView;
 @property (readonly) NSMutableDictionary* driverOptions;

@@ -149,7 +149,7 @@ enum {
         _driverOptions[@"horizontalOrigin"] = changedValues[@"horizontalOrigin"];
         _zeroBuildPlattform=nil;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:P3DThreeDPreviewInvalidatedNotifiaction object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:P3DCurrentMachineSettingsChangedNotifiaction object:self];
     }
     
 	return changesValid;

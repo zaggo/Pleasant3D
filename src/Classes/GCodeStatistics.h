@@ -10,36 +10,34 @@
 #import <P3DCore/P3DCore.h>
 
 @interface GCodeStatistics : NSObject
-{
-@public
-    
-    BOOL dualExtrusion;
-    
-    // Tool-specific stats
-    /* TOOL A */
-    float currentExtrudedLengthToolA;
-    float totalExtrudedLengthToolA;
-    
-    /* TOOL B */
-    float currentExtrudedLengthToolB;
-    float totalExtrudedLengthToolB;
-    BOOL usingToolB;
-    
-    // Common stats
-    float totalExtrudedTime;
-    float totalExtrudedDistance;
-    
-    float totalTravelledTime;
-    float totalTravelledDistance;
-    
-    float currentFeedRate;
-    
-    NSInteger movementLinesCount;
-    NSInteger layersCount;
-    float layerHeight;
-    
-    Vector3* currentLocation;
-    
-    BOOL extruding;
-}
+
+@property (assign, nonatomic) BOOL dualExtrusion;
+
+// Tool-specific stats
+/* TOOL A */
+@property (assign, nonatomic) float currentExtrudedLengthToolA;
+@property (assign, nonatomic) float totalExtrudedLengthToolA;
+
+
+/* TOOL B */
+@property (assign, nonatomic) float currentExtrudedLengthToolB;
+@property (assign, nonatomic) float totalExtrudedLengthToolB;
+@property (assign, nonatomic) BOOL usingToolB;
+
+// Common stats
+@property (assign, nonatomic) float totalExtrudedTime;
+@property (assign, nonatomic) float totalExtrudedDistance;
+
+@property (assign, nonatomic) float totalTravelledTime;
+@property (assign, nonatomic) float totalTravelledDistance;
+
+@property (assign, nonatomic) float currentFeedRate;
+
+@property (assign, nonatomic) NSInteger movementLinesCount;
+@property (assign, nonatomic) NSInteger layersCount;
+@property (assign, nonatomic) float layerHeight;
+
+@property (assign, nonatomic) BOOL extruding;
+
+@property (strong, readonly, nonatomic) Vector3* currentLocation;
 @end

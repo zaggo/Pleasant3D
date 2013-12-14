@@ -177,7 +177,7 @@ static GLuint makeMask(NSInteger n)
 
 - (CGFloat)movementLinesCount
 {
-	return _parsedGCode.gCodeStatistics->movementLinesCount;
+	return _parsedGCode.gCodeStatistics.movementLinesCount;
 }
 
 + (NSSet *)keyPathsForValuesAffectingMovementLinesCount {

@@ -30,7 +30,8 @@
 #import <P3DCore/NSArray+GCode.h>
 #import "GCodeStatistics.h"
 
-const float __filamentDiameter = 1.75 + 0.07; // mm + bias (mm)
+const float __filamentDiameterBias = 0.07; // bias (mm)
+//const float __filamentDiameter = 1.75 + __filamentDiameterBias; // mm + bias
 const float __averageDensity = 1050; // kg.m-3
 const float  __averageAccelerationEfficiencyWhenTravelling = 0.2; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
 const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
@@ -67,13 +68,15 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
 - (void)updateStats:(GCodeStatistics*)gCodeStatistics with:(Vector3*)currentLocation
 {
     // Travelling
-    Vector3* previousLocation = gCodeStatistics->currentLocation;
-    [gCodeStatistics->currentLocation setToVector3:currentLocation];
-    gCodeStatistics->movementLinesCount++;
+    Vector3* previousLocation = gCodeStatistics.currentLocation;
+    [gCodeStatistics.currentLocation setToVector3:currentLocation];
+    gCodeStatistics.movementLinesCount++;
 	
     // == Look for a feedrate FIRST ==
     if([self scanString:@"F" intoString:nil]) {
-		[self scanFloat:&(gCodeStatistics->currentFeedRate)]; // mm/min
+        float value;
+		[self scanFloat:&value]; // mm/min
+        gCodeStatistics.currentFeedRate = value;
 	}
     
     // == Look for an extrusion length ==
@@ -85,48 +88,48 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
         
         // We're using ToolA for this move
         [self scanFloat:&currentExtrudedLength];
-        gCodeStatistics->extruding = (currentExtrudedLength > gCodeStatistics->currentExtrudedLengthToolA);
-        if (gCodeStatistics->extruding) {
+        gCodeStatistics.extruding = (currentExtrudedLength > gCodeStatistics.currentExtrudedLengthToolA);
+        if (gCodeStatistics.extruding) {
             // Real life test
-            gCodeStatistics->currentExtrudedLengthToolA = currentExtrudedLength;
+            gCodeStatistics.currentExtrudedLengthToolA = currentExtrudedLength;
         }
-        gCodeStatistics->usingToolB = NO;
+        gCodeStatistics.usingToolB = NO;
         
 	} else if([self scanString:@"B" intoString:nil]) {
         
         // We're using ToolB for this move
         [self scanFloat:&currentExtrudedLength];
-        gCodeStatistics->extruding = (currentExtrudedLength > gCodeStatistics->currentExtrudedLengthToolB);
-        if (gCodeStatistics->extruding) {
+        gCodeStatistics.extruding = (currentExtrudedLength > gCodeStatistics.currentExtrudedLengthToolB);
+        if (gCodeStatistics.extruding) {
             // Real life test
-            gCodeStatistics->currentExtrudedLengthToolB = currentExtrudedLength;
+            gCodeStatistics.currentExtrudedLengthToolB = currentExtrudedLength;
         }
-        gCodeStatistics->usingToolB = YES;
+        gCodeStatistics.usingToolB = YES;
     }
     
     PSLog(@"parseGCode", PSPrioLow, @" ## Previous : %@", [previousLocation description]);
-    PSLog(@"parseGCode", PSPrioLow, @" ## Current : %@", [gCodeStatistics->currentLocation description]);
+    PSLog(@"parseGCode", PSPrioLow, @" ## Current : %@", [gCodeStatistics.currentLocation description]);
     
-    Vector3* travelVector = [gCodeStatistics->currentLocation sub:previousLocation];
+    Vector3* travelVector = [gCodeStatistics.currentLocation sub:previousLocation];
     float longestDistanceToMove = MAX(ABS(travelVector.x), ABS(travelVector.y)); // mm
     float cartesianDistance = [travelVector abs]; // mm
     
     // == Calculating time taken to move or extrude ==
-    if (gCodeStatistics->extruding) {
+    if (gCodeStatistics.extruding) {
         
         // Extrusion in progress, let's calculate the time taken
         //PSLog(@"parseGCode", PSPrioLow, @"Extruding %f  > %f", currentExtrudedLength, previousExtrudedLength);
-        gCodeStatistics->totalExtrudedDistance += cartesianDistance; // mm
-        gCodeStatistics->totalExtrudedTime += (longestDistanceToMove / (gCodeStatistics->currentFeedRate *  __averageAccelerationEfficiencyWhenExtruding)); // min
+        gCodeStatistics.totalExtrudedDistance += cartesianDistance; // mm
+        gCodeStatistics.totalExtrudedTime += (longestDistanceToMove / (gCodeStatistics.currentFeedRate *  __averageAccelerationEfficiencyWhenExtruding)); // min
     } else {
         
         // We're only travelling, let's calculate the time taken
         PSLog(@"parseGCode", PSPrioLow, @"Travelling");
-        gCodeStatistics->totalTravelledDistance += cartesianDistance; // mm
-        gCodeStatistics->totalTravelledTime += (longestDistanceToMove / (gCodeStatistics->currentFeedRate * __averageAccelerationEfficiencyWhenTravelling)); // min
+        gCodeStatistics.totalTravelledDistance += cartesianDistance; // mm
+        gCodeStatistics.totalTravelledTime += (longestDistanceToMove / (gCodeStatistics.currentFeedRate * __averageAccelerationEfficiencyWhenTravelling)); // min
     }
     
-    PSLog(@"parseGCode", PSPrioLow, @" ## tel= %f; tet= %f; ttt=%f; D=%f; fr=%f; extr=%d", gCodeStatistics->currentExtrudedLengthToolA, gCodeStatistics->totalExtrudedTime, gCodeStatistics->totalTravelledTime, longestDistanceToMove, gCodeStatistics->currentFeedRate, gCodeStatistics->extruding);
+    PSLog(@"parseGCode", PSPrioLow, @" ## tel= %f; tet= %f; ttt=%f; D=%f; fr=%f; extr=%d", gCodeStatistics.currentExtrudedLengthToolA, gCodeStatistics.totalExtrudedTime, gCodeStatistics.totalTravelledTime, longestDistanceToMove, gCodeStatistics.currentFeedRate, gCodeStatistics.extruding);
 
     [self setScanLocation:0];
 }
@@ -159,8 +162,16 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
 
 @end
 
+@interface ParsedGCode ()
+
+@property (readonly) float filamentDiameter;
+
+@end
 
 @implementation ParsedGCode
+{
+    P3DPrinterDriverBase* _currentPrinter;
+}
 
 static NSArray* _extrusionColors=nil;
 static NSArray* _extrusionColors_A=nil;
@@ -204,40 +215,40 @@ static NSColor* _extrusionOffColor=nil;
 
 - (float)getTotalMachiningTime
 {
-    return _gCodeStatistics->totalExtrudedTime + _gCodeStatistics->totalTravelledTime;
+    return _gCodeStatistics.totalExtrudedTime + _gCodeStatistics.totalTravelledTime;
 }
 
 - (float)getObjectWeight
 {
-    return (_gCodeStatistics->totalExtrudedLengthToolA + _gCodeStatistics->totalExtrudedLengthToolB) * (float)M_PI/4.f * powf(__filamentDiameter,2.f) * __averageDensity * powf(10.f,-6.f); // in g
+    return (_gCodeStatistics.totalExtrudedLengthToolA + _gCodeStatistics.totalExtrudedLengthToolB) * (float)M_PI/4.f * powf(self.filamentDiameter,2.f) * __averageDensity * powf(10.f,-6.f); // in g
 }
 
 - (float)getFilamentLengthToolA
 {
-    return _gCodeStatistics->totalExtrudedLengthToolA / 10.f ; // in cm
+    return _gCodeStatistics.totalExtrudedLengthToolA / 10.f ; // in cm
 }
 
 - (float)getFilamentLengthToolB
 {
-    return _gCodeStatistics->totalExtrudedLengthToolB / 10.f ; // in cm
+    return _gCodeStatistics.totalExtrudedLengthToolB / 10.f ; // in cm
 }
 
 - (NSInteger)getLayerHeight
 {
-    return (NSInteger)floorf(_gCodeStatistics->layerHeight * 100.f) * 10 ; // in mm
+    return (NSInteger)floorf(_gCodeStatistics.layerHeight * 100.f) * 10 ; // in mm
 }
 
-- (id)initWithGCodeString:(NSString*)gcode;
+- (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter
 {
     /*
      This function parses GCODE (roughly) according to http://reprap.org/wiki/G-code
      */
     
 	self = [super init];
-	if(self)
-	{
-        _gCodeStatistics = [[GCodeStatistics alloc] init];
-        
+	if(self) {
+        _currentPrinter = currentPrinter;
+        if(currentPrinter)
+            _gCodeStatistics = [[GCodeStatistics alloc] init];
         
 		NSArray* untrimmedLines = [gcode componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 		NSCharacterSet* whiteSpaceSet = [NSCharacterSet whitespaceCharacterSet];
@@ -263,15 +274,16 @@ static NSColor* _extrusionOffColor=nil;
                 
 				currentPane = [NSMutableArray array];
 				[panes addObject:currentPane];
-                _gCodeStatistics->layersCount++;
+                
+                _gCodeStatistics.layersCount++;
                 
                 // If height has not been found yet
-                if (_gCodeStatistics->layerHeight == 0.0){
+                if (_gCodeStatistics.layerHeight == 0.0){
                     
                     float theoreticalHeight = roundf((currentLocation.z - oldZ)*100)/100;
                     
                     if (theoreticalHeight > 0 && theoreticalHeight < 1){ // We assume that a layer is less than 1mm thick
-                        _gCodeStatistics->layerHeight = theoreticalHeight;
+                        _gCodeStatistics.layerHeight = theoreticalHeight;
                     }
 		
                 }
@@ -306,11 +318,11 @@ static NSColor* _extrusionOffColor=nil;
                         NSInteger toolIndex;
                         [lineScanner scanInteger:&toolIndex];
                         
-                        BOOL previouslyUsingToolB = _gCodeStatistics->usingToolB;
-                        _gCodeStatistics->usingToolB = (toolIndex >= 1);
+                        BOOL previouslyUsingToolB = _gCodeStatistics.usingToolB;
+                        _gCodeStatistics.usingToolB = (toolIndex >= 1);
                         
-                        if (_gCodeStatistics->usingToolB == !previouslyUsingToolB)
-                            _gCodeStatistics->dualExtrusion = YES;
+                        if (_gCodeStatistics.usingToolB == !previouslyUsingToolB)
+                            _gCodeStatistics.dualExtrusion = YES;
                     }
                 
                     // Done : We don't need the temperature
@@ -329,9 +341,9 @@ static NSColor* _extrusionOffColor=nil;
                     [lineScanner updateStats:_gCodeStatistics with:currentLocation];
                     
                     // Coloring
-                    if(_gCodeStatistics->extruding) {
-                        if (_gCodeStatistics->dualExtrusion) {
-                            if (_gCodeStatistics->usingToolB) {
+                    if(_gCodeStatistics.extruding) {
+                        if (_gCodeStatistics.dualExtrusion) {
+                            if (_gCodeStatistics.usingToolB) {
                                 [currentPane addObject:[_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]]];
                             } else {
                                 [currentPane addObject:[_extrusionColors_A objectAtIndex:extrusionNumber%[_extrusionColors_A count]]];
@@ -357,12 +369,12 @@ static NSColor* _extrusionOffColor=nil;
                     if ([lineScanner scanString:@"E" intoString:nil]) {
                         float currentExtrudedLength;
                         [lineScanner scanFloat:&currentExtrudedLength];
-                        if (_gCodeStatistics->usingToolB) {
-                            _gCodeStatistics->totalExtrudedLengthToolB += _gCodeStatistics->currentExtrudedLengthToolB;
-                            _gCodeStatistics->currentExtrudedLengthToolB = currentExtrudedLength;
+                        if (_gCodeStatistics.usingToolB) {
+                            _gCodeStatistics.totalExtrudedLengthToolB += _gCodeStatistics.currentExtrudedLengthToolB;
+                            _gCodeStatistics.currentExtrudedLengthToolB = currentExtrudedLength;
                         } else {
-                            _gCodeStatistics->totalExtrudedLengthToolA += _gCodeStatistics->currentExtrudedLengthToolA;
-                            _gCodeStatistics->currentExtrudedLengthToolA = currentExtrudedLength;
+                            _gCodeStatistics.totalExtrudedLengthToolA += _gCodeStatistics.currentExtrudedLengthToolA;
+                            _gCodeStatistics.currentExtrudedLengthToolA = currentExtrudedLength;
                         }
                     }
                 
@@ -376,12 +388,12 @@ static NSColor* _extrusionOffColor=nil;
                         [lineScanner scanInteger:&toolIndex];
                         
                         // BOOL previouslyUsingToolB = statistics->usingToolB;
-                        _gCodeStatistics->usingToolB = (toolIndex >= 1);
+                        _gCodeStatistics.usingToolB = (toolIndex >= 1);
                         
                         /*
                         // The tool changed : we're sure we have a double extrusion print
-                        if (_gCodeStatistics->usingToolB == !previouslyUsingToolB) {
-                            _gCodeStatistics->dualExtrusion = YES;
+                        if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
+                            _gCodeStatistics.dualExtrusion = YES;
                         }
                          */
                     }
@@ -390,12 +402,12 @@ static NSColor* _extrusionOffColor=nil;
                     // Slic3r and KISSlicer use this to switch the current extruder.
                     
                     // BOOL previouslyUsingToolB = statistics->usingToolB;
-                    _gCodeStatistics->usingToolB =  NO;
+                    _gCodeStatistics.usingToolB =  NO;
                     
                     /*
                     // The tool changed : we're sure we have a double extrusion print
-                    if (_gCodeStatistics->usingToolB == !previouslyUsingToolB) {
-                        _gCodeStatistics->dualExtrusion = YES;
+                    if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
+                        _gCodeStatistics.dualExtrusion = YES;
                     }
                      */
                     
@@ -404,12 +416,12 @@ static NSColor* _extrusionOffColor=nil;
                     // Slic3r and KISSlicer use this to switch the current extruder.
                     
                     // BOOL previouslyUsingToolB = statistics->usingToolB;
-                    _gCodeStatistics->usingToolB =  YES;
+                    _gCodeStatistics.usingToolB =  YES;
                     
                     /*
                     // The tool changed : we're sure we have a double extrusion print
-                    if (_gCodeStatistics->usingToolB == !previouslyUsingToolB) {
-                        _gCodeStatistics->dualExtrusion = YES;
+                    if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
+                        _gCodeStatistics.dualExtrusion = YES;
                     }
                      */
                 }
@@ -418,43 +430,48 @@ static NSColor* _extrusionOffColor=nil;
         
         _panes = panes;
         
-        _gCodeStatistics->totalExtrudedLengthToolA += _gCodeStatistics->currentExtrudedLengthToolA;
-        _gCodeStatistics->totalExtrudedLengthToolB += _gCodeStatistics->currentExtrudedLengthToolB;
+        _gCodeStatistics.totalExtrudedLengthToolA += _gCodeStatistics.currentExtrudedLengthToolA;
+        _gCodeStatistics.totalExtrudedLengthToolB += _gCodeStatistics.currentExtrudedLengthToolB;
         
         // Correct extruded lengths for extruder primes
-        _gCodeStatistics->totalExtrudedLengthToolA = _gCodeStatistics->dualExtrusion?_gCodeStatistics->totalExtrudedLengthToolA:(_gCodeStatistics->totalExtrudedLengthToolA>_gCodeStatistics->totalExtrudedLengthToolB?_gCodeStatistics->totalExtrudedLengthToolA:0);
-        _gCodeStatistics->totalExtrudedLengthToolB = _gCodeStatistics->dualExtrusion?_gCodeStatistics->totalExtrudedLengthToolB:(_gCodeStatistics->totalExtrudedLengthToolB>_gCodeStatistics->totalExtrudedLengthToolA?_gCodeStatistics->totalExtrudedLengthToolB:0);
+        _gCodeStatistics.totalExtrudedLengthToolA = _gCodeStatistics.dualExtrusion?_gCodeStatistics.totalExtrudedLengthToolA:(_gCodeStatistics.totalExtrudedLengthToolA>_gCodeStatistics.totalExtrudedLengthToolB?_gCodeStatistics.totalExtrudedLengthToolA:0);
+        _gCodeStatistics.totalExtrudedLengthToolB = _gCodeStatistics.dualExtrusion?_gCodeStatistics.totalExtrudedLengthToolB:(_gCodeStatistics.totalExtrudedLengthToolB>_gCodeStatistics.totalExtrudedLengthToolA?_gCodeStatistics.totalExtrudedLengthToolB:0);
         
         // Correct height:
-        highCorner.z = _gCodeStatistics->layersCount * _gCodeStatistics->layerHeight;
+        highCorner.z = _gCodeStatistics.layersCount * _gCodeStatistics.layerHeight;
         
 		_cornerLow = lowCorner;
 		_cornerHigh = highCorner;
-		_extrusionWidth = _gCodeStatistics->layerHeight;
+		_extrusionWidth = _gCodeStatistics.layerHeight;
 
         
         
         PSLog(@"parseGCode", PSPrioNormal, @" High corner: %@", _cornerHigh);
         PSLog(@"parseGCode", PSPrioNormal, @" Low corner: %@", _cornerLow);
-        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded length Tool A (mm): %f", _gCodeStatistics->totalExtrudedLengthToolA);
-        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded length Tool B (mm): %f", _gCodeStatistics->totalExtrudedLengthToolB);
-        PSLog(@"parseGCode", PSPrioNormal, @" Using dual extrusion: %@", _gCodeStatistics->dualExtrusion ? @"Yes" : @"No");
-        PSLog(@"parseGCode", PSPrioNormal, @" Grams : %f", (_gCodeStatistics->totalExtrudedLengthToolA + _gCodeStatistics->totalExtrudedLengthToolB) * (float)M_PI/4.f * powf(1.75f,2.f) * 1050.f * powf(10.f,-6.f));
+        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded length Tool A (mm): %f", _gCodeStatistics.totalExtrudedLengthToolA);
+        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded length Tool B (mm): %f", _gCodeStatistics.totalExtrudedLengthToolB);
+        PSLog(@"parseGCode", PSPrioNormal, @" Using dual extrusion: %@", _gCodeStatistics.dualExtrusion ? @"Yes" : @"No");
+        PSLog(@"parseGCode", PSPrioNormal, @" Grams : %f", (_gCodeStatistics.totalExtrudedLengthToolA + _gCodeStatistics.totalExtrudedLengthToolB) * (float)M_PI/4.f * powf(1.75f,2.f) * 1050.f * powf(10.f,-6.f));
         
-        PSLog(@"parseGCode", PSPrioNormal, @" G1 Lines : %d",_gCodeStatistics->movementLinesCount );
+        PSLog(@"parseGCode", PSPrioNormal, @" G1 Lines : %d",_gCodeStatistics.movementLinesCount );
         
-        PSLog(@"parseGCode", PSPrioNormal, @" Layer Height : %f",_gCodeStatistics->layerHeight );
-        PSLog(@"parseGCode", PSPrioNormal, @" Layer Count : %d",_gCodeStatistics->layersCount );
-        PSLog(@"parseGCode", PSPrioNormal, @" Height Corrected (mm) : %f",_gCodeStatistics->layersCount*_gCodeStatistics->layerHeight );
+        PSLog(@"parseGCode", PSPrioNormal, @" Layer Height : %f",_gCodeStatistics.layerHeight );
+        PSLog(@"parseGCode", PSPrioNormal, @" Layer Count : %d",_gCodeStatistics.layersCount );
+        PSLog(@"parseGCode", PSPrioNormal, @" Height Corrected (mm) : %f",_gCodeStatistics.layersCount*_gCodeStatistics.layerHeight );
         
-        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded time (min): %f", _gCodeStatistics->totalExtrudedTime);
-        PSLog(@"parseGCode", PSPrioNormal, @" Total Travelled time (min): %f", _gCodeStatistics->totalTravelledTime);
+        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded time (min): %f", _gCodeStatistics.totalExtrudedTime);
+        PSLog(@"parseGCode", PSPrioNormal, @" Total Travelled time (min): %f", _gCodeStatistics.totalTravelledTime);
         
-        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded distance (mm): %f", _gCodeStatistics->totalExtrudedDistance);
-        PSLog(@"parseGCode", PSPrioNormal, @" Total Travelled distance (mm): %f", _gCodeStatistics->totalTravelledDistance);
+        PSLog(@"parseGCode", PSPrioNormal, @" Total Extruded distance (mm): %f", _gCodeStatistics.totalExtrudedDistance);
+        PSLog(@"parseGCode", PSPrioNormal, @" Total Travelled distance (mm): %f", _gCodeStatistics.totalTravelledDistance);
 	}
     
 	return self;
 
+}
+
+- (float)filamentDiameter
+{
+    return _currentPrinter.filamentDiameter+__filamentDiameterBias;
 }
 @end

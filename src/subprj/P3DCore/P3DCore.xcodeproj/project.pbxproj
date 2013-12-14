@@ -44,8 +44,10 @@
 		E26D97E21150F01300914392 /* AvailableDevices.h in Headers */ = {isa = PBXBuildFile; fileRef = E26D97E01150F01300914392 /* AvailableDevices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E26D97E31150F01300914392 /* AvailableDevices.m in Sources */ = {isa = PBXBuildFile; fileRef = E26D97E11150F01300914392 /* AvailableDevices.m */; };
 		E26D97EE1150F3D000914392 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26D97ED1150F3D000914392 /* IOKit.framework */; };
-		E270B40A185A16FD0013EF19 /* P3DNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = E270B408185A16FD0013EF19 /* P3DNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E270B40B185A16FD0013EF19 /* P3DNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = E270B409185A16FD0013EF19 /* P3DNotifications.m */; };
+		E270B41D185C8B410013EF19 /* P3DPrinterDriverBase.h in Headers */ = {isa = PBXBuildFile; fileRef = E270B41B185C8B410013EF19 /* P3DPrinterDriverBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E270B41E185C8B410013EF19 /* P3DPrinterDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E270B41C185C8B410013EF19 /* P3DPrinterDriverBase.m */; };
+		E270B421185C8B5B0013EF19 /* P3DMillDriverBase.h in Headers */ = {isa = PBXBuildFile; fileRef = E270B41F185C8B5B0013EF19 /* P3DMillDriverBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E270B422185C8B5B0013EF19 /* P3DMillDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E270B420185C8B5B0013EF19 /* P3DMillDriverBase.m */; };
 		E274362413929DD30062643A /* P3DMachineDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E274362313929DD10062643A /* P3DMachineDriverBase.m */; };
 		E27C8048139C8296000010FD /* P3DMachinableDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C8047139C8295000010FD /* P3DMachinableDocument.m */; };
 		E281DF17112D5D6200C05C08 /* preprocessOpenCL.pl in XCode Helper Files */ = {isa = PBXBuildFile; fileRef = E2ABC5771100EB95004CE17C /* preprocessOpenCL.pl */; };
@@ -161,8 +163,10 @@
 		E26D97E01150F01300914392 /* AvailableDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableDevices.h; sourceTree = "<group>"; };
 		E26D97E11150F01300914392 /* AvailableDevices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableDevices.m; sourceTree = "<group>"; };
 		E26D97ED1150F3D000914392 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		E270B408185A16FD0013EF19 /* P3DNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DNotifications.h; sourceTree = "<group>"; };
-		E270B409185A16FD0013EF19 /* P3DNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DNotifications.m; sourceTree = "<group>"; };
+		E270B41B185C8B410013EF19 /* P3DPrinterDriverBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DPrinterDriverBase.h; sourceTree = "<group>"; };
+		E270B41C185C8B410013EF19 /* P3DPrinterDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DPrinterDriverBase.m; sourceTree = "<group>"; };
+		E270B41F185C8B5B0013EF19 /* P3DMillDriverBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMillDriverBase.h; sourceTree = "<group>"; };
+		E270B420185C8B5B0013EF19 /* P3DMillDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMillDriverBase.m; sourceTree = "<group>"; };
 		E274362313929DD10062643A /* P3DMachineDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachineDriverBase.m; sourceTree = "<group>"; };
 		E27C8047139C8295000010FD /* P3DMachinableDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachinableDocument.m; sourceTree = "<group>"; };
 		E29708751121B6180060FA0C /* P3DFormatRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DFormatRegistration.h; sourceTree = "<group>"; };
@@ -319,6 +323,10 @@
 				E24F706D1172245200285948 /* P3DMachineJob.m */,
 				E21FB8A5112D99AB0024B53B /* P3DMachineDriverBase.h */,
 				E274362313929DD10062643A /* P3DMachineDriverBase.m */,
+				E270B41B185C8B410013EF19 /* P3DPrinterDriverBase.h */,
+				E270B41C185C8B410013EF19 /* P3DPrinterDriverBase.m */,
+				E270B41F185C8B5B0013EF19 /* P3DMillDriverBase.h */,
+				E270B420185C8B5B0013EF19 /* P3DMillDriverBase.m */,
 				E26D97D21150E8A500914392 /* P3DSerialDevice.h */,
 				E26D97D31150E8A500914392 /* P3DSerialDevice.m */,
 				E24F6BE7116F58B500285948 /* MachineOptionsViewController.h */,
@@ -422,8 +430,6 @@
 				E2A43A6111028076003F5907 /* PSMutableIntegerArray.m */,
 				E221D2C41143DD8100C6A685 /* P3DMutableLoopIndexArray.h */,
 				E221D2C51143DD8100C6A685 /* P3DMutableLoopIndexArray.m */,
-				E270B408185A16FD0013EF19 /* P3DNotifications.h */,
-				E270B409185A16FD0013EF19 /* P3DNotifications.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -462,6 +468,7 @@
 				E2ABBFB51100A6E4004CE17C /* PSLog.h in Headers */,
 				E2ABBFBE1100A72F004CE17C /* BinarySTLStructs.h in Headers */,
 				E2ABBFBF1100A72F004CE17C /* STLModel.h in Headers */,
+				E270B41D185C8B410013EF19 /* P3DPrinterDriverBase.h in Headers */,
 				E2ABBFC11100A72F004CE17C /* Vector3.h in Headers */,
 				E2ABBFC31100A72F004CE17C /* Vector2.h in Headers */,
 				E2ABBFC91100A793004CE17C /* STLImportPlugin.h in Headers */,
@@ -480,6 +487,7 @@
 				E2A43ABB11028F2B003F5907 /* clSliceTypes.h in Headers */,
 				E2A43ABC11028F2B003F5907 /* SliceTypes.h in Headers */,
 				E29A03B0111F104D006CD3C9 /* GCode.h in Headers */,
+				E270B421185C8B5B0013EF19 /* P3DMillDriverBase.h in Headers */,
 				E29708771121B6180060FA0C /* P3DFormatRegistration.h in Headers */,
 				E21FB65B112D78C50024B53B /* P3DMachinableDocument.h in Headers */,
 				E21FB8A3112D99580024B53B /* P3DMachiningQueue.h in Headers */,
@@ -493,7 +501,6 @@
 				E204587118526B7B00199C1C /* ORSSerialPortManager.h in Headers */,
 				E24F706E1172245200285948 /* P3DMachineJob.h in Headers */,
 				E21E14EF14FDAA4500A4FC02 /* GCodeShapeShifter.h in Headers */,
-				E270B40A185A16FD0013EF19 /* P3DNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,10 +581,11 @@
 				E24FB29310FBE8270081C559 /* NSView+SearchSubview.m in Sources */,
 				E2ABBFB61100A6E4004CE17C /* PSLog.m in Sources */,
 				E2ABBFC01100A72F004CE17C /* STLModel.m in Sources */,
-				E270B40B185A16FD0013EF19 /* P3DNotifications.m in Sources */,
 				E2ABBFC21100A72F004CE17C /* Vector3.m in Sources */,
 				E2ABBFC41100A72F004CE17C /* Vector2.m in Sources */,
 				E2ABBFCA1100A793004CE17C /* STLImportPlugin.m in Sources */,
+				E270B422185C8B5B0013EF19 /* P3DMillDriverBase.m in Sources */,
+				E270B41E185C8B410013EF19 /* P3DPrinterDriverBase.m in Sources */,
 				E2ABBFCC1100A793004CE17C /* STLShapeShifter.m in Sources */,
 				E2ABBFD31100A7F3004CE17C /* NSArray+GCode.m in Sources */,
 				E2ABC2201100B7D3004CE17C /* QuartzUtils.m in Sources */,

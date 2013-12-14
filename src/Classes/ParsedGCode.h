@@ -30,8 +30,7 @@
 #import <P3DCore/P3DCore.h>
 
 @class GCodeStatistics;
-@interface ParsedGCode : NSObject {
-}
+@interface ParsedGCode : NSObject
 
 @property (readonly, strong) Vector3* cornerHigh;
 @property (readonly, strong) Vector3* cornerLow;
@@ -39,7 +38,7 @@
 @property (readonly, strong) GCodeStatistics* gCodeStatistics;
 @property (readonly, strong) NSArray* panes;
 
-- (id)initWithGCodeString:(NSString*)gcode;
+- (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter;
 - (float)getTotalMachiningTime;
 - (float)getObjectWeight;
 - (float)getFilamentLengthToolA;

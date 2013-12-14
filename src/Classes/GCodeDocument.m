@@ -123,42 +123,44 @@
 
 - (void)setGCodeString:(NSString*)value;
 {
-	if(_gCodeString!=value)
-	{
+	if(_gCodeString!=value) {
         
 		self.calculatingPreview=YES;
 		_gCodeString = value;
 		
         
-		if(_gCodeString)
-		{
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-				ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:value];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					if([parsedGCode.panes count]>0)
-					{
-						self.maxLayers = [parsedGCode.panes count]-1;
-						self.currentPreviewLayerHeight=0.f;
-						_openGL3DPrinterView.parsedGCode = parsedGCode;
-						
-						// This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
-						// Not sure if this is a SnowLeopard Bug...
-						NSRect b = [_openGL3DPrinterView bounds];
-						[_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
-						[_openGL3DPrinterView setFrame:b];
-					}
-					else
-					{
-						self.maxLayers = 0;
-						self.currentPreviewLayerHeight=0.f;
-						_openGL3DPrinterView.parsedGCode = nil;
-					}
-					self.calculatingPreview=NO;
-				});
-			});
-		}
-		else
-		{
+		if(_gCodeString) {
+            switch(self.currentMachine.gcodeStyle) {
+                case kGCodeStyle3DPrinter:
+                {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:value printer:(P3DPrinterDriverBase*)self.currentMachine];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if([parsedGCode.panes count]>0) {
+                                self.maxLayers = [parsedGCode.panes count]-1;
+                                self.currentPreviewLayerHeight=0.f;
+                                _openGL3DPrinterView.parsedGCode = parsedGCode;
+                                
+                                // This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
+                                // Not sure if this is a SnowLeopard Bug...
+                                NSRect b = [_openGL3DPrinterView bounds];
+                                [_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
+                                [_openGL3DPrinterView setFrame:b];
+                            } else {
+                                self.maxLayers = 0;
+                                self.currentPreviewLayerHeight=0.f;
+                                _openGL3DPrinterView.parsedGCode = nil;
+                            }
+                            self.calculatingPreview=NO;
+                        });
+                    });
+                }
+                    break;
+                case kGCodeStyleMill:
+                    // TODO!
+                    break;
+            }
+		} else {
 			self.maxLayers = 0;
 			self.currentPreviewLayerHeight=0.f;
             _openGL3DPrinterView.parsedGCode = nil;

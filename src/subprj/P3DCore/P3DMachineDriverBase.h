@@ -32,6 +32,8 @@ enum {
     kGCodeStyleMill
 };
 
+extern NSString* const P3DCurrentMachineSettingsChangedNotifiaction;
+
 @class P3DMachinableDocument, Vector3;
 @class P3DSerialDevice, MachineOptionsViewController, P3DMachineJob;
 @interface P3DMachineDriverBase : NSObject

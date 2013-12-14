@@ -32,6 +32,8 @@
 #import "P3DMachineJob.h"
 #import "AvailableDevices.h"
 
+NSString* const P3DCurrentMachineSettingsChangedNotifiaction = @"P3DCurrentMachineSettingsChangedNotifiaction";
+
 @implementation P3DMachineDriverBase {
     BOOL _discovering;
 }

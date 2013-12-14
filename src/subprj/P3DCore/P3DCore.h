@@ -46,6 +46,8 @@
 #import "ToolSettingsViewController.h"
 #import "QuartzUtils.h"
 #import "P3DMachineDriverBase.h"
+#import "P3DPrinterDriverBase.h"
+#import "P3DMillDriverBase.h"
 #import "P3DMachinableDocument.h"
 #import "P3DMachiningQueue.h"
 #import "P3DSerialDevice.h"
@@ -53,4 +55,3 @@
 #import "ConfiguredMachines.h"
 #import "MachineOptionsViewController.h"
 #import "P3DMachineJob.h"
-#import "P3DNotifications.h"

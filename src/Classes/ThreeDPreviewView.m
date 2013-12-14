@@ -60,7 +60,7 @@
 	
 	self.autorotate=[[NSUserDefaults standardUserDefaults] boolForKey:@"gCodeAutorotate"];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(threeDPreviewInvalidated:) name:P3DThreeDPreviewInvalidatedNotifiaction object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(threeDPreviewInvalidated:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
 }
 
 - (void)dealloc
