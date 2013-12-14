@@ -74,7 +74,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="604" height="660"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <openGLView colorSize="8bit_RGB_8bit_Alpha" depthSize="32bit" samplingRate="8" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" id="vV2-DB-W0i" userLabel="OpenGL3DPrinterView" customClass="GCodeView">
+                                                <openGLView colorSize="5bit_RGB_8bit_Alpha" depthSize="32bit" samplingRate="8" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" id="vV2-DB-W0i" userLabel="OpenGL3DPrinterView" customClass="GCodeView">
                                                     <rect key="frame" x="-2" y="0.0" width="609" height="662"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </openGLView>

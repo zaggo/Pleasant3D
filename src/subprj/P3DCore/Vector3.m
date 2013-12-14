@@ -239,11 +239,12 @@
 	return (x*x+y*y+z*z);
 }
 
-- (void)normalize
+- (Vector3*)normalize
 {
 	float magnitude = [self abs];
 	if(magnitude>FLT_EPSILON)
 		[self idiv:magnitude];
+    return self;
 }
 
 - (Vector3*)reflect:(Vector3*)normale
@@ -251,6 +252,20 @@
 	float distance = 2.*(x*normale.x+y*normale.y+z*normale.z);
 	return [[Vector3 alloc] initVectorWithX:x-distance*normale.x Y:y-distance*normale.y Z:z-distance*normale.z];
 }
+
+- (Vector3*)negate
+{
+    return [[Vector3 alloc] initVectorWithX:-x Y:-y Z:-z];
+}
+
+- (Vector3*)inegate
+{
+    x=-x;
+    y=-y;
+    z=-z;
+    return self;
+}
+
 
 - (void)setToVector3:(Vector3*)other
 {

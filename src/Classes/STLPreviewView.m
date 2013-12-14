@@ -102,14 +102,22 @@
 		{
 			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 			GLfloat mat_specular[] = { .8, .8, .8, 1.0 };
-			GLfloat mat_shininess[] = { 60.0 };
+			GLfloat mat_shininess[] = { 15.0 };
 			GLfloat mat_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
-			GLfloat mat_diffuse[] = { 0.2, 0.8, 0.2, 1.0 };
+			GLfloat mat_diffuse[] = { 0.3, 0.3, 0.3, 1.0 };
 			
-			GLfloat light_position[] = { 1., -1., 1., 0. };
-			GLfloat light_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
-			GLfloat light_diffuse[] = { 0.2, 0.2, 0.2, 1.0 };
-						
+			GLfloat light_ambient[] = { 0.5, 0.5, 0.5, 0.0 };
+			GLfloat light_diffuse[] = { 0.2, 0.2, 0.2, 0.0 };
+
+            GLfloat light0_position[] = { -1., 1., .5, 0. };
+			GLfloat light0_specular[] = { 0.309, 0.377, 1.000, 1.000 };
+
+            GLfloat light1_position[] = { 1., .75, .75, 0. };
+			GLfloat light1_specular[] = { 1.000, 0.638, 0.438, 1.000 };
+            
+            GLfloat light2_position[] = { 0., -1, -.75, 0. };
+			GLfloat light2_specular[] = { 0.574, 1.000, 0.434, 1.000 };
+
 			glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
 			glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 			glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
@@ -117,11 +125,20 @@
 						
             glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
 			glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-			glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+			glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+			glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
+			glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+			glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+            
+			glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
+			glLightfv(GL_LIGHT2, GL_SPECULAR, light2_specular);
+            
 			glEnable(GL_COLOR_MATERIAL);
 			glEnable(GL_LIGHTING);
 			glEnable(GL_LIGHT0);
+			glEnable(GL_LIGHT1);
+			glEnable(GL_LIGHT2);
 		}
 
 		glColor3f(1., 1., 1.);
@@ -143,6 +160,8 @@
 			glDisable(GL_COLOR_MATERIAL);
 			glDisable(GL_LIGHTING);
 			glDisable(GL_LIGHT0);
+			glDisable(GL_LIGHT1);
+			glDisable(GL_LIGHT2);
 		}
 
         if(self.currentMachine.dimBuildPlattform)

@@ -36,8 +36,7 @@
 - (id)initWithStlData:(NSData*)data
 {
 	self = [super init];
-	if(self)
-	{
+	if(self) {
 		stlData = [[NSData alloc] initWithBytes:[data bytes] length:[data length]];
 		
 		// Calculate Min/Max-Corner
@@ -47,10 +46,8 @@
 		cornerMinimum = [[Vector3 alloc] initVectorWithX:facet->p[0].x Y:facet->p[0].y Z:facet->p[0].z];
 		cornerMaximum = [cornerMinimum copy];
 		hasNormals = NO;
-		for(UInt32 i = 0; i<stl->numberOfFacets; i++)
-		{
-			for(NSInteger pIndex = 0; pIndex<3; pIndex++)
-			{
+		for(UInt32 i = 0; i<stl->numberOfFacets; i++) {
+			for(NSInteger pIndex = 0; pIndex<3; pIndex++) {
 				[cornerMaximum maximizeWithX:facet->p[pIndex].x Y:facet->p[pIndex].y Z:facet->p[pIndex].z];
 				[cornerMinimum minimizeWithX:facet->p[pIndex].x Y:facet->p[pIndex].y Z:facet->p[pIndex].z];
 				if(!hasNormals && (facet->normal.x!=0. || facet->normal.y!=0. || facet->normal.z!=0.))
@@ -58,6 +55,22 @@
 			}
 			facet = nextFacet(facet);
 		}
+        
+        if(!hasNormals) {
+            facet = firstFacet(stl);
+            Vector3* p1 = [[Vector3 alloc] init];
+            Vector3* p2 = [[Vector3 alloc] init];
+            Vector3* p3 = [[Vector3 alloc] init];
+            for(UInt32 i = 0; i<stl->numberOfFacets; i++) {
+                p1.x = facet->p[0].x; p1.y = facet->p[0].y; p1.x = facet->p[0].z;
+                p2.x = facet->p[1].x; p2.y = facet->p[1].y; p2.x = facet->p[1].z;
+                p3.x = facet->p[2].x; p3.y = facet->p[2].y; p3.x = facet->p[2].z;
+                Vector3* n = [[[p2 isub:p1] cross:[p3 isub:p1]] normalize];
+                facet->normal.x = n.x; facet->normal.y = n.y; facet->normal.z = n.z;
+                facet = nextFacet(facet);
+            }
+            hasNormals = YES;
+        }
 	}
 
 	return self;
@@ -66,8 +79,7 @@
 - (id)initWithStlData:(NSData*)data cornerMinimum:(Vector3*)cmin cornerMaximum:(Vector3*)cmax hasNormals:(BOOL)normals
 {
 	self = [super init];
-	if(self)
-	{
+	if(self) {
 		stlData = [[NSData alloc] initWithBytes:[data bytes] length:[data length]];
 		cornerMinimum = [cmin copy];
 		cornerMaximum = [cmax copy];

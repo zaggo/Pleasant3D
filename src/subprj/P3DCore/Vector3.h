@@ -51,4 +51,10 @@
 - (void)minimizeWithX:(float)x Y:(float)y Z:(float)z;
 - (Vector2*)dropAxis:(NSInteger)which;
 - (Vector3*)resetWith:(Vector3*)other;
+- (Vector3*)normalize;
+- (Vector3*)getNormalized;
+- (Vector3*)cross:(Vector3*)other;
+- (float)dot:(Vector3*)other;
+- (Vector3*)negate;
+- (Vector3*)inegate;
 @end
