@@ -67,8 +67,11 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
 
 - (void)updateStats:(GCodeStatistics*)gCodeStatistics with:(Vector3*)currentLocation
 {
+    PSLog(@"parseGCode", PSPrioLow, @" ## Previous : %@", [gCodeStatistics.currentLocation description]);
+    PSLog(@"parseGCode", PSPrioLow, @" ## Current : %@", [currentLocation description]);
+
     // Travelling
-    Vector3* previousLocation = gCodeStatistics.currentLocation;
+    Vector3* travelVector = [currentLocation sub:gCodeStatistics.currentLocation];
     [gCodeStatistics.currentLocation setToVector3:currentLocation];
     gCodeStatistics.movementLinesCount++;
 	
@@ -107,10 +110,6 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
         gCodeStatistics.usingToolB = YES;
     }
     
-    PSLog(@"parseGCode", PSPrioLow, @" ## Previous : %@", [previousLocation description]);
-    PSLog(@"parseGCode", PSPrioLow, @" ## Current : %@", [gCodeStatistics.currentLocation description]);
-    
-    Vector3* travelVector = [gCodeStatistics.currentLocation sub:previousLocation];
     float longestDistanceToMove = MAX(ABS(travelVector.x), ABS(travelVector.y)); // mm
     float cartesianDistance = [travelVector abs]; // mm
     
