@@ -151,10 +151,10 @@
 
 - (void)setSelectedMachineUUID:(NSString*)value
 {
-	if(![value isEqualToString:selectedMachineUUID])
+	if(![value isEqualToString:self.selectedMachineUUID])
 	{
-		[[[self undoManager] prepareWithInvocationTarget:self] setSelectedMachineUUID:selectedMachineUUID];
-		selectedMachineUUID = value;
+		[[[self undoManager] prepareWithInvocationTarget:self] setSelectedMachineUUID:self.selectedMachineUUID];
+		self.selectedMachineUUID = value;
 		[_toolBin reprocessProject]; // TODO: Necessary?
 	}
 }

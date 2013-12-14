@@ -1,9 +1,9 @@
 //
-//  GCodeDocument.h
-//  PleasantSTL
+//  Generic3DPrinter.h
+//  Generic3DPrinter
 //
-//  Created by Eberhard Rensch on 18.10.09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Eberhard Rensch on 12.12.2013.
+//  Copyright 2013 Pleasant Software. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under
 //  the terms of the GNU General Public License as published by the Free Software 
@@ -29,19 +29,9 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-@class GCodeView, GCodeMillView, Vector3, Vector2d;
-@interface GCodeDocument : P3DMachinableDocument
+@interface GenericMill : P3DMachineDriverBase <MachineOptionsDelegate>
 
-@property (strong, nonatomic) NSString* gCodeString;
-@property (assign) BOOL calculatingPreview;
-@property (assign) NSInteger maxLayers;
-@property (assign) float currentPreviewLayerHeight;
-@property (assign) NSAttributedString* formattedGCode;
-
-@property (weak) IBOutlet NSView *mainContainerView;
-@property (strong) IBOutlet NSBox *openGLBox;
-@property (strong) IBOutlet GCodeView* openGL3DPrinterView;
-@property (strong) IBOutlet NSBox *parameters3DPrint;
-@property (strong) IBOutlet NSBox *millParameters;
+@property (strong) IBOutlet NSView* printerDialogView;
+@property (readonly) NSMutableDictionary* driverOptions;
 
 @end

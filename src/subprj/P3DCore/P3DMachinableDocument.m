@@ -27,19 +27,11 @@
 //
 #import "P3DMachinableDocument.h"
 #import "ConfiguredMachines.h"
+#import "P3DMachineDriverBase.h"
 
 @implementation P3DMachinableDocument
-@synthesize selectedMachineUUID;
 @dynamic configuredMachines, selectedMachineIndex, currentMachine;
 
-//+ (void)initialize
-//{
-//	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
-//	[ddef setObject:[NSNumber numberWithInteger:0] forKey:@"DefaultMachineIndex"];
-//	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-//	[userDefaults registerDefaults:ddef];
-//}
-//
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
@@ -84,9 +76,9 @@
 	return selectedIndex;
 }
 
-- (P3DMachineDriveBase*)currentMachine
+- (P3DMachineDriverBase*)currentMachine
 {
-    P3DMachineDriveBase* machine = nil;
+    P3DMachineDriverBase* machine = nil;
     NSInteger selected = self.selectedMachineIndex;
     if(selected>=0 && selected < self.configuredMachines.configuredMachines.count)
         machine = [[self.configuredMachines.configuredMachines objectAtIndex:selected] objectForKey:@"driver"];

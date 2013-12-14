@@ -27,6 +27,11 @@
 //
 #import <Cocoa/Cocoa.h>
 
+enum {
+    kGCodeStyle3DPrinter,
+    kGCodeStyleMill
+};
+
 @class P3DMachinableDocument, Vector3;
 @class P3DSerialDevice, MachineOptionsViewController, P3DMachineJob;
 @interface P3DMachineDriverBase : NSObject
@@ -37,6 +42,8 @@
 @property (copy) NSString* lastKnownBSDPath;
 @property (readonly) NSString* statusString;
 @property (readonly) NSView* printDialogView;
+
+@property (readonly) NSInteger gcodeStyle;
 
 @property (strong, nonatomic) P3DSerialDevice* currentDevice;
 

@@ -35,7 +35,7 @@
 @implementation P3DMachineDriverBase {
     BOOL _discovering;
 }
-@dynamic statusString, printDialogView, driverImagePath, statusLightImage, driverName, driverManufacturer, driverVersionString, dimBuildPlattform, zeroBuildPlattform, canPrint;
+@dynamic statusString, printDialogView, driverImagePath, statusLightImage, driverName, driverManufacturer, driverVersionString, dimBuildPlattform, zeroBuildPlattform, canPrint, gcodeStyle;
 
 - (id)initWithOptionPropertyList:(NSDictionary*)options
 {
@@ -213,6 +213,11 @@
 - (Vector3*)zeroBuildPlattform
 {
     return nil;
+}
+
+- (NSInteger)gcodeStyle
+{
+    return kGCodeStyle3DPrinter;
 }
 
 @end

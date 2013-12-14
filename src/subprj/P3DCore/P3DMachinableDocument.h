@@ -27,15 +27,12 @@
 //
 #import <Cocoa/Cocoa.h>
 
-@class ConfiguredMachines, P3DMachineDriveBase;
+@class ConfiguredMachines, P3DMachineDriverBase;
 @interface P3DMachinableDocument : NSDocument
-{
-    NSString* selectedMachineUUID;
-}
 
 @property (readonly) NSString* gCodeToMachine;
 @property (readonly) ConfiguredMachines* configuredMachines;
 @property (copy) NSString* selectedMachineUUID;
 @property (assign) NSInteger selectedMachineIndex;
-@property (readonly) P3DMachineDriveBase* currentMachine;
+@property (readonly) P3DMachineDriverBase* currentMachine;
 @end

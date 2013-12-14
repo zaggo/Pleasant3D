@@ -154,4 +154,9 @@
     return _zeroBuildPlattform;
 }
 
+- (NSInteger)gcodeStyle
+{
+    return kGCodeStyleMill;
+}
+
 @end

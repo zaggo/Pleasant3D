@@ -1,6 +1,6 @@
 //
-//  SkeinView.h
-//  MacSkeinforge
+//  GCode3DPrinterView.h
+//  Pleasant3D
 //
 //  Created by Eberhard Rensch on 04.08.09.
 //  Copyright 2009 Pleasant Software. All rights reserved.
@@ -30,8 +30,7 @@
 #import "ThreeDPreviewView.h"
 
 @class ParsedGCode;
-@interface GCodeView : ThreeDPreviewView	{
-}
+@interface GCodeView : ThreeDPreviewView
 
 @property (strong, nonatomic) ParsedGCode* parsedGCode;
 @property (assign) CGFloat currentLayerMinZ;

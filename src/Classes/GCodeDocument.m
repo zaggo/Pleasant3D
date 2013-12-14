@@ -28,7 +28,6 @@
 
 #import "GCodeDocument.h"
 #import "GCodeView.h"
-#import <P3DCore/P3DCore.h>
 #import <P3DCore/NSArray+GCode.h>
 #import "ParsedGCode.h"
 #import "P3DMachiningController.h"
@@ -47,8 +46,6 @@
     NSTimer* _changesCommitTimer;
 }
 
-// ??? @dynamic gCodeToMachine, formattedGCode;
-
 + (NSSet *)keyPathsForValuesAffectingCorrectedMaxLayers {
     return [NSSet setWithObjects:@"maxLayers", nil];
 }
@@ -61,7 +58,47 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
-    [_openGLView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
+    [_openGL3DPrinterView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
+    [self setupParameterView];
+    [self addObserver:self forKeyPath:@"selectedMachineUUID" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"selectedMachineUUID"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if([keyPath isEqualToString:@"selectedMachineUUID"])
+	{
+		[self setupParameterView];
+	}
+}
+
+- (void)setupParameterView
+{
+    NSRect viewRect;
+    switch(self.currentMachine.gcodeStyle) {
+        case kGCodeStyleMill:
+            viewRect = _millParameters.frame;
+            viewRect.origin.x = NSWidth(_mainContainerView.frame)-NSWidth(viewRect);
+            viewRect.origin.y = 0.f;
+            viewRect.size.height = NSHeight(_mainContainerView.frame);
+            _millParameters.frame = viewRect;
+            [_parameters3DPrint removeFromSuperview];
+            [_mainContainerView addSubview:_millParameters];
+            break;
+        default: // 3DPrinter
+            viewRect = _parameters3DPrint.frame;
+            viewRect.origin.x = NSWidth(_mainContainerView.frame)-NSWidth(viewRect);
+            viewRect.origin.y = 0.f;
+            viewRect.size.height = NSHeight(_mainContainerView.frame);
+            _parameters3DPrint.frame = viewRect;
+            [_millParameters removeFromSuperview];
+            [_mainContainerView addSubview:_parameters3DPrint];
+            break;
+    }
 }
 
 - (NSInteger)correctedMaxLayers
@@ -88,32 +125,33 @@
 {
 	if(_gCodeString!=value)
 	{
+        
 		self.calculatingPreview=YES;
 		_gCodeString = value;
 		
+        
 		if(_gCodeString)
 		{
 			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-				ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:value];						
+				ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:value];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					if([parsedGCode.panes count]>0)
 					{
 						self.maxLayers = [parsedGCode.panes count]-1;
 						self.currentPreviewLayerHeight=0.f;
-						_openGLView.parsedGCode = parsedGCode;
+						_openGL3DPrinterView.parsedGCode = parsedGCode;
 						
 						// This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
 						// Not sure if this is a SnowLeopard Bug...
-						NSRect b = [_openGLView bounds];
-						[_openGLView setFrame:NSInsetRect(b, 1, 1)];
-						[_openGLView setFrame:b];
+						NSRect b = [_openGL3DPrinterView bounds];
+						[_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
+						[_openGL3DPrinterView setFrame:b];
 					}
 					else
 					{
 						self.maxLayers = 0;
 						self.currentPreviewLayerHeight=0.f;
-						_openGLView.parsedGCode = nil;
+						_openGL3DPrinterView.parsedGCode = nil;
 					}
 					self.calculatingPreview=NO;
 				});
@@ -123,7 +161,7 @@
 		{
 			self.maxLayers = 0;
 			self.currentPreviewLayerHeight=0.f;
-			_openGLView.parsedGCode = nil;
+            _openGL3DPrinterView.parsedGCode = nil;
 			self.calculatingPreview=NO;
 		}
 	}
@@ -144,13 +182,15 @@
 
 - (BOOL)canPrintDocument
 {
-	return YES;
+	return self.currentMachine.canPrint;
 }
 
 - (IBAction)printDocument:(id)sender
 {
-	P3DMachiningController* printer = [[P3DMachiningController alloc] initWithMachinableDocument:self];
-	[printer showPrintDialog];
+    if(self.currentMachine.canPrint) {
+        P3DMachiningController* printer = [[P3DMachiningController alloc] initWithMachinableDocument:self];
+        [printer showPrintDialog];
+    }
 }
 
 - (void)textDidChange:(NSNotification *)aNotification

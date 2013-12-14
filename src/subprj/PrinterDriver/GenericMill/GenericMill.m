@@ -1,6 +1,6 @@
 //
-//  Generic3DPrinter.m
-//  Generic3DPrinter
+//  GenericMill.m
+//  GenericMill
 //
 //  Created by Eberhard Rensch on 12.12.2013.
 //  Copyright 2013 Pleasant Software. All rights reserved.
@@ -26,8 +26,8 @@
 //  resulting work.
 //
 
-#import "Generic3DPrinter.h"
-#import "Generic3DPrinterMachineOptionsController.h"
+#import "GenericMill.h"
+#import "GenericMillMachineOptionsController.h"
 
 enum {
     kMinXMaxY = 0,
@@ -41,7 +41,7 @@ enum {
     kMaxXMinY
 };
 
-@implementation Generic3DPrinter
+@implementation GenericMill
 {
     Vector3* _dimBuildPlatform;
     Vector3* _zeroBuildPlattform;
@@ -68,7 +68,7 @@ enum {
 
 + (NSString*)driverIdentifier
 {
-	return @"generic3Dprinter";
+	return @"genericMill";
 }
 
 + (Class)deviceDriverClass;
@@ -78,22 +78,22 @@ enum {
 
 + (NSString*)driverName
 {
-	return NSLocalizedStringFromTableInBundle(@"Generic 3D Printer", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Driver");
+	return NSLocalizedStringFromTableInBundle(@"Generic Mill", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Driver");
 }
 
 + (NSString*)defaultMachineName;
 {
-	return NSLocalizedStringFromTableInBundle(@"Generic 3D Printer", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Default Machine this driver is for");
+	return NSLocalizedStringFromTableInBundle(@"Generic Mill", nil, [NSBundle bundleForClass:[self class]], @"Localized Display Name for Default Machine this driver is for");
 }
 
 + (NSString*)driverVersionString
 {
-	return [[[NSBundle bundleForClass:[Generic3DPrinter class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+	return [[[NSBundle bundleForClass:[GenericMill class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 }
 
 + (NSString*)driverImagePath
 {
-	return [[NSBundle bundleForClass:[Generic3DPrinter class]] pathForImageResource:@"g3dIcon.png"];
+	return [[NSBundle bundleForClass:[GenericMill class]] pathForImageResource:@"gMillIcon.png"];
 }
 
 + (NSString*)driverManufacturer
@@ -113,7 +113,7 @@ enum {
 
 - (MachineOptionsViewController*)machineOptionsViewController
 {
-	Generic3DPrinterMachineOptionsController* optionController = [[Generic3DPrinterMachineOptionsController alloc] initWithNibName:@"Generic3DPrinterMachineOptions" bundle:[NSBundle bundleForClass:[Generic3DPrinter class]]];
+	GenericMillMachineOptionsController* optionController = [[GenericMillMachineOptionsController alloc] initWithNibName:@"GenericMillMachineOptions" bundle:[NSBundle bundleForClass:[GenericMill class]]];
 	
 	NSMutableDictionary* options = [[NSMutableDictionary alloc] initWithDictionary:_driverOptions copyItems:YES];
 	
@@ -201,6 +201,11 @@ enum {
         }
     }
     return _zeroBuildPlattform;
+}
+
+- (NSInteger)gcodeStyle
+{
+    return kGCodeStyleMill;
 }
 
 @end
