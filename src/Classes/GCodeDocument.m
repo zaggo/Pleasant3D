@@ -61,19 +61,26 @@
     [_openGL3DPrinterView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
     [self setupParameterView];
     [self addObserver:self forKeyPath:@"selectedMachineUUID" options:NSKeyValueObservingOptionNew context:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentMachineSettingsChanged:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
 }
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPath:@"selectedMachineUUID"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if([keyPath isEqualToString:@"selectedMachineUUID"])
-	{
+	if([keyPath isEqualToString:@"selectedMachineUUID"]) {
 		[self setupParameterView];
-	}
+        [self parseGCodeString:_gCodeString];
+    }
+}
+
+- (void)currentMachineSettingsChanged:(NSNotification*)notification
+{
+    [self parseGCodeString:_gCodeString];
 }
 
 - (void)setupParameterView
@@ -124,51 +131,56 @@
 - (void)setGCodeString:(NSString*)value;
 {
 	if(_gCodeString!=value) {
-        
-		self.calculatingPreview=YES;
 		_gCodeString = value;
-		
-        
-		if(_gCodeString) {
-            switch(self.currentMachine.gcodeStyle) {
-                case kGCodeStyle3DPrinter:
-                {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:value printer:(P3DPrinterDriverBase*)self.currentMachine];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if([parsedGCode.panes count]>0) {
-                                self.maxLayers = [parsedGCode.panes count]-1;
-                                self.currentPreviewLayerHeight=0.f;
-                                _openGL3DPrinterView.parsedGCode = parsedGCode;
-                                
-                                // This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
-                                // Not sure if this is a SnowLeopard Bug...
-                                NSRect b = [_openGL3DPrinterView bounds];
-                                [_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
-                                [_openGL3DPrinterView setFrame:b];
-                            } else {
-                                self.maxLayers = 0;
-                                self.currentPreviewLayerHeight=0.f;
-                                _openGL3DPrinterView.parsedGCode = nil;
-                            }
-                            self.calculatingPreview=NO;
-                        });
-                    });
-                }
-                    break;
-                case kGCodeStyleMill:
-                    // TODO!
-                    break;
-            }
-		} else {
-			self.maxLayers = 0;
-			self.currentPreviewLayerHeight=0.f;
-            _openGL3DPrinterView.parsedGCode = nil;
-			self.calculatingPreview=NO;
-		}
+        [self parseGCodeString:_gCodeString];
 	}
 }
 
+- (void)parseGCodeString:(NSString*)gcodeString
+{
+    self.calculatingPreview=YES;
+    if(_gCodeString) {
+        switch(self.currentMachine.gcodeStyle) {
+            case kGCodeStyle3DPrinter:
+            {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if([parsedGCode.panes count]>0) {
+                            self.maxLayers = [parsedGCode.panes count]-1;
+                            self.currentPreviewLayerHeight=0.f;
+                            _openGL3DPrinterView.parsedGCode = parsedGCode;
+                            
+                            // This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
+                            // Not sure if this is a SnowLeopard Bug...
+                            NSRect b = [_openGL3DPrinterView bounds];
+                            [_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
+                            [_openGL3DPrinterView setFrame:b];
+                        } else {
+                            self.maxLayers = 0;
+                            self.currentPreviewLayerHeight=0.f;
+                            _openGL3DPrinterView.parsedGCode = nil;
+                        }
+                        self.calculatingPreview=NO;
+                    });
+                });
+            }
+                break;
+            case kGCodeStyleMill:
+                // TODO!
+                self.maxLayers = 0;
+                self.currentPreviewLayerHeight=0.f;
+                _openGL3DPrinterView.parsedGCode = nil;
+                self.calculatingPreview=NO;
+                break;
+        }
+    } else {
+        self.maxLayers = 0;
+        self.currentPreviewLayerHeight=0.f;
+        _openGL3DPrinterView.parsedGCode = nil;
+        self.calculatingPreview=NO;
+    }
+}
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {

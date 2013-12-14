@@ -47,7 +47,6 @@
 	[ddef setObject:[NSNumber numberWithBool:NO] forKey:@"gCodeAutorotate"];	
 	[ddef setObject:[NSNumber numberWithBool:YES] forKey:@"gCodeShowArrows"];
 	[ddef setObject:[NSNumber numberWithBool:YES] forKey:@"gCode3d"];
-	
 	[[NSUserDefaults standardUserDefaults] registerDefaults:ddef];
 	
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
