@@ -32,11 +32,6 @@
 #import "ParsedGCode.h"
 #import "GCodeStatistics.h"
 
-static GLuint makeMask(NSInteger n)
-{
-	return (2L<<(n-1)) - 1;
-}
-
 @implementation GCodeView
 
 + (NSSet *)keyPathsForValuesAffectingCurrentZ {

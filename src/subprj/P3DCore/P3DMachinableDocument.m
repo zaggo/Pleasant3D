@@ -32,11 +32,13 @@
 @implementation P3DMachinableDocument
 @dynamic configuredMachines, selectedMachineIndex, currentMachine;
 
-- (void)windowControllerDidLoadNib:(NSWindowController *) aController
+- (id)init
 {
-    [super windowControllerDidLoadNib:aController];
-	
-	self.selectedMachineUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
+    self = [super init];
+    if (self) {
+        self.selectedMachineUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultMachine"];
+    }
+    return self;
 }
 
 - (NSString*)gCodeToMachine
@@ -61,6 +63,7 @@
 - (void)setSelectedMachineIndex:(NSInteger)value
 {
 	self.selectedMachineUUID = [[self.configuredMachines.configuredMachines objectAtIndex:value] objectForKey:@"uuid"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:P3DCurrentMachineSettingsChangedNotifiaction object:self];
 }
 
 - (NSInteger)selectedMachineIndex

@@ -153,9 +153,9 @@
                             
                             // This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
                             // Not sure if this is a SnowLeopard Bug...
-                            NSRect b = [_openGL3DPrinterView bounds];
-                            [_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
-                            [_openGL3DPrinterView setFrame:b];
+//                            NSRect b = [_openGL3DPrinterView bounds];
+//                            [_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
+//                            [_openGL3DPrinterView setFrame:b];
                         } else {
                             self.maxLayers = 0;
                             self.currentPreviewLayerHeight=0.f;
