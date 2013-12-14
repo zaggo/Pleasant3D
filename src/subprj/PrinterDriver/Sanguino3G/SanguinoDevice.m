@@ -194,5 +194,10 @@
 	[paddedNameData replaceBytesInRange:NSMakeRange(0, deviceName.length) withBytes:[[deviceName dataUsingEncoding:NSISOLatin1StringEncoding allowLossyConversion:YES] bytes]];
 	
 	[self writeToEEPROMAtOffset:EEPROM_MACHINE_NAME_OFFSET data:paddedNameData];
-}	 
+}
+
+- (float)filamentDiameter
+{
+    return 3.;
+}
 @end

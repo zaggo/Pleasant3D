@@ -31,7 +31,6 @@
 #import "GCodeStatistics.h"
 
 const float __filamentDiameterBias = 0.07; // bias (mm)
-//const float __filamentDiameter = 1.75 + __filamentDiameterBias; // mm + bias
 const float __averageDensity = 1050; // kg.m-3
 const float  __averageAccelerationEfficiencyWhenTravelling = 0.2; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
 const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
@@ -219,7 +218,7 @@ static NSColor* _extrusionOffColor=nil;
 
 - (float)getObjectWeight
 {
-    return (_gCodeStatistics.totalExtrudedLengthToolA + _gCodeStatistics.totalExtrudedLengthToolB) * (float)M_PI/4.f * powf(self.filamentDiameter,2.f) * __averageDensity * powf(10.f,-6.f); // in g
+    return (_gCodeStatistics.totalExtrudedLengthToolA + _gCodeStatistics.totalExtrudedLengthToolB) * (float)M_PI * powf(self.filamentDiameter/2.f,2.f) * __averageDensity * powf(10.f,-6.f); // in g
 }
 
 - (float)getFilamentLengthToolA
