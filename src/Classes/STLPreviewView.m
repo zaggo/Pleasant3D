@@ -180,8 +180,8 @@
 		glColor3f(1.f, 1.f, 1.f);
         glBindBuffer(GL_ARRAY_BUFFER, _vbo);
         glNormalPointer(GL_FLOAT, objectStride, 0);
-        glVertexPointer(/*xyz*/3, GL_FLOAT, objectStride, 3*sizeof(GLfloat));
-        glDrawArrays(GL_TRIANGLES, /*firstIndex*/0, /*indexCount*/_objectVerticesCount);
+        glVertexPointer(3, GL_FLOAT, objectStride, 3*sizeof(GLfloat));
+        glDrawArrays(GL_TRIANGLES, 0, _objectVerticesCount);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}

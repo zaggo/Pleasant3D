@@ -1,993 +1,168 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
-	<data>
-		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
-		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">3084</string>
-		</object>
-		<array key="IBDocument.IntegratedClassDependencies">
-			<string>NSArrayController</string>
-			<string>NSBox</string>
-			<string>NSCustomObject</string>
-			<string>NSCustomView</string>
-			<string>NSMenu</string>
-			<string>NSMenuItem</string>
-			<string>NSPopUpButton</string>
-			<string>NSPopUpButtonCell</string>
-			<string>NSScrollView</string>
-			<string>NSScroller</string>
-			<string>NSTextField</string>
-			<string>NSTextFieldCell</string>
-			<string>NSToolbar</string>
-			<string>NSToolbarFlexibleSpaceItem</string>
-			<string>NSToolbarItem</string>
-			<string>NSToolbarSeparatorItem</string>
-			<string>NSToolbarSpaceItem</string>
-			<string>NSView</string>
-			<string>NSWindowTemplate</string>
-		</array>
-		<array key="IBDocument.PluginDependencies">
-			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-		</array>
-		<object class="NSMutableDictionary" key="IBDocument.Metadata">
-			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
-			<integer value="1" key="NS.object.0"/>
-		</object>
-		<array class="NSMutableArray" key="IBDocument.RootObjects" id="580458321">
-			<object class="NSCustomObject" id="512844837">
-				<string key="NSClassName">SliceNDiceDocument</string>
-			</object>
-			<object class="NSCustomObject" id="613418571">
-				<string key="NSClassName">FirstResponder</string>
-			</object>
-			<object class="NSWindowTemplate" id="275939982">
-				<int key="NSWindowStyleMask">15</int>
-				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{63, 309}, {711, 518}}</string>
-				<int key="NSWTFlags">1613234176</int>
-				<string key="NSWindowTitle">Mac SkeinForge</string>
-				<string key="NSWindowClass">NSWindow</string>
-				<object class="NSToolbar" key="NSViewClass" id="808499815">
-					<object class="NSMutableString" key="NSToolbarIdentifier">
-						<characters key="NS.bytes">729D5B9D-441D-45E9-8EDF-8A2D16D04C93</characters>
-					</object>
-					<nil key="NSToolbarDelegate"/>
-					<bool key="NSToolbarPrefersToBeShown">YES</bool>
-					<bool key="NSToolbarShowsBaselineSeparator">YES</bool>
-					<bool key="NSToolbarAllowsUserCustomization">YES</bool>
-					<bool key="NSToolbarAutosavesConfiguration">YES</bool>
-					<int key="NSToolbarDisplayMode">1</int>
-					<int key="NSToolbarSizeMode">1</int>
-					<dictionary class="NSMutableDictionary" key="NSToolbarIBIdentifiedItems">
-						<object class="NSToolbarItem" key="35BA8EC3-6FE5-4A31-BB36-48DE11563645" id="455616077">
-							<object class="NSMutableString" key="NSToolbarItemIdentifier">
-								<characters key="NS.bytes">35BA8EC3-6FE5-4A31-BB36-48DE11563645</characters>
-							</object>
-							<string key="NSToolbarItemLabel">Build</string>
-							<string key="NSToolbarItemPaletteLabel">Build</string>
-							<string key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">Machine</string>
-							</object>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{0, 0}</string>
-							<string key="NSToolbarItemMaxSize">{0, 0}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
-						<object class="NSToolbarItem" key="3DEEE8A8-3DF3-48C7-9123-F26842DB23DF" id="857351899">
-							<object class="NSMutableString" key="NSToolbarItemIdentifier">
-								<characters key="NS.bytes">3DEEE8A8-3DF3-48C7-9123-F26842DB23DF</characters>
-							</object>
-							<string key="NSToolbarItemLabel">Machine</string>
-							<string key="NSToolbarItemPaletteLabel">Machine</string>
-							<nil key="NSToolbarItemToolTip"/>
-							<object class="NSPopUpButton" key="NSToolbarItemView" id="367856913">
-								<reference key="NSNextResponder"/>
-								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{0, 14}, {226, 25}}</string>
-								<reference key="NSSuperview"/>
-								<bool key="NSEnabled">YES</bool>
-								<object class="NSPopUpButtonCell" key="NSCell" id="910095304">
-									<int key="NSCellFlags">-2076180416</int>
-									<int key="NSCellFlags2">133120</int>
-									<object class="NSFont" key="NSSupport" id="26">
-										<string key="NSName">LucidaGrande</string>
-										<double key="NSSize">11</double>
-										<int key="NSfFlags">3100</int>
-									</object>
-									<reference key="NSControlView" ref="367856913"/>
-									<int key="NSButtonFlags">-2038284288</int>
-									<int key="NSButtonFlags2">163</int>
-									<string key="NSAlternateContents"/>
-									<string key="NSKeyEquivalent"/>
-									<int key="NSPeriodicDelay">400</int>
-									<int key="NSPeriodicInterval">75</int>
-									<object class="NSMenuItem" key="NSMenuItem" id="1039764464">
-										<reference key="NSMenu" ref="917998269"/>
-										<string key="NSTitle">Item 1</string>
-										<string key="NSKeyEquiv"/>
-										<int key="NSKeyEquivModMask">1048576</int>
-										<int key="NSMnemonicLoc">2147483647</int>
-										<int key="NSState">1</int>
-										<object class="NSCustomResource" key="NSOnImage" id="924466379">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">NSMenuCheckmark</string>
-										</object>
-										<object class="NSCustomResource" key="NSMixedImage" id="588835023">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">NSMenuMixedState</string>
-										</object>
-										<string key="NSAction">_popUpItemAction:</string>
-										<reference key="NSTarget" ref="910095304"/>
-									</object>
-									<bool key="NSMenuItemRespectAlignment">YES</bool>
-									<object class="NSMenu" key="NSMenu" id="917998269">
-										<string key="NSTitle">OtherViews</string>
-										<array class="NSMutableArray" key="NSMenuItems">
-											<reference ref="1039764464"/>
-											<object class="NSMenuItem" id="958846618">
-												<reference key="NSMenu" ref="917998269"/>
-												<string key="NSTitle">Item 2</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="924466379"/>
-												<reference key="NSMixedImage" ref="588835023"/>
-												<string key="NSAction">_popUpItemAction:</string>
-												<reference key="NSTarget" ref="910095304"/>
-											</object>
-											<object class="NSMenuItem" id="1009647513">
-												<reference key="NSMenu" ref="917998269"/>
-												<string key="NSTitle">Item 3</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="924466379"/>
-												<reference key="NSMixedImage" ref="588835023"/>
-												<string key="NSAction">_popUpItemAction:</string>
-												<reference key="NSTarget" ref="910095304"/>
-											</object>
-										</array>
-										<object class="NSFont" key="NSMenuFont">
-											<string key="NSName">LucidaGrande</string>
-											<double key="NSSize">13</double>
-											<int key="NSfFlags">1044</int>
-										</object>
-									</object>
-									<int key="NSPreferredEdge">1</int>
-									<bool key="NSUsesItemFromMenu">YES</bool>
-									<bool key="NSAltersState">YES</bool>
-									<int key="NSArrowPosition">2</int>
-								</object>
-								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-							</object>
-							<nil key="NSToolbarItemImage"/>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{100, 25}</string>
-							<string key="NSToolbarItemMaxSize">{226, 25}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">0</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
-						<object class="NSToolbarItem" key="D2A9A631-4483-499E-BE7F-4F7FAF80C4C3" id="976954723">
-							<object class="NSMutableString" key="NSToolbarItemIdentifier">
-								<characters key="NS.bytes">D2A9A631-4483-499E-BE7F-4F7FAF80C4C3</characters>
-							</object>
-							<string key="NSToolbarItemLabel">Toolbox</string>
-							<string key="NSToolbarItemPaletteLabel">Toolbox</string>
-							<string key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">Toolbox</string>
-							</object>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{0, 0}</string>
-							<string key="NSToolbarItemMaxSize">{0, 0}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
-						<object class="NSToolbarItem" key="NSToolbarCustomizeToolbarItem" id="160719539">
-							<string key="NSToolbarItemIdentifier">NSToolbarCustomizeToolbarItem</string>
-							<string key="NSToolbarItemLabel">Customize</string>
-							<string key="NSToolbarItemPaletteLabel">Customize</string>
-							<string key="NSToolbarItemToolTip">Customize Toolbar</string>
-							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">NSToolbarCustomize</string>
-							</object>
-							<nil key="NSToolbarItemTarget"/>
-							<string key="NSToolbarItemAction">runToolbarCustomizationPalette:</string>
-							<string key="NSToolbarItemMinSize">{0, 0}</string>
-							<string key="NSToolbarItemMaxSize">{0, 0}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
-						<object class="NSToolbarFlexibleSpaceItem" key="NSToolbarFlexibleSpaceItem" id="859574374">
-							<string key="NSToolbarItemIdentifier">NSToolbarFlexibleSpaceItem</string>
-							<string key="NSToolbarItemLabel"/>
-							<string key="NSToolbarItemPaletteLabel">Flexible Space</string>
-							<nil key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<nil key="NSToolbarItemImage"/>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{1, 5}</string>
-							<string key="NSToolbarItemMaxSize">{20000, 32}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-							<object class="NSMenuItem" key="NSToolbarItemMenuFormRepresentation">
-								<bool key="NSIsDisabled">YES</bool>
-								<bool key="NSIsSeparator">YES</bool>
-								<string key="NSTitle"/>
-								<string key="NSKeyEquiv"/>
-								<int key="NSKeyEquivModMask">1048576</int>
-								<int key="NSMnemonicLoc">2147483647</int>
-								<reference key="NSOnImage" ref="924466379"/>
-								<reference key="NSMixedImage" ref="588835023"/>
-							</object>
-						</object>
-						<object class="NSToolbarSeparatorItem" key="NSToolbarSeparatorItem" id="711299234">
-							<string key="NSToolbarItemIdentifier">NSToolbarSeparatorItem</string>
-							<string key="NSToolbarItemLabel"/>
-							<string key="NSToolbarItemPaletteLabel">Separator</string>
-							<nil key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<nil key="NSToolbarItemImage"/>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{12, 5}</string>
-							<string key="NSToolbarItemMaxSize">{12, 1000}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-							<object class="NSMenuItem" key="NSToolbarItemMenuFormRepresentation">
-								<bool key="NSIsDisabled">YES</bool>
-								<bool key="NSIsSeparator">YES</bool>
-								<string key="NSTitle"/>
-								<string key="NSKeyEquiv"/>
-								<int key="NSKeyEquivModMask">1048576</int>
-								<int key="NSMnemonicLoc">2147483647</int>
-								<reference key="NSOnImage" ref="924466379"/>
-								<reference key="NSMixedImage" ref="588835023"/>
-							</object>
-						</object>
-						<object class="NSToolbarSpaceItem" key="NSToolbarSpaceItem" id="908836488">
-							<string key="NSToolbarItemIdentifier">NSToolbarSpaceItem</string>
-							<string key="NSToolbarItemLabel"/>
-							<string key="NSToolbarItemPaletteLabel">Space</string>
-							<nil key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<nil key="NSToolbarItemImage"/>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{32, 5}</string>
-							<string key="NSToolbarItemMaxSize">{32, 32}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-							<object class="NSMenuItem" key="NSToolbarItemMenuFormRepresentation">
-								<bool key="NSIsDisabled">YES</bool>
-								<bool key="NSIsSeparator">YES</bool>
-								<string key="NSTitle"/>
-								<string key="NSKeyEquiv"/>
-								<int key="NSKeyEquivModMask">1048576</int>
-								<int key="NSMnemonicLoc">2147483647</int>
-								<reference key="NSOnImage" ref="924466379"/>
-								<reference key="NSMixedImage" ref="588835023"/>
-							</object>
-						</object>
-					</dictionary>
-					<array key="NSToolbarIBAllowedItems">
-						<reference ref="976954723"/>
-						<reference ref="857351899"/>
-						<reference ref="908836488"/>
-						<reference ref="859574374"/>
-						<reference ref="455616077"/>
-						<reference ref="711299234"/>
-						<reference ref="160719539"/>
-					</array>
-					<array key="NSToolbarIBDefaultItems">
-						<reference ref="976954723"/>
-						<reference ref="455616077"/>
-						<reference ref="908836488"/>
-						<reference ref="857351899"/>
-						<reference ref="859574374"/>
-					</array>
-					<array key="NSToolbarIBSelectableItems" id="0"/>
-				</object>
-				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{711, 518}</string>
-				<object class="NSView" key="NSWindowView" id="568628114">
-					<reference key="NSNextResponder"/>
-					<int key="NSvFlags">256</int>
-					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSBox" id="877496349">
-							<reference key="NSNextResponder" ref="568628114"/>
-							<int key="NSvFlags">18</int>
-							<array class="NSMutableArray" key="NSSubviews">
-								<object class="NSView" id="115183526">
-									<reference key="NSNextResponder" ref="877496349"/>
-									<int key="NSvFlags">274</int>
-									<array class="NSMutableArray" key="NSSubviews">
-										<object class="NSCustomView" id="615612042">
-											<reference key="NSNextResponder" ref="115183526"/>
-											<int key="NSvFlags">274</int>
-											<array class="NSMutableArray" key="NSSubviews">
-												<object class="NSTextField" id="725570717">
-													<reference key="NSNextResponder" ref="615612042"/>
-													<int key="NSvFlags">301</int>
-													<string key="NSFrame">{{183, 193}, {345, 36}}</string>
-													<reference key="NSSuperview" ref="615612042"/>
-													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView"/>
-													<bool key="NSViewIsLayerTreeHost">YES</bool>
-													<object class="NSShadow" key="NSViewShadow">
-														<double key="NSShadowVert">-1</double>
-														<object class="NSColor" key="NSShadowColor" id="8616717">
-															<int key="NSColorSpace">1</int>
-															<bytes key="NSRGB">MSAxIDEgMC41NjAwMDAwMDI0AA</bytes>
-														</object>
-													</object>
-													<bool key="NSEnabled">YES</bool>
-													<object class="NSTextFieldCell" key="NSCell" id="57683577">
-														<int key="NSCellFlags">68157504</int>
-														<int key="NSCellFlags2">138413056</int>
-														<string key="NSContents">No  Preview</string>
-														<object class="NSFont" key="NSSupport">
-															<string key="NSName">LucidaGrande-Bold</string>
-															<double key="NSSize">30</double>
-															<int key="NSfFlags">16</int>
-														</object>
-														<reference key="NSControlView" ref="725570717"/>
-														<object class="NSColor" key="NSBackgroundColor" id="1033779847">
-															<int key="NSColorSpace">6</int>
-															<string key="NSCatalogName">System</string>
-															<string key="NSColorName">controlColor</string>
-															<object class="NSColor" key="NSColor">
-																<int key="NSColorSpace">3</int>
-																<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-															</object>
-														</object>
-														<object class="NSColor" key="NSTextColor">
-															<int key="NSColorSpace">1</int>
-															<bytes key="NSRGB">MC4zMTYzMjY1NTg2IDAuMzE2MzI2NTU4NiAwLjMxNjMyNjU1ODYAA</bytes>
-														</object>
-													</object>
-													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-												</object>
-											</array>
-											<string key="NSFrameSize">{711, 417}</string>
-											<reference key="NSSuperview" ref="115183526"/>
-											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="725570717"/>
-											<bool key="NSViewIsLayerTreeHost">YES</bool>
-											<object class="NSDictionary" key="NSViewAnimations">
-												<string key="NS.key.0">subviews</string>
-												<object class="CATransition" key="NS.object.0">
-													<object class="CIDissolveTransition" key="filter">
-														<real value="0.3017241358757019" key="CI_inputTime"/>
-														<bool key="CIEnabled">YES</bool>
-													</object>
-													<string key="subtype">fromTop</string>
-													<string key="type">fade</string>
-													<array key="__CACodingContents">
-														<string>filter</string>
-														<string>subtype</string>
-														<string>type</string>
-													</array>
-												</object>
-											</object>
-											<string key="NSClassName">NSView</string>
-										</object>
-									</array>
-									<string key="NSFrameSize">{711, 419}</string>
-									<reference key="NSSuperview" ref="877496349"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="615612042"/>
-								</object>
-							</array>
-							<string key="NSFrameSize">{711, 419}</string>
-							<reference key="NSSuperview" ref="568628114"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="115183526"/>
-							<string key="NSOffsets">{0, 0}</string>
-							<object class="NSTextFieldCell" key="NSTitleCell">
-								<int key="NSCellFlags">67108864</int>
-								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Box</string>
-								<reference key="NSSupport" ref="26"/>
-								<object class="NSColor" key="NSBackgroundColor">
-									<int key="NSColorSpace">6</int>
-									<string key="NSCatalogName">System</string>
-									<string key="NSColorName">textBackgroundColor</string>
-									<object class="NSColor" key="NSColor">
-										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MQA</bytes>
-									</object>
-								</object>
-								<object class="NSColor" key="NSTextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MCAwLjgwMDAwMDAxMTkAA</bytes>
-								</object>
-							</object>
-							<reference key="NSContentView" ref="115183526"/>
-							<int key="NSBorderType">0</int>
-							<int key="NSBoxType">4</int>
-							<int key="NSTitlePosition">0</int>
-							<bool key="NSTransparent">NO</bool>
-							<object class="NSColor" key="NSFillColor2">
-								<int key="NSColorSpace">1</int>
-								<bytes key="NSRGB">MC40Mzg3NzU1Mzk0IDAuNDM4Nzc1NTM5NCAwLjQzODc3NTUzOTQAA</bytes>
-							</object>
-						</object>
-						<object class="NSScrollView" id="27477621">
-							<reference key="NSNextResponder" ref="568628114"/>
-							<int key="NSvFlags">266</int>
-							<array class="NSMutableArray" key="NSSubviews">
-								<object class="NSClipView" id="708729200">
-									<reference key="NSNextResponder" ref="27477621"/>
-									<int key="NSvFlags">2304</int>
-									<array class="NSMutableArray" key="NSSubviews">
-										<object class="NSCustomView" id="614695427">
-											<reference key="NSNextResponder" ref="708729200"/>
-											<int key="NSvFlags">276</int>
-											<string key="NSFrameSize">{711, 101}</string>
-											<reference key="NSSuperview" ref="708729200"/>
-											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="887634760"/>
-											<bool key="NSViewIsLayerTreeHost">YES</bool>
-											<string key="NSClassName">ToolBinView</string>
-										</object>
-									</array>
-									<string key="NSFrame">{{1, 1}, {709, 101}}</string>
-									<reference key="NSSuperview" ref="27477621"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="614695427"/>
-									<reference key="NSDocView" ref="614695427"/>
-									<reference key="NSBGColor" ref="1033779847"/>
-									<int key="NScvFlags">4</int>
-								</object>
-								<object class="NSScroller" id="1034381722">
-									<reference key="NSNextResponder" ref="27477621"/>
-									<int key="NSvFlags">-2147483392</int>
-									<string key="NSFrame">{{-100, -100}, {15, 93}}</string>
-									<reference key="NSSuperview" ref="27477621"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="708729200"/>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-									<reference key="NSTarget" ref="27477621"/>
-									<string key="NSAction">_doScroller:</string>
-									<double key="NSCurValue">1</double>
-									<double key="NSPercent">0.96363627910614014</double>
-								</object>
-								<object class="NSScroller" id="887634760">
-									<reference key="NSNextResponder" ref="27477621"/>
-									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{1, 88}, {709, 14}}</string>
-									<reference key="NSSuperview" ref="27477621"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="877496349"/>
-									<bool key="NSEnabled">YES</bool>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-									<int key="NSsFlags">257</int>
-									<reference key="NSTarget" ref="27477621"/>
-									<string key="NSAction">_doScroller:</string>
-									<double key="NSPercent">0.99718706047819972</double>
-								</object>
-							</array>
-							<string key="NSFrame">{{0, 416}, {711, 103}}</string>
-							<reference key="NSSuperview" ref="568628114"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1034381722"/>
-							<bool key="NSViewIsLayerTreeHost">YES</bool>
-							<int key="NSsFlags">133794</int>
-							<reference key="NSVScroller" ref="1034381722"/>
-							<reference key="NSHScroller" ref="887634760"/>
-							<reference key="NSContentView" ref="708729200"/>
-							<double key="NSMinMagnification">0.25</double>
-							<double key="NSMaxMagnification">4</double>
-							<double key="NSMagnification">1</double>
-						</object>
-					</array>
-					<string key="NSFrameSize">{711, 518}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="27477621"/>
-				</object>
-				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
-				<string key="NSMinSize">{711, 596}</string>
-				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
-				<bool key="NSWindowIsRestorable">YES</bool>
-			</object>
-			<object class="NSCustomObject" id="796877042">
-				<string key="NSClassName">NSApplication</string>
-			</object>
-			<object class="NSArrayController" id="598843384">
-				<array class="NSMutableArray" key="NSDeclaredKeys">
-					<string>printerName</string>
-					<object class="NSMutableString">
-						<characters key="NS.bytes">configuredPrinters.uuid</characters>
-					</object>
-					<string>uuid</string>
-				</array>
-				<bool key="NSEditable">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSSelectsInsertedObjects">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-			</object>
-		</array>
-		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">window</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="275939982"/>
-					</object>
-					<int key="connectionID">18</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">toolBin</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="614695427"/>
-					</object>
-					<int key="connectionID">100115</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">previewView</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="615612042"/>
-					</object>
-					<int key="connectionID">100117</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showToolbox:</string>
-						<reference key="source" ref="613418571"/>
-						<reference key="destination" ref="976954723"/>
-					</object>
-					<int key="connectionID">100201</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">printDocument:</string>
-						<reference key="source" ref="613418571"/>
-						<reference key="destination" ref="455616077"/>
-					</object>
-					<int key="connectionID">100254</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="275939982"/>
-						<reference key="destination" ref="512844837"/>
-					</object>
-					<int key="connectionID">17</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">content: arrangedObjects.localMachineName</string>
-						<reference key="source" ref="367856913"/>
-						<reference key="destination" ref="598843384"/>
-						<object class="NSNibBindingConnector" key="connector" id="936979460">
-							<reference key="NSSource" ref="367856913"/>
-							<reference key="NSDestination" ref="598843384"/>
-							<string key="NSLabel">content: arrangedObjects.localMachineName</string>
-							<string key="NSBinding">content</string>
-							<string key="NSKeyPath">arrangedObjects.localMachineName</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100260</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedIndex: selectedMachineIndex</string>
-						<reference key="source" ref="367856913"/>
-						<reference key="destination" ref="512844837"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="367856913"/>
-							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">selectedIndex: selectedMachineIndex</string>
-							<string key="NSBinding">selectedIndex</string>
-							<string key="NSKeyPath">selectedMachineIndex</string>
-							<reference key="NSPreviousConnector" ref="936979460"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100261</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: configuredMachines.configuredMachines</string>
-						<reference key="source" ref="598843384"/>
-						<reference key="destination" ref="512844837"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="598843384"/>
-							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">contentArray: configuredMachines.configuredMachines</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">configuredMachines.configuredMachines</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100233</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: canPrintDocument</string>
-						<reference key="source" ref="455616077"/>
-						<reference key="destination" ref="512844837"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="455616077"/>
-							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">enabled: canPrintDocument</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">canPrintDocument</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100251</int>
-				</object>
-			</array>
-			<object class="IBMutableOrderedSet" key="objectRecords">
-				<array key="orderedObjects">
-					<object class="IBObjectRecord">
-						<int key="objectID">0</int>
-						<reference key="object" ref="0"/>
-						<reference key="children" ref="580458321"/>
-						<nil key="parent"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">-2</int>
-						<reference key="object" ref="512844837"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">File's Owner</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">-1</int>
-						<reference key="object" ref="613418571"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">First Responder</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="275939982"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="568628114"/>
-							<reference ref="808499815"/>
-						</array>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Window</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">6</int>
-						<reference key="object" ref="568628114"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="27477621"/>
-							<reference ref="877496349"/>
-						</array>
-						<reference key="parent" ref="275939982"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">-3</int>
-						<reference key="object" ref="796877042"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Application</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100109</int>
-						<reference key="object" ref="27477621"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="1034381722"/>
-							<reference ref="887634760"/>
-							<reference ref="614695427"/>
-						</array>
-						<reference key="parent" ref="568628114"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100110</int>
-						<reference key="object" ref="1034381722"/>
-						<reference key="parent" ref="27477621"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100111</int>
-						<reference key="object" ref="887634760"/>
-						<reference key="parent" ref="27477621"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100112</int>
-						<reference key="object" ref="614695427"/>
-						<reference key="parent" ref="27477621"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100160</int>
-						<reference key="object" ref="877496349"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="615612042"/>
-						</array>
-						<reference key="parent" ref="568628114"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100116</int>
-						<reference key="object" ref="615612042"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="725570717"/>
-						</array>
-						<reference key="parent" ref="877496349"/>
-						<string key="objectName">PreviewContainerView</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100198</int>
-						<reference key="object" ref="725570717"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="57683577"/>
-						</array>
-						<reference key="parent" ref="615612042"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100199</int>
-						<reference key="object" ref="57683577"/>
-						<reference key="parent" ref="725570717"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100232</int>
-						<reference key="object" ref="598843384"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">ConfiguredMachines</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100118</int>
-						<reference key="object" ref="808499815"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="711299234"/>
-							<reference ref="908836488"/>
-							<reference ref="859574374"/>
-							<reference ref="160719539"/>
-							<reference ref="976954723"/>
-							<reference ref="857351899"/>
-							<reference ref="455616077"/>
-						</array>
-						<reference key="parent" ref="275939982"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100121</int>
-						<reference key="object" ref="711299234"/>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100123</int>
-						<reference key="object" ref="908836488"/>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100124</int>
-						<reference key="object" ref="859574374"/>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100125</int>
-						<reference key="object" ref="160719539"/>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100126</int>
-						<reference key="object" ref="976954723"/>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100210</int>
-						<reference key="object" ref="857351899"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="367856913"/>
-						</array>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100250</int>
-						<reference key="object" ref="455616077"/>
-						<reference key="parent" ref="808499815"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100204</int>
-						<reference key="object" ref="367856913"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="910095304"/>
-						</array>
-						<reference key="parent" ref="857351899"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100205</int>
-						<reference key="object" ref="910095304"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="917998269"/>
-						</array>
-						<reference key="parent" ref="367856913"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100206</int>
-						<reference key="object" ref="917998269"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="1009647513"/>
-							<reference ref="958846618"/>
-							<reference ref="1039764464"/>
-						</array>
-						<reference key="parent" ref="910095304"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100209</int>
-						<reference key="object" ref="1009647513"/>
-						<reference key="parent" ref="917998269"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100208</int>
-						<reference key="object" ref="958846618"/>
-						<reference key="parent" ref="917998269"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100207</int>
-						<reference key="object" ref="1039764464"/>
-						<reference key="parent" ref="917998269"/>
-					</object>
-				</array>
-			</object>
-			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100109.CustomClassName">ToolBinScrollView</string>
-				<string key="100109.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100110.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100111.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100112.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100116.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100118.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100118.designableToolbarIdentifier">SliceNDiceToolbar</string>
-				<string key="100121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100123.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100124.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100125.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100126.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100160.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100198.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<reference key="100198.IBViewIntegration.shadowColor" ref="8616717"/>
-				<real value="-1" key="100198.IBViewIntegration.shadowOffsetHeight"/>
-				<string key="100199.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100204.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100205.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100206.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100207.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100208.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100209.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100210.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100232.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="100250.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="NO" key="5.IBNSWindowAutoPositionCentersHorizontal"/>
-				<boolean value="NO" key="5.IBNSWindowAutoPositionCentersVertical"/>
-				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="5.IBWindowTemplateEditedContentRect">{{78, 351}, {711, 518}}</string>
-				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			</dictionary>
-			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
-			<nil key="activeLocalization"/>
-			<dictionary class="NSMutableDictionary" key="localizations"/>
-			<nil key="sourceID"/>
-			<int key="maxID">100261</int>
-		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">FirstResponder</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">showToolbox:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showToolbox:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showToolbox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBUserSource</string>
-						<string key="minorKey"/>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">P3DMachinableDocument</string>
-					<string key="superclassName">NSDocument</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/P3DMachinableDocument.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SliceNDiceDocument</string>
-					<string key="superclassName">P3DMachinableDocument</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="previewView">NSView</string>
-						<string key="toolBin">ToolBinView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="previewView">
-							<string key="name">previewView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="toolBin">
-							<string key="name">toolBin</string>
-							<string key="candidateClassName">ToolBinView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SliceNDiceDocument.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ToolBinScrollView</string>
-					<string key="superclassName">NSScrollView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ToolBinScrollView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ToolBinView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ToolBinView.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
-		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="Machine">{96, 96}</string>
-			<string key="NSMenuCheckmark">{11, 11}</string>
-			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="NSToolbarCustomize">{32, 32}</string>
-			<string key="Toolbox">{512, 512}</string>
-		</dictionary>
-	</data>
-</archive>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A598" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SliceNDiceDocument">
+            <connections>
+                <outlet property="previewView" destination="100116" id="100117"/>
+                <outlet property="toolBin" destination="100112" id="100115"/>
+                <outlet property="window" destination="5" id="18"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <window title="Mac SkeinForge" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
+            <rect key="contentRect" x="63" y="309" width="711" height="518"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <value key="minSize" type="size" width="711" height="518"/>
+            <view key="contentView" id="6">
+                <rect key="frame" x="0.0" y="0.0" width="711" height="518"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="100160">
+                        <rect key="frame" x="0.0" y="0.0" width="711" height="419"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <view key="contentView">
+                            <rect key="frame" x="0.0" y="0.0" width="711" height="419"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView wantsLayer="YES" id="100116" userLabel="PreviewContainerView">
+                                    <rect key="frame" x="0.0" y="0.0" width="711" height="417"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField wantsLayer="YES" verticalHuggingPriority="750" id="100198">
+                                            <rect key="frame" x="183" y="193" width="345" height="36"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <shadow key="shadow">
+                                                <size key="offset" width="0.0" height="-1"/>
+                                                <color key="color" red="1" green="1" blue="1" alpha="0.56000000240000003" colorSpace="calibratedRGB"/>
+                                            </shadow>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No  Preview" id="100199">
+                                                <font key="font" metaFont="systemBold" size="30"/>
+                                                <color key="textColor" red="0.31632655859999997" green="0.31632655859999997" blue="0.31632655859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <animations>
+                                        <caTransition key="subviews">
+                                            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGNTZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMZ
+GiIjJCssCy0wVSRudWxs1QkKCwwNDg8QERJWJGNsYXNzVmZpbHRlclR0eXBlV3N1YnR5cGVfEBJfX0NB
+Q29kaW5nQ29udGVudHOADIACgAaABYAH0wkUFRYXGFxDSV9pbnB1dFRpbWVZQ0lFbmFibGVkgASAAwkj
+P9NPcsAAAADSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXxAUQ0lEaXNzb2x2ZVRyYW5zaXRpb26jHyAh
+XxAUQ0lEaXNzb2x2ZVRyYW5zaXRpb25YQ0lGaWx0ZXJYTlNPYmplY3RXZnJvbVRvcFRmYWRl0iUJJipa
+TlMub2JqZWN0c6MnKCmACIAJgAqAC1ZmaWx0ZXJXc3VidHlwZdIbHC4vV05TQXJyYXmiLiHSGxwxMlxD
+QVRyYW5zaXRpb26jMzQhXENBVHJhbnNpdGlvbltDQUFuaW1hdGlvbl8QD05TS2V5ZWRBcmNoaXZlctE3
+OFRyb290gAEACAARABoAIwAtADIANwBFAEsAVgBdAGQAaQBxAIYAiACKAIwAjgCQAJcApACuALAAsgCz
+ALwAwQDMANUA7ADwAQcBEAEZASEBJgErATYBOgE8AT4BQAFCAUkBUQFWAV4BYQFmAXMBdwGEAZABogGl
+AaoAAAAAAAACAQAAAAAAAAA5AAAAAAAAAAAAAAAAAAABrA
+</mutableData>
+                                        </caTransition>
+                                    </animations>
+                                </customView>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" red="0.43877553940000003" green="0.43877553940000003" blue="0.43877553940000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="100109" customClass="ToolBinScrollView">
+                        <rect key="frame" x="0.0" y="416" width="711" height="103"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <clipView key="contentView" id="wgb-FF-UOd">
+                            <rect key="frame" x="1" y="1" width="709" height="90"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView wantsLayer="YES" id="100112" customClass="ToolBinView">
+                                    <rect key="frame" x="0.0" y="0.0" width="711" height="90"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                </customView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="100111">
+                            <rect key="frame" x="1" y="91" width="709" height="11"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="100110">
+                            <rect key="frame" x="-100" y="-100" width="15" height="93"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="729D5B9D-441D-45E9-8EDF-8A2D16D04C93" explicitIdentifier="SliceNDiceToolbar" displayMode="iconAndLabel" sizeMode="regular" id="100118">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="D2A9A631-4483-499E-BE7F-4F7FAF80C4C3" label="Toolbox" paletteLabel="Toolbox" tag="-1" image="Toolbox" id="100126">
+                        <connections>
+                            <action selector="showToolbox:" target="-1" id="100201"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="3DEEE8A8-3DF3-48C7-9123-F26842DB23DF" label="Machine" paletteLabel="Machine" id="100210">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="100" height="25"/>
+                        <size key="maxSize" width="226" height="25"/>
+                        <popUpButton key="view" verticalHuggingPriority="750" id="100204">
+                            <rect key="frame" x="0.0" y="14" width="226" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="100207" id="100205">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                                <menu key="menu" title="OtherViews" id="100206">
+                                    <items>
+                                        <menuItem title="Item 1" state="on" id="100207"/>
+                                        <menuItem title="Item 2" id="100208"/>
+                                        <menuItem title="Item 3" id="100209"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <binding destination="100232" name="content" keyPath="arrangedObjects.localMachineName" id="100260"/>
+                                <binding destination="-2" name="selectedIndex" keyPath="selectedMachineIndex" previousBinding="100260" id="100261"/>
+                            </connections>
+                        </popUpButton>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="100123"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="100124"/>
+                    <toolbarItem implicitItemIdentifier="35BA8EC3-6FE5-4A31-BB36-48DE11563645" label="Build" paletteLabel="Build" tag="-1" image="Machine" id="100250">
+                        <connections>
+                            <action selector="printDocument:" target="-1" id="100254"/>
+                            <binding destination="-2" name="enabled" keyPath="canPrintDocument" id="100251"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="100121"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="100125"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="100126"/>
+                    <toolbarItem reference="100250"/>
+                    <toolbarItem reference="100123"/>
+                    <toolbarItem reference="100210"/>
+                    <toolbarItem reference="100124"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="17"/>
+            </connections>
+        </window>
+        <customObject id="-3" userLabel="Application"/>
+        <arrayController id="100232" userLabel="ConfiguredMachines">
+            <declaredKeys>
+                <string>printerName</string>
+                <mutableString>configuredPrinters.uuid</mutableString>
+                <string>uuid</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="configuredMachines.configuredMachines" id="100233"/>
+            </connections>
+        </arrayController>
+    </objects>
+    <resources>
+        <image name="Machine" width="96" height="96"/>
+        <image name="Toolbox" width="512" height="512"/>
+    </resources>
+</document>

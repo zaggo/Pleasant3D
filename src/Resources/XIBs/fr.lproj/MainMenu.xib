@@ -184,6 +184,26 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="View" id="SZs-Mm-Uqa">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="EgQ-wm-gH9">
+                        <items>
+                            <menuItem title="Show Toolbar" id="VgS-FJ-o4j">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleToolbarShown:" target="-1" id="EOk-a4-8Qm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="aCT-0b-nJF"/>
+                            <menuItem title="Enter Fullscreen" keyEquivalent="f" id="2hY-y7-UF8">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleFullScreen:" target="-1" id="bqy-rr-0C1"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Fenêtre" id="19">
                     <menu key="submenu" title="Fenêtre" systemMenu="window" id="24">
                         <items>
