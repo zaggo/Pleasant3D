@@ -231,12 +231,6 @@
 	float maxLayerZ=-FLT_MAX;
 	if(_parsedGCode)
 	{
-		glDisable(GL_COLOR_MATERIAL);
-		glDisable(GL_LIGHTING);
-		glDisable(GL_LIGHT0);
-
-		unsigned long indx=0; // Für Selection
-		
 		if(self.threeD)
 		{
 			NSUInteger layer=0;
@@ -271,7 +265,6 @@
 									glPopMatrix();
 								}
 							}
-							indx++;
 						}
 						lastPoint = point;
 					}
@@ -310,12 +303,6 @@
 						Vector3* point = (Vector3*)elem;
 						if(lastPoint)
 						{
-//							if(selectionDetection)
-//							{
-//							   glColor3ui ((GLuint)(indx & redMask << redShift), 
-//										   (GLuint)(indx & greenMask << greenShift), 
-//										   (GLuint)(indx & blueMask << blueShift));
-//							}
 							glBegin(GL_LINES);
 								glVertex3f((GLfloat)lastPoint.x, (GLfloat)lastPoint.y, 0.f);
 								glVertex3f((GLfloat)point.x, (GLfloat)point.y, 0.f);
@@ -328,7 +315,6 @@
 								glCallList(_arrowDL);
 								glPopMatrix();
 							}
-							indx++;
 						}
 						lastPoint = point;
 						minLayerZ = MIN(minLayerZ, point.z);

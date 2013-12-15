@@ -29,8 +29,8 @@
 #import <Cocoa/Cocoa.h>
 
 @class GCodeView, ParsedGCode, GCode;
-@interface P3DGCodePreviewController : NSViewController {
-}
+@interface P3DGCodePreviewController : NSViewController
+
 @property (weak) IBOutlet GCodeView* previewView;
 @property (assign, nonatomic) GCode* gCode;
 

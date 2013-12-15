@@ -31,11 +31,10 @@
 #import <P3DCore/P3DCore.h>
 
 @implementation STLPreviewController
-@synthesize previewView;
 
 - (void)awakeFromNib
 {
-	[previewView bind:@"stlModel" toObject:self withKeyPath:@"representedObject.previewData.stlModel" options:nil];
+	[_previewView bind:@"stlModel" toObject:self withKeyPath:@"representedObject.previewData.stlModel" options:nil];
 }
 
 @end

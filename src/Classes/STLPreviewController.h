@@ -29,10 +29,8 @@
 #import <Cocoa/Cocoa.h>
 
 @class STLPreviewView;
-@interface STLPreviewController : NSViewController {
-	IBOutlet STLPreviewView* previewView;
+@interface STLPreviewController : NSViewController
 
-}
-@property (retain) IBOutlet STLPreviewView* previewView;
+@property (weak) IBOutlet STLPreviewView* previewView;
 
 @end

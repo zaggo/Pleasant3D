@@ -65,4 +65,8 @@
 - (IBAction)resetPerspective:(id)sender;
 
 - (void)renderContent;
+
+- (void)setupPlatformVBOWithBufferName:(GLuint)bufferName;
+- (GLsizei)setupPlatformRasterVBOWithBufferName:(GLuint)bufferName;
+
 @end

@@ -31,12 +31,24 @@
 #import <P3DCore/P3DCore.h>
 #import "trackball.h"
 
+enum {
+    kPlatformVBO,
+    kPlatformRasterVBO,
+    kVBOCount
+};
+
 @interface ThreeDPreviewView (Private)
 - (void)resetGraphics;
 @end
 
 
 @implementation ThreeDPreviewView
+{
+    BOOL _platformVBONeedsRefresh;
+
+    GLuint _vbo[kVBOCount];
+    GLsizei _platformRasterVerticesCount;
+}
 @dynamic userRequestedAutorotate, autorotate, maxLayers, layerHeight, objectDimensions;
 
 - (void)awakeFromNib
@@ -51,6 +63,8 @@
 	
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	
+    _platformVBONeedsRefresh=YES;
+
 	self.threeD = [defaults boolForKey:@"gCode3d"];
 	self.othersAlpha = [defaults floatForKey:@"gCodeAlpha"];
 	self.showArrows = [defaults boolForKey:@"gCodeShowArrows"];
@@ -58,42 +72,46 @@
 	[self resetGraphics];
 	
 	self.autorotate=[[NSUserDefaults standardUserDefaults] boolForKey:@"gCodeAutorotate"];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(threeDPreviewInvalidated:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
+    [self addObserver:self forKeyPath:@"currentMachine" options:NSKeyValueObservingOptionNew context:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentMachineSettingsChanged:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:@"currentMachine"];
+    glDeleteBuffers(kVBOCount, _vbo);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if([keyPath isEqualToString:@"currentMachine"]) {
+        _platformVBONeedsRefresh=YES;
+    }
 }
 
 - (void)setupProjection
 {
-	if(_readyToDraw)
-	{
+	if(_readyToDraw) {
 		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
 		glViewport(0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
 		
 		glMatrixMode( GL_PROJECTION );
 		glLoadIdentity();
 		
-		if(_threeD)
+		if(_threeD) {
 			gluPerspective( 45., boundsInPixelUnits.size.width / boundsInPixelUnits.size.height, 0.1, 1000.0 );
-		else
-		{
+        } else {
 			CGFloat width;
 			CGFloat height;
 			CGFloat midX;
 			CGFloat midY;
-            if(self.currentMachine.dimBuildPlattform)
-            {
+            if(self.currentMachine.dimBuildPlattform) {
                 width = (self.currentMachine.dimBuildPlattform.x)*1.1;
                 height = (self.currentMachine.dimBuildPlattform.y)*1.1;
                 midX = self.currentMachine.zeroBuildPlattform.x-self.currentMachine.dimBuildPlattform.x/2.;
                 midY = self.currentMachine.zeroBuildPlattform.y-self.currentMachine.dimBuildPlattform.y/2.;
-            }
-            else
-            {
+            } else {
                 width = (self.objectDimensions.x)*1.1;
                 height = (self.objectDimensions.y)*1.1;
                 midX = self.currentMachine.zeroBuildPlattform.x-self.objectDimensions.x/2.;
@@ -105,12 +123,9 @@
 //                midY = boundsInPixelUnits.size.height/2.;
             }
 			CGFloat ratio = boundsInPixelUnits.size.width / boundsInPixelUnits.size.height;
-			if(ratio>1.)
-			{
+			if(ratio>1.) {
 				glOrtho(midX-height/2.*ratio, midX+height/2.*ratio, midY-height/2., midY+height/2.,  -1., 1.);
-			}
-			else
-			{
+			} else {
 				glOrtho(midX-width/2., midX+width/2., midY-width/2./ratio, midY+width/2./ratio,  -1., 1.);
 			}
 		}
@@ -161,8 +176,9 @@
 	[[NSUserDefaults standardUserDefaults] setBool:value forKey:@"P3DLoopsPreviewAutorotate"];
 }
 
-- (void)threeDPreviewInvalidated:(NSNotification*)notification
+- (void)currentMachineSettingsChanged:(NSNotification*)notification
 {
+    _platformVBONeedsRefresh=YES;
     [self setNeedsDisplay:YES];
 }
 
@@ -173,16 +189,12 @@
 
 - (void)setAutorotate:(BOOL)value
 {
-	if(self.autorotate != value)
-	{
-		if(value)
-		{
+	if(self.autorotate != value) {
+		if(value) {
 			[_autorotateTimer invalidate];
 			_autorotateTimer = [NSTimer timerWithTimeInterval:1./120. target:self selector:@selector(autorotate:) userInfo:nil repeats:YES];
 			[[NSRunLoop currentRunLoop] addTimer:_autorotateTimer forMode:NSRunLoopCommonModes];
-		}
-		else
-		{
+		} else {
 			[_autorotateTimer invalidate];
 			_autorotateTimer=nil;
 		}
@@ -201,6 +213,7 @@
 	self.autorotate=NO;
 	[[NSUserDefaults standardUserDefaults] setBool:_threeD forKey:@"gCode3d"];
 	_validPerspective=NO;
+    _platformVBONeedsRefresh=YES;
 	[self resetGraphics];
 }
 
@@ -228,16 +241,12 @@
 	self.autorotate=NO;
 	_cameraTranslateX = 0.;
 	_cameraTranslateY = 0.;
-    if(self.currentMachine.dimBuildPlattform)
-    {
+    if(self.currentMachine.dimBuildPlattform) {
         _cameraOffset = - 2*MAX( self.currentMachine.dimBuildPlattform.x, self.currentMachine.dimBuildPlattform.y);
         _validPerspective=YES;
-    }
-    else
-    {
+    } else {
         Vector3* dim = self.objectDimensions;
-        if(dim)
-        {
+        if(dim) {
             _cameraOffset = - 2*MAX( dim.x, dim.y);
             _validPerspective=YES;
             _cameraTranslateY = -dim.y/4.;
@@ -284,8 +293,7 @@
 	_zoomCamera=([theEvent modifierFlags]&NSCommandKeyMask)!=0;
 	_translateCamera=!_zoomCamera && ((([theEvent modifierFlags]&NSAlternateKeyMask)!=0)||!_threeD);
 	
-	if(!_translateCamera && !_zoomCamera)
-	{
+	if(!_translateCamera && !_zoomCamera) {
 		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
 		startTrackball (_localMousePoint.x, _localMousePoint.y, 0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
 	}
@@ -297,18 +305,13 @@
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint localPoint = [self convertPoint:event_location fromView:nil];
 	
-	if(_zoomCamera)
-	{
+	if(_zoomCamera) {
 		_cameraOffset += (localPoint.x-_localMousePoint.x);
 		_cameraOffset = MIN(MAX(-900., _cameraOffset), 1.);
-	}
-	else if(_translateCamera)
-	{
+	} else if(_translateCamera) {
 		_cameraTranslateX += (localPoint.x-_localMousePoint.x)/((_threeD)?(-1000./_cameraOffset):5.);
 		_cameraTranslateY += (localPoint.y-_localMousePoint.y)/((_threeD)?(-1000./_cameraOffset):5.);
-	}
-	else if(_threeD)
-	{
+	} else if(_threeD) {
         rollToTrackball (localPoint.x, localPoint.y, _trackBallRotation);
 	}
 	
@@ -318,18 +321,16 @@
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-	if(_threeD)
-	{
-		if(!_translateCamera && !_zoomCamera)
-		{
+	if(_threeD) {
+		if(!_translateCamera && !_zoomCamera) {
 			if (_trackBallRotation[0] != 0.0)
 				addToRotationTrackball (_trackBallRotation, _worldRotation);
 			_trackBallRotation [0] = _trackBallRotation [1] = _trackBallRotation [2] = _trackBallRotation [3] = 0.0f;
 			
 			[self setNeedsDisplay:YES];
-		}
-		else if([theEvent clickCount]>1)
+		} else if([theEvent clickCount]>1) {
 			[self resetPerspective:self];
+        }
 	}
 }
 
@@ -337,21 +338,14 @@
 {
 	NSString* chars = [theEvent charactersIgnoringModifiers];
 	NSUInteger modif = [theEvent modifierFlags];
-	if([chars characterAtIndex:0]==NSUpArrowFunctionKey)
-	{
+	if([chars characterAtIndex:0]==NSUpArrowFunctionKey) {
 		if(modif & NSAlternateKeyMask) // Opt
-		{
 			self.currentLayer = self.maxLayers;
-		}
 		if(_currentLayer<self.maxLayers)
 			self.currentLayer++;
-	}
-	else if([chars characterAtIndex:0]==NSDownArrowFunctionKey)
-	{
+	} else if([chars characterAtIndex:0]==NSDownArrowFunctionKey) {
 		if(modif & NSAlternateKeyMask) // Opt
-		{
 			self.currentLayer = 0;
-		}
 		if(_currentLayer>0)
 			self.currentLayer--;
 	}
@@ -394,77 +388,70 @@
 }
 
 - (void)drawRect:(NSRect)aRect {
-	if(!_readyToDraw)
-	{
+	if(!_readyToDraw) {
 		_readyToDraw=YES;
 		[self setupProjection];
 	}
-    if(!_validPerspective)
-    {
+    if(!_validPerspective) {
         [self resetPerspective:nil];
     }
 
+    if(_vbo[kPlatformVBO]==0) {
+        glGenBuffers(kVBOCount, _vbo);
+        glEnableClientState(GL_VERTEX_ARRAY);
+
+        glEnable (GL_LINE_SMOOTH);
+        glEnable (GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    if(_platformVBONeedsRefresh) {
+        [self setupPlatformVBOWithBufferName:_vbo[kPlatformVBO]];
+        _platformRasterVerticesCount = [self setupPlatformRasterVBOWithBufferName:_vbo[kPlatformRasterVBO]];
+        _platformVBONeedsRefresh=NO;
+    }
+    
     // Clear the framebuffer.
 	glClearColor( .08f, .08f, .08f, 1.f);
-	//glClearColor( 1.f, 1.f, 1.f, 1.f);
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	
 	
-	// Reset The View
-	glEnable (GL_LINE_SMOOTH); 
-	glEnable (GL_BLEND); 
-	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+    // Reset The View
 	glLoadIdentity();	
-	if(_threeD)
-	{
+	if(_threeD) {
 		glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, (GLfloat)_cameraOffset);
-		//glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, 0.f);
 		if (_trackBallRotation[0] != 0.0f)
 			glRotatef (_trackBallRotation[0], _trackBallRotation[1], _trackBallRotation[2], _trackBallRotation[3]);
 		// accumlated world rotation via trackball
 		glRotatef (_worldRotation[0], _worldRotation[1], _worldRotation[2], _worldRotation[3]);
-//		glTranslatef(0.f, 0.f, (GLfloat)_cameraOffset);
-	}
-	else
-	{
+	} else {
 		glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, 0.f);
 		glScalef(-200.f/(GLfloat)_cameraOffset, -200.f/(GLfloat)_cameraOffset, 1.f);
 	}
 
-    // Build Platform
-    if(self.currentMachine.dimBuildPlattform)
-    {
-        glLineWidth(1.f);
-        //glColor4f(1.f, .749f, 0.f, .1f);
-        glColor4f(1.f, 0.f, 0.f, 0.1f);
-        glBegin(GL_QUADS);
-        glVertex3f((GLfloat)-self.currentMachine.zeroBuildPlattform.x, (GLfloat)-self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)-self.currentMachine.zeroBuildPlattform.x, (GLfloat)self.currentMachine.dimBuildPlattform.y-(GLfloat)self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)self.currentMachine.dimBuildPlattform.x-(GLfloat)self.currentMachine.zeroBuildPlattform.x, (GLfloat)self.currentMachine.dimBuildPlattform.y-(GLfloat)self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)self.currentMachine.dimBuildPlattform.x-(GLfloat)self.currentMachine.zeroBuildPlattform.x, (GLfloat)-self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glEnd();
+    if(_platformRasterVerticesCount>0) {
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        glDisable(GL_COLOR_MATERIAL);
+        glDisable(GL_LIGHTING);
         
-        glColor4f(1.f, 0.f, 0.f, .4f);
-        glBegin(GL_LINES);
-        for(float x=-self.currentMachine.zeroBuildPlattform.x; x<self.currentMachine.dimBuildPlattform.x-self.currentMachine.zeroBuildPlattform.x; x+=10.f)
-        {
-            glVertex3f((GLfloat)x, (GLfloat)-self.currentMachine.zeroBuildPlattform.y, 0.f);
-            glVertex3f((GLfloat)x, (GLfloat)self.currentMachine.dimBuildPlattform.y-(GLfloat)self.currentMachine.zeroBuildPlattform.y, 0.f);
-        }
-        glVertex3f((GLfloat)self.currentMachine.dimBuildPlattform.x-(GLfloat)self.currentMachine.zeroBuildPlattform.x, (GLfloat)-self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)self.currentMachine.dimBuildPlattform.x-(GLfloat)self.currentMachine.zeroBuildPlattform.x, (GLfloat)self.currentMachine.dimBuildPlattform.y-(GLfloat)self.currentMachine.zeroBuildPlattform.y, 0.f);
+        // Draw Platform
+        glDisableClientState(GL_NORMAL_ARRAY);
+        const GLsizei platformStride = sizeof(GLfloat)*3;
         
-        for(float y=-self.currentMachine.zeroBuildPlattform.y; y<self.currentMachine.dimBuildPlattform.y-self.currentMachine.zeroBuildPlattform.y; y+=10.f)
-        {
-            glVertex3f((GLfloat)-self.currentMachine.zeroBuildPlattform.x, (GLfloat)y, 0.f);
-            glVertex3f((GLfloat)self.currentMachine.dimBuildPlattform.x-(GLfloat)self.currentMachine.zeroBuildPlattform.x, (GLfloat)y, 0.f);
-        }
-        glVertex3f((GLfloat)-self.currentMachine.zeroBuildPlattform.x, (GLfloat)self.currentMachine.dimBuildPlattform.y-(GLfloat)self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glVertex3f((GLfloat)self.currentMachine.dimBuildPlattform.x-(GLfloat)self.currentMachine.zeroBuildPlattform.x, (GLfloat)self.currentMachine.dimBuildPlattform.y-(GLfloat)self.currentMachine.zeroBuildPlattform.y, 0.f);
-        glEnd();
+        glColor4f(1.f, .749f, 0.f, .1f);
+        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kPlatformVBO]);
+        glVertexPointer(3, GL_FLOAT, platformStride, 0);
+        glDrawArrays(GL_QUADS, 0, 4);
+    
+        glEnableClientState(GL_COLOR_ARRAY);
+        const GLsizei platformRasterStride = sizeof(GLfloat)*8;
+        
+        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kPlatformRasterVBO]);
+        glColorPointer(4, GL_FLOAT, platformRasterStride, 0);
+        glVertexPointer(3, GL_FLOAT, platformRasterStride, 4*sizeof(GLfloat));
+        glDrawArrays(GL_LINES, 0, _platformRasterVerticesCount);
     }
-	// Ende Build Platfom
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     
 	glEnable(GL_DEPTH_TEST);
 	[self renderContent];
@@ -479,4 +466,203 @@
     _currentMachine=value;
     [self setNeedsDisplay:YES];
 }
+
+- (void)setupPlatformVBOWithBufferName:(GLuint)bufferName
+{
+    Vector3* dimBuildPlattform = self.currentMachine.dimBuildPlattform;
+    if(dimBuildPlattform) {
+        Vector3* zeroBuildPlattform = self.currentMachine.zeroBuildPlattform;
+        
+        const GLsizei stride = sizeof(GLfloat)*3;
+        const GLint numVertices = 4;
+        const GLsizeiptr bufferSize = stride * numVertices;
+        
+        GLfloat * varray = (GLfloat*)malloc(bufferSize);
+        NSInteger i = 0;
+        
+        varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+        varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+        varray[i++] = 0.f;
+        varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+        varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+        varray[i++] = 0.f;
+        varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+        varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+        varray[i++] = 0.f;
+        varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+        varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+        varray[i++] = 0.f;
+        
+        glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+        glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+        free(varray);
+    }
+}
+
+- (GLsizei)setupPlatformRasterVBOWithBufferName:(GLuint)bufferName
+{
+    GLint numVertices = 0;
+    Vector3* dimBuildPlattform = self.currentMachine.dimBuildPlattform;
+    if(dimBuildPlattform) {
+        Vector3* zeroBuildPlattform = self.currentMachine.zeroBuildPlattform;
+
+        const GLsizei stride = sizeof(GLfloat)*8;
+        numVertices = ((GLint)(dimBuildPlattform.x/10.f)+1+(GLint)(dimBuildPlattform.y/10.f)+1)*2+(dimBuildPlattform.z>0.f?(GLint)16:0);
+        const GLsizeiptr bufferSize = stride * numVertices;
+        
+        GLfloat * varray = (GLfloat*)malloc(bufferSize);
+        if(varray) {
+            NSInteger i = 0;
+            
+            GLfloat r = 1.f;
+            GLfloat g = 0.f;
+            GLfloat b = 0.f;
+            GLfloat a = .4f;
+            
+            for(float x=-zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.f) {
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+            }
+            varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+            varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+            varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+            varray[i++] = 0.f;
+            varray[i++] = 0.f;
+            varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+            varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+            varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+            varray[i++] = 0.f;
+            varray[i++] = 0.f;
+            
+            
+            for(float y=-zeroBuildPlattform.y; y<dimBuildPlattform.y-zeroBuildPlattform.y; y+=10.f) {
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+            }
+            varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+            varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+            varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+            varray[i++] = 0.f;
+            varray[i++] = 0.f;
+            varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+            varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+            varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+            varray[i++] = 0.f;
+            varray[i++] = 0.f;
+            
+            if(dimBuildPlattform.z>0.f && self.threeD) {
+                r = 1.f;
+                g = 0.503f;
+                b = 0.029f;
+                a = .15f;
+                
+                // corners
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = 0.f;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                
+                // Upper Frame
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)dimBuildPlattform.x-(GLfloat)zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)dimBuildPlattform.y-(GLfloat)zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.x;
+                varray[i++] = (GLfloat)-zeroBuildPlattform.y;
+                varray[i++] = dimBuildPlattform.z;
+                varray[i++] = 0.f;
+                
+            }
+            glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+            glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+            free(varray);
+        }
+    }
+    return numVertices;
+}
+
 @end
