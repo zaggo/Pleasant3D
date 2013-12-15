@@ -411,6 +411,14 @@ enum {
 {
     [super prepareOpenGL];
     [self.openGLContext makeCurrentContext]; // Ensure we're in the right OpenGL context
+    glGenBuffers(kVBOCount, _vbo);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    
+    glEnable (GL_LINE_SMOOTH);
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    PSLog(@"OpenGL", PSPrioNormal, @"%d VBOs generated", kVBOCount);
 }
 
 - (void)renderContent
@@ -425,22 +433,6 @@ enum {
 	}
     if(!_validPerspective) {
         [self resetPerspective:nil];
-    }
-
-    if(_vbo[kPlatformVBO]==0) {
-        glGenBuffers(kVBOCount, _vbo);
-        glEnableClientState(GL_VERTEX_ARRAY);
-
-        glEnable (GL_LINE_SMOOTH);
-        glEnable (GL_BLEND);
-        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        
-        NSMutableString* vboNames = [NSMutableString stringWithString:@"["];
-        for(NSInteger i=0; i<kVBOCount; i++)
-            [vboNames appendFormat:@"%ld: %d,",i, _vbo[i]];
-        [vboNames appendString:@"]"];
-
-        PSLog(@"OpenGL", PSPrioNormal, @"%d VBOs generated: %@", kVBOCount, vboNames);
     }
 
     if(_platformVBONeedsRefresh) {

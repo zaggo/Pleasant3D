@@ -36,6 +36,7 @@ enum {
     kLowerLayerVBO,
     kCurrentLayerVBO,
     kUpperLayerVBO,
+    kArrowVBO,
     kVBOCount
 };
 
@@ -46,8 +47,6 @@ enum {
     GLuint _vbo[kVBOCount];
     GLsizei _vboVerticesCount;
     GLint *_layerVertexIndex;
-    
-    GLuint _arrowDL;
 }
 
 #pragma mark - View Life Cycle
@@ -60,6 +59,7 @@ enum {
     [self addObserver:self forKeyPath:@"othersAlpha" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"showArrows" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"currentLayer" options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:@"threeD" options:NSKeyValueObservingOptionNew context:NULL];
     
     self.currentLayer = NSUIntegerMax;
 }
@@ -82,13 +82,14 @@ enum {
     [self removeObserver:self forKeyPath:@"othersAlpha"];
     [self removeObserver:self forKeyPath:@"showArrows"];
     [self removeObserver:self forKeyPath:@"currentLayer"];
+    [self removeObserver:self forKeyPath:@"threeD"];
 }
 
 #pragma mark - Observers
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if([keyPath isEqualToString:@"othersAlpha"] || [keyPath isEqualToString:@"showArrows"]) {
+	if([keyPath isEqualToString:@"othersAlpha"] || [keyPath isEqualToString:@"showArrows"] || [keyPath isEqualToString:@"threeD"]) {
         _objectVBONeedsRefresh=YES;
     } else if([keyPath isEqualToString:@"currentLayer"]) {
         float minLayerZ=FLT_MAX;
@@ -308,33 +309,16 @@ enum {
 - (void)prepareOpenGL
 {
     [super prepareOpenGL];
-
-    const GLfloat kArrowLen = .4f;
-	
-	_arrowDL = glGenLists(1);
-	glNewList(_arrowDL, GL_COMPILE);
-	
-	glBegin(GL_TRIANGLES);
-	glVertex3f(kArrowLen, kArrowLen, 0.f);
-	glVertex3f(-kArrowLen, 0.f, 0.f);
-	glVertex3f(kArrowLen, -kArrowLen, 0.f);
-	glEnd();
-	
-	glEndList();
     
     glGenBuffers(kVBOCount, _vbo);
     PSLog(@"OpenGL", PSPrioNormal, @"%d VBOs generated", kVBOCount);
+    
+    [self setupArrowVBOWithBufferName:_vbo[kArrowVBO]];
 }
 
 - (void)renderContent
 {		
-	if(_parsedGCode)
-	{
-//        if(_vbo[kLowerLayerVBO]==0) {
-//            glGenBuffers(kVBOCount, _vbo);
-//            PSLog(@"OpenGL", PSPrioNormal, @"%d VBOs generated", kVBOCount);
-//        }
-//        
+	if(_parsedGCode) {
         if(_objectVBONeedsRefresh) {
             PSLog(@"OpenGL", PSPrioNormal, @"objectVBONeedsRefresh");
             GLfloat* varray = [self createVarrayForObjectVBO];
@@ -392,6 +376,39 @@ enum {
                     count = _vboVerticesCount-startIndex;
                     glDrawArrays(GL_LINES, startIndex, count);
                 }
+                
+                if(self.showArrows && self.currentLayer<[_parsedGCode.panes count]) {
+                    glDisableClientState(GL_COLOR_ARRAY);
+                    glBindBuffer(GL_ARRAY_BUFFER, _vbo[kArrowVBO]);
+                    glVertexPointer(3, GL_FLOAT, sizeof(GLfloat)*3, 0);
+                    
+                    NSArray* pane = [_parsedGCode.panes objectAtIndex:self.currentLayer];
+                    Vector3* lastPoint=nil;
+                    for(id elem in pane)
+                    {
+                        if([elem isKindOfClass:[Vector3 class]])
+                        {
+                            Vector3* point = (Vector3*)elem;
+                            if(lastPoint) {
+                                glPushMatrix();
+                                glTranslatef((GLfloat)(point.x+lastPoint.x)/2.f, (GLfloat)(point.y+lastPoint.y)/2.f, (GLfloat)(point.z+lastPoint.z)/2.f);
+                                glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
+                                glDrawArrays(GL_TRIANGLES, 0, 3);
+                                glPopMatrix();
+                            }
+                            lastPoint = point;
+                        }
+                        else
+                        {
+                            NSColor *color = elem;
+                            glColor4f((GLfloat)color.redComponent,
+                                      (GLfloat)color.greenComponent,
+                                      (GLfloat)color.blueComponent,
+                                      (GLfloat)color.alphaComponent);
+                        }
+                    }
+                }
+
             } else {
                 glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
                 glColorPointer(4, GL_FLOAT, stride, 0);
@@ -403,49 +420,70 @@ enum {
                 glLineWidth(2.f);
                 glDrawArrays(GL_LINES, startIndex, count);
 
-//                if(self.currentLayer<[_parsedGCode.panes count])
-//                {
-//                    glLineWidth(2.f);
-//                    NSArray* pane = [_parsedGCode.panes objectAtIndex:self.currentLayer];
-//                    Vector3* lastPoint=nil;
-//                    for(id elem in pane)
-//                    {
-//                        if([elem isKindOfClass:[Vector3 class]])
-//                        {
-//                            Vector3* point = (Vector3*)elem;
-//                            if(lastPoint)
-//                            {
-//                                glBegin(GL_LINES);
-//                                    glVertex3f((GLfloat)lastPoint.x, (GLfloat)lastPoint.y, 0.f);
-//                                    glVertex3f((GLfloat)point.x, (GLfloat)point.y, 0.f);
-//                                glEnd();
-//                                if(self.showArrows)
-//                                {
-//                                    glPushMatrix();
-//                                    glTranslatef((GLfloat)(point.x+lastPoint.x)/2.f, (GLfloat)(point.y+lastPoint.y)/2.f, 0.f);
-//                                    glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
-//                                    glCallList(_arrowDL);
-//                                    glPopMatrix();
-//                                }
-//                            }
-//                            lastPoint = point;
-//                        }
-//                        else
-//                        {
-//                            NSColor *color = elem;
-//                            glColor4f((GLfloat)color.redComponent,
-//                                      (GLfloat)color.greenComponent, 
-//                                      (GLfloat)color.blueComponent, 
-//                                      (GLfloat)color.alphaComponent);
-//                        }
-//                    }
-//                }
+                if(self.showArrows && self.currentLayer<[_parsedGCode.panes count]) {
+                    glDisableClientState(GL_COLOR_ARRAY);
+                    glBindBuffer(GL_ARRAY_BUFFER, _vbo[kArrowVBO]);
+                    glVertexPointer(3, GL_FLOAT, sizeof(GLfloat)*3, 0);
+
+                    NSArray* pane = [_parsedGCode.panes objectAtIndex:self.currentLayer];
+                    Vector3* lastPoint=nil;
+                    for(id elem in pane)
+                    {
+                        if([elem isKindOfClass:[Vector3 class]])
+                        {
+                            Vector3* point = (Vector3*)elem;
+                            if(lastPoint) {
+                                glPushMatrix();
+                                glTranslatef((GLfloat)(point.x+lastPoint.x)/2.f, (GLfloat)(point.y+lastPoint.y)/2.f, 0.f);
+                                glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
+                                glDrawArrays(GL_TRIANGLES, 0, 3);
+                                glPopMatrix();
+                            }
+                            lastPoint = point;
+                        }
+                        else
+                        {
+                            NSColor *color = elem;
+                            glColor4f((GLfloat)color.redComponent,
+                                      (GLfloat)color.greenComponent, 
+                                      (GLfloat)color.blueComponent, 
+                                      (GLfloat)color.alphaComponent);
+                        }
+                    }
+                }
 			}
 
             glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
 	}
 }
+
+- (void)setupArrowVBOWithBufferName:(GLuint)bufferName
+{
+    const GLfloat kArrowLen = .4f;
+    const GLsizei stride = sizeof(GLfloat)*3;
+    const GLint numVertices = 3;
+    GLsizeiptr bufferSize = stride * numVertices;
+
+    GLfloat* varray = (GLfloat*)malloc(bufferSize);
+
+    NSInteger i = 0;
+    varray[i++] = (GLfloat)kArrowLen;
+    varray[i++] = (GLfloat)kArrowLen;
+    varray[i++] = (GLfloat)0.f;
+    varray[i++] = (GLfloat)-kArrowLen;
+    varray[i++] = (GLfloat)0.f;
+    varray[i++] = (GLfloat)0.f;
+    varray[i++] = (GLfloat)kArrowLen;
+    varray[i++] = (GLfloat)-kArrowLen;
+    varray[i++] = (GLfloat)0.f;
+
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    PSLog(@"OpenGL", PSPrioNormal, @"setupArrowVBOWithBufferName created buffer for %d with %d vertices", bufferName, i/3);
+    free(varray);
+}
+
 
 - (GLfloat *)createVarrayForObjectVBO {
     GLfloat * varray=NULL;
@@ -466,6 +504,7 @@ enum {
 
 - (GLint)setupObjectVBOWithBufferName:(GLuint)bufferName varray:(GLfloat*)varray layerVertexIndex:(GLint*)layerVertexIndex alphaMultiplier:(GLfloat)alphaMultiplier
 {
+    
     const GLsizei stride = sizeof(GLfloat)*8;
     GLint numVertices = 0;
 
@@ -473,6 +512,8 @@ enum {
     GLfloat g = 0.f;
     GLfloat b = 0.f;
     GLfloat a = 0.f;
+
+    BOOL threeD=self.threeD;
     
     NSInteger i = 0;
     NSInteger layer=0;
@@ -488,12 +529,12 @@ enum {
                     varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
                     varray[i++] = (GLfloat)lastPoint.x;
                     varray[i++] = (GLfloat)lastPoint.y;
-                    varray[i++] = (GLfloat)lastPoint.z;
+                    varray[i++] = (GLfloat)(threeD?lastPoint.z:0.);
                     varray[i++] = 0.f;
                     varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
                     varray[i++] = (GLfloat)point.x;
                     varray[i++] = (GLfloat)point.y;
-                    varray[i++] = (GLfloat)point.z;
+                    varray[i++] = (GLfloat)(threeD?point.z:0.);
                     varray[i++] = 0.f;
                     
                     numVertices+=2;
