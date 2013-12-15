@@ -41,6 +41,7 @@
 
 @synthesize stlModel, wireframe;
 
+#pragma mark - View Life Cycle
 + (void)initialize
 {
 	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
@@ -57,41 +58,22 @@
 	self.threeD = YES; // This view is always in 3D
 }
 
-
-- (void)dealloc
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow
 {
-    glDeleteBuffers(1, &_vbo);
+    [super viewWillMoveToWindow:newWindow];
+    if(newWindow==nil) {
+        PSLog(@"OpenGL", PSPrioNormal, @"VBOs deleted");
+        [self.openGLContext makeCurrentContext]; // Ensure we're in the right OpenGL context
+        glDeleteBuffers(1, &_vbo);
+        _vbo=0;
+    }
 }
 
-+ (NSSet *)keyPathsForValuesAffectingDimensionsString {
-    return [NSSet setWithObjects:@"stlModel", nil];
-}
+#pragma mark - Service
 
 - (Vector3*)objectDimensions
 {
     return [stlModel.cornerMaximum sub:stlModel.cornerMinimum];
-}
-
-- (NSString*)dimensionsString
-{
-	Vector3* dimension = [stlModel.cornerMaximum sub:stlModel.cornerMinimum];
-	
-	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-	[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-	[numberFormatter setFormat:@"0.0mm;0.0mm;-0.0mm"];
-	
-	NSString* dimString = [NSString stringWithFormat:@"%@ (X) x %@ (Y) x %@ (Z)", [numberFormatter stringFromNumber:[NSNumber numberWithFloat:dimension.x]], [numberFormatter stringFromNumber:[NSNumber numberWithFloat:dimension.y]], [numberFormatter stringFromNumber:[NSNumber numberWithFloat:dimension.z]]];
-	return dimString;
-}
-
-- (void)setWireframe:(BOOL)value
-{
-	if(wireframe!=value) {
-		wireframe = value;
-		[[NSUserDefaults standardUserDefaults] setBool:value forKey:@"wireframeSTLPreview"];
-        _lightNeedsRefresh = YES;
-		[self setNeedsDisplay:YES];
-	}
 }
 
 - (void)setStlModel:(STLModel*)value
@@ -106,15 +88,50 @@
 	[self setNeedsDisplay:YES];
 }
 
+- (void)setWireframe:(BOOL)value
+{
+	if(wireframe!=value) {
+		wireframe = value;
+		[[NSUserDefaults standardUserDefaults] setBool:value forKey:@"wireframeSTLPreview"];
+        _lightNeedsRefresh = YES;
+		[self setNeedsDisplay:YES];
+	}
+}
+
+
+#pragma mark - GUI Binding
+
++ (NSSet *)keyPathsForValuesAffectingDimensionsString {
+    return [NSSet setWithObjects:@"stlModel", nil];
+}
+
+- (NSString*)dimensionsString
+{
+	Vector3* dimension = [stlModel.cornerMaximum sub:stlModel.cornerMinimum];
+	
+	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+	[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[numberFormatter setFormat:@"0.0mm;0.0mm;-0.0mm"];
+	
+	NSString* dimString = [NSString stringWithFormat:@"%@ (X) x %@ (Y) x %@ (Z)", [numberFormatter stringFromNumber:[NSNumber numberWithFloat:dimension.x]], [numberFormatter stringFromNumber:[NSNumber numberWithFloat:dimension.y]], [numberFormatter stringFromNumber:[NSNumber numberWithFloat:dimension.z]]];
+	return dimString;
+}
+
+#pragma mark - Render OpenGL
+
+- (void)prepareOpenGL
+{
+    [super prepareOpenGL];
+    glGenBuffers(1, &_vbo);
+    PSLog(@"OpenGL", PSPrioNormal, @"1 VBOs generated");
+}
+
 - (void)renderContent
 {
 	if(stlModel)
 	{
-        if(_vbo==0) {
-            glGenBuffers(1, &_vbo);
-        }
-        
         if(_objectVBONeedsRefresh) {
+            PSLog(@"OpenGL", PSPrioNormal, @"objectVBONeedsRefresh");
             _objectVerticesCount = [self setupObjectVBOWithBufferName:_vbo];
             _objectVBONeedsRefresh=NO;
         }
@@ -213,6 +230,7 @@
     glBindBuffer(GL_ARRAY_BUFFER, bufferName);
     glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
     free(varray);
+    PSLog(@"OpenGL", PSPrioNormal, @"setupObjectVBOWithBufferName created buffer for %d with %d vertices", bufferName, i/3);
     
     return numVertices;
 }

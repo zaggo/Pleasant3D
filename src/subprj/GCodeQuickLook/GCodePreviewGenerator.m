@@ -532,63 +532,65 @@ const CGFloat kRenderUpsizeFaktor=3.;
     
     GLsizeiptr bufferSize = stride * numVertices;
 
-    GLfloat * varray = (GLfloat*)malloc(bufferSize);
+    if(bufferSize>0) {
+        GLfloat * varray = (GLfloat*)malloc(bufferSize);
 
-    GLfloat r = 0.f;
-    GLfloat g = 0.f;
-    GLfloat b = 0.f;
-    GLfloat a = 0.f;
+        GLfloat r = 0.f;
+        GLfloat g = 0.f;
+        GLfloat b = 0.f;
+        GLfloat a = 0.f;
 
-    numVertices = 0;
-    NSInteger i = 0;
-    NSInteger layer=0;
-    for(NSArray* pane in gCodePanes) {
-        layerVertexIndex[layer] = numVertices;
-        
-        Vector3* lastPoint = nil;
-        for(id elem in pane) {
-            if([elem isKindOfClass:[Vector3 class]]) {
-                Vector3* point = (Vector3*)elem;
-                if(lastPoint) {
-                    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
-                    varray[i++] = (GLfloat)lastPoint.x;
-                    varray[i++] = (GLfloat)lastPoint.y;
-                    varray[i++] = (GLfloat)lastPoint.z;
-                    varray[i++] = 0.f;
-                    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
-                    varray[i++] = (GLfloat)point.x;
-                    varray[i++] = (GLfloat)point.y;
-                    varray[i++] = (GLfloat)point.z;
-                    varray[i++] = 0.f;
+        numVertices = 0;
+        NSInteger i = 0;
+        NSInteger layer=0;
+        for(NSArray* pane in gCodePanes) {
+            layerVertexIndex[layer] = numVertices;
+            
+            Vector3* lastPoint = nil;
+            for(id elem in pane) {
+                if([elem isKindOfClass:[Vector3 class]]) {
+                    Vector3* point = (Vector3*)elem;
+                    if(lastPoint) {
+                        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                        varray[i++] = (GLfloat)lastPoint.x;
+                        varray[i++] = (GLfloat)lastPoint.y;
+                        varray[i++] = (GLfloat)lastPoint.z;
+                        varray[i++] = 0.f;
+                        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+                        varray[i++] = (GLfloat)point.x;
+                        varray[i++] = (GLfloat)point.y;
+                        varray[i++] = (GLfloat)point.z;
+                        varray[i++] = 0.f;
+                        
+                        numVertices+=2;
+                    }
+                    lastPoint = point;
+                } else {
+                    NSColor *color = elem;
+                    GLfloat alphaMultiplier;
+                    if(currentLayer > layer)
+                        alphaMultiplier = powf((GLfloat)othersAlpha, 3.f);
+                    else if(currentLayer < layer)
+                        alphaMultiplier = powf((GLfloat)othersAlpha, 3.f); //powf((GLfloat)othersAlpha, 3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
+                    else
+                        alphaMultiplier = 1.f;
                     
-                    numVertices+=2;
+                    r = (GLfloat)color.redComponent;
+                    g = (GLfloat)color.greenComponent;
+                    b = (GLfloat)color.blueComponent;
+                    a = (GLfloat)color.alphaComponent*alphaMultiplier;
                 }
-                lastPoint = point;
-            } else {
-                NSColor *color = elem;
-                GLfloat alphaMultiplier;
-                if(currentLayer > layer)
-                    alphaMultiplier = powf((GLfloat)othersAlpha, 3.f);
-                else if(currentLayer < layer)
-                    alphaMultiplier = powf((GLfloat)othersAlpha, 3.f); //powf((GLfloat)othersAlpha, 3.f)/(1.f+20.f*powf((GLfloat)othersAlpha, 3.f));
-                else
-                    alphaMultiplier = 1.f;
-                
-                r = (GLfloat)color.redComponent;
-                g = (GLfloat)color.greenComponent;
-                b = (GLfloat)color.blueComponent;
-                a = (GLfloat)color.alphaComponent*alphaMultiplier;
             }
+            layer++;
         }
-        layer++;
+        
+        layerVertexIndex[layer] = numVertices;
+        bufferSize = stride * numVertices;
+        
+        glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+        glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+        free(varray);
     }
-    
-    layerVertexIndex[layer] = numVertices;
-    bufferSize = stride * numVertices;
-    
-    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
-    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
-    free(varray);
     
     return numVertices;
 }

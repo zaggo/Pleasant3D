@@ -7,14 +7,16 @@
 	<key>enabledScopes</key>
 	<dict>
 		<key>Machining</key>
-		<true/>
+		<false/>
 		<key>*</key>
 		<false/>
 		<key>EdgeIndex</key>
 		<false/>
 		<key>Slice</key>
-		<true/>
+		<false/>
 		<key>Timer</key>
+		<false/>
+		<key>OpenGL</key>
 		<true/>
 	</dict>
 	<key>verbosity</key>

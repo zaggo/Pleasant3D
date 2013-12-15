@@ -30,25 +30,6 @@
 
 @class Vector3, P3DMachineDriverBase;
 @interface ThreeDPreviewView : NSOpenGLView
-{
-	CGFloat _cameraOffset;
-	CGFloat _cameraTranslateX;
-	CGFloat _cameraTranslateY;
-	GLfloat _trackBallRotation[4];
-	GLfloat _worldRotation[4];
-    
-	BOOL _zoomCamera;
-	BOOL _translateCamera;
-	
-	NSTimer* _autorotateTimer;
-	
-	NSPoint _localMousePoint;
-    
-    BOOL _validPerspective;
-    
-	GLuint _arrowDL;
-	BOOL _readyToDraw;
-}
 
 @property (assign, nonatomic) NSUInteger currentLayer;
 @property (assign, nonatomic) BOOL showArrows;

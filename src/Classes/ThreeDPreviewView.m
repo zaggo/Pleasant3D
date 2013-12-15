@@ -37,23 +37,36 @@ enum {
     kVBOCount
 };
 
-@interface ThreeDPreviewView (Private)
-- (void)resetGraphics;
-@end
-
-
 @implementation ThreeDPreviewView
 {
     BOOL _platformVBONeedsRefresh;
 
     GLuint _vbo[kVBOCount];
     GLsizei _platformRasterVerticesCount;
+
+    CGFloat _cameraOffset;
+    CGFloat _cameraTranslateX;
+    CGFloat _cameraTranslateY;
+    GLfloat _trackBallRotation[4];
+    GLfloat _worldRotation[4];
+    
+    BOOL _zoomCamera;
+    BOOL _translateCamera;
+    
+    NSTimer* _autorotateTimer;
+    
+    NSPoint _localMousePoint;
+    
+    BOOL _validPerspective;
+    
+    BOOL _readyToDraw;
 }
+
 @dynamic userRequestedAutorotate, autorotate, maxLayers, layerHeight, objectDimensions;
 
+#pragma mark - View Life Cycle
 - (void)awakeFromNib
 {
-	// TODO: These should be handled by a Document-based object
 	NSMutableDictionary *ddef = [NSMutableDictionary dictionary];
 	[ddef setObject:[NSNumber numberWithFloat:.5] forKey:@"gCodeAlpha"];
 	[ddef setObject:[NSNumber numberWithBool:NO] forKey:@"gCodeAutorotate"];	
@@ -76,12 +89,29 @@ enum {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentMachineSettingsChanged:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
 }
 
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow
+{
+    [super viewWillMoveToWindow:newWindow];
+    if(newWindow==nil) {
+        PSLog(@"OpenGL", PSPrioNormal, @"%d VBOs deleted", kVBOCount);
+        [self.openGLContext makeCurrentContext]; // Ensure we're in the right OpenGL context
+        glDeleteBuffers(kVBOCount, _vbo);
+        bzero(_vbo, kVBOCount*sizeof(GLuint));
+    }
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPath:@"currentMachine"];
-    glDeleteBuffers(kVBOCount, _vbo);
 }
+
+- (BOOL)acceptsFirstResponder {
+    // We want this view to be able to receive key events.
+    return YES;
+}
+
+#pragma mark - Observers
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -90,49 +120,7 @@ enum {
     }
 }
 
-- (void)setupProjection
-{
-	if(_readyToDraw) {
-		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
-		glViewport(0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
-		
-		glMatrixMode( GL_PROJECTION );
-		glLoadIdentity();
-		
-		if(_threeD) {
-			gluPerspective( 45., boundsInPixelUnits.size.width / boundsInPixelUnits.size.height, 0.1, 1000.0 );
-        } else {
-			CGFloat width;
-			CGFloat height;
-			CGFloat midX;
-			CGFloat midY;
-            if(self.currentMachine.dimBuildPlattform) {
-                width = (self.currentMachine.dimBuildPlattform.x)*1.1;
-                height = (self.currentMachine.dimBuildPlattform.y)*1.1;
-                midX = self.currentMachine.zeroBuildPlattform.x-self.currentMachine.dimBuildPlattform.x/2.;
-                midY = self.currentMachine.zeroBuildPlattform.y-self.currentMachine.dimBuildPlattform.y/2.;
-            } else {
-                width = (self.objectDimensions.x)*1.1;
-                height = (self.objectDimensions.y)*1.1;
-                midX = self.currentMachine.zeroBuildPlattform.x-self.objectDimensions.x/2.;
-                midY = self.currentMachine.zeroBuildPlattform.y-self.objectDimensions.y/2.;
-
-//                width = (boundsInPixelUnits.size.width)*1.1;
-//                height = (boundsInPixelUnits.size.height)*1.1;
-//                midX = boundsInPixelUnits.size.width/2.;
-//                midY = boundsInPixelUnits.size.height/2.;
-            }
-			CGFloat ratio = boundsInPixelUnits.size.width / boundsInPixelUnits.size.height;
-			if(ratio>1.) {
-				glOrtho(midX-height/2.*ratio, midX+height/2.*ratio, midY-height/2., midY+height/2.,  -1., 1.);
-			} else {
-				glOrtho(midX-width/2., midX+width/2., midY-width/2./ratio, midY+width/2./ratio,  -1., 1.);
-			}
-		}
-		glMatrixMode( GL_MODELVIEW );
-		glLoadIdentity();
-	}
-}
+#pragma mark - Model Getters & Setters
 
 - (float)layerHeight
 {
@@ -193,18 +181,15 @@ enum {
 		if(value) {
 			[_autorotateTimer invalidate];
 			_autorotateTimer = [NSTimer timerWithTimeInterval:1./120. target:self selector:@selector(autorotate:) userInfo:nil repeats:YES];
+            if([_autorotateTimer respondsToSelector:@selector(setTolerance:)])
+                [_autorotateTimer setTolerance:1.f/60.f];
+            
 			[[NSRunLoop currentRunLoop] addTimer:_autorotateTimer forMode:NSRunLoopCommonModes];
 		} else {
 			[_autorotateTimer invalidate];
 			_autorotateTimer=nil;
 		}
 	}
-}
-
-- (void)resetGraphics
-{
-	[self setupProjection];
-	[self resetPerspective:self];
 }
 
 - (void)setThreeD:(BOOL)value
@@ -236,6 +221,68 @@ enum {
     return nil;
 }
 
+- (void)setCurrentMachine:(P3DMachineDriverBase*)value
+{
+    _currentMachine=value;
+    [self setNeedsDisplay:YES];
+}
+
+- (void)reshape {
+	[self setupProjection];
+}
+
+#pragma mark - Service
+
+- (void)setupProjection
+{
+	if(_readyToDraw) {
+		NSRect boundsInPixelUnits = [self convertRect:[self frame] toView:nil];
+		glViewport(0, 0, boundsInPixelUnits.size.width, boundsInPixelUnits.size.height);
+		
+		glMatrixMode( GL_PROJECTION );
+		glLoadIdentity();
+		
+		if(_threeD) {
+			gluPerspective( 45., boundsInPixelUnits.size.width / boundsInPixelUnits.size.height, 0.1, 1000.0 );
+        } else {
+			CGFloat width;
+			CGFloat height;
+			CGFloat midX;
+			CGFloat midY;
+            if(self.currentMachine.dimBuildPlattform) {
+                width = (self.currentMachine.dimBuildPlattform.x)*1.1;
+                height = (self.currentMachine.dimBuildPlattform.y)*1.1;
+                midX = self.currentMachine.zeroBuildPlattform.x-self.currentMachine.dimBuildPlattform.x/2.;
+                midY = self.currentMachine.zeroBuildPlattform.y-self.currentMachine.dimBuildPlattform.y/2.;
+            } else {
+                width = (self.objectDimensions.x)*1.1;
+                height = (self.objectDimensions.y)*1.1;
+                midX = self.currentMachine.zeroBuildPlattform.x-self.objectDimensions.x/2.;
+                midY = self.currentMachine.zeroBuildPlattform.y-self.objectDimensions.y/2.;
+
+//                width = (boundsInPixelUnits.size.width)*1.1;
+//                height = (boundsInPixelUnits.size.height)*1.1;
+//                midX = boundsInPixelUnits.size.width/2.;
+//                midY = boundsInPixelUnits.size.height/2.;
+            }
+			CGFloat ratio = boundsInPixelUnits.size.width / boundsInPixelUnits.size.height;
+			if(ratio>1.) {
+				glOrtho(midX-height/2.*ratio, midX+height/2.*ratio, midY-height/2., midY+height/2.,  -1., 1.);
+			} else {
+				glOrtho(midX-width/2., midX+width/2., midY-width/2./ratio, midY+width/2./ratio,  -1., 1.);
+			}
+		}
+		glMatrixMode( GL_MODELVIEW );
+		glLoadIdentity();
+	}
+}
+
+- (void)resetGraphics
+{
+	[self setupProjection];
+	[self resetPerspective:self];
+}
+
 - (IBAction)resetPerspective:(id)sender
 {
 	self.autorotate=NO;
@@ -258,6 +305,7 @@ enum {
 	[self setNeedsDisplay:YES];
 }
 
+#pragma mark - Event Handling
 - (void)scrollWheel:(NSEvent *)theEvent
 {
 	_cameraOffset += [theEvent deltaY];
@@ -351,11 +399,6 @@ enum {
 	}
 }
 
-- (BOOL)acceptsFirstResponder {
-    // We want this view to be able to receive key events.
-    return YES;
-}
-
 - (void)autorotate:(NSTimer*)timer
 {
 	GLfloat autorotation[] = {1.f, 0.f, 1.f, 0.f};
@@ -363,28 +406,16 @@ enum {
 	[self setNeedsDisplay:YES];
 }
 
-- (void)reshape {
-	[self setupProjection];
-}
-
+#pragma mark - Render OpenGL
 - (void)prepareOpenGL
 {
-	const GLfloat kArrowLen = .4f;
-	
-	_arrowDL = glGenLists(1);
-	glNewList(_arrowDL, GL_COMPILE);
-	
-	glBegin(GL_TRIANGLES);
-	glVertex3f(kArrowLen, kArrowLen, 0.f);
-	glVertex3f(-kArrowLen, 0.f, 0.f);
-	glVertex3f(kArrowLen, -kArrowLen, 0.f);
-	glEnd();
-	
-	glEndList();
+    [super prepareOpenGL];
+    [self.openGLContext makeCurrentContext]; // Ensure we're in the right OpenGL context
 }
 
 - (void)renderContent
 {
+    // Abstract: Overload in Derived Class
 }
 
 - (void)drawRect:(NSRect)aRect {
@@ -403,9 +434,17 @@ enum {
         glEnable (GL_LINE_SMOOTH);
         glEnable (GL_BLEND);
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
+        NSMutableString* vboNames = [NSMutableString stringWithString:@"["];
+        for(NSInteger i=0; i<kVBOCount; i++)
+            [vboNames appendFormat:@"%ld: %d,",i, _vbo[i]];
+        [vboNames appendString:@"]"];
+
+        PSLog(@"OpenGL", PSPrioNormal, @"%d VBOs generated: %@", kVBOCount, vboNames);
     }
 
     if(_platformVBONeedsRefresh) {
+        PSLog(@"OpenGL", PSPrioNormal, @"platformVBONeedsRefresh");
         [self setupPlatformVBOWithBufferName:_vbo[kPlatformVBO]];
         _platformRasterVerticesCount = [self setupPlatformRasterVBOWithBufferName:_vbo[kPlatformRasterVBO]];
         _platformVBONeedsRefresh=NO;
@@ -436,8 +475,11 @@ enum {
         
         // Draw Platform
         glDisableClientState(GL_NORMAL_ARRAY);
+        glDisableClientState(GL_COLOR_ARRAY);
+
         const GLsizei platformStride = sizeof(GLfloat)*3;
-        
+
+        glLineWidth(1.f);
         glColor4f(1.f, .749f, 0.f, .1f);
         glBindBuffer(GL_ARRAY_BUFFER, _vbo[kPlatformVBO]);
         glVertexPointer(3, GL_FLOAT, platformStride, 0);
@@ -459,12 +501,6 @@ enum {
 	
 	glFinish();
 	[[self openGLContext] flushBuffer];
-}
-
-- (void)setCurrentMachine:(P3DMachineDriverBase*)value
-{
-    _currentMachine=value;
-    [self setNeedsDisplay:YES];
 }
 
 - (void)setupPlatformVBOWithBufferName:(GLuint)bufferName
@@ -496,6 +532,7 @@ enum {
         glBindBuffer(GL_ARRAY_BUFFER, bufferName);
         glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
         free(varray);
+        PSLog(@"OpenGL", PSPrioNormal, @"setupPlatformVBOWithBufferName created buffer for %d with %d vertices", bufferName, i/3);
     }
 }
 
@@ -660,6 +697,7 @@ enum {
             glBindBuffer(GL_ARRAY_BUFFER, bufferName);
             glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
             free(varray);
+            PSLog(@"OpenGL", PSPrioNormal, @"setupPlatformRasterVBOWithBufferName created buffer for %d with %d vertices", bufferName, numVertices);
         }
     }
     return numVertices;

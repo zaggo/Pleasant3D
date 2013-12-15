@@ -33,6 +33,9 @@
 static NSArray* _extrusionColors=nil;
 
 @implementation P3DLoopsPreviewView
+{
+    GLuint _arrowDL;
+}
 @dynamic layerInfoString, dimensionsString, userRequestedAutorotate, autorotate, maxLayers;
 
 + (void)initialize
@@ -118,6 +121,24 @@ static NSArray* _extrusionColors=nil;
 	_showNoExtrusionPaths = value;
 	[[NSUserDefaults standardUserDefaults] setBool:value forKey:@"P3DLoopsPreviewShowNoExtrusionPaths"];
 	[self setNeedsDisplay:YES];
+}
+
+- (void)prepareOpenGL
+{
+    [super prepareOpenGL];
+    
+    const GLfloat kArrowLen = .4f;
+	
+	_arrowDL = glGenLists(1);
+	glNewList(_arrowDL, GL_COMPILE);
+	
+	glBegin(GL_TRIANGLES);
+	glVertex3f(kArrowLen, kArrowLen, 0.f);
+	glVertex3f(-kArrowLen, 0.f, 0.f);
+	glVertex3f(kArrowLen, -kArrowLen, 0.f);
+	glEnd();
+	
+	glEndList();
 }
 
 - (void)renderContent {
@@ -218,11 +239,6 @@ static NSArray* _extrusionColors=nil;
 							glVertex3f((GLfloat)lastCorner->point.s[0], (GLfloat)lastCorner->point.s[1], 0.f);
 							glVertex3f((GLfloat)corner->point.s[0], (GLfloat)corner->point.s[1], 0.f);
 							glEnd();
-							
-//							glBegin(GL_LINES);
-//							glVertex3f(corner->point[0],corner->point[1],0.f);
-//							glVertex3f(corner->normal[0],corner->normal[1],0.f);
-//							glEnd();
 							
 							if(self.showArrows)
 							{
