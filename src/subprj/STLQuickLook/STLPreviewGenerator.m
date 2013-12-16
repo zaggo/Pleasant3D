@@ -72,17 +72,16 @@ const CGFloat kRenderUpsizeFaktor=3.;
 		else
 			renderSize = CGSizeMake(size.width*kRenderUpsizeFaktor,size.height*kRenderUpsizeFaktor);
 		
-		dimBuildPlattform = [[Vector3 alloc] initVectorWithX:100. Y:100. Z:0.];
-		zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:50. Y:50. Z:0.];
-
 		stlModel = model;
 		
+        Vector3* cMax = stlModel.cornerMaximum;
+        Vector3* cMin = stlModel.cornerMinimum;
+        
+        dimBuildPlattform = [cMax sub:cMin];
+        zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:cMin.x+dimBuildPlattform.x/2.f Y:cMin.y+dimBuildPlattform.y/2.f Z:cMin.z];
+        [dimBuildPlattform imul:1.2f];
+        
 		cameraOffset = - 2.*MAX( dimBuildPlattform.x, dimBuildPlattform.y);
-		
-		CGFloat objectMaxXDim = MAX(fabsf(stlModel.cornerMaximum.x), fabsf(stlModel.cornerMinimum.x));
-		CGFloat objectMaxYDim = MAX(fabsf(stlModel.cornerMaximum.y), fabsf(stlModel.cornerMinimum.y));
-		CGFloat objectOffset = - 2.5*MAX( objectMaxXDim, objectMaxYDim);
-		cameraOffset = MIN(objectOffset, cameraOffset);
 		
 		rotateX = 0.;
 		rotateY = -45.;
@@ -102,8 +101,11 @@ const CGFloat kRenderUpsizeFaktor=3.;
 	CGLPixelFormatObj pixelFormatObj=NULL;
 	GLint numPixelFormats=0;
 
+    GLuint vbo[3];
+
 	CGLPixelFormatAttribute attribs[] =
 	{
+		kCGLPFAOpenGLProfile, kCGLOGLPVersion_Legacy,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
 		kCGLPFASupersample,
@@ -120,6 +122,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
         CGLCreateContext (pixelFormatObj, NULL, &contextObj);
         CGLDestroyPixelFormat (pixelFormatObj);
         glError = CGLSetCurrentContext (contextObj);
+        glGenBuffers(3, vbo);
     }
     
     if(pixelFormatObj && glError == kCGLNoError) {
@@ -158,7 +161,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 
                 glMatrixMode( GL_PROJECTION );
                 glLoadIdentity();
-                gluPerspective( 32., renderSize.width / renderSize.height, 10., MAX(1000.,- 2. *cameraOffset) );
+                gluPerspective( 32., renderSize.width / renderSize.height, 1., MAX(1000., - 2.* cameraOffset) );
                     
                 // Clear the framebuffer.
                 glMatrixMode(GL_MODELVIEW);
@@ -168,27 +171,63 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
                 
                 if(stlModel)
-                {	
-                    glEnable (GL_LINE_SMOOTH); 
+                {
+                    glEnable (GL_LINE_SMOOTH);
                     glEnable (GL_BLEND); 
                     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-                    if(wireframe)
-                    {
-                        glColor3f(1., 1., 1.);
-                        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-                    }
+                    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+
+                    glTranslatef(-zeroBuildPlattform.x, -zeroBuildPlattform.y, cameraOffset);
+                    glRotatef(rotateX, 0.f, 1.f, 0.f);
+                    glRotatef(rotateY, 1.f, 0.f, 0.f);
+                    
+                    glEnableClientState(GL_COLOR_ARRAY);
+                    glEnableClientState(GL_VERTEX_ARRAY);
+                    
+                    if(thumbnail)
+                        [self setupPlatformVBOWithBufferName:vbo[0] colorR:.252f G:.212f B:.122f A:1.f];
                     else
-                    {
-                        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-                        GLfloat mat_specular[] = { .8, .8, .8, 1.0 };
-                        GLfloat mat_shininess[] = { 60.0 };
-                        GLfloat mat_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
-                        GLfloat mat_diffuse[] = { 0.2, 0.8, 0.2, 1.0 };
+                        [self setupPlatformVBOWithBufferName:vbo[0] colorR:1.f G:.749f B:0.f A:.1f];
+                    
+                    GLsizei platformRasterVerticesCount = [self setupPlatformRasterVBOWithBufferName:vbo[1]];
+                    GLsizei objectVerticesCount = [self setupObjectVBOWithBufferName:vbo[2]];
+                    
+                    const GLsizei stride = sizeof(GLfloat)*8; // RGBA + XYZW
+                    
+                    // Draw Platform
+                    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+                    glColorPointer(/*rgba*/4, GL_FLOAT, stride, 0);
+                    glVertexPointer(/*xyz*/3, GL_FLOAT, stride, 4*sizeof(GLfloat));
+                    glDrawArrays(GL_QUADS, 0, 4);
+                    
+                    glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+                    glColorPointer(/*rgba*/4, GL_FLOAT, stride, 0);
+                    glVertexPointer(/*xyz*/3, GL_FLOAT, stride, 4*sizeof(GLfloat));
+                    glDrawArrays(GL_LINES, 0, platformRasterVerticesCount);
+
+                    
+                    if(wireframe) {
+                        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+                        glDisable(GL_COLOR_MATERIAL);
+                        glDisable(GL_LIGHTING);
+                    } else {
+                        const GLfloat mat_specular[] = { .8, .8, .8, 1.0 };
+                        const GLfloat mat_shininess[] = { 15.0 };
+                        const GLfloat mat_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+                        const GLfloat mat_diffuse[] = { 0.3, 0.3, 0.3, 1.0 };
                         
-                        GLfloat light_position[] = { 1., -1., 1., 0. };
-                        GLfloat light_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
-                        GLfloat light_diffuse[] = { 0.2, 0.2, 0.2, 1.0 };
+                        const GLfloat light_ambient[] = { 0.5, 0.5, 0.5, 0.0 };
+                        const GLfloat light_diffuse[] = { 0.2, 0.2, 0.2, 0.0 };
+                        
+                        const GLfloat light0_position[] = { -1., 1., .5, 0. };
+                        const GLfloat light0_specular[] = { 0.309, 0.377, 1.000, 1.000 };
+                        
+                        const GLfloat light1_position[] = { 1., .75, .75, 0. };
+                        const GLfloat light1_specular[] = { 1.000, 0.638, 0.438, 1.000 };
+                        
+                        const  GLfloat light2_position[] = { 0., -1, -.75, 0. };
+                        const GLfloat light2_specular[] = { 0.574, 1.000, 0.434, 1.000 };
                         
                         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
                         glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
@@ -197,95 +236,39 @@ const CGFloat kRenderUpsizeFaktor=3.;
                         
                         glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
                         glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-                        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+                        glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+                        glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
                         
-                        glEnable(GL_DEPTH_TEST);
+                        glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+                        glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+                        
+                        glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
+                        glLightfv(GL_LIGHT2, GL_SPECULAR, light2_specular);
+                        
+                        glEnable(GL_LIGHT0);
+                        glEnable(GL_LIGHT1);
+                        glEnable(GL_LIGHT2);
                         glEnable(GL_COLOR_MATERIAL);
                         glEnable(GL_LIGHTING);
-                        glEnable(GL_LIGHT0);
-                    }
-
-                    glTranslatef(0.f,0.f,cameraOffset);
-                    glRotatef(rotateX, 0.f, 1.f, 0.f);
-                    glRotatef(rotateY, 1.f, 0.f, 0.f);
-                    
-                    if(thumbnail)
-                        glColor4f(.252f, .212f, .122f, 1.f);
-                    else
-                        glColor4f(1.f, .749f, 0.f, .1f);
-                    
-                    GLfloat platformZ = 0.;
-                    GLfloat platformCoords[] = {
-                        -zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ,
-                        -zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ,
-                        dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ,
-                        dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ
-                    };
-                    glVertexPointer(3, GL_FLOAT, 0, platformCoords);
-                    glDrawArrays(GL_QUADS, 0, 12);
-                    
-                    platformZ += 0.1;
-                    
-                    
-                    glColor4f(1., 0., 0., .5);
-                    size_t rasterLinesSize = ceil(dimBuildPlattform.x/ 10.0) * 6;
-                    GLfloat* rasterLines = calloc(rasterLinesSize, sizeof(GLfloat));
-                    NSInteger i=0;
-                    for(CGFloat x = -zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.)
-                    {
-                        rasterLines[i++]=x;
-                        rasterLines[i++]=-zeroBuildPlattform.y;
-                        rasterLines[i++]=platformZ;
-                        rasterLines[i++]=x;
-                        rasterLines[i++]=dimBuildPlattform.y-zeroBuildPlattform.y;
-                        rasterLines[i++]=platformZ;
-                    }
-                    glVertexPointer(3, GL_FLOAT, 0, rasterLines);
-                    glDrawArrays(GL_LINES, 0, i);
-                    free(rasterLines);
-                    
-                    glBegin(GL_LINES);
-                    glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, -zeroBuildPlattform.y, platformZ);
-                    glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
-                    
-                    for(CGFloat y =  -zeroBuildPlattform.y; y<dimBuildPlattform.y-zeroBuildPlattform.y; y+=10.)
-                    {
-                        glVertex3f(-zeroBuildPlattform.x, y, platformZ);
-                        glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, y, platformZ);
-                    }
-                    glVertex3f(-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
-                    glVertex3f(dimBuildPlattform.x-zeroBuildPlattform.x, dimBuildPlattform.y-zeroBuildPlattform.y, platformZ);
-                    glEnd();
-
-                    glColor3f(1., 1., 1.);
-                    glBegin(GL_TRIANGLES);
-                    STLBinaryHead* stl = [stlModel stlHead];
-                    STLFacet* facet = firstFacet(stl);
-                    for(NSUInteger i = 0; i<stl->numberOfFacets; i++)
-                    {
-                        glNormal3fv((GLfloat const *)&(facet->normal));
-                        for(NSInteger pIndex = 0; pIndex<3; pIndex++)
-                            glVertex3fv((GLfloat const *)&(facet->p[pIndex]));
-                        facet = nextFacet(facet);
-                    }
-                    glEnd();
-                    
-                    if(!wireframe)
-                    {
-                        glDisable(GL_COLOR_MATERIAL);
-                        glDisable(GL_LIGHTING);
-                        glDisable(GL_LIGHT0);
-                    }            
-
-                    if(!wireframe)
-                    {
-                        glDisable(GL_DEPTH_TEST);
+                        glEnable(GL_DEPTH_TEST);
                     }
                     
-                    glDisable (GL_LINE_SMOOTH); 
-                    glDisable (GL_BLEND); 
+                    glDisableClientState(GL_COLOR_ARRAY);
+                    glEnableClientState(GL_NORMAL_ARRAY);
+                    const GLsizei objectStride = sizeof(GLfloat)*6; // UVW + XYZ
+                    
+                    // Draw Object
+                    glColor3f(1.f, 1.f, 1.f);
+                    glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+                    glNormalPointer(GL_FLOAT, objectStride, 0);
+                    glVertexPointer(3, GL_FLOAT, objectStride, 3*sizeof(GLfloat));
+                    glDrawArrays(GL_TRIANGLES, 0, objectVerticesCount);
+                    
+                    glBindBuffer(GL_ARRAY_BUFFER, 0);
+                    glFlush();
                 }
-                        
+                
+                
                 /* Read framebuffer into our bitmap */
                 glPixelStorei(GL_PACK_ALIGNMENT, (GLint)4); /* Force 4-byte alignment */
                 glPixelStorei(GL_PACK_ROW_LENGTH, (GLint)0);
@@ -308,12 +291,15 @@ const CGFloat kRenderUpsizeFaktor=3.;
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
             glDeleteRenderbuffers(2, fboRenderBuffers);
             glDeleteFramebuffers(1, &fb);
-           
+
+
             /* Get rid of bitmap */
             CFRelease(bitmap);
             free(bitmapContextData);
         }
     }
+    
+    glDeleteBuffers(3, vbo);
 
     CGLSetCurrentContext (NULL);
     if(contextObj) {
@@ -322,6 +308,152 @@ const CGFloat kRenderUpsizeFaktor=3.;
     }
 
 	return cgImage;
+}
+
+- (void)setupPlatformVBOWithBufferName:(GLuint)bufferName colorR:(GLfloat)r G:(GLfloat)g B:(GLfloat)b A:(GLfloat)a
+{
+    
+    const GLsizei stride = sizeof(GLfloat)*8;
+    const GLint numVertices = 4;
+    const GLsizeiptr bufferSize = stride * numVertices;
+    
+    GLfloat * varray = (GLfloat*)malloc(bufferSize); // 4 Dimensional, 4 Corners, 2 Components (Coordinate + Color)
+    NSInteger i = 0;
+    
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x-dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y-dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x-dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y+dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x+dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y+dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    varray[i++] = r;
+    varray[i++] = g;
+    varray[i++] = b;
+    varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x+dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y-dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    free(varray);
+}
+
+- (GLsizei)setupPlatformRasterVBOWithBufferName:(GLuint)bufferName
+{
+    const GLsizei stride = sizeof(GLfloat)*8;
+    const GLint numVertices = ((GLint)(dimBuildPlattform.x/10.f)+2+(GLint)(dimBuildPlattform.y/10.f)+2)*2;
+    const GLsizeiptr bufferSize = stride * numVertices;
+    
+    GLfloat * varray = (GLfloat*)malloc(bufferSize);
+    NSInteger i = 0;
+    
+    GLfloat r = 1.f;
+    GLfloat g = 0.f;
+    GLfloat b = 0.f;
+    GLfloat a = .4f;
+    
+    for(float x=0.f; x<dimBuildPlattform.x; x+=10.f) {
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)(zeroBuildPlattform.x-dimBuildPlattform.x/2.f+x);
+        varray[i++] = (GLfloat)(zeroBuildPlattform.y-dimBuildPlattform.y/2.f);
+        varray[i++] = (GLfloat)zeroBuildPlattform.z;
+        varray[i++] = 0.f;
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)(zeroBuildPlattform.x-dimBuildPlattform.x/2.f+x);
+        varray[i++] = (GLfloat)(zeroBuildPlattform.y+dimBuildPlattform.y/2.f);
+        varray[i++] = (GLfloat)zeroBuildPlattform.z;
+        varray[i++] = 0.f;
+    }
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x+dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y-dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x+dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y+dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    
+    
+    for(float y=0.f; y<dimBuildPlattform.y; y+=10.f) {
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)(zeroBuildPlattform.x-dimBuildPlattform.x/2.f);
+        varray[i++] = (GLfloat)(zeroBuildPlattform.y-dimBuildPlattform.y/2.f+y);
+        varray[i++] = (GLfloat)zeroBuildPlattform.z;
+        varray[i++] = 0.f;
+        varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+        varray[i++] = (GLfloat)(zeroBuildPlattform.x+dimBuildPlattform.x/2.f);
+        varray[i++] = (GLfloat)(zeroBuildPlattform.y-dimBuildPlattform.y/2.f+y);
+        varray[i++] = (GLfloat)zeroBuildPlattform.z;
+        varray[i++] = 0.f;
+    }
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x-dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y+dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
+    varray[i++] = (GLfloat)(zeroBuildPlattform.x+dimBuildPlattform.x/2.f);
+    varray[i++] = (GLfloat)(zeroBuildPlattform.y+dimBuildPlattform.y/2.f);
+    varray[i++] = (GLfloat)zeroBuildPlattform.z;
+    varray[i++] = 0.f;
+    
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    free(varray);
+    
+    return numVertices;
+}
+
+- (GLsizei)setupObjectVBOWithBufferName:(GLuint)bufferName
+{
+    STLBinaryHead* stl = [stlModel stlHead];
+    const GLsizei stride = sizeof(GLfloat)*6;
+    const GLint numVertices = stl->numberOfFacets*3;
+    const GLsizeiptr bufferSize = stride * numVertices;
+    
+    GLfloat * varray = (GLfloat*)malloc(bufferSize);
+    NSInteger i = 0;
+    
+    STLFacet* facet = firstFacet(stl);
+    for(UInt32 fI = 0; fI<stl->numberOfFacets; fI++) {
+        for(NSInteger pIndex = 0; pIndex<3; pIndex++) {
+            varray[i++] = (GLfloat)facet->normal.x;
+            varray[i++] = (GLfloat)facet->normal.y;
+            varray[i++] = (GLfloat)facet->normal.z;
+            varray[i++] = (GLfloat)facet->p[pIndex].x;
+            varray[i++] = (GLfloat)facet->p[pIndex].y;
+            varray[i++] = (GLfloat)facet->p[pIndex].z;
+        }
+        facet = nextFacet(facet);
+    }
+    
+    glBindBuffer(GL_ARRAY_BUFFER, bufferName);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
+    free(varray);
+    
+    return numVertices;
 }
 
 @end

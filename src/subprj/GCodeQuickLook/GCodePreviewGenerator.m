@@ -321,24 +321,23 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 GLint layerVertexIndex[gCodePanes.count+1];
                 GLsizei objectVerticesCount = [self setupObjectVBOWithBufferName:vbo[2] layerVertexIndex:layerVertexIndex];
                 
-                const char* base = NULL;
                 const GLsizei stride = sizeof(GLfloat)*8; // RGBA + XYZW
                 
                 // Draw Platform
                 glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-                glColorPointer(/*rgba*/4, GL_FLOAT, stride, base+0*sizeof(GLfloat));
-                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, base+4*sizeof(GLfloat));
+                glColorPointer(/*rgba*/4, GL_FLOAT, stride, 0);
+                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, 4*sizeof(GLfloat));
                 glDrawArrays(GL_QUADS, /*firstIndex*/0, /*indexCount*/4);
                 
                 glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-                glColorPointer(/*rgba*/4, GL_FLOAT, stride, base+0*sizeof(GLfloat));
-                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, base+4*sizeof(GLfloat));
+                glColorPointer(/*rgba*/4, GL_FLOAT, stride, 0);
+                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, 4*sizeof(GLfloat));
                 glDrawArrays(GL_LINES, 0, platformRasterVerticesCount);
 
                 // Draw Object
                 glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
-                glColorPointer(/*rgba*/4, GL_FLOAT, stride, base+0*sizeof(GLfloat));
-                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, base+4*sizeof(GLfloat));
+                glColorPointer(/*rgba*/4, GL_FLOAT, stride, 0);
+                glVertexPointer(/*xyz*/3, GL_FLOAT, stride, 4*sizeof(GLfloat));
                
                 GLint startIndex = 0;
                 GLsizei count = 0;

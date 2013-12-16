@@ -81,16 +81,16 @@
 }
 
 
-// Get a new Vector3 by dividing each component of this one.
-- (Vector3*)div:(float)other
+// Get a new Vector3 by dividing each component by the factor.
+- (Vector3*)div:(float)factor
 {
-	return [[Vector3 alloc] initVectorWithX:x/other Y:y/other Z:z/other];
+	return [[Vector3 alloc] initVectorWithX:x/factor Y:y/factor Z:z/factor];
 }
 
-// Get a new Vector3 by dividing each component of this one.
-- (Vector3*)floordiv:(float)other
+// Get a new Vector3 by floor dividing each component by the factor.
+- (Vector3*)floordiv:(float)factor
 {
-	return [[Vector3 alloc] initVectorWithX:floorf(x/other) Y:floorf(y/other) Z:floorf(z/other)];
+	return [[Vector3 alloc] initVectorWithX:floorf(x/factor) Y:floorf(y/factor) Z:floorf(z/factor)];
 }
 
 - (BOOL)isEqual:(Vector3*)other
@@ -113,27 +113,27 @@
 	return self;
 }
 
-- (Vector3*)idiv:(float)other
+- (Vector3*)idiv:(float)factor
 {
-	x/=other;
-	y/=other;
-	z/=other;
+	x/=factor;
+	y/=factor;
+	z/=factor;
 	return self;
 }
 
-- (Vector3*)ifloordiv:(float)other
+- (Vector3*)ifloordiv:(float)factor
 {
-	x=floorf(x/other);
-	y=floorf(y/other);
-	z=floorf(z/other);
+	x=floorf(x/factor);
+	y=floorf(y/factor);
+	z=floorf(z/factor);
 	return self;
 }
 
-- (Vector3*)imul:(float)other
+- (Vector3*)imul:(float)factor
 {
-	x*=other;
-	y*=other;
-	z*=other;
+	x*=factor;
+	y*=factor;
+	z*=factor;
 	return self;
 }
 

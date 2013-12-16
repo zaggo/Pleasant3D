@@ -42,7 +42,8 @@
 - (NSString*)asKey;
 - (Vector3*)sub:(Vector3*)other;
 - (Vector3*)isub:(Vector3*)other;
-- (Vector3*)idiv:(float)other;
+- (Vector3*)idiv:(float)factor;
+- (Vector3*)imul:(float)factor;
 - (float)distance:(Vector3*)other;
 - (void)setToVector3:(Vector3*)other;
 - (void)maximizeWith:(Vector3*)other;
