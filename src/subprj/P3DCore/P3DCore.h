@@ -55,3 +55,6 @@
 #import "ConfiguredMachines.h"
 #import "MachineOptionsViewController.h"
 #import "P3DMachineJob.h"
+#import "GCodeStatistics.h"
+#import "P3DParsedGCodeBase.h"
+#import "P3DParsedGCodePrinter.h"

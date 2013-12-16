@@ -27,9 +27,9 @@
 //
 
 #import "GCodeDocument.h"
-#import "GCodeView.h"
 #import <P3DCore/NSArray+GCode.h>
-#import "ParsedGCode.h"
+#import <P3DCore/P3DCore.h>
+#import "GCodeView.h"
 #import "P3DMachiningController.h"
 
 @implementation GCodeDocument
@@ -144,7 +144,7 @@
             case kGCodeStyle3DPrinter:
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    ParsedGCode* parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
+                    P3DParsedGCodePrinter* parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if([parsedGCode.panes count]>0) {
                             self.maxLayers = [parsedGCode.panes count]-1;

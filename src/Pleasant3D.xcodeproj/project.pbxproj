@@ -10,7 +10,6 @@
 		8D15AC310486D014006FF6A4 /* STLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* STLDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
-		E204587E1852882B00199C1C /* GCodeStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E204587D1852882B00199C1C /* GCodeStatistics.m */; };
 		E21DBC01113AD81F0009875E /* PSToolboxPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DBC00113AD81F0009875E /* PSToolboxPanel.m */; };
 		E21E14F114FDAE9200A4FC02 /* GCodeImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */; };
 		E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264292108B7D7F002FCAD8 /* OpenGL.framework */; };
@@ -77,7 +76,6 @@
 		E2970FD811247D230060FA0C /* ThreeDPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2970FD711247D230060FA0C /* ThreeDPreviewView.m */; };
 		E29710A11124E9EB0060FA0C /* trackball.c in Sources */ = {isa = PBXBuildFile; fileRef = E297109F1124E9EB0060FA0C /* trackball.c */; };
 		E29A05D4111F3C96006CD3C9 /* P3DGCodePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A05D3111F3C96006CD3C9 /* P3DGCodePreviewController.m */; };
-		E29A05D7111F3D58006CD3C9 /* ParsedGCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A05D6111F3D58006CD3C9 /* ParsedGCode.m */; };
 		E29BBF411131FA000058A121 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1660FE840EACC02AAC07 /* InfoPlist.strings */; };
 		E2A43EC21103365E003F5907 /* debugScopes.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2A43EC11103365E003F5907 /* debugScopes.plist */; };
 		E2A43FBC11034EA9003F5907 /* P3DLoopsPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */; };
@@ -364,8 +362,6 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Pleasant3D-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pleasant3D-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Pleasant3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pleasant3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E204587C1852882B00199C1C /* GCodeStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCodeStatistics.h; sourceTree = "<group>"; };
-		E204587D1852882B00199C1C /* GCodeStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCodeStatistics.m; sourceTree = "<group>"; };
 		E21DBBFF113AD81F0009875E /* PSToolboxPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSToolboxPanel.h; sourceTree = "<group>"; };
 		E21DBC00113AD81F0009875E /* PSToolboxPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSToolboxPanel.m; sourceTree = "<group>"; };
 		E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCodeImport.xcodeproj; path = subprj/ToolPlugins/GCodeImport/GCodeImport.xcodeproj; sourceTree = "<group>"; };
@@ -474,8 +470,6 @@
 		E29710A01124E9EB0060FA0C /* trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trackball.h; sourceTree = "<group>"; };
 		E29A05D2111F3C96006CD3C9 /* P3DGCodePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DGCodePreviewController.h; sourceTree = "<group>"; };
 		E29A05D3111F3C96006CD3C9 /* P3DGCodePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DGCodePreviewController.m; sourceTree = "<group>"; };
-		E29A05D5111F3D58006CD3C9 /* ParsedGCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParsedGCode.h; sourceTree = "<group>"; };
-		E29A05D6111F3D58006CD3C9 /* ParsedGCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParsedGCode.m; sourceTree = "<group>"; };
 		E2A43EC11103365E003F5907 /* debugScopes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = debugScopes.plist; sourceTree = "<group>"; };
 		E2A43FBA11034EA9003F5907 /* P3DLoopsPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DLoopsPreviewView.h; sourceTree = "<group>"; };
 		E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DLoopsPreviewView.m; sourceTree = "<group>"; };
@@ -765,10 +759,6 @@
 			children = (
 				E2C183A910FE80C900396141 /* ToolPool.h */,
 				E2C183AA10FE80C900396141 /* ToolPool.m */,
-				E29A05D5111F3D58006CD3C9 /* ParsedGCode.h */,
-				E29A05D6111F3D58006CD3C9 /* ParsedGCode.m */,
-				E204587C1852882B00199C1C /* GCodeStatistics.h */,
-				E204587D1852882B00199C1C /* GCodeStatistics.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -1320,12 +1310,10 @@
 				E25421B710FB59BD005D08F7 /* P3DToolPoolController.m in Sources */,
 				E2C183AB10FE80C900396141 /* ToolPool.m in Sources */,
 				E2C1879310FF478300396141 /* STLPreviewView.m in Sources */,
-				E204587E1852882B00199C1C /* GCodeStatistics.m in Sources */,
 				E2C1879A10FF48BD00396141 /* STLPreviewController.m in Sources */,
 				E2A43FBC11034EA9003F5907 /* P3DLoopsPreviewView.m in Sources */,
 				E2A43FC011034EFB003F5907 /* P3DLoopsPreviewController.m in Sources */,
 				E29A05D4111F3C96006CD3C9 /* P3DGCodePreviewController.m in Sources */,
-				E29A05D7111F3D58006CD3C9 /* ParsedGCode.m in Sources */,
 				E2970FD811247D230060FA0C /* ThreeDPreviewView.m in Sources */,
 				E29710A11124E9EB0060FA0C /* trackball.c in Sources */,
 				E2D4E326112D680500F67528 /* P3DMachiningController.m in Sources */,

@@ -29,10 +29,10 @@
 #import <Cocoa/Cocoa.h>
 #import "ThreeDPreviewView.h"
 
-@class ParsedGCode;
+@class P3DParsedGCodeBase;
 @interface GCodeView : ThreeDPreviewView
 
-@property (strong, nonatomic) ParsedGCode* parsedGCode;
+@property (strong, nonatomic) P3DParsedGCodeBase* parsedGCode;
 @property (assign) CGFloat currentLayerMinZ;
 @property (assign) CGFloat currentLayerMaxZ;
 @end

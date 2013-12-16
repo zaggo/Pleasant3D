@@ -41,4 +41,5 @@
 @property (assign, nonatomic) BOOL extrudingStateChanged;
 
 @property (strong, readonly, nonatomic) Vector3* currentLocation;
+
 @end

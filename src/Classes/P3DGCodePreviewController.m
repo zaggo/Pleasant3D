@@ -26,15 +26,14 @@
 //  resulting work.
 //
 
+#import <P3DCore/P3DCore.h>
 #import "P3DGCodePreviewController.h"
 #import "GCodeView.h"
-#import "ParsedGCode.h"
-#import <P3DCore/P3DCore.h>
 
 
 @implementation P3DGCodePreviewController
 {
-    ParsedGCode* _parsedGCode;
+    P3DParsedGCodePrinter* _parsedGCode;
 }
 
 - (void)awakeFromNib
@@ -49,7 +48,7 @@
 	{
 		_gCode = value;
 		NSString* gCodeString = _gCode.gCodeString;
-		_parsedGCode = [[ParsedGCode alloc] initWithGCodeString:gCodeString printer:nil];
+		_parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gCodeString printer:nil];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if([_parsedGCode.panes count]>0)
 			{

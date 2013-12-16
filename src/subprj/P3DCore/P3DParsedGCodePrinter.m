@@ -1,32 +1,13 @@
 //
-//  GCodeParser.m
-//  Pleasant3D
+//  P3DParsedGCodePrinter.m
+//  P3DCore
 //
-//  Created by Eberhard Rensch on 07.02.10.
-//  Copyright 2010 Pleasant Software. All rights reserved.
-//
-//  This program is free software; you can redistribute it and/or modify it under
-//  the terms of the GNU General Public License as published by the Free Software 
-//  Foundation; either version 3 of the License, or (at your option) any later 
-//  version.
-// 
-//  This program is distributed in the hope that it will be useful, but WITHOUT ANY 
-//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
-//  PARTICULAR PURPOSE. See the GNU General Public License for more details.
-// 
-//  You should have received a copy of the GNU General Public License along with 
-//  this program; if not, see <http://www.gnu.org/licenses>.
-// 
-//  Additional permission under GNU GPL version 3 section 7
-// 
-//  If you modify this Program, or any covered work, by linking or combining it 
-//  with the P3DCore.framework (or a modified version of that framework), 
-//  containing parts covered by the terms of Pleasant Software's software license, 
-//  the licensors of this Program grant you additional permission to convey the 
-//  resulting work.
+//  Created by Eberhard Rensch on 16.12.13.
+//  Copyright (c) 2013 Pleasant Software. All rights reserved.
 //
 
-#import "ParsedGCode.h"
+#import "P3DParsedGCodePrinter.h"
+#import <P3DCore/P3DCore.h>
 #import <P3DCore/NSArray+GCode.h>
 #import "GCodeStatistics.h"
 
@@ -34,8 +15,6 @@ const float __filamentDiameterBias = 0.07; // bias (mm)
 const float __averageDensity = 1050; // kg.m-3
 const float  __averageAccelerationEfficiencyWhenTravelling = 0.2; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
 const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theoricalSpeed * averageAccelEfficiency = realSpeed along an average path
-
-#pragma mark - NSScanner Category
 
 @interface NSScanner (ParseGCode)
 - (void)updateLocation:(Vector3*)currentLocation;
@@ -68,7 +47,7 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
 {
     PSLog(@"parseGCode", PSPrioLow, @" ## Previous : %@", [gCodeStatistics.currentLocation description]);
     PSLog(@"parseGCode", PSPrioLow, @" ## Current : %@", [currentLocation description]);
-
+    
     // Travelling
     Vector3* travelVector = [currentLocation sub:gCodeStatistics.currentLocation];
     [gCodeStatistics.currentLocation setToVector3:currentLocation];
@@ -128,7 +107,7 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
     }
     
     PSLog(@"parseGCode", PSPrioLow, @" ## tel= %f; tet= %f; ttt=%f; D=%f; fr=%f; extr=%d", gCodeStatistics.currentExtrudedLengthToolA, gCodeStatistics.totalExtrudedTime, gCodeStatistics.totalTravelledTime, longestDistanceToMove, gCodeStatistics.currentFeedRate, gCodeStatistics.extruding);
-
+    
     [self setScanLocation:0];
 }
 
@@ -149,7 +128,6 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
             PSLog(@"parseGCode", PSPrioLow, @"New layer created at z = %f", currentLocation.z);
 			isNewLayer = YES;
 		}
-        
 	}
 	
     // Reset scan of line
@@ -157,48 +135,42 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
     
 	return isNewLayer;
 }
-
 @end
 
-@interface ParsedGCode ()
-
+@interface P3DParsedGCodePrinter ()
 @property (readonly) float filamentDiameter;
-
 @end
 
-@implementation ParsedGCode
-{
-    P3DPrinterDriverBase* _currentPrinter;
-}
+@implementation P3DParsedGCodePrinter
+@dynamic objectWeight, filamentLengthToolA, filamentLengthToolB, layerHeight;
 
 static NSArray* _extrusionColors=nil;
 static NSArray* _extrusionColors_A=nil;
 static NSArray* _extrusionColors_B=nil;
 static NSColor* _extrusionOffColor=nil;
-
 + (void)initialize
 {
     // For single head extrusions
 	// 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
     _extrusionColors = [NSArray arrayWithObjects:
-     [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     [[NSColor greenColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     [[NSColor blueColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-     nil];
-
-    // For dual head extrusions
-    // different shades of the same color
-    _extrusionColors_A = [NSArray arrayWithObjects:
                         [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor greenColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor blueColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         nil];
-
+    
+    // For dual head extrusions
+    // different shades of the same color
+    _extrusionColors_A = [NSArray arrayWithObjects:
+                          [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          nil];
+    
     _extrusionColors_B = [NSArray arrayWithObjects:
                           [[NSColor cyanColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           [[NSColor magentaColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
@@ -208,32 +180,7 @@ static NSColor* _extrusionOffColor=nil;
     
     // Off color
     _extrusionOffColor = [[[NSColor grayColor] colorWithAlphaComponent:0.6] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
-
-}
-
-- (float)getTotalMachiningTime
-{
-    return _gCodeStatistics.totalExtrudedTime + _gCodeStatistics.totalTravelledTime;
-}
-
-- (float)getObjectWeight
-{
-    return (_gCodeStatistics.totalExtrudedLengthToolA + _gCodeStatistics.totalExtrudedLengthToolB) * (float)M_PI * powf(self.filamentDiameter/2.f,2.f) * __averageDensity * powf(10.f,-6.f); // in g
-}
-
-- (float)getFilamentLengthToolA
-{
-    return _gCodeStatistics.totalExtrudedLengthToolA / 10.f ; // in cm
-}
-
-- (float)getFilamentLengthToolB
-{
-    return _gCodeStatistics.totalExtrudedLengthToolB / 10.f ; // in cm
-}
-
-- (NSInteger)getLayerHeight
-{
-    return (NSInteger)floorf(_gCodeStatistics.layerHeight * 100.f) * 10 ; // in mm
+    
 }
 
 - (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter
@@ -242,15 +189,13 @@ static NSColor* _extrusionOffColor=nil;
      This function parses GCODE (roughly) according to http://reprap.org/wiki/G-code
      */
     
-	self = [super init];
+	self = [super initWithGCodeString:gcode printer:currentPrinter];
 	if(self) {
-        _currentPrinter = currentPrinter;
-        if(currentPrinter)
-            _gCodeStatistics = [[GCodeStatistics alloc] init];
+        _gCodeStatistics = [[GCodeStatistics alloc] init];
         
 		NSArray* untrimmedLines = [[gcode uppercaseString] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 		NSCharacterSet* whiteSpaceSet = [NSCharacterSet whitespaceCharacterSet];
-			
+        
 		_extrusionWidth = 0.;
 		NSInteger extrusionNumber = 0;
 		
@@ -261,7 +206,7 @@ static NSColor* _extrusionOffColor=nil;
 		Vector3* lowCorner = [[Vector3 alloc] initVectorWithX:FLT_MAX Y:FLT_MAX Z:FLT_MAX];
 		
         NSCharacterSet* commandCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"GMT0123456789"];
-
+        
 		// Scan each line.
         for(NSString* untrimmedLine in untrimmedLines) {
             NSScanner* lineScanner = [NSScanner scannerWithString:[untrimmedLine stringByTrimmingCharactersInSet:whiteSpaceSet]];
@@ -283,7 +228,7 @@ static NSColor* _extrusionOffColor=nil;
                     if (theoreticalHeight > 0 && theoreticalHeight < 1){ // We assume that a layer is less than 1mm thick
                         _gCodeStatistics.layerHeight = theoreticalHeight;
                     }
-		
+                    
                 }
                 
             }
@@ -304,12 +249,12 @@ static NSColor* _extrusionOffColor=nil;
                     // Example: G10 P3 X17.8 Y-19.3 Z0.0 R140 S205
                     // This sets the offset for extrude head 3 (from the P3) to the X and Y values specified.
                     // The R value is the standby temperature in oC that will be used for the tool, and the S value is its operating temperature.
-
+                    
                     // Makerware puts the temperature first, skip it
                     if ([lineScanner scanString:@"S" intoString:nil]) {
                         [lineScanner scanInt:nil];
                     }
-                
+                    
                     // Extract the tool index
                     if ([lineScanner scanString:@"P" intoString:nil] || [lineScanner scanString:@"T" intoString:nil]) {
                         
@@ -322,16 +267,16 @@ static NSColor* _extrusionOffColor=nil;
                         if (_gCodeStatistics.usingToolB == !previouslyUsingToolB)
                             _gCodeStatistics.dualExtrusion = YES;
                     }
-                
+                    
                     // Done : We don't need the temperature
-                
+                    
                 } else if([command isEqualToString:@"G1"]) {
                     // Example: G1 X90.6 Y13.8 E22.4
                     // Go in a straight line from the current (X, Y) point to the point (90.6, 13.8),
                     // extruding material as the move happens from the current extruded length to a length of 22.4 mm.
                     
                     [lineScanner updateLocation:currentLocation];
-                                     
+                    
                     [lowCorner minimizeWith:currentLocation];
                     [highCorner maximizeWith:currentLocation];
                     
@@ -396,7 +341,7 @@ static NSColor* _extrusionOffColor=nil;
                             _gCodeStatistics.currentExtrudedLengthToolA = currentExtrudedLength;
                         }
                     }
-                
+                    
                 } else if ([command isEqualToString:@"M135"] || [command isEqualToString:@"M108"]) {
                     // M135: tool switch.
                     // M108: Set Extruder Speed.
@@ -410,10 +355,10 @@ static NSColor* _extrusionOffColor=nil;
                         _gCodeStatistics.usingToolB = (toolIndex >= 1);
                         
                         /*
-                        // The tool changed : we're sure we have a double extrusion print
-                        if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
-                            _gCodeStatistics.dualExtrusion = YES;
-                        }
+                         // The tool changed : we're sure we have a double extrusion print
+                         if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
+                         _gCodeStatistics.dualExtrusion = YES;
+                         }
                          */
                     }
                 } else if ([command isEqualToString:@"T0"]) {
@@ -424,10 +369,10 @@ static NSColor* _extrusionOffColor=nil;
                     _gCodeStatistics.usingToolB =  NO;
                     
                     /*
-                    // The tool changed : we're sure we have a double extrusion print
-                    if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
-                        _gCodeStatistics.dualExtrusion = YES;
-                    }
+                     // The tool changed : we're sure we have a double extrusion print
+                     if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
+                     _gCodeStatistics.dualExtrusion = YES;
+                     }
                      */
                     
                 } else if ([command isEqualToString:@"T1"]) {
@@ -438,10 +383,10 @@ static NSColor* _extrusionOffColor=nil;
                     _gCodeStatistics.usingToolB =  YES;
                     
                     /*
-                    // The tool changed : we're sure we have a double extrusion print
-                    if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
-                        _gCodeStatistics.dualExtrusion = YES;
-                    }
+                     // The tool changed : we're sure we have a double extrusion print
+                     if (_gCodeStatistics.usingToolB == !previouslyUsingToolB) {
+                     _gCodeStatistics.dualExtrusion = YES;
+                     }
                      */
                 }
             } // if ([lineScanner scanCharactersFromSet:commandCharacterSet intoString:&command])
@@ -462,7 +407,7 @@ static NSColor* _extrusionOffColor=nil;
 		_cornerLow = lowCorner;
 		_cornerHigh = highCorner;
 		_extrusionWidth = _gCodeStatistics.layerHeight;
-
+        
         
         
         PSLog(@"parseGCode", PSPrioNormal, @" High corner: %@", _cornerHigh);
@@ -486,11 +431,36 @@ static NSColor* _extrusionOffColor=nil;
 	}
     
 	return self;
-
+    
 }
+
+#pragma mark - Service
 
 - (float)filamentDiameter
 {
     return _currentPrinter.filamentDiameter+__filamentDiameterBias;
 }
+
+#pragma mark - GUI Bindings
+
+- (float)objectWeight
+{
+    return (_gCodeStatistics.totalExtrudedLengthToolA + _gCodeStatistics.totalExtrudedLengthToolB) * (float)M_PI * powf(self.filamentDiameter/2.f,2.f) * __averageDensity * powf(10.f,-6.f); // in g
+}
+
+- (float)filamentLengthToolA
+{
+    return _gCodeStatistics.totalExtrudedLengthToolA / 10.f ; // in cm
+}
+
+- (float)filamentLengthToolB
+{
+    return _gCodeStatistics.totalExtrudedLengthToolB / 10.f ; // in cm
+}
+
+- (NSInteger)layerHeight
+{
+    return (NSInteger)floorf(_gCodeStatistics.layerHeight * 100.f) * 10 ; // in mm
+}
+
 @end
