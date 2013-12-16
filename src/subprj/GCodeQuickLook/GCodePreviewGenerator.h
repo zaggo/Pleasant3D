@@ -31,32 +31,7 @@
 #import <OpenGL/OpenGL.h>
 #import "Vector3.h"
 
-@interface GCodePreviewGenerator : NSObject {
-	BOOL thumbnail;
-	CGSize renderSize;
-
-	NSArray* gCodePanes;
-	Vector3* cornerMinimum;
-	Vector3* cornerMaximum;
-	CGFloat extrusionWidth;
-	
-	CGFloat othersAlpha;
-	NSUInteger currentLayer;
-	
-	CGFloat cameraOffset;
-	CGFloat rotateX;
-	CGFloat rotateY;
-	
-	Vector3* dimBuildPlattform;
-	Vector3* zeroBuildPlattform;
-	
-	NSArray* extrusionColors;
-	NSColor* extrusionOffColor;
-}
-
-@property (strong) NSArray* gCodePanes;
-@property (assign) CGSize renderSize;
-
+@interface GCodePreviewGenerator : NSObject 
 - (id)initWithURL:(NSURL*)gCodeURL size:(CGSize)size forThumbnail:(BOOL)forThumbnail;
 
 - (CGImageRef)newPreviewImage;
