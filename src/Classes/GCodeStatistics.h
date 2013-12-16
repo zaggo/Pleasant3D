@@ -38,6 +38,7 @@
 @property (assign, nonatomic) float layerHeight;
 
 @property (assign, nonatomic) BOOL extruding;
+@property (assign, nonatomic) BOOL extrudingStateChanged;
 
 @property (strong, readonly, nonatomic) Vector3* currentLocation;
 @end

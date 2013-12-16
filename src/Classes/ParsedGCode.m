@@ -90,22 +90,22 @@ const float  __averageAccelerationEfficiencyWhenExtruding = 0.6; // ratio : theo
         
         // We're using ToolA for this move
         [self scanFloat:&currentExtrudedLength];
-        gCodeStatistics.extruding = (currentExtrudedLength > gCodeStatistics.currentExtrudedLengthToolA);
-        if (gCodeStatistics.extruding) {
-            // Real life test
-            gCodeStatistics.currentExtrudedLengthToolA = currentExtrudedLength;
-        }
+        BOOL extruding = (currentExtrudedLength > gCodeStatistics.currentExtrudedLengthToolA);
+        if(extruding != gCodeStatistics.extruding || (extruding && gCodeStatistics.usingToolB))
+            gCodeStatistics.extrudingStateChanged=YES;
+        gCodeStatistics.extruding=extruding;
+        gCodeStatistics.currentExtrudedLengthToolA = currentExtrudedLength;
         gCodeStatistics.usingToolB = NO;
         
 	} else if([self scanString:@"B" intoString:nil]) {
         
         // We're using ToolB for this move
         [self scanFloat:&currentExtrudedLength];
-        gCodeStatistics.extruding = (currentExtrudedLength > gCodeStatistics.currentExtrudedLengthToolB);
-        if (gCodeStatistics.extruding) {
-            // Real life test
-            gCodeStatistics.currentExtrudedLengthToolB = currentExtrudedLength;
-        }
+        BOOL extruding = (currentExtrudedLength > gCodeStatistics.currentExtrudedLengthToolB);
+        if(extruding != gCodeStatistics.extruding || (extruding && !gCodeStatistics.usingToolB))
+            gCodeStatistics.extrudingStateChanged=YES;
+        gCodeStatistics.extruding=extruding;
+        gCodeStatistics.currentExtrudedLengthToolB = currentExtrudedLength;
         gCodeStatistics.usingToolB = YES;
     }
     
@@ -248,22 +248,22 @@ static NSColor* _extrusionOffColor=nil;
         if(currentPrinter)
             _gCodeStatistics = [[GCodeStatistics alloc] init];
         
-		NSArray* untrimmedLines = [gcode componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+		NSArray* untrimmedLines = [[gcode uppercaseString] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 		NSCharacterSet* whiteSpaceSet = [NSCharacterSet whitespaceCharacterSet];
 			
 		_extrusionWidth = 0.;
-		__block NSInteger extrusionNumber = 0;
+		NSInteger extrusionNumber = 0;
 		
 		NSMutableArray* panes = [NSMutableArray array];
-		__block NSMutableArray* currentPane = nil;
-		__block Vector3* currentLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
-		__block Vector3* highCorner = [[Vector3 alloc] initVectorWithX:-FLT_MAX Y:-FLT_MAX Z:-FLT_MAX];
-		__block Vector3* lowCorner = [[Vector3 alloc] initVectorWithX:FLT_MAX Y:FLT_MAX Z:FLT_MAX];
+		NSMutableArray* currentPane = nil;
+		Vector3* currentLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
+		Vector3* highCorner = [[Vector3 alloc] initVectorWithX:-FLT_MAX Y:-FLT_MAX Z:-FLT_MAX];
+		Vector3* lowCorner = [[Vector3 alloc] initVectorWithX:FLT_MAX Y:FLT_MAX Z:FLT_MAX];
 		
         NSCharacterSet* commandCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"GMT0123456789"];
 
 		// Scan each line.
-		[untrimmedLines enumerateObjectsUsingBlock:^(id untrimmedLine, NSUInteger idx, BOOL *stop) {
+        for(NSString* untrimmedLine in untrimmedLines) {
             NSScanner* lineScanner = [NSScanner scannerWithString:[untrimmedLine stringByTrimmingCharactersInSet:whiteSpaceSet]];
             
             float oldZ = currentLocation.z;
@@ -339,7 +339,28 @@ static NSColor* _extrusionOffColor=nil;
                     [lineScanner updateStats:_gCodeStatistics with:currentLocation];
                     
                     // Coloring
-                    if(_gCodeStatistics.extruding) {
+                    if(_gCodeStatistics.extrudingStateChanged) {
+                        if(_gCodeStatistics.extruding) {
+                            if (_gCodeStatistics.dualExtrusion) {
+                                if (_gCodeStatistics.usingToolB) {
+                                    [currentPane addObject:[_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]]];
+                                } else {
+                                    [currentPane addObject:[_extrusionColors_A objectAtIndex:extrusionNumber%[_extrusionColors_A count]]];
+                                }
+                            } else {
+                                [currentPane addObject:[_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]]];
+                            }
+                            
+                        } else {
+                            extrusionNumber++;
+                            [currentPane addObject:_extrusionOffColor];
+                        }
+                        _gCodeStatistics.extrudingStateChanged=NO;
+                    }
+                    
+                    [currentPane addObject:[currentLocation copy]];
+                } else if([command isEqualToString:@"M101"]) { // Legacy 3D Printing code: Extruder ON
+                    if(!_gCodeStatistics.extruding) {
                         if (_gCodeStatistics.dualExtrusion) {
                             if (_gCodeStatistics.usingToolB) {
                                 [currentPane addObject:[_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]]];
@@ -349,14 +370,14 @@ static NSColor* _extrusionOffColor=nil;
                         } else {
                             [currentPane addObject:[_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]]];
                         }
-                        
-                    } else {
+                    }
+                    _gCodeStatistics.extruding = YES;
+                } else if([command isEqualToString:@"M103"]) { // Legacy 3D Printing code: Extruder OFF
+                    if(_gCodeStatistics.extruding) {
                         extrusionNumber++;
                         [currentPane addObject:_extrusionOffColor];
                     }
-                    
-                    [currentPane addObject:[currentLocation copy]];
-                
+                    _gCodeStatistics.extruding = NO;
                 } else if([command isEqualToString:@"G92"]) {
                     // G92: Set Position. Allows programming of absolute zero point, by reseting the current position
                     // to the values specified.
@@ -424,7 +445,7 @@ static NSColor* _extrusionOffColor=nil;
                      */
                 }
             } // if ([lineScanner scanCharactersFromSet:commandCharacterSet intoString:&command])
-		}];
+		}
         
         _panes = panes;
         
