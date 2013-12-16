@@ -435,6 +435,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 GLsizei platformRasterVerticesCount = [self setupPlatformRasterVBOWithBufferName:vbo[1]];
                 
                 GLint layerVertexIndex[_gCodePanes.count+1];
+                bzero(layerVertexIndex, sizeof(GLint)*(_gCodePanes.count+1));
                 GLsizei objectVerticesCount = [self setupObjectVBOWithBufferName:vbo[2] layerVertexIndex:layerVertexIndex];
                 
                 const GLsizei stride = sizeof(GLfloat)*8; // RGBA + XYZW
@@ -468,6 +469,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 
                 glLineWidth(2.f);
                 count = layerVertexIndex[_currentLayer+1]-startIndex;
+                
                 glDrawArrays(GL_LINES, startIndex, count);
                 startIndex += count;
 
