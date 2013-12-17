@@ -10,6 +10,8 @@
 #import <P3DCore/P3DCore.h>
 
 @implementation P3DParsedGCodeBase
+@dynamic vertexArray;
+
 
 - (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter
 {
@@ -21,5 +23,8 @@
     return self;
 }
 
+- (GLfloat*)vertexArray {
+    return (GLfloat*)_vertexBuffer.bytes;
+}
 
 @end

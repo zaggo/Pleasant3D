@@ -41,10 +41,7 @@ enum {
 @implementation GCodeView
 {
     BOOL _objectVBONeedsRefresh;
-    
     GLuint _vbo[kVBOCount];
-    GLsizei _vboVerticesCount;
-    GLint *_layerVertexIndex;
 }
 
 #pragma mark - View Life Cycle
@@ -75,8 +72,6 @@ enum {
 
 - (void)dealloc
 {
-    if(_layerVertexIndex)
-        free(_layerVertexIndex);
     [self removeObserver:self forKeyPath:@"othersAlpha"];
     [self removeObserver:self forKeyPath:@"showArrows"];
     [self removeObserver:self forKeyPath:@"currentLayer"];
@@ -91,21 +86,14 @@ enum {
         _objectVBONeedsRefresh=YES;
     } else if([keyPath isEqualToString:@"currentLayer"]) {
         if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]]) {
-            float minLayerZ=FLT_MAX;
-            float maxLayerZ=-FLT_MAX;
-            
-            if(self.currentLayer<((P3DParsedGCodePrinter*)_parsedGCode).panes.count) {
-                NSArray* pane = ((P3DParsedGCodePrinter*)_parsedGCode).panes[self.currentLayer];
-                for(id elem in pane) {
-                    if([elem isKindOfClass:[Vector3 class]]) {
-                        Vector3* point = (Vector3*)elem;
-                        minLayerZ = MIN(minLayerZ, point.z);
-                        maxLayerZ = MAX(minLayerZ, point.z);
-                    }
-                }
+            if(self.currentLayer<((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count) {
+                NSDictionary* paneInfo = ((P3DParsedGCodePrinter*)_parsedGCode).paneIndex[self.currentLayer];
+                self.currentLayerMinZ=[paneInfo[kMinLayerZ] floatValue];
+                self.currentLayerMaxZ=[paneInfo[kMaxLayerZ] floatValue];
+            } else {
+                self.currentLayerMinZ=FLT_MAX;
+                self.currentLayerMaxZ=-FLT_MAX;
             }
-            self.currentLayerMinZ=(CGFloat)minLayerZ;
-            self.currentLayerMaxZ=(CGFloat)maxLayerZ;
         }
     }
 }
@@ -144,7 +132,7 @@ enum {
 - (NSInteger)maxLayers
 {
     if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]])
-        return ((P3DParsedGCodePrinter*)_parsedGCode).panes.count-1;
+        return ((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count-1;
     return 0;
 }
 
@@ -181,7 +169,7 @@ enum {
         if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]]) {
             infoString = [NSString stringWithFormat: NSLocalizedString(@"Layer %d of %d: %@",nil),
                             self.currentLayer+1,
-                            ((P3DParsedGCodePrinter*)_parsedGCode).panes.count,
+                            ((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count,
                             [self currentZ]];
         }
     }
@@ -306,8 +294,8 @@ enum {
 
 - (float)layerHeight
 {
-    if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]] && ((P3DParsedGCodePrinter*)_parsedGCode).panes.count>0)
-		return self.dimZ/((P3DParsedGCodePrinter*)_parsedGCode).panes.count;
+    if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]] && ((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count>0)
+		return self.dimZ/((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count;
 	return 1.f;
 }
 
@@ -318,13 +306,10 @@ enum {
 	_parsedGCode = value;
     
     if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]]) {
-        if(self.currentLayer>=((P3DParsedGCodePrinter*)_parsedGCode).panes.count)
-            self.currentLayer = ((P3DParsedGCodePrinter*)_parsedGCode).panes.count-1;
+        if(self.currentLayer>=((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count)
+            self.currentLayer = ((P3DParsedGCodePrinter*)_parsedGCode).paneIndex.count-1;
     }
     
-    if(_layerVertexIndex)
-        free(_layerVertexIndex);
-    _layerVertexIndex=NULL;
     _objectVBONeedsRefresh=YES;
 	[self setNeedsDisplay:YES];
 }
@@ -343,156 +328,129 @@ enum {
 - (void)renderContent
 {		
 	if(_parsedGCode) {
-        if(_objectVBONeedsRefresh) {
-            PSLog(@"OpenGL", PSPrioNormal, @"objectVBONeedsRefresh");
-            if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]]) {
-                GLfloat* varray = [self createVarrayForObjectVBO];
-                if(varray) {
-                    if(_layerVertexIndex==NULL)
-                        _layerVertexIndex = (GLint*)malloc((((P3DParsedGCodePrinter*)_parsedGCode).panes.count+1)*sizeof(GLint));
-                    
-                    _vboVerticesCount = [self setupObjectVBOWithBufferName:_vbo[kLowerLayerVBO] varray:varray layerVertexIndex:_layerVertexIndex alphaMultiplier:powf((GLfloat)self.othersAlpha,3.f)];
-                    [self setupObjectVBOWithBufferName:_vbo[kCurrentLayerVBO] varray:varray layerVertexIndex:NULL alphaMultiplier:1.f];
-                    [self setupObjectVBOWithBufferName:_vbo[kUpperLayerVBO] varray:varray layerVertexIndex:NULL alphaMultiplier:powf((GLfloat)self.othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)self.othersAlpha, 3.f))];
-                    free(varray);
-                }
-            } else {
-                PSErrorLog(@"Out of memory");
+        if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]])
+            [self renderPrinterGCode];
+    }
+}
+
+- (void)renderPrinterGCode
+{
+    GLint vboVerticesCount = ((P3DParsedGCodePrinter*)_parsedGCode).vertexCount;
+    
+    if(_objectVBONeedsRefresh) {
+        PSLog(@"OpenGL", PSPrioNormal, @"objectVBONeedsRefresh");
+        if(vboVerticesCount>0) {
+            GLfloat* vertexBuffer = [self createVarrayForObjectVBO];
+            [self setupObjectVBOWithBufferName:_vbo[kCurrentLayerVBO] vertexBuffer:vertexBuffer alphaMultiplier:1.f];
+            [self setupObjectVBOWithBufferName:_vbo[kLowerLayerVBO] vertexBuffer:vertexBuffer alphaMultiplier:powf((GLfloat)self.othersAlpha,3.f)];
+            [self setupObjectVBOWithBufferName:_vbo[kUpperLayerVBO] vertexBuffer:vertexBuffer alphaMultiplier:powf((GLfloat)self.othersAlpha,3.f)/(1.f+20.f*powf((GLfloat)self.othersAlpha, 3.f))];
+            free(vertexBuffer);
+        }
+        _objectVBONeedsRefresh=NO;
+    }
+
+    if(vboVerticesCount>0) {
+        NSArray* paneIndex = ((P3DParsedGCodePrinter*)_parsedGCode).paneIndex;
+
+        glEnableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_NORMAL_ARRAY);
+        
+        GLint startIndex = 0;
+        GLsizei count = 0;
+        const GLsizei stride = sizeof(GLfloat)*8; // RGBA + XYZW
+
+        if(self.threeD) {
+            // Draw Object
+            if(self.currentLayer>0) {
+                glBindBuffer(GL_ARRAY_BUFFER, _vbo[kLowerLayerVBO]);
+                glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
+                glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
+
+                glLineWidth(1.f);
+                count = (GLsizei)[paneIndex[self.currentLayer][kFirstVertexIndex] integerValue];
+                glDrawArrays(GL_LINES, startIndex, count);
+                startIndex += count;
             }
             
-            _objectVBONeedsRefresh=NO;
+            glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
+            glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
+            glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
+
+            glLineWidth(2.f);
+            if(self.currentLayer < paneIndex.count-1)
+                count = (GLsizei)[paneIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]-(GLsizei)startIndex;
+            else
+                count = (GLsizei)(vboVerticesCount-startIndex);
+            glDrawArrays(GL_LINES, startIndex, count);
+            startIndex += count;
+            
+            if(self.currentLayer<paneIndex.count-1) {
+                glBindBuffer(GL_ARRAY_BUFFER, _vbo[kUpperLayerVBO]);
+                glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
+                glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
+                
+                glLineWidth(1.f);
+                count = vboVerticesCount-startIndex;
+                glDrawArrays(GL_LINES, startIndex, count);
+            }
+        } else {
+            glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
+            glColorPointer(4, GL_FLOAT, stride, 0);
+            glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
+            
+            startIndex = (GLint)[paneIndex[self.currentLayer][kFirstVertexIndex] integerValue];
+            if(self.currentLayer < paneIndex.count-1)
+                count = (GLsizei)[paneIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]-(GLsizei)startIndex;
+            else
+                count = (GLsizei)(vboVerticesCount-startIndex);
+            
+            glLineWidth(2.f);
+            glDrawArrays(GL_LINES, startIndex, count);
         }
 
-        if(_vboVerticesCount>0) {
-            glEnableClientState(GL_COLOR_ARRAY);
-            glDisableClientState(GL_NORMAL_ARRAY);
+        if(self.showArrows && self.currentLayer<paneIndex.count) {
+            glDisable(GL_DEPTH_TEST);
+            glDisableClientState(GL_COLOR_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, _vbo[kArrowVBO]);
+            glVertexPointer(3, GL_FLOAT, sizeof(GLfloat)*3, 0);
             
-            GLint startIndex = 0;
-            GLsizei count = 0;
-            const GLsizei stride = sizeof(GLfloat)*8; // RGBA + XYZW
-
-            if(self.threeD) {
-                // Draw Object
+            NSInteger vertexIndex = [paneIndex[self.currentLayer][kFirstVertexIndex] integerValue]*8;
+            NSInteger lastVertexIndex;
+            if(self.currentLayer < paneIndex.count-1)
+                lastVertexIndex = [paneIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]*8;
+            else
+                lastVertexIndex = vboVerticesCount*8;
+            GLfloat* vertexArray = ((P3DParsedGCodePrinter*)_parsedGCode).vertexArray;
+            BOOL threeD = self.threeD;
+            for(; vertexIndex<lastVertexIndex; vertexIndex+=16) {
+                glColor4f((GLfloat)vertexArray[vertexIndex],
+                          (GLfloat)vertexArray[vertexIndex+1],
+                          (GLfloat)vertexArray[vertexIndex+2],
+                          (GLfloat)vertexArray[vertexIndex+3]);
                 
-                if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]]) {
-                    if(self.currentLayer>0) {
-                        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kLowerLayerVBO]);
-                        glColorPointer(4, GL_FLOAT, stride, 0);
-                        glVertexPointer(3, GL_FLOAT, stride, 4*sizeof(GLfloat));
-
-                        glLineWidth(1.f);
-                        count = _layerVertexIndex[self.currentLayer];
-                        glDrawArrays(GL_LINES, startIndex, count);
-                        startIndex += count;
-                    }
-                    
-                    glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
-                    glColorPointer(4, GL_FLOAT, stride, 0);
-                    glVertexPointer(3, GL_FLOAT, stride, 4*sizeof(GLfloat));
-
-                    glLineWidth(2.f);
-                    count = _layerVertexIndex[self.currentLayer+1]-startIndex;
-                    glDrawArrays(GL_LINES, startIndex, count);
-                    startIndex += count;
-                    
-                    if(self.currentLayer<((P3DParsedGCodePrinter*)_parsedGCode).panes.count-1) {
-                        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kUpperLayerVBO]);
-                        glColorPointer(4, GL_FLOAT, stride, 0);
-                        glVertexPointer(3, GL_FLOAT, stride, 4*sizeof(GLfloat));
-                        
-                        glLineWidth(1.f);
-                        count = _vboVerticesCount-startIndex;
-                        glDrawArrays(GL_LINES, startIndex, count);
-                    }
-                    
-                    if(self.showArrows && self.currentLayer<((P3DParsedGCodePrinter*)_parsedGCode).panes.count) {
-                        glDisableClientState(GL_COLOR_ARRAY);
-                        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kArrowVBO]);
-                        glVertexPointer(3, GL_FLOAT, sizeof(GLfloat)*3, 0);
-                        
-                        NSArray* pane = [((P3DParsedGCodePrinter*)_parsedGCode).panes objectAtIndex:self.currentLayer];
-                        Vector3* lastPoint=nil;
-                        for(id elem in pane)
-                        {
-                            if([elem isKindOfClass:[Vector3 class]])
-                            {
-                                Vector3* point = (Vector3*)elem;
-                                if(lastPoint) {
-                                    glPushMatrix();
-                                    glTranslatef((GLfloat)(point.x+lastPoint.x)/2.f, (GLfloat)(point.y+lastPoint.y)/2.f, (GLfloat)(point.z+lastPoint.z)/2.f);
-                                    glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
-                                    glDrawArrays(GL_TRIANGLES, 0, 3);
-                                    glPopMatrix();
-                                }
-                                lastPoint = point;
-                            }
-                            else
-                            {
-                                NSColor *color = elem;
-                                glColor4f((GLfloat)color.redComponent,
-                                          (GLfloat)color.greenComponent,
-                                          (GLfloat)color.blueComponent,
-                                          (GLfloat)color.alphaComponent);
-                            }
-                        }
-                    }
-                }
-
-            } else {
+                GLfloat x1 = vertexArray[vertexIndex+4];
+                GLfloat y1 = vertexArray[vertexIndex+5];
+                GLfloat z1 = (threeD?vertexArray[vertexIndex+6]:0.f);
+                GLfloat x2 = vertexArray[vertexIndex+12];
+                GLfloat y2 = vertexArray[vertexIndex+13];
+                GLfloat z2 = (threeD?vertexArray[vertexIndex+14]:0.f);
                 
-                if([_parsedGCode isKindOfClass:[P3DParsedGCodePrinter class]]) {
-                    glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
-                    glColorPointer(4, GL_FLOAT, stride, 0);
-                    glVertexPointer(3, GL_FLOAT, stride, 4*sizeof(GLfloat));
-                    
-                    startIndex = _layerVertexIndex[self.currentLayer];
-                    count = _layerVertexIndex[self.currentLayer+1]-startIndex;
-                    
-                    glLineWidth(2.f);
-                    glDrawArrays(GL_LINES, startIndex, count);
+                glPushMatrix();
+                glTranslatef((GLfloat)(x2+x1)/2.f, (GLfloat)(y2+y1)/2.f, (GLfloat)(z2+z1)/2.f);
+                glRotatef((GLfloat)(180.f*atan2f((y1-y2),(x1-x2))/M_PI), 0.f, 0.f, 1.f);
+                glDrawArrays(GL_TRIANGLES, 0, 3);
+                glPopMatrix();
+            }
+            glEnable(GL_DEPTH_TEST);
+        }
 
-                    if(self.showArrows && self.currentLayer<((P3DParsedGCodePrinter*)_parsedGCode).panes.count) {
-                        glDisableClientState(GL_COLOR_ARRAY);
-                        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kArrowVBO]);
-                        glVertexPointer(3, GL_FLOAT, sizeof(GLfloat)*3, 0);
-
-                        NSArray* pane = [((P3DParsedGCodePrinter*)_parsedGCode).panes objectAtIndex:self.currentLayer];
-                        Vector3* lastPoint=nil;
-                        for(id elem in pane)
-                        {
-                            if([elem isKindOfClass:[Vector3 class]])
-                            {
-                                Vector3* point = (Vector3*)elem;
-                                if(lastPoint) {
-                                    glPushMatrix();
-                                    glTranslatef((GLfloat)(point.x+lastPoint.x)/2.f, (GLfloat)(point.y+lastPoint.y)/2.f, 0.f);
-                                    glRotatef((GLfloat)(180.f*atan2f((lastPoint.y-point.y),(lastPoint.x-point.x))/M_PI), 0.f, 0.f, 1.f);
-                                    glDrawArrays(GL_TRIANGLES, 0, 3);
-                                    glPopMatrix();
-                                }
-                                lastPoint = point;
-                            }
-                            else
-                            {
-                                NSColor *color = elem;
-                                glColor4f((GLfloat)color.redComponent,
-                                          (GLfloat)color.greenComponent, 
-                                          (GLfloat)color.blueComponent, 
-                                          (GLfloat)color.alphaComponent);
-                            }
-                        }
-                    }
-                }
-			}
-
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-		}
-	}
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
 }
 
 - (void)setupArrowVBOWithBufferName:(GLuint)bufferName
 {
-    const GLfloat kArrowLen = .4f;
+    const GLfloat kArrowLen = .3f;
     const GLsizei stride = sizeof(GLfloat)*3;
     const GLint numVertices = 3;
     GLsizeiptr bufferSize = stride * numVertices;
@@ -516,82 +474,38 @@ enum {
     free(varray);
 }
 
-
 - (GLfloat *)createVarrayForObjectVBO {
-    GLfloat * varray=NULL;
-
-    const GLsizei stride = sizeof(GLfloat)*8;
-    GLint numVertices = 0;
-    for(NSArray* pane in ((P3DParsedGCodePrinter*)_parsedGCode).panes)
-        numVertices+=(GLint)pane.count; // This results in a numVertices larger than the actually needed
-    numVertices*=2;
+    GLsizei vertexCount = ((P3DParsedGCodePrinter*)_parsedGCode).vertexCount;
+    GLsizei vertexStride = ((P3DParsedGCodePrinter*)_parsedGCode).vertexStride;
     
-    GLsizeiptr bufferSize = stride * numVertices;
+    GLsizeiptr bufferSize = vertexCount*vertexStride;
 
-    if(bufferSize>0)
-        varray = (GLfloat*)malloc(bufferSize);
-    
-    return varray;
+    return (GLfloat*)malloc(bufferSize);
 }
 
-- (GLint)setupObjectVBOWithBufferName:(GLuint)bufferName varray:(GLfloat*)varray layerVertexIndex:(GLint*)layerVertexIndex alphaMultiplier:(GLfloat)alphaMultiplier
+- (void)setupObjectVBOWithBufferName:(GLuint)bufferName vertexBuffer:(GLfloat*)vertexBuffer alphaMultiplier:(GLfloat)alphaMultiplier
 {
+    GLsizei vertexCount = ((P3DParsedGCodePrinter*)_parsedGCode).vertexCount;
+    GLsizei vertexStride = ((P3DParsedGCodePrinter*)_parsedGCode).vertexStride;
+    GLsizeiptr bufferSize = vertexCount*vertexStride;
     
-    const GLsizei stride = sizeof(GLfloat)*8;
-    GLint numVertices = 0;
-
-    GLfloat r = 0.f;
-    GLfloat g = 0.f;
-    GLfloat b = 0.f;
-    GLfloat a = 0.f;
-
     BOOL threeD=self.threeD;
-    
-    NSInteger i = 0;
-    NSInteger layer=0;
-    for(NSArray* pane in ((P3DParsedGCodePrinter*)_parsedGCode).panes) {
-        if(layerVertexIndex)
-            layerVertexIndex[layer] = numVertices;
-        
-        Vector3* lastPoint = nil;
-        for(id elem in pane) {
-            if([elem isKindOfClass:[Vector3 class]]) {
-                Vector3* point = (Vector3*)elem;
-                if(lastPoint) {
-                    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
-                    varray[i++] = (GLfloat)lastPoint.x;
-                    varray[i++] = (GLfloat)lastPoint.y;
-                    varray[i++] = (GLfloat)(threeD?lastPoint.z:0.);
-                    varray[i++] = 0.f;
-                    varray[i++] = r; varray[i++] = g; varray[i++] = b; varray[i++] = a;
-                    varray[i++] = (GLfloat)point.x;
-                    varray[i++] = (GLfloat)point.y;
-                    varray[i++] = (GLfloat)(threeD?point.z:0.);
-                    varray[i++] = 0.f;
-                    
-                    numVertices+=2;
-                }
-                lastPoint = point;
-            } else {
-                NSColor *color = (NSColor *)elem;
-                r = (GLfloat)color.redComponent;
-                g = (GLfloat)color.greenComponent;
-                b = (GLfloat)color.blueComponent;
-                a = (GLfloat)color.alphaComponent*alphaMultiplier;
-            }
+    if(alphaMultiplier!=1.f || !threeD) {
+        memcpy(vertexBuffer, ((P3DParsedGCodePrinter*)_parsedGCode).vertexArray, bufferSize);
+        NSInteger totalVertices = vertexCount*8;
+        for(NSInteger i = 0; i<totalVertices; i+=8) {
+            vertexBuffer[i+3] *= alphaMultiplier;   // Adjust Alpha
+            if(!threeD)
+                vertexBuffer[i+6] = 0.f;            // 2D: Z == 0.f
         }
-        layer++;
+    } else {
+        vertexBuffer = ((P3DParsedGCodePrinter*)_parsedGCode).vertexArray;
     }
     
-    if(layerVertexIndex)
-        layerVertexIndex[layer] = numVertices;
-    GLsizeiptr bufferSize = stride * numVertices;
-    
     glBindBuffer(GL_ARRAY_BUFFER, bufferName);
-    glBufferData(GL_ARRAY_BUFFER, bufferSize, varray, GL_STATIC_DRAW);
-    PSLog(@"OpenGL", PSPrioNormal, @"setupObjectVBOWithBufferName created buffer for %d with %d vertices", bufferName, numVertices);
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, vertexBuffer, GL_STATIC_DRAW);
     
-    return numVertices;
+    PSLog(@"OpenGL", PSPrioNormal, @"setupObjectVBOWithBufferName created buffer for %d with %d vertices", bufferName, vertexCount);
 }
 
 @end

@@ -146,8 +146,8 @@
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     P3DParsedGCodePrinter* parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        if([parsedGCode.panes count]>0) {
-                            self.maxLayers = [parsedGCode.panes count]-1;
+                        if(parsedGCode.paneIndex.count>0) {
+                            self.maxLayers = parsedGCode.paneIndex.count-1;
                             self.currentPreviewLayerHeight=0.f;
                             _openGL3DPrinterView.parsedGCode = parsedGCode;
                             

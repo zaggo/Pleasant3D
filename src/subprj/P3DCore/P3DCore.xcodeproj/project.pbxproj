@@ -177,8 +177,8 @@
 		E270B43D185FA3E50013EF19 /* P3DParsedGCodeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DParsedGCodeBase.m; sourceTree = "<group>"; };
 		E270B444185FA45A0013EF19 /* GCodeStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCodeStatistics.h; sourceTree = "<group>"; };
 		E270B445185FA45A0013EF19 /* GCodeStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCodeStatistics.m; sourceTree = "<group>"; };
-		E270B448185FA7490013EF19 /* P3DParsedGCodePrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DParsedGCodePrinter.h; sourceTree = "<group>"; };
-		E270B449185FA7490013EF19 /* P3DParsedGCodePrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DParsedGCodePrinter.m; sourceTree = "<group>"; };
+		E270B448185FA7490013EF19 /* P3DParsedGCodePrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = P3DParsedGCodePrinter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E270B449185FA7490013EF19 /* P3DParsedGCodePrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = P3DParsedGCodePrinter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E274362313929DD10062643A /* P3DMachineDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachineDriverBase.m; sourceTree = "<group>"; };
 		E27C8047139C8295000010FD /* P3DMachinableDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachinableDocument.m; sourceTree = "<group>"; };
 		E29708751121B6180060FA0C /* P3DFormatRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DFormatRegistration.h; sourceTree = "<group>"; };

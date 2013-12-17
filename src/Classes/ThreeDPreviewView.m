@@ -482,7 +482,7 @@ enum {
         
         glBindBuffer(GL_ARRAY_BUFFER, _vbo[kPlatformRasterVBO]);
         glColorPointer(4, GL_FLOAT, platformRasterStride, 0);
-        glVertexPointer(3, GL_FLOAT, platformRasterStride, 4*sizeof(GLfloat));
+        glVertexPointer(3, GL_FLOAT, platformRasterStride, (const GLvoid*)(4*sizeof(GLfloat)));
         glDrawArrays(GL_LINES, 0, _platformRasterVerticesCount);
     }
     glBindBuffer(GL_ARRAY_BUFFER, 0);

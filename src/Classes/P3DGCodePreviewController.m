@@ -50,7 +50,7 @@
 		NSString* gCodeString = _gCode.gCodeString;
 		_parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gCodeString printer:nil];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			if([_parsedGCode.panes count]>0)
+			if(_parsedGCode.paneIndex.count>0)
 			{
 				_previewView.parsedGCode = _parsedGCode;
 				

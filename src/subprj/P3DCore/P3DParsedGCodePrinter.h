@@ -9,10 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import "P3DParsedGCodeBase.h"
 
+#define kFirstVertexIndex @"firstVertexIndex"
+#define kMinLayerZ @"minLayerZ"
+#define kMaxLayerZ @"maxLayerZ"
+
 @class GCodeStatistics;
 @interface P3DParsedGCodePrinter : P3DParsedGCodeBase
 
-@property (readonly, strong) NSArray* panes;
+@property (readonly, strong) NSArray* paneIndex;
 
 @property (readonly, strong) GCodeStatistics* gCodeStatistics;
 

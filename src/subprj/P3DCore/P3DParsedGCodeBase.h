@@ -34,11 +34,16 @@
     P3DPrinterDriverBase* _currentPrinter;
     Vector3* _cornerHigh;
     Vector3* _cornerLow;
+    NSData* _vertexBuffer;
+    GLsizei _vertexCount;
+    GLsizei _vertexStride;
 }
 
 @property (readonly, strong) Vector3* cornerHigh;
 @property (readonly, strong) Vector3* cornerLow;
 @property (readonly) GLfloat* vertexArray;
+@property (readonly) GLsizei vertexCount;
+@property (readonly) GLsizei vertexStride;
 
 - (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter;
 
