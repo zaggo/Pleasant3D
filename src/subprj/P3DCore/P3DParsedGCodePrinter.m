@@ -27,6 +27,13 @@ static inline void fillVertex(GLfloat* vertex, NSColor* color, Vector3* location
     vertex[7] = 0.f;
 }
 
+static inline void fillVertexColor(GLfloat* vertex, NSColor* color) {
+    vertex[0] = color.redComponent;
+    vertex[1] = color.greenComponent;
+    vertex[2] = color.blueComponent;
+    vertex[3] = color.alphaComponent;
+}
+
 @interface NSScanner (ParseGCode)
 - (BOOL)updateLocation:(Vector3*)currentLocation;
 - (void)updateStats:(GCodeStatistics*)GCODE_stats with:(Vector3*)currentLocation;
@@ -354,6 +361,9 @@ static NSColor* _extrusionOffColor=nil;
                         else
                             extrusionNumber_A++;
                         currentColor = _extrusionOffColor;
+                        if(validVertex)
+                            fillVertexColor(vertex, currentColor); // No color blending in extrusionOff lines
+                        
                     }
                     _gCodeStatistics.extrudingStateChanged=NO;
                 }
@@ -384,6 +394,8 @@ static NSColor* _extrusionOffColor=nil;
                     else
                         extrusionNumber_A++;
                     currentColor = _extrusionOffColor;
+                    if(validVertex)
+                        fillVertexColor(vertex, currentColor); // No color blending in extrusionOff lines
                 }
                 _gCodeStatistics.extruding = NO;
             } else if([command isEqualToString:@"G92"]) {
