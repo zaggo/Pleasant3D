@@ -46,10 +46,7 @@
     NSTimer* _changesCommitTimer;
 }
 
-+ (NSSet *)keyPathsForValuesAffectingCorrectedMaxLayers {
-    return [NSSet setWithObjects:@"maxLayers", nil];
-}
-
+#pragma mark - Document Life Cycle
 - (NSString *)windowNibName {
     // Implement this to return a nib to load OR implement -makeWindowControllers to manually create your controllers.
     return @"GCodeDocument";
@@ -70,18 +67,59 @@
     [self removeObserver:self forKeyPath:@"selectedMachineUUID"];
 }
 
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
+{
+	self.rawGCode = nil;
+	if([typeName isEqualToString:@"com.pleasantsoftware.uti.gcode"])
+		self.rawGCode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    if (_rawGCode==nil && outError != nil )
+		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+    
+    return (_rawGCode!=nil);
+}
+
+- (BOOL)canPrintDocument
+{
+	return self.currentMachine.canPrint;
+}
+
+- (IBAction)printDocument:(id)sender
+{
+    if(self.currentMachine.canPrint) {
+        P3DMachiningController* printer = [[P3DMachiningController alloc] initWithMachinableDocument:self];
+        [printer showPrintDialog];
+    }
+}
+
+#pragma mark - Observers
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if([keyPath isEqualToString:@"selectedMachineUUID"]) {
 		[self setupParameterView];
-        [self parseGCodeString:_gCodeString];
+        [self parseGCodeString:_rawGCode];
     }
 }
 
 - (void)currentMachineSettingsChanged:(NSNotification*)notification
 {
-    [self parseGCodeString:_gCodeString];
+    [self parseGCodeString:_rawGCode];
 }
+
+- (void)textDidChange:(NSNotification *)aNotification
+{
+    [_changesCommitTimer invalidate];
+    _changesCommitTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(commitChanges:) userInfo:[aNotification object] repeats:NO];
+}
+
+- (void)commitChanges:(NSTimer*)timer
+{
+    NSTextView* tv = (NSTextView*)[timer userInfo];
+    self.rawGCode = [[tv textStorage] string];
+}
+
+
+#pragma mark - Service
 
 - (void)setupParameterView
 {
@@ -108,115 +146,53 @@
     }
 }
 
-- (NSInteger)correctedMaxLayers
-{
-	return _maxLayers+1;
-}
-
-- (NSString*)gCodeToMachine
-{
-	return _gCodeString;
-}
-
-- (NSAttributedString*)formattedGCode
-{
-    return [[NSAttributedString alloc] initWithString:_gCodeString];
-}
-
-- (void)setFormattedGCode:(NSAttributedString*)value
-{
-    self.gCodeString = value.string;
-}
-
-- (void)setGCodeString:(NSString*)value;
-{
-	if(_gCodeString!=value) {
-		_gCodeString = value;
-        [self parseGCodeString:_gCodeString];
-	}
-}
-
 - (void)parseGCodeString:(NSString*)gcodeString
 {
     self.calculatingPreview=YES;
-    if(_gCodeString) {
-        switch(self.currentMachine.gcodeStyle) {
-            case kGCodeStyle3DPrinter:
-            {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    P3DParsedGCodePrinter* parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if(parsedGCode.paneIndex.count>0) {
-                            self.maxLayers = parsedGCode.paneIndex.count-1;
-                            self.currentPreviewLayerHeight=0.f;
-                            _openGL3DPrinterView.parsedGCode = parsedGCode;
-                            
-                            // This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
-                            // Not sure if this is a SnowLeopard Bug...
-//                            NSRect b = [_openGL3DPrinterView bounds];
-//                            [_openGL3DPrinterView setFrame:NSInsetRect(b, 1, 1)];
-//                            [_openGL3DPrinterView setFrame:b];
-                        } else {
-                            self.maxLayers = 0;
-                            self.currentPreviewLayerHeight=0.f;
-                            _openGL3DPrinterView.parsedGCode = nil;
-                        }
-                        self.calculatingPreview=NO;
-                    });
-                });
+    if(_rawGCode) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            P3DParsedGCodeBase* parsedGCode;
+            switch(self.currentMachine.gcodeStyle) {
+                case kGCodeStyle3DPrinter:
+                    parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
+                    break;
+                default:
+                    parsedGCode = [[P3DParsedGCodeMill alloc] initWithGCodeString:gcodeString printer:(P3DPrinterDriverBase*)self.currentMachine];
             }
-                break;
-            case kGCodeStyleMill:
-                // TODO!
-                self.maxLayers = 0;
-                self.currentPreviewLayerHeight=0.f;
-                _openGL3DPrinterView.parsedGCode = nil;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(parsedGCode.vertexIndex.count>0) {
+                    _openGL3DPrinterView.parsedGCode = parsedGCode;
+                } else {
+                    _openGL3DPrinterView.parsedGCode = nil;
+                }
                 self.calculatingPreview=NO;
-                break;
-        }
+            });
+        });
     } else {
-        self.maxLayers = 0;
-        self.currentPreviewLayerHeight=0.f;
         _openGL3DPrinterView.parsedGCode = nil;
         self.calculatingPreview=NO;
     }
 }
 
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
+
+#pragma mark - GUI Bindings
+
+- (NSAttributedString*)formattedGCode
 {
-	self.gCodeString = nil;
-	if([typeName isEqualToString:@"com.pleasantsoftware.uti.gcode"])
-		self.gCodeString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-    if (_gCodeString==nil && outError != nil )
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-
-    return (_gCodeString!=nil);
+    return [[NSAttributedString alloc] initWithString:_rawGCode];
 }
 
-- (BOOL)canPrintDocument
+- (void)setFormattedGCode:(NSAttributedString*)value
 {
-	return self.currentMachine.canPrint;
+    self.rawGCode = value.string;
 }
 
-- (IBAction)printDocument:(id)sender
+- (void)setRawGCode:(NSString*)value;
 {
-    if(self.currentMachine.canPrint) {
-        P3DMachiningController* printer = [[P3DMachiningController alloc] initWithMachinableDocument:self];
-        [printer showPrintDialog];
-    }
-}
-
-- (void)textDidChange:(NSNotification *)aNotification
-{
-    [_changesCommitTimer invalidate];
-    _changesCommitTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(commitChanges:) userInfo:[aNotification object] repeats:NO];
-}
-
-- (void)commitChanges:(NSTimer*)timer
-{
-    NSTextView* tv = (NSTextView*)[timer userInfo];
-    self.gCodeString = [[tv textStorage] string];
+	if(_rawGCode!=value) {
+		_rawGCode = value;
+        [self parseGCodeString:_rawGCode];
+	}
 }
 
 @end

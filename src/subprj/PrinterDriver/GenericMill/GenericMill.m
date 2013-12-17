@@ -56,6 +56,10 @@ enum {
 {
 	self = [super init];
 	if(self) {
+        _fastXYFeedrate = 1100.f; // mm/min
+        _fastZFeedrate = 1100.f; // mm/min
+        _slowFeedrate = 150.f; // mm/min
+
 		if(options) {
 			_driverOptions = [[NSMutableDictionary alloc] initWithDictionary:options copyItems:YES];
         } else {

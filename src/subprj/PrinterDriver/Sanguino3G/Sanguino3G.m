@@ -134,7 +134,7 @@
 {
 	GCodeParser* parser = [[GCodeParser alloc] init];
 	parser.driver = self;
-	NSArray* bytecodeBuffers = [parser parse:doc.gCodeToMachine];
+	NSArray* bytecodeBuffers = [parser parse:doc.rawGCode];
 	
 	SanguinoPrintJob* job = [[SanguinoPrintJob alloc] initWithBytecodeBuffers:bytecodeBuffers];
 	job.driver = self;

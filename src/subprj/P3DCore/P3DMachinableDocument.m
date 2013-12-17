@@ -41,11 +41,6 @@
     return self;
 }
 
-- (NSString*)gCodeToMachine
-{
-	return nil; // Abstract
-}
-
 - (ConfiguredMachines*)configuredMachines
 {
 	return [ConfiguredMachines sharedInstance];
@@ -63,7 +58,7 @@
 - (void)setSelectedMachineIndex:(NSInteger)value
 {
 	self.selectedMachineUUID = [[self.configuredMachines.configuredMachines objectAtIndex:value] objectForKey:@"uuid"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:P3DCurrentMachineSettingsChangedNotifiaction object:self];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:P3DCurrentMachineSettingsChangedNotifiaction object:self];
 }
 
 - (NSInteger)selectedMachineIndex

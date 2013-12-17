@@ -31,15 +31,14 @@
 
 
 @implementation Vector3
-@synthesize x,y,z;
 
 - (id)initVectorWithX:(float)inX Y:(float)inY Z:(float)inZ
 {
 	self = [super init];
 	if (self != nil) {
-		x = inX;
-		y = inY;
-		z = inZ;
+		_x = inX;
+		_y = inY;
+		_z = inZ;
 	}
 	return self;
 }
@@ -49,157 +48,152 @@
 	self = [super init];
 	if(self)
 	{
-		x = [decoder decodeFloatForKey:@"x"];
-		y = [decoder decodeFloatForKey:@"y"];
-		z = [decoder decodeFloatForKey:@"z"];
+		_x = [decoder decodeFloatForKey:@"x"];
+		_y = [decoder decodeFloatForKey:@"y"];
+		_z = [decoder decodeFloatForKey:@"z"];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder*)encoder
 {
-	[encoder encodeFloat:x forKey:@"x"];
-	[encoder encodeFloat:y forKey:@"y"];
-	[encoder encodeFloat:z forKey:@"z"];
+	[encoder encodeFloat:_x forKey:@"x"];
+	[encoder encodeFloat:_y forKey:@"y"];
+	[encoder encodeFloat:_z forKey:@"z"];
 }
 
 - (Vector3*)copyWithZone:(NSZone *)zone
 {
-	return [[Vector3 alloc] initVectorWithX:x Y:y Z:z];
+	return [[Vector3 alloc] initVectorWithX:_x Y:_y Z:_z];
 }
 
 // Get the magnitude of the Vector3.
 - (float)abs
 {
-	return sqrtf(x*x + y*y + z*z);
+	return sqrtf(_x*_x + _y*_y + _z*_z);
 }
 
 // Get the sum of this Vector3 and other one.
 - (Vector3*)add:(Vector3*)other;
 {
-	return [[Vector3 alloc] initVectorWithX:x+other.x Y:y+other.y Z:z+other.z];
+	return [[Vector3 alloc] initVectorWithX:_x+other.x Y:_y+other.y Z:_z+other.z];
 }
 
 
 // Get a new Vector3 by dividing each component by the factor.
 - (Vector3*)div:(float)factor
 {
-	return [[Vector3 alloc] initVectorWithX:x/factor Y:y/factor Z:z/factor];
+	return [[Vector3 alloc] initVectorWithX:_x/factor Y:_y/factor Z:_z/factor];
 }
 
 // Get a new Vector3 by floor dividing each component by the factor.
 - (Vector3*)floordiv:(float)factor
 {
-	return [[Vector3 alloc] initVectorWithX:floorf(x/factor) Y:floorf(y/factor) Z:floorf(z/factor)];
+	return [[Vector3 alloc] initVectorWithX:floorf(_x/factor) Y:floorf(_y/factor) Z:floorf(_z/factor)];
 }
 
 - (BOOL)isEqual:(Vector3*)other
 {
 	if(other==nil)
 		return NO;
-	return (x==other.x && y==other.y && z==other.z);
+	return (_x==other.x && _y==other.y && _z==other.z);
 }
 
 - (NSUInteger)hash
 {
-	return (NSInteger)(x+y+z);
+	return (NSInteger)(_x+_y+_z);
 }
 
 - (Vector3*)iadd:(Vector3*)other
 {
-	x+=other.x;
-	y+=other.y;
-	z+=other.z;
+	_x+=other.x;
+	_y+=other.y;
+	_z+=other.z;
 	return self;
 }
 
 - (Vector3*)idiv:(float)factor
 {
-	x/=factor;
-	y/=factor;
-	z/=factor;
+	_x/=factor;
+	_y/=factor;
+	_z/=factor;
 	return self;
 }
 
 - (Vector3*)ifloordiv:(float)factor
 {
-	x=floorf(x/factor);
-	y=floorf(y/factor);
-	z=floorf(z/factor);
+	_x=floorf(_x/factor);
+	_y=floorf(_y/factor);
+	_z=floorf(_z/factor);
 	return self;
 }
 
 - (Vector3*)imul:(float)factor
 {
-	x*=factor;
-	y*=factor;
-	z*=factor;
+	_x*=factor;
+	_y*=factor;
+	_z*=factor;
 	return self;
 }
 
 - (Vector3*)isub:(Vector3*)other
 {
-	x-=other.x;
-	y-=other.y;
-	z-=other.z;
+	_x-=other.x;
+	_y-=other.y;
+	_z-=other.z;
 	return self;
 }
 
 - (Vector3*)mul:(float)other
 {
-	return [[Vector3 alloc] initVectorWithX:x*other Y:y*other Z:z*other];
-}
-
-- (Vector3*)neg
-{
-	return [[Vector3 alloc] initVectorWithX:-x Y:-y Z:-z];
+	return [[Vector3 alloc] initVectorWithX:_x*other Y:_y*other Z:_z*other];
 }
 
 - (BOOL)nonzero
 {
-	return (fabsf(x)>FLT_EPSILON && fabsf(y)>FLT_EPSILON && fabsf(z)>FLT_EPSILON);
+	return (fabsf(_x)>FLT_EPSILON && fabsf(_y)>FLT_EPSILON && fabsf(_z)>FLT_EPSILON);
 }
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"Vector3(%f, %f, %f)",x,y,z];
+	return [NSString stringWithFormat:@"Vector3(%f, %f, %f)",_x,_y,_z];
 }
 
 - (NSString*)asKey
 {
-	return [NSString stringWithFormat:@"%f,%f,%f",x,y,z];
+	return [NSString stringWithFormat:@"%f,%f,%f",_x,_y,_z];
 }
 
 - (Vector3*)rdiv:(Vector3*)other
 {
-	return [[Vector3 alloc] initVectorWithX:x/other.x Y:y/other.y Z:z/other.z];
+	return [[Vector3 alloc] initVectorWithX:_x/other.x Y:_y/other.y Z:_z/other.z];
 }
 
 - (Vector3*)rfloordiv:(Vector3*)other
 {
-	return [[Vector3 alloc] initVectorWithX:floorf(x/other.x) Y:floorf(y/other.y) Z:floorf(z/other.z)];
+	return [[Vector3 alloc] initVectorWithX:floorf(_x/other.x) Y:floorf(_y/other.y) Z:floorf(_z/other.z)];
 }
 
 - (Vector3*)rmul:(Vector3*)other
 {
-	return [[Vector3 alloc] initVectorWithX:x*other.x Y:y*other.y Z:z*other.z];
+	return [[Vector3 alloc] initVectorWithX:_x*other.x Y:_y*other.y Z:_z*other.z];
 }
 
 - (Vector3*)sub:(Vector3*)other
 {
-	return [[Vector3 alloc] initVectorWithX:x-other.x Y:y-other.y Z:z-other.z];
+	return [[Vector3 alloc] initVectorWithX:_x-other.x Y:_y-other.y Z:_z-other.z];
 }
 
 - (Vector3*)cross:(Vector3*)other
 {
-	return [[Vector3 alloc] initVectorWithX:y*other.z-z*other.y Y:-x*other.z+z*other.x Z:x*other.y-y*other.x];
+	return [[Vector3 alloc] initVectorWithX:_y*other.z-_z*other.y Y:-_x*other.z+_z*other.x Z:_x*other.y-_y*other.x];
 }
 
 - (float)distanceSquared:(Vector3*)other
 {
-	float separationX = x - other.x;
-	float separationY = y - other.y;
-	float separationZ = z - other.z;
+	float separationX = _x - other.x;
+	float separationY = _y - other.y;
+	float separationZ = _z - other.z;
 	return separationX * separationX + separationY * separationY + separationZ * separationZ;
 }
 
@@ -210,7 +204,7 @@
 
 - (float)dot:(Vector3*)other
 {
-	return x * other.x + y * other.y + z * other.z;
+	return _x * other.x + _y * other.y + _z * other.z;
 }
 
 - (Vector2*)dropAxis:(NSInteger)which
@@ -218,11 +212,11 @@
 	switch(which)
 	{
 		case 0:
-			return [[Vector2 alloc] initVectorWithX:y Y:z];
+			return [[Vector2 alloc] initVectorWithX:_y Y:_z];
 		case 1:
-			return [[Vector2 alloc] initVectorWithX:x Y:z];
+			return [[Vector2 alloc] initVectorWithX:_x Y:_z];
 		default:
-			return [[Vector2 alloc] initVectorWithX:x Y:y];
+			return [[Vector2 alloc] initVectorWithX:_x Y:_y];
 	}
 }
 
@@ -236,7 +230,7 @@
 
 - (float)magnitudeSquared
 {
-	return (x*x+y*y+z*z);
+	return (_x*_x+_y*_y+_z*_z);
 }
 
 - (Vector3*)normalize
@@ -249,64 +243,64 @@
 
 - (Vector3*)reflect:(Vector3*)normale
 {
-	float distance = 2.*(x*normale.x+y*normale.y+z*normale.z);
-	return [[Vector3 alloc] initVectorWithX:x-distance*normale.x Y:y-distance*normale.y Z:z-distance*normale.z];
+	float distance = 2.*(_x*normale.x+_y*normale.y+_z*normale.z);
+	return [[Vector3 alloc] initVectorWithX:_x-distance*normale.x Y:_y-distance*normale.y Z:_z-distance*normale.z];
 }
 
 - (Vector3*)negate
 {
-    return [[Vector3 alloc] initVectorWithX:-x Y:-y Z:-z];
+    return [[Vector3 alloc] initVectorWithX:-_x Y:-_y Z:-_z];
 }
 
 - (Vector3*)inegate
 {
-    x=-x;
-    y=-y;
-    z=-z;
+    _x=-_x;
+    _y=-_y;
+    _z=-_z;
     return self;
 }
 
 
 - (void)setToVector3:(Vector3*)other
 {
-	x = other.x;
-	y = other.y;
-	z = other.z;
+	_x = other.x;
+	_y = other.y;
+	_z = other.z;
 }
 
 - (void)maximizeWith:(Vector3*)other
 {
-	x = MAX( x, other.x );
-	y = MAX( y, other.y );
-	z = MAX( z, other.z );
+	_x = MAX( _x, other.x );
+	_y = MAX( _y, other.y );
+	_z = MAX( _z, other.z );
 }
 
 - (void)minimizeWith:(Vector3*)other
 {
-	x = MIN( x, other.x );
-	y = MIN( y, other.y );
-	z = MIN( z, other.z );
+	_x = MIN( _x, other.x );
+	_y = MIN( _y, other.y );
+	_z = MIN( _z, other.z );
 }
 
 - (void)maximizeWithX:(float)inX Y:(float)inY Z:(float)inZ;
 {
-	x = MAX( x, inX );
-	y = MAX( y, inY );
-	z = MAX( z, inZ );
+	_x = MAX( _x, inX );
+	_y = MAX( _y, inY );
+	_z = MAX( _z, inZ );
 }
 
 - (void)minimizeWithX:(float)inX Y:(float)inY Z:(float)inZ;
 {
-	x = MIN( x, inX );
-	y = MIN( y, inY );
-	z = MIN( z, inZ );
+	_x = MIN( _x, inX );
+	_y = MIN( _y, inY );
+	_z = MIN( _z, inZ );
 }
 
 - (Vector3*)resetWith:(Vector3*)other;
 {
-	x = other.x;
-	y = other.y;
-	z = other.z;
+	_x = other.x;
+	_y = other.y;
+	_z = other.z;
 	return self;
 }
 @end

@@ -29,6 +29,11 @@
 #import <Foundation/Foundation.h>
 #import <OpenGL/OpenGL.h>
 
+#define kTimestamp @"timestamp"
+#define kFirstVertexIndex @"firstVertexIndex"
+#define kMinLayerZ @"minLayerZ"
+#define kMaxLayerZ @"maxLayerZ"
+
 @class P3DPrinterDriverBase, Vector3;
 @interface P3DParsedGCodeBase : NSObject {
     P3DPrinterDriverBase* _currentPrinter;
@@ -37,6 +42,9 @@
     NSData* _vertexBuffer;
     GLsizei _vertexCount;
     GLsizei _vertexStride;
+    
+    NSArray* _vertexIndex;
+    NSMutableArray* _parsingErrors;
 }
 
 @property (readonly, strong) Vector3* cornerHigh;
@@ -44,7 +52,10 @@
 @property (readonly) GLfloat* vertexArray;
 @property (readonly) GLsizei vertexCount;
 @property (readonly) GLsizei vertexStride;
+@property (readonly, strong) NSArray* vertexIndex;
+@property (readonly) NSArray* parsingErrors;
 
 - (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter;
 
+- (void)addError:(NSString*)formatString, ...;
 @end

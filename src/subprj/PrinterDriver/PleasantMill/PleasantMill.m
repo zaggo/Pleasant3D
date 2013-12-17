@@ -98,7 +98,7 @@
 
 - (P3DMachineJob*)createMachineJob:(P3DMachinableDocument*)doc
 {
-	PleasantMillMachiningJob* job = [[PleasantMillMachiningJob alloc] initWithGCode:doc.gCodeToMachine];
+	PleasantMillMachiningJob* job = [[PleasantMillMachiningJob alloc] initWithGCode:doc.rawGCode];
 	job.driver = self;
 	return job;
 }

@@ -29,8 +29,11 @@
 
 @class ConfiguredMachines, P3DMachineDriverBase;
 @interface P3DMachinableDocument : NSDocument
+{
+    NSString* _rawGCode;
+}
 
-@property (readonly) NSString* gCodeToMachine;
+@property (strong) NSString* rawGCode;
 @property (readonly) ConfiguredMachines* configuredMachines;
 @property (copy) NSString* selectedMachineUUID;
 @property (assign) NSInteger selectedMachineIndex;

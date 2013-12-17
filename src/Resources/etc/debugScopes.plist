@@ -18,6 +18,8 @@
 		<false/>
 		<key>OpenGL</key>
 		<true/>
+		<key>parseGCode</key>
+		<true/>
 	</dict>
 	<key>verbosity</key>
 	<integer>1</integer>

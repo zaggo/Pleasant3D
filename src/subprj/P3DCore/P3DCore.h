@@ -58,3 +58,4 @@
 #import "GCodeStatistics.h"
 #import "P3DParsedGCodeBase.h"
 #import "P3DParsedGCodePrinter.h"
+#import "P3DParsedGCodeMill.h"

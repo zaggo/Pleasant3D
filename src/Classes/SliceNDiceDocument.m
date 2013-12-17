@@ -44,7 +44,7 @@
 	NSData* _loadedDocData;
 }
 
-@dynamic encodeLightWeight, gCodeToMachine;
+@dynamic encodeLightWeight, rawGCode;
 
 - (NSString *)windowNibName
 {
@@ -164,7 +164,7 @@
 	return self.toolBin.canPrintDocument;
 }
 
-- (NSString*)gCodeToMachine
+- (NSString*)rawGCode
 {
 	return nil; // TODO
 }

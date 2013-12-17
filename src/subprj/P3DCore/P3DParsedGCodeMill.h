@@ -1,8 +1,8 @@
 //
-//  P3DParsedGCodePrinter.h
+//  P3DParsedGCodeMill.h
 //  P3DCore
 //
-//  Created by Eberhard Rensch on 16.12.13.
+//  Created by Eberhard Rensch on 17.12.13.
 //  Copyright (c) 2013 Pleasant Software. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under
@@ -26,20 +26,8 @@
 //  resulting work.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "P3DParsedGCodeBase.h"
+#import <P3DCore/P3DCore.h>
 
-@class GCodeStatistics;
-@interface P3DParsedGCodePrinter : P3DParsedGCodeBase
-
-@property (readonly, strong) GCodeStatistics* gCodeStatistics;
-
-@property (readonly) float extrusionWidth;
-
-@property (readonly) float totalMachiningTime;
-@property (readonly) float objectWeight;
-@property (readonly) float filamentLengthToolA;
-@property (readonly) float filamentLengthToolB;
-@property (readonly) NSInteger layerHeight;
+@interface P3DParsedGCodeMill : P3DParsedGCodeBase
 
 @end

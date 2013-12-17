@@ -27,4 +27,16 @@
     return (GLfloat*)_vertexBuffer.bytes;
 }
 
+- (void)addError:(NSString*)formatString, ...
+{
+    va_list args;
+    va_start(args, formatString);
+    NSString* errorString = [[NSString alloc] initWithFormat:formatString arguments:args];
+    va_end(args);
+    
+    if(_parsingErrors==nil)
+        _parsingErrors = [NSMutableArray array];
+    [_parsingErrors addObject:errorString];
+}
+
 @end

@@ -428,8 +428,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="100178"/>
                                     <connections>
-                                        <binding destination="-2" name="maxValue" keyPath="maxLayers" id="100183"/>
-                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="100183" id="100184"/>
+                                        <binding destination="100033" name="maxValue" keyPath="selection.maxLayers" id="cHW-ed-jBk"/>
+                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="cHW-ed-jBk" id="yrv-hO-4D3"/>
                                     </connections>
                                 </slider>
                                 <textField verticalHuggingPriority="750" id="100191">
@@ -806,25 +806,25 @@
                                     </connections>
                                 </button>
                                 <textField verticalHuggingPriority="750" id="7Ql-Uf-zrc">
-                                    <rect key="frame" x="13" y="119" width="49" height="14"/>
+                                    <rect key="frame" x="21" y="119" width="53" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Progress" id="hLC-9P-jnj">
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Progress:" id="hLC-9P-jnj">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="OoT-fL-92Q">
-                                    <rect key="frame" x="95" y="119" width="20" height="14"/>
+                                    <rect key="frame" x="103" y="119" width="20" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="/" id="I1e-KK-pLT">
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="%" id="I1e-KK-pLT">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="ue3-AX-t9J">
-                                    <rect key="frame" x="68" y="119" width="29" height="14"/>
+                                    <rect key="frame" x="76" y="119" width="29" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="100" id="o6F-Dh-8hX">
                                         <font key="font" metaFont="smallSystem"/>
@@ -833,18 +833,6 @@
                                     </textFieldCell>
                                     <connections>
                                         <binding destination="100033" name="value" keyPath="selection.correctedCurrentLayer" id="UFA-Td-2At"/>
-                                    </connections>
-                                </textField>
-                                <textField verticalHuggingPriority="750" id="yVX-m1-wen">
-                                    <rect key="frame" x="105" y="119" width="28" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="100" id="kiw-hP-vzD">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="correctedMaxLayers" id="Vw7-Xi-CKX"/>
                                     </connections>
                                 </textField>
                                 <button id="jCK-6i-jy4">
@@ -891,8 +879,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="aOI-Ch-9pF"/>
                                     <connections>
-                                        <binding destination="-2" name="maxValue" keyPath="maxLayers" id="Nvc-Vq-f8s"/>
-                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="Nvc-Vq-f8s" id="lK9-wA-Gek"/>
+                                        <binding destination="100033" name="maxValue" keyPath="selection.maxLayers" id="Jmg-PY-XpU"/>
+                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="Jmg-PY-XpU" id="ZxT-Qp-6Jw"/>
                                     </connections>
                                 </slider>
                                 <textField verticalHuggingPriority="750" id="6Ek-VN-THu">

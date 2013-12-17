@@ -57,6 +57,8 @@
 		E274362413929DD30062643A /* P3DMachineDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E274362313929DD10062643A /* P3DMachineDriverBase.m */; };
 		E27C8048139C8296000010FD /* P3DMachinableDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C8047139C8295000010FD /* P3DMachinableDocument.m */; };
 		E281DF17112D5D6200C05C08 /* preprocessOpenCL.pl in XCode Helper Files */ = {isa = PBXBuildFile; fileRef = E2ABC5771100EB95004CE17C /* preprocessOpenCL.pl */; };
+		E2874FD518607575009AF556 /* P3DParsedGCodeMill.h in Headers */ = {isa = PBXBuildFile; fileRef = E2874FD318607575009AF556 /* P3DParsedGCodeMill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2874FD618607575009AF556 /* P3DParsedGCodeMill.m in Sources */ = {isa = PBXBuildFile; fileRef = E2874FD418607575009AF556 /* P3DParsedGCodeMill.m */; };
 		E29708771121B6180060FA0C /* P3DFormatRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = E29708751121B6180060FA0C /* P3DFormatRegistration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E29708781121B6180060FA0C /* P3DFormatRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = E29708761121B6180060FA0C /* P3DFormatRegistration.m */; };
 		E29A03B0111F104D006CD3C9 /* GCode.h in Headers */ = {isa = PBXBuildFile; fileRef = E29A03AE111F104D006CD3C9 /* GCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -181,6 +183,8 @@
 		E270B449185FA7490013EF19 /* P3DParsedGCodePrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = P3DParsedGCodePrinter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E274362313929DD10062643A /* P3DMachineDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachineDriverBase.m; sourceTree = "<group>"; };
 		E27C8047139C8295000010FD /* P3DMachinableDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachinableDocument.m; sourceTree = "<group>"; };
+		E2874FD318607575009AF556 /* P3DParsedGCodeMill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DParsedGCodeMill.h; sourceTree = "<group>"; };
+		E2874FD418607575009AF556 /* P3DParsedGCodeMill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DParsedGCodeMill.m; sourceTree = "<group>"; };
 		E29708751121B6180060FA0C /* P3DFormatRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DFormatRegistration.h; sourceTree = "<group>"; };
 		E29708761121B6180060FA0C /* P3DFormatRegistration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DFormatRegistration.m; sourceTree = "<group>"; };
 		E29A03AE111F104D006CD3C9 /* GCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCode.h; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 				E270B43D185FA3E50013EF19 /* P3DParsedGCodeBase.m */,
 				E270B448185FA7490013EF19 /* P3DParsedGCodePrinter.h */,
 				E270B449185FA7490013EF19 /* P3DParsedGCodePrinter.m */,
+				E2874FD318607575009AF556 /* P3DParsedGCodeMill.h */,
+				E2874FD418607575009AF556 /* P3DParsedGCodeMill.m */,
 				E270B444185FA45A0013EF19 /* GCodeStatistics.h */,
 				E270B445185FA45A0013EF19 /* GCodeStatistics.m */,
 			);
@@ -505,6 +511,7 @@
 				E2A43A6211028076003F5907 /* PSMutableIntegerArray.h in Headers */,
 				E2A43ABB11028F2B003F5907 /* clSliceTypes.h in Headers */,
 				E2A43ABC11028F2B003F5907 /* SliceTypes.h in Headers */,
+				E2874FD518607575009AF556 /* P3DParsedGCodeMill.h in Headers */,
 				E29A03B0111F104D006CD3C9 /* GCode.h in Headers */,
 				E270B421185C8B5B0013EF19 /* P3DMillDriverBase.h in Headers */,
 				E270B43E185FA3E50013EF19 /* P3DParsedGCodeBase.h in Headers */,
@@ -595,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E24FAE5810FB68E60081C559 /* P3DToolBase.m in Sources */,
+				E2874FD618607575009AF556 /* P3DParsedGCodeMill.m in Sources */,
 				E24FAE6310FB6B370081C559 /* ToolSettingsViewController.m in Sources */,
 				E270B447185FA45A0013EF19 /* GCodeStatistics.m in Sources */,
 				E24FAE6510FB6B370081C559 /* P3DBorderView.m in Sources */,

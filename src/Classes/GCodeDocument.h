@@ -32,10 +32,8 @@
 @class GCodeView, GCodeMillView, Vector3, Vector2d;
 @interface GCodeDocument : P3DMachinableDocument
 
-@property (strong, nonatomic) NSString* gCodeString;
 @property (assign) BOOL calculatingPreview;
-@property (assign) NSInteger maxLayers;
-@property (assign) float currentPreviewLayerHeight;
+
 @property (assign) NSAttributedString* formattedGCode;
 
 @property (weak) IBOutlet NSView *mainContainerView;

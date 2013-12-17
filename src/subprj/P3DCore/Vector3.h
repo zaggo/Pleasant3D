@@ -29,9 +29,7 @@
 #import <Foundation/Foundation.h>
 #import "Vector2.h"
 
-@interface Vector3 : NSObject <NSCoding> {
-	float x, y, z;
-}
+@interface Vector3 : NSObject <NSCoding>
 @property (assign) float x;
 @property (assign) float y;
 @property (assign) float z;

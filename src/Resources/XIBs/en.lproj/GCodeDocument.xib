@@ -382,7 +382,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="correctedMaxLayers" id="100188"/>
+                                        <binding destination="100033" name="value" keyPath="selection.correctedMaxLayers" id="HXv-3i-vgi"/>
                                     </connections>
                                 </textField>
                                 <button id="100169">
@@ -429,8 +429,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="100178"/>
                                     <connections>
-                                        <binding destination="-2" name="maxValue" keyPath="maxLayers" id="100183"/>
-                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="100183" id="100184"/>
+                                        <binding destination="100033" name="maxValue" keyPath="selection.maxLayers" id="59e-tQ-uzV"/>
+                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="59e-tQ-uzV" id="t9l-bX-RDu"/>
                                     </connections>
                                 </slider>
                                 <textField verticalHuggingPriority="750" id="100191">
@@ -806,26 +806,17 @@
                                         <binding destination="100033" name="enabled" keyPath="selection.threeD" id="YEv-sE-kYr"/>
                                     </connections>
                                 </button>
-                                <textField verticalHuggingPriority="750" id="S0u-ny-rW7">
-                                    <rect key="frame" x="13" y="119" width="49" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Progress" id="2ds-wT-GRt">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
                                 <textField verticalHuggingPriority="750" id="CSn-u1-WK6">
-                                    <rect key="frame" x="90" y="119" width="20" height="14"/>
+                                    <rect key="frame" x="101" y="119" width="20" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="of" id="jQM-Sy-ffG">
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="%" id="jQM-Sy-ffG">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="TAs-bu-bh3">
-                                    <rect key="frame" x="63" y="119" width="29" height="14"/>
+                                    <rect key="frame" x="76" y="119" width="29" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="100" id="8E3-ki-aWC">
                                         <font key="font" metaFont="smallSystem"/>
@@ -834,18 +825,6 @@
                                     </textFieldCell>
                                     <connections>
                                         <binding destination="100033" name="value" keyPath="selection.correctedCurrentLayer" id="M9D-jB-8TZ"/>
-                                    </connections>
-                                </textField>
-                                <textField verticalHuggingPriority="750" id="0A6-r6-Qc0">
-                                    <rect key="frame" x="105" y="119" width="28" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="100" id="Jxv-sG-qPk">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="correctedMaxLayers" id="DYS-st-V0z"/>
                                     </connections>
                                 </textField>
                                 <button id="68A-MH-7qt">
@@ -892,8 +871,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="W81-RX-8vB"/>
                                     <connections>
-                                        <binding destination="-2" name="maxValue" keyPath="maxLayers" id="S86-Pg-Jie"/>
-                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="S86-Pg-Jie" id="brs-Rz-JeX"/>
+                                        <binding destination="100033" name="maxValue" keyPath="selection.maxLayers" id="hvI-1u-0eL"/>
+                                        <binding destination="100033" name="value" keyPath="selection.currentLayer" previousBinding="hvI-1u-0eL" id="IKh-qI-gKe"/>
                                     </connections>
                                 </slider>
                                 <textField verticalHuggingPriority="750" id="dYa-V5-EjQ">
@@ -908,18 +887,47 @@
                                         <binding destination="100033" name="value" keyPath="selection.currentZ" id="G5k-jZ-liI"/>
                                     </connections>
                                 </textField>
+                                <textField verticalHuggingPriority="750" id="83w-pq-cm4">
+                                    <rect key="frame" x="22" y="119" width="53" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Progress:" id="CbZ-jH-GUG">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" id="JKM-sF-Ufx">
-                        <rect key="frame" x="69" y="471" width="32" height="32"/>
+                        <rect key="frame" x="69" y="484" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <connections>
                             <binding destination="-2" name="animate" keyPath="calculatingPreview" id="059-uJ-zBS"/>
                         </connections>
                     </progressIndicator>
+                    <button verticalHuggingPriority="750" id="iMJ-zl-vXT">
+                        <rect key="frame" x="44" y="444" width="83" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Show Errors" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hed-pl-bzd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="100033" name="target" keyPath="selection" id="rqy-Z4-gFZ">
+                                <dictionary key="options">
+                                    <string key="NSSelectorName">showParsingErrors:</string>
+                                </dictionary>
+                            </binding>
+                            <binding destination="100033" name="hidden" keyPath="selection.parsingErrors" id="c6V-cu-Zra">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSIsNil</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>

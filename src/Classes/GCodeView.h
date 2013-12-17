@@ -33,6 +33,4 @@
 @interface GCodeView : ThreeDPreviewView
 
 @property (strong, nonatomic) P3DParsedGCodeBase* parsedGCode;
-@property (assign) CGFloat currentLayerMinZ;
-@property (assign) CGFloat currentLayerMaxZ;
 @end

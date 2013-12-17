@@ -9,5 +9,12 @@
 #import <P3DCore/P3DCore.h>
 
 @interface P3DMillDriverBase : P3DMachineDriverBase
-
+{
+    float _fastXYFeedrate;
+    float _fastZFeedrate;
+    float _slowFeedrate;
+}
+@property (readonly) float fastXYFeedrate;
+@property (readonly) float fastZFeedrate;
+@property (readonly) float slowFeedrate;
 @end

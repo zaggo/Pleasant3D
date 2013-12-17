@@ -50,20 +50,10 @@
 		NSString* gCodeString = _gCode.gCodeString;
 		_parsedGCode = [[P3DParsedGCodePrinter alloc] initWithGCodeString:gCodeString printer:nil];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			if(_parsedGCode.paneIndex.count>0)
-			{
+			if(_parsedGCode.vertexIndex.count>0)
 				_previewView.parsedGCode = _parsedGCode;
-				
-				// This is a hack! Otherwise, the OpenGL-View doesn't reshape properly.
-				// Not sure if this is a SnowLeopard Bug...
-				NSRect b = [_previewView bounds];
-				[_previewView setFrame:NSInsetRect(b, 1, 1)];
-				[_previewView setFrame:b];
-			}
 			else
-			{
 				_previewView.parsedGCode = nil;
-			}
 		});
 	}
 }

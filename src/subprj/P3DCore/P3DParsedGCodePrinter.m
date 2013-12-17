@@ -5,6 +5,26 @@
 //  Created by Eberhard Rensch on 16.12.13.
 //  Copyright (c) 2013 Pleasant Software. All rights reserved.
 //
+//  This program is free software; you can redistribute it and/or modify it under
+//  the terms of the GNU General Public License as published by the Free Software
+//  Foundation; either version 3 of the License, or (at your option) any later
+//  version.
+//
+//  This program is distributed in the hope that it will be useful, but WITHOUT ANY
+//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+//  PARTICULAR PURPOSE. See the GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License along with
+//  this program; if not, see <http://www.gnu.org/licenses>.
+//
+//  Additional permission under GNU GPL version 3 section 7
+//
+//  If you modify this Program, or any covered work, by linking or combining it
+//  with the P3DCore.framework (or a modified version of that framework),
+//  containing parts covered by the terms of Pleasant Software's software license,
+//  the licensors of this Program grant you additional permission to convey the
+//  resulting work.
+//
 
 #import "P3DParsedGCodePrinter.h"
 #import <P3DCore/P3DCore.h>
@@ -203,10 +223,6 @@ static NSColor* _extrusionOffColor=nil;
 
 - (id)initWithGCodeString:(NSString*)gcode printer:(P3DPrinterDriverBase*)currentPrinter
 {
-    /*
-     This function parses GCODE (roughly) according to http://reprap.org/wiki/G-code
-     */
-    
 	self = [super initWithGCodeString:gcode printer:currentPrinter];
 	if(self) {
         _gCodeStatistics = [[GCodeStatistics alloc] init];
@@ -219,8 +235,15 @@ static NSColor* _extrusionOffColor=nil;
 
 #pragma mark - Service
 
-- (void)parseGCode:(NSString*)gcode {
-    
+/*
+ This function parses GCODE (roughly) according to http://reprap.org/wiki/G-code
+ */
+
+
+- (void)parseGCode:(NSString*)gcode
+{
+    _parsingErrors = nil;
+
     _extrusionWidth = 0.;
     NSInteger extrusionNumber_A = 0;
     NSInteger extrusionNumber_B = 0;
@@ -255,7 +278,7 @@ static NSColor* _extrusionOffColor=nil;
         float oldZ = currentLocation.z;
         
         // Check for new Layer
-        if([lineScanner isNewLayerWithCurrentLocation:currentLocation]) {
+        if([lineScanner isNewLayerWithCurrentLocation:currentLocation]) { // TODO: isNewLayerWithCurrentLocation changes currentLocation
             NSInteger lastVertexIndex=-1;
             
             // Set the min/max layerZ for the last pane:
@@ -475,7 +498,7 @@ static NSColor* _extrusionOffColor=nil;
                                      kMinLayerZ: @(minLayerZ),
                                      kMaxLayerZ: @(maxLayerZ)
                                      };
-    _paneIndex = paneIndex;
+    _vertexIndex = paneIndex;
     _vertexBuffer = vertexBuffer;
     _vertexCount = vertexCount;
     
@@ -539,7 +562,7 @@ static NSColor* _extrusionOffColor=nil;
 
 - (NSInteger)layerHeight
 {
-    return (NSInteger)floorf(_gCodeStatistics.layerHeight * 100.f) * 10 ; // in mm
+    return (NSInteger)floorf(_gCodeStatistics.layerHeight * 100.f) * 10 ; // in µm
 }
 
 @end

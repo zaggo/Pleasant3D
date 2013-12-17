@@ -30,11 +30,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Vector2 : NSObject <NSCoding> {
-	float x;
-	float y;
-}
-
+@interface Vector2 : NSObject <NSCoding> 
 @property (assign) float x;
 @property (assign) float y;
 
