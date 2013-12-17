@@ -165,38 +165,28 @@ static inline void fillVertex(GLfloat* vertex, NSColor* color, Vector3* location
 @implementation P3DParsedGCodePrinter
 @dynamic objectWeight, filamentLengthToolA, filamentLengthToolB, layerHeight;
 
-static NSArray* _extrusionColors=nil;
 static NSArray* _extrusionColors_A=nil;
 static NSArray* _extrusionColors_B=nil;
 static NSColor* _extrusionOffColor=nil;
 + (void)initialize
 {
-    // For single head extrusions
-	// 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
-    _extrusionColors = [NSArray arrayWithObjects:
-                        [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor greenColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor blueColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+    _extrusionColors_A = [NSArray arrayWithObjects:
+                        [[NSColor colorWithCalibratedRed:0.928 green:0.953 blue:0.157 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor colorWithCalibratedRed:0.672 green:0.888 blue:0.138 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor colorWithCalibratedRed:0.904 green:0.538 blue:0.140 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor colorWithCalibratedRed:0.913 green:0.742 blue:0.147 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor colorWithCalibratedRed:0.218 green:0.801 blue:0.115 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                        [[NSColor colorWithCalibratedRed:0.770 green:0.289 blue:0.121 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         nil];
     
-    // For dual head extrusions
-    // different shades of the same color
-    _extrusionColors_A = [NSArray arrayWithObjects:
-                          [[NSColor brownColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor redColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor orangeColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor yellowColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          nil];
     
     _extrusionColors_B = [NSArray arrayWithObjects:
-                          [[NSColor cyanColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor magentaColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor blueColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor purpleColor] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor colorWithCalibratedRed:0.214 green:0.687 blue:0.741 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor colorWithCalibratedRed:0.167 green:0.319 blue:0.741 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor colorWithCalibratedRed:0.749 green:0.000 blue:0.517 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor colorWithCalibratedRed:0.431 green:0.000 blue:0.713 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor colorWithCalibratedRed:0.749 green:0.000 blue:0.517 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
+                          [[NSColor colorWithCalibratedRed:0.871 green:0.000 blue:0.148 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           nil];
     
     // Off color
@@ -225,7 +215,8 @@ static NSColor* _extrusionOffColor=nil;
 - (void)parseGCode:(NSString*)gcode {
     
     _extrusionWidth = 0.;
-    NSInteger extrusionNumber = 0;
+    NSInteger extrusionNumber_A = 0;
+    NSInteger extrusionNumber_B = 0;
 
     Vector3* currentLocation = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:-FLT_MAX];
     Vector3* highCorner = [[Vector3 alloc] initVectorWithX:-FLT_MAX Y:-FLT_MAX Z:-FLT_MAX];
@@ -276,6 +267,9 @@ static NSColor* _extrusionOffColor=nil;
 
                 minLayerZ=FLT_MAX;
                 maxLayerZ=-FLT_MAX;
+                
+                extrusionNumber_A=0;
+                extrusionNumber_B=0;
                 
                 validVertex = NO;
                 
@@ -349,18 +343,16 @@ static NSColor* _extrusionOffColor=nil;
                 // Coloring
                 if(_gCodeStatistics.extrudingStateChanged) {
                     if(_gCodeStatistics.extruding) {
-                        if (_gCodeStatistics.dualExtrusion) {
-                            if (_gCodeStatistics.usingToolB) {
-                                currentColor = [_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]];
-                            } else {
-                                currentColor = [_extrusionColors_A objectAtIndex:extrusionNumber%[_extrusionColors_A count]];
-                            }
-                        } else {
-                            currentColor = [_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]];
-                        }
+                        if (_gCodeStatistics.usingToolB)
+                            currentColor = [_extrusionColors_B objectAtIndex:extrusionNumber_B%[_extrusionColors_B count]];
+                        else
+                            currentColor = [_extrusionColors_A objectAtIndex:extrusionNumber_A%[_extrusionColors_A count]];
                         
                     } else {
-                        extrusionNumber++;
+                        if (_gCodeStatistics.usingToolB)
+                            extrusionNumber_B++;
+                        else
+                            extrusionNumber_A++;
                         currentColor = _extrusionOffColor;
                     }
                     _gCodeStatistics.extrudingStateChanged=NO;
@@ -379,20 +371,18 @@ static NSColor* _extrusionOffColor=nil;
                 }
             } else if([command isEqualToString:@"M101"]) { // Legacy 3D Printing code: Extruder ON
                 if(!_gCodeStatistics.extruding) {
-                    if (_gCodeStatistics.dualExtrusion) {
-                        if (_gCodeStatistics.usingToolB) {
-                            currentColor = [_extrusionColors_B objectAtIndex:extrusionNumber%[_extrusionColors_B count]];
-                        } else {
-                            currentColor = [_extrusionColors_A objectAtIndex:extrusionNumber%[_extrusionColors_A count]];
-                        }
-                    } else {
-                        currentColor = [_extrusionColors objectAtIndex:extrusionNumber%[_extrusionColors count]];
-                    }
+                    if (_gCodeStatistics.usingToolB)
+                        currentColor = [_extrusionColors_B objectAtIndex:extrusionNumber_B%[_extrusionColors_B count]];
+                    else
+                        currentColor = [_extrusionColors_A objectAtIndex:extrusionNumber_A%[_extrusionColors_A count]];
                 }
                 _gCodeStatistics.extruding = YES;
             } else if([command isEqualToString:@"M103"]) { // Legacy 3D Printing code: Extruder OFF
                 if(_gCodeStatistics.extruding) {
-                    extrusionNumber++;
+                    if (_gCodeStatistics.usingToolB)
+                        extrusionNumber_B++;
+                    else
+                        extrusionNumber_A++;
                     currentColor = _extrusionOffColor;
                 }
                 _gCodeStatistics.extruding = NO;

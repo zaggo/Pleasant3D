@@ -472,7 +472,7 @@ enum {
         const GLsizei platformStride = sizeof(GLfloat)*3;
 
         glLineWidth(1.f);
-        glColor4f(1.f, .749f, 0.f, .1f);
+        glColor4f(0.831f, 0.941f, 0.498f, .1f);
         glBindBuffer(GL_ARRAY_BUFFER, _vbo[kPlatformVBO]);
         glVertexPointer(3, GL_FLOAT, platformStride, 0);
         glDrawArrays(GL_QUADS, 0, 4);
@@ -542,10 +542,10 @@ enum {
         GLfloat * varray = (GLfloat*)malloc(bufferSize);
         if(varray) {
             NSInteger i = 0;
-            
-            GLfloat r = 1.f;
-            GLfloat g = 0.f;
-            GLfloat b = 0.f;
+
+            GLfloat r = 0.906f;
+            GLfloat g = 0.075f;
+            GLfloat b = 0.192f;
             GLfloat a = .4f;
             
             for(float x=-zeroBuildPlattform.x; x<dimBuildPlattform.x-zeroBuildPlattform.x; x+=10.f) {
@@ -596,9 +596,9 @@ enum {
             varray[i++] = 0.f;
             
             if(dimBuildPlattform.z>0.f && self.threeD) {
-                r = 1.f;
-                g = 0.503f;
-                b = 0.029f;
+                r = 0.906f;
+                g = 0.075f;
+                b = 0.192f;
                 a = .15f;
                 
                 // corners
