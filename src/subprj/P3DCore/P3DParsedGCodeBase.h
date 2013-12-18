@@ -34,6 +34,8 @@
 #define kMinLayerZ @"minLayerZ"
 #define kMaxLayerZ @"maxLayerZ"
 
+#define kRapidMoveAlpha .6f // This is used to define the _extrusionOffColor resp. _fastMoveColor, GCodeView uses this value to recognize those lines
+
 @class P3DPrinterDriverBase, Vector3;
 @interface P3DParsedGCodeBase : NSObject {
     P3DPrinterDriverBase* _currentPrinter;

@@ -162,8 +162,8 @@ static inline void fillVertexLocation(GLfloat* vertex, Vector3* location, Vector
      */
     NSInteger _last_gcode_g;
 
-    NSCharacterSet* _controlCharacterSet;
     NSCharacterSet* _commandCodeSet;
+    NSCharacterSet* _skipCharacterSet;
     
     NSMutableData* _workVertexBuffer;
     NSInteger _workVertexCount;
@@ -190,6 +190,7 @@ static inline void fillVertexLocation(GLfloat* vertex, Vector3* location, Vector
 
 static NSArray* _toolPathColor=nil;
 static NSColor* _fastMoveColor=nil;
+static NSColor* _markingsColor=nil;
 + (void)initialize
 {
     _toolPathColor = [NSArray arrayWithObjects:
@@ -208,7 +209,8 @@ static NSColor* _fastMoveColor=nil;
                           nil];
     
     
-    _fastMoveColor = [[[NSColor grayColor] colorWithAlphaComponent:0.6] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
+    _fastMoveColor = [[[NSColor grayColor] colorWithAlphaComponent:kRapidMoveAlpha] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
+    _markingsColor = [[NSColor colorWithDeviceWhite:.8 alpha:1.f] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
 }
 
 
@@ -216,8 +218,12 @@ static NSColor* _fastMoveColor=nil;
 {
 	self = [super initWithGCodeString:gcode printer:currentPrinter];
 	if(self) {
-        _controlCharacterSet = [NSCharacterSet controlCharacterSet];
         _commandCodeSet = [NSCharacterSet characterSetWithCharactersInString:@"GMTLSPXYZIJFRQEABN*;("];
+        NSMutableCharacterSet *skip = [[NSCharacterSet controlCharacterSet] mutableCopy];
+        [skip formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+        _skipCharacterSet = skip;
+
+        
         _last_gcode_g = -1;
         
         
@@ -372,7 +378,7 @@ static NSColor* _fastMoveColor=nil;
     //PSLog(@"parseGCode", PSPrioNormal, @"Parsing: %@", commandString);
 
     NSScanner* lineScanner = [NSScanner scannerWithString:commandString];
-    [lineScanner setCharactersToBeSkipped:_controlCharacterSet];
+    [lineScanner setCharactersToBeSkipped:_skipCharacterSet];
 
     // Reset Commandbuffer
     _GIndex = 0;
@@ -986,7 +992,7 @@ static NSColor* _fastMoveColor=nil;
 - (void)renderCrosshairAtCenter:(Vector3*)center radius:(float)r
 {
     GLfloat vertex[8];
-    NSColor* toolColor = _fastMoveColor; //_toolPathColor[_machineCurrentTool%_toolPathColor.count];
+    NSColor* toolColor = _markingsColor;
     
     Vector3* p = [[Vector3 alloc] init];
     p.z = center.z;

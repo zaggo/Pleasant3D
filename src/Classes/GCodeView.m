@@ -54,6 +54,7 @@ enum {
     [self addObserver:self forKeyPath:@"othersAlpha" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"showArrows" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"threeD" options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:@"renderAllLayers" options:NSKeyValueObservingOptionNew context:NULL];
     
     self.currentLayer = NSUIntegerMax;
     
@@ -77,17 +78,18 @@ enum {
 {
     [self removeObserver:self forKeyPath:@"othersAlpha"];
     [self removeObserver:self forKeyPath:@"showArrows"];
-    [self removeObserver:self forKeyPath:@"currentLayer"];
     [self removeObserver:self forKeyPath:@"threeD"];
+    [self removeObserver:self forKeyPath:@"renderAllLayers"];
 }
 
 #pragma mark - Observers
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if([keyPath isEqualToString:@"othersAlpha"] || [keyPath isEqualToString:@"showArrows"] || [keyPath isEqualToString:@"threeD"]) {
+	if([keyPath isEqualToString:@"othersAlpha"] || [keyPath isEqualToString:@"threeD"])
         _objectVBONeedsRefresh=YES;
-    }
+    else if([keyPath isEqualToString:@"showArrows"] || [keyPath isEqualToString:@"renderAllLayers"])
+        [self setNeedsDisplay:YES];
 }
 
 
@@ -356,85 +358,119 @@ enum {
             
             if(self.threeD) {
                 // Draw Object
-                if(self.currentLayer>0) {
-                    glBindBuffer(GL_ARRAY_BUFFER, _vbo[kLowerLayerVBO]);
-                    glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
-                    glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
-                    
-                    glLineWidth(1.f);
-                    count = (GLsizei)[_parsedGCode.vertexIndex[self.currentLayer][kFirstVertexIndex] integerValue];
-                    glDrawArrays(GL_LINES, startIndex, count);
-                    startIndex += count;
+                if(!_renderAllLayers) {
+                    if(self.currentLayer>0) {
+                        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kLowerLayerVBO]);
+                        glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
+                        glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
+                        
+                        glLineWidth(1.f);
+                        count = (GLsizei)[_parsedGCode.vertexIndex[self.currentLayer][kFirstVertexIndex] integerValue];
+                        glDrawArrays(GL_LINES, startIndex, count);
+                        startIndex += count;
+                    }
                 }
                 
                 glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
                 glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
                 glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
                 
-                glLineWidth(2.f);
-                if(self.currentLayer < _parsedGCode.vertexIndex.count-1)
-                    count = (GLsizei)[_parsedGCode.vertexIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]-(GLsizei)startIndex;
-                else
+                if(_renderAllLayers) {
+                    startIndex=(GLint)0;
                     count = (GLsizei)(vboVerticesCount-startIndex);
+                    glLineWidth(1.f);
+                } else {
+                    if(self.currentLayer < _parsedGCode.vertexIndex.count-1)
+                        count = (GLsizei)[_parsedGCode.vertexIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]-(GLsizei)startIndex;
+                    else
+                        count = (GLsizei)(vboVerticesCount-startIndex);
+                    glLineWidth(2.f);
+                }
                 glDrawArrays(GL_LINES, startIndex, count);
                 startIndex += count;
                 
-                if(self.currentLayer<_parsedGCode.vertexIndex.count-1) {
-                    glBindBuffer(GL_ARRAY_BUFFER, _vbo[kUpperLayerVBO]);
-                    glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
-                    glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
-                    
-                    glLineWidth(1.f);
-                    count = vboVerticesCount-startIndex;
-                    glDrawArrays(GL_LINES, startIndex, count);
+                if(!_renderAllLayers) {
+                    if(self.currentLayer<_parsedGCode.vertexIndex.count-1) {
+                        glBindBuffer(GL_ARRAY_BUFFER, _vbo[kUpperLayerVBO]);
+                        glColorPointer(4, GL_FLOAT, stride, (const GLvoid*)0);
+                        glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
+                        
+                        glLineWidth(1.f);
+                        count = vboVerticesCount-startIndex;
+                        glDrawArrays(GL_LINES, startIndex, count);
+                    }
                 }
             } else {
                 glBindBuffer(GL_ARRAY_BUFFER, _vbo[kCurrentLayerVBO]);
                 glColorPointer(4, GL_FLOAT, stride, 0);
                 glVertexPointer(3, GL_FLOAT, stride, (const GLvoid*)(4*sizeof(GLfloat)));
                 
-                startIndex = (GLint)[_parsedGCode.vertexIndex[self.currentLayer][kFirstVertexIndex] integerValue];
-                if(self.currentLayer < _parsedGCode.vertexIndex.count-1)
-                    count = (GLsizei)[_parsedGCode.vertexIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]-(GLsizei)startIndex;
-                else
+                if(_renderAllLayers) {
+                    startIndex=(GLint)0;
                     count = (GLsizei)(vboVerticesCount-startIndex);
-                
-                glLineWidth(2.f);
+                }
+                else {
+                    startIndex = (GLint)[_parsedGCode.vertexIndex[self.currentLayer][kFirstVertexIndex] integerValue];
+                    if(self.currentLayer < _parsedGCode.vertexIndex.count-1)
+                        count = (GLsizei)[_parsedGCode.vertexIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]-(GLsizei)startIndex;
+                    else
+                        count = (GLsizei)(vboVerticesCount-startIndex);
+                }
+                glLineWidth(1.f);
                 glDrawArrays(GL_LINES, startIndex, count);
             }
             
             if(self.showArrows && self.currentLayer<_parsedGCode.vertexIndex.count) {
-                glDisable(GL_DEPTH_TEST);
+                if(!_renderAllLayers)
+                    glDisable(GL_DEPTH_TEST);
                 glDisableClientState(GL_COLOR_ARRAY);
                 glBindBuffer(GL_ARRAY_BUFFER, _vbo[kArrowVBO]);
                 glVertexPointer(3, GL_FLOAT, sizeof(GLfloat)*3, 0);
                 
-                NSInteger vertexIndex = [_parsedGCode.vertexIndex[self.currentLayer][kFirstVertexIndex] integerValue]*8;
+                NSInteger vertexIndex = 0;
                 NSInteger lastVertexIndex;
-                if(self.currentLayer < _parsedGCode.vertexIndex.count-1)
-                    lastVertexIndex = [_parsedGCode.vertexIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]*8;
-                else
+                if(_renderAllLayers) {
                     lastVertexIndex = vboVerticesCount*8;
-                GLfloat* vertexArray = ((P3DParsedGCodePrinter*)_parsedGCode).vertexArray;
+                } else {
+                    vertexIndex = [_parsedGCode.vertexIndex[self.currentLayer][kFirstVertexIndex] integerValue]*8;
+                    if(self.currentLayer < _parsedGCode.vertexIndex.count-1)
+                        lastVertexIndex = [_parsedGCode.vertexIndex[self.currentLayer+1][kFirstVertexIndex] integerValue]*8;
+                    else
+                        lastVertexIndex = vboVerticesCount*8;
+                }
+                GLfloat* vertexArray = _parsedGCode.vertexArray;
                 BOOL threeD = self.threeD;
+                GLfloat rapidMoveAlpha = powf((GLfloat)self.othersAlpha,3.f);
                 for(; vertexIndex<lastVertexIndex; vertexIndex+=16) {
-                    glColor4f((GLfloat)vertexArray[vertexIndex],
-                              (GLfloat)vertexArray[vertexIndex+1],
-                              (GLfloat)vertexArray[vertexIndex+2],
-                              (GLfloat)vertexArray[vertexIndex+3]);
+                    GLfloat alpha = (GLfloat)vertexArray[vertexIndex+3];
+                    if(_renderAllLayers && alpha == kRapidMoveAlpha)
+                        alpha *= rapidMoveAlpha;
                     
-                    GLfloat x1 = vertexArray[vertexIndex+4];
-                    GLfloat y1 = vertexArray[vertexIndex+5];
-                    GLfloat z1 = (threeD?vertexArray[vertexIndex+6]:0.f);
-                    GLfloat x2 = vertexArray[vertexIndex+12];
-                    GLfloat y2 = vertexArray[vertexIndex+13];
-                    GLfloat z2 = (threeD?vertexArray[vertexIndex+14]:0.f);
-                    
-                    glPushMatrix();
-                    glTranslatef((GLfloat)(x2+x1)/2.f, (GLfloat)(y2+y1)/2.f, (GLfloat)(z2+z1)/2.f);
-                    glRotatef((GLfloat)(180.f*atan2f((y1-y2),(x1-x2))/M_PI), 0.f, 0.f, 1.f);
-                    glDrawArrays(GL_TRIANGLES, 0, 3);
-                    glPopMatrix();
+                    if(!_renderAllLayers || alpha>0.f) {
+                        glColor4f((GLfloat)vertexArray[vertexIndex],
+                                  (GLfloat)vertexArray[vertexIndex+1],
+                                  (GLfloat)vertexArray[vertexIndex+2],
+                                  alpha);
+                        
+                        GLfloat x1 = vertexArray[vertexIndex+4];
+                        GLfloat y1 = vertexArray[vertexIndex+5];
+                        GLfloat z1 = (threeD?vertexArray[vertexIndex+6]:0.f);
+                        GLfloat x2 = vertexArray[vertexIndex+12];
+                        GLfloat y2 = vertexArray[vertexIndex+13];
+                        GLfloat z2 = (threeD?vertexArray[vertexIndex+14]:0.f);
+                        
+                        if(threeD || z2==z1) {
+                            glPushMatrix();
+                            glTranslatef((GLfloat)(x2+x1)/2.f, (GLfloat)(y2+y1)/2.f, (GLfloat)(z2+z1)/2.f);
+                            glRotatef((GLfloat)(180.f*atan2f((y1-y2),(x1-x2))/M_PI), 0.f, 0.f, 1.f);
+                            if(threeD && [_parsedGCode isKindOfClass:[P3DParsedGCodeMill class]]) {
+                                glRotatef((GLfloat)(180.f*atan2f((z2-z1),(x1-x2))/M_PI), 0.f, 1.f, 0.f);
+                                glRotatef((GLfloat)(180.f*atan2f((y2-y1),(z1-z2))/M_PI), 1.f, 0.f, 0.f);
+                            }
+                            glDrawArrays(GL_TRIANGLES, 0, 3);
+                            glPopMatrix();
+                        }
+                    }
                 }
                 glEnable(GL_DEPTH_TEST);
             }
@@ -486,13 +522,32 @@ enum {
     GLsizeiptr bufferSize = vertexCount*vertexStride;
     
     BOOL threeD=self.threeD;
-    if(alphaMultiplier!=1.f || !threeD) {
+    BOOL renderAllLayers=self.renderAllLayers;
+    if((threeD && (alphaMultiplier!=1.f || renderAllLayers)) || (!threeD && alphaMultiplier==1.f)) {
+        GLfloat rapidMoveAlpha = powf((GLfloat)self.othersAlpha,3.f);
         memcpy(vertexBuffer, ((P3DParsedGCodePrinter*)_parsedGCode).vertexArray, bufferSize);
         NSInteger totalVertices = vertexCount*8;
         for(NSInteger i = 0; i<totalVertices; i+=8) {
-            vertexBuffer[i+3] *= alphaMultiplier;   // Adjust Alpha
-            if(!threeD)
+            if(!threeD) {
                 vertexBuffer[i+6] = 0.f;            // 2D: Z == 0.f
+                if(vertexBuffer[i+3] == kRapidMoveAlpha) {
+                    vertexBuffer[i+3] *= rapidMoveAlpha;
+                    if(vertexBuffer[i+3]==0.f) { // Not visible
+                        vertexBuffer[i+6] = -1000.f;
+                    }
+                }
+            } else {
+                if(renderAllLayers) {
+                    if(vertexBuffer[i+3] == kRapidMoveAlpha) {
+                        vertexBuffer[i+3] *= rapidMoveAlpha;
+                        if(vertexBuffer[i+3]==0.f) { // Not visible
+                            vertexBuffer[i+6] = -1000.f;
+                        }
+                    }
+                } else {
+                    vertexBuffer[i+3] *= alphaMultiplier;   // Adjust Alpha
+                }
+            }
         }
     } else {
         vertexBuffer = ((P3DParsedGCodePrinter*)_parsedGCode).vertexArray;

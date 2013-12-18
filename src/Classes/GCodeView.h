@@ -33,4 +33,5 @@
 @interface GCodeView : ThreeDPreviewView
 
 @property (strong, nonatomic) P3DParsedGCodeBase* parsedGCode;
+@property (assign, nonatomic) BOOL renderAllLayers;
 @end

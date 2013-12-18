@@ -217,7 +217,7 @@ static NSColor* _extrusionOffColor=nil;
                           nil];
     
     // Off color
-    _extrusionOffColor = [[[NSColor grayColor] colorWithAlphaComponent:0.6] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
+    _extrusionOffColor = [[[NSColor grayColor] colorWithAlphaComponent:kRapidMoveAlpha] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
     
 }
 
