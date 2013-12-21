@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <P3DCore/P3DCore.h>
+#import "Vector3.h"
 
 @interface GCodeStatistics : NSObject
 

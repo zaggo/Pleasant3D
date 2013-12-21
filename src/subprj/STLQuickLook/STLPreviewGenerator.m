@@ -58,6 +58,9 @@ static void swizzleBitmap(void * data, int rowBytes, int height) {
 const CGFloat kRenderUpsizeFaktor=3.;
 
 @implementation STLPreviewGenerator
+{
+    float _zShift;
+}
 @synthesize stlModel, renderSize, wireframe;
 
 - (id)initWithSTLModel:(STLModel*)model size:(CGSize)size forThumbnail:(BOOL)forThumbnail
@@ -78,10 +81,15 @@ const CGFloat kRenderUpsizeFaktor=3.;
         Vector3* cMin = stlModel.cornerMinimum;
         
         dimBuildPlattform = [cMax sub:cMin];
-        zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:cMin.x+dimBuildPlattform.x/2.f Y:cMin.y+dimBuildPlattform.y/2.f Z:cMin.z];
+        
+        _zShift = -(cMax.z-dimBuildPlattform.z/2.f);
+        
+        zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:cMin.x+dimBuildPlattform.x/2.f Y:cMin.y+dimBuildPlattform.y/2.f Z:cMin.z+_zShift];
         [dimBuildPlattform imul:1.2f];
         
-		cameraOffset = - 2.*MAX( dimBuildPlattform.x, dimBuildPlattform.y);
+        float maxDist = 2.f*MAX(dimBuildPlattform.x, dimBuildPlattform.y);
+        maxDist = MAX(maxDist, 2.25f*dimBuildPlattform.z);
+		cameraOffset = -maxDist;
 		
 		rotateX = 0.;
 		rotateY = -45.;
@@ -167,7 +175,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
                 glMatrixMode(GL_MODELVIEW);
                 glLoadIdentity();						// Reset The View
                 
-                glClearColor( 0., 0., 0., 0. );
+                glClearColor( 0., 0., 0., 1. );
                 glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
                 
                 if(stlModel)
@@ -185,9 +193,9 @@ const CGFloat kRenderUpsizeFaktor=3.;
                     glEnableClientState(GL_COLOR_ARRAY);
                     glEnableClientState(GL_VERTEX_ARRAY);
                     
-                    if(thumbnail)
-                        [self setupPlatformVBOWithBufferName:vbo[0] colorR:.252f G:.212f B:.122f A:1.f];
-                    else
+//                    if(thumbnail)
+//                        [self setupPlatformVBOWithBufferName:vbo[0] colorR:.252f G:.212f B:.122f A:1.f];
+//                    else
                         [self setupPlatformVBOWithBufferName:vbo[0] colorR:1.f G:.749f B:0.f A:.1f];
                     
                     GLsizei platformRasterVerticesCount = [self setupPlatformRasterVBOWithBufferName:vbo[1]];
@@ -258,6 +266,7 @@ const CGFloat kRenderUpsizeFaktor=3.;
                     const GLsizei objectStride = sizeof(GLfloat)*6; // UVW + XYZ
                     
                     // Draw Object
+                    glTranslatef(0.f, 0.f, _zShift);
                     glColor3f(1.f, 1.f, 1.f);
                     glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
                     glNormalPointer(GL_FLOAT, objectStride, 0);

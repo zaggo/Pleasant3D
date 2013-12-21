@@ -26,7 +26,8 @@
 //  resulting work.
 //
 
-#import <P3DCore/P3DCore.h>
+#import <Cocoa/Cocoa.h>
+#import "P3DParsedGCodeBase.h"
 
 @interface P3DParsedGCodeMill : P3DParsedGCodeBase
 

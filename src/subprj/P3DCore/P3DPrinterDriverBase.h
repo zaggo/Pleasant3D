@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Pleasant Software. All rights reserved.
 //
 
-#import <P3DCore/P3DCore.h>
+#import "P3DMachineDriverBase.h"
 
 @interface P3DPrinterDriverBase : P3DMachineDriverBase
 

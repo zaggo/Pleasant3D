@@ -44,6 +44,8 @@
  */
 
 #import "P3DParsedGCodeMill.h"
+#import "Vector3.h"
+#import "P3DMillDriverBase.h"
 
 enum
 {
@@ -170,6 +172,9 @@ static inline void fillVertexLocation(GLfloat* vertex, Vector3* location, Vector
     NSMutableArray* _workTimeIndex;
     NSTimeInterval _workTime;
     NSTimeInterval _lastIndexedTime;
+    Vector3* _workCornerLow;
+    Vector3* _workCornerHigh;
+
     
     float _minZ;
     float _maxZ;
@@ -194,9 +199,9 @@ static NSColor* _markingsColor=nil;
 + (void)initialize
 {
     _toolPathColor = [NSArray arrayWithObjects:
+                          [[NSColor colorWithCalibratedRed:0.904 green:0.538 blue:0.140 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           [[NSColor colorWithCalibratedRed:0.928 green:0.953 blue:0.157 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           [[NSColor colorWithCalibratedRed:0.672 green:0.888 blue:0.138 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                          [[NSColor colorWithCalibratedRed:0.904 green:0.538 blue:0.140 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           [[NSColor colorWithCalibratedRed:0.913 green:0.742 blue:0.147 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           [[NSColor colorWithCalibratedRed:0.218 green:0.801 blue:0.115 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                           [[NSColor colorWithCalibratedRed:0.770 green:0.289 blue:0.121 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
@@ -249,6 +254,9 @@ static NSColor* _markingsColor=nil;
     _machineStickyQ=0.;
     _machineStickyP=0.;
     
+    _workCornerLow = nil;
+    _workCornerHigh = nil;
+
     _machineCurrentTool = 0;
 }
 
@@ -367,6 +375,8 @@ static NSColor* _markingsColor=nil;
         }
     }
     
+    _cornerLow = _workCornerLow;
+    _cornerHigh = _workCornerHigh;
     _vertexBuffer = _workVertexBuffer;
     _vertexCount = _workVertexCount;
     _vertexIndex = _workTimeIndex;
@@ -593,7 +603,7 @@ static NSColor* _markingsColor=nil;
                         break;
 							
                     case 28:	//go home.  If we send coordinates (regardless of their value) only zero those axes
-                        fp = [self fetchCartesianParameters];
+                        //fp = [self fetchCartesianParameters];
                         axisSelected = NO;
                         if(_seen[GCODE_Z])
                         {
@@ -741,19 +751,28 @@ static NSColor* _markingsColor=nil;
 {
     [self updateTimeIndex];
     
-    GLfloat vertex[8];
-    fillVertex(vertex, _fastMoveColor, _machinePosition.cartesianVector, _localZeroOffset.cartesianVector);
-    [_workVertexBuffer appendBytes:vertex length:_vertexStride];
-    fillVertexLocation(vertex, fp.cartesianVector, _localZeroOffset.cartesianVector);
-    [_workVertexBuffer appendBytes:vertex length:_vertexStride];
-    _workVertexCount+=2;
+    if(_currentPrinter) { // Else we're in Quicklook, where no printer object is provided
+        GLfloat vertex[8];
+        fillVertex(vertex, _fastMoveColor, _machinePosition.cartesianVector, _localZeroOffset.cartesianVector);
+        [_workVertexBuffer appendBytes:vertex length:_vertexStride];
+        fillVertexLocation(vertex, fp.cartesianVector, _localZeroOffset.cartesianVector);
+        [_workVertexBuffer appendBytes:vertex length:_vertexStride];
+        _workVertexCount+=2;
     
-    _workTime+=[self calculateTimeWithStartPosition:_machinePosition.cartesianVector endPosition:fp.cartesianVector feedRate:((P3DMillDriverBase*)_currentPrinter).fastXYFeedrate];
-
+        _workTime+=[self calculateTimeWithStartPosition:_machinePosition.cartesianVector endPosition:fp.cartesianVector feedRate:((P3DMillDriverBase*)_currentPrinter).fastXYFeedrate];
+    }
     [_machinePosition.cartesianVector resetWith:fp.cartesianVector];
     
     _minZ = MIN(_minZ, _machinePosition.z);
     _maxZ = MAX(_maxZ, _machinePosition.z);
+    if(_workCornerHigh)
+        [_workCornerHigh maximizeWith:_machinePosition.cartesianVector];
+    else
+        _workCornerHigh = [_machinePosition.cartesianVector copy];
+    if(_workCornerLow)
+        [_workCornerLow minimizeWith:_machinePosition.cartesianVector];
+    else
+        _workCornerLow = [_machinePosition.cartesianVector copy];
 }
 
 - (void)renderControlledMove:(Vector6*)fp
@@ -768,13 +787,22 @@ static NSColor* _markingsColor=nil;
     [_workVertexBuffer appendBytes:vertex length:_vertexStride];
     _workVertexCount+=2;
 
-    _workTime+=[self calculateTimeWithStartPosition:_machinePosition.cartesianVector endPosition:fp.cartesianVector feedRate:fp.f];
+    if(_currentPrinter)
+        _workTime+=[self calculateTimeWithStartPosition:_machinePosition.cartesianVector endPosition:fp.cartesianVector feedRate:fp.f];
     
     [_machinePosition.cartesianVector resetWith:fp.cartesianVector];
     _machinePosition.f = fp.f;
     
     _minZ = MIN(_minZ, _machinePosition.z);
     _maxZ = MAX(_maxZ, _machinePosition.z);
+    if(_workCornerHigh)
+        [_workCornerHigh maximizeWith:_machinePosition.cartesianVector];
+    else
+        _workCornerHigh = [_machinePosition.cartesianVector copy];
+    if(_workCornerLow)
+        [_workCornerLow minimizeWith:_machinePosition.cartesianVector];
+    else
+        _workCornerLow = [_machinePosition.cartesianVector copy];
 }
 
 - (void)renderArc:(Vector6*)fp centerX:(float)centerX centerY:(float)centerY endX:(float)endpointX endY:(float)endpointY clockwise:(BOOL)clockwise

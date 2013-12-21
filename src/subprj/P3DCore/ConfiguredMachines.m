@@ -226,8 +226,10 @@
 
 - (IBAction)openMachiningQueue:(id)selectedMachines
 {
+#if __DEBUG__
 	NSDictionary* machineDict = [selectedMachines lastObject];
 	PSLog(@"drivers", PSPrioNormal, @"openMachiningQueue for %@", [machineDict objectForKey:@"localMachineName"]);
+#endif
 }
 
 - (NSDictionary*)configuredMachineForUUID:(NSString*)uuid

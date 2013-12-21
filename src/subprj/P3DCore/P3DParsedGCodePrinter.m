@@ -27,9 +27,10 @@
 //
 
 #import "P3DParsedGCodePrinter.h"
-#import <P3DCore/P3DCore.h>
-#import <P3DCore/NSArray+GCode.h>
+#import "NSArray+GCode.h"
 #import "GCodeStatistics.h"
+#import "P3DPrinterDriverBase.h"
+#import "PSLog.h"
 
 const float __filamentDiameterBias = 0.07; // bias (mm)
 const float __averageDensity = 1050; // kg.m-3
@@ -198,9 +199,9 @@ static NSColor* _extrusionOffColor=nil;
 + (void)initialize
 {
     _extrusionColors_A = [NSArray arrayWithObjects:
+                        [[NSColor colorWithCalibratedRed:0.904 green:0.538 blue:0.140 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor colorWithCalibratedRed:0.928 green:0.953 blue:0.157 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor colorWithCalibratedRed:0.672 green:0.888 blue:0.138 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
-                        [[NSColor colorWithCalibratedRed:0.904 green:0.538 blue:0.140 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor colorWithCalibratedRed:0.913 green:0.742 blue:0.147 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor colorWithCalibratedRed:0.218 green:0.801 blue:0.115 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
                         [[NSColor colorWithCalibratedRed:0.770 green:0.289 blue:0.121 alpha:1.000] colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]],
@@ -298,8 +299,8 @@ static NSColor* _extrusionOffColor=nil;
                 minLayerZ=FLT_MAX;
                 maxLayerZ=-FLT_MAX;
                 
-                extrusionNumber_A=0;
-                extrusionNumber_B=0;
+//                extrusionNumber_A=0;
+//                extrusionNumber_B=0;
                 
                 validVertex = NO;
                 
@@ -359,15 +360,6 @@ static NSColor* _extrusionOffColor=nil;
                 
                 BOOL validLocation = [lineScanner updateLocation:currentLocation];
                 
-                if(validLocation) {
-                    [lowCorner minimizeWith:currentLocation];
-                    [highCorner maximizeWith:currentLocation];
-                    
-                    minLayerZ = MIN(minLayerZ, currentLocation.z);
-                    maxLayerZ = MAX(minLayerZ, currentLocation.z);
-                }
-                
-                // Update stats
                 [lineScanner updateStats:_gCodeStatistics with:currentLocation];
                 
                 // Coloring
@@ -393,10 +385,21 @@ static NSColor* _extrusionOffColor=nil;
                 
                 if(validLocation) {
                     if(validVertex) {
-                        [vertexBuffer appendBytes:vertex length:_vertexStride];
-                        fillVertex(vertex, currentColor, currentLocation);
-                        [vertexBuffer appendBytes:vertex length:_vertexStride];
-                        vertexCount+=2;
+                        if(_currentPrinter || vertex[3]!=kRapidMoveAlpha)  {
+                            // Else we're in Quicklook where no printer object is provided (and we don't want offExtrusions rendered)
+                            [lowCorner minimizeWith:currentLocation];
+                            [highCorner maximizeWith:currentLocation];
+                            
+                            minLayerZ = MIN(minLayerZ, currentLocation.z);
+                            maxLayerZ = MAX(minLayerZ, currentLocation.z);
+                            
+                            [vertexBuffer appendBytes:vertex length:_vertexStride];
+                            fillVertex(vertex, currentColor, currentLocation);
+                            [vertexBuffer appendBytes:vertex length:_vertexStride];
+                            vertexCount+=2;
+                        } else {
+                            fillVertex(vertex, currentColor, currentLocation);
+                        }
                     } else {
                         fillVertex(vertex, currentColor, currentLocation);
                         validVertex = YES;

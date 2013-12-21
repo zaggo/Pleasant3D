@@ -7,7 +7,7 @@
 //
 
 #import "P3DParsedGCodeBase.h"
-#import <P3DCore/P3DCore.h>
+#import "PSLog.h"
 
 @implementation P3DParsedGCodeBase
 @dynamic vertexArray;
@@ -33,8 +33,10 @@
     va_start(args, formatString);
     NSString* errorString = [[NSString alloc] initWithFormat:formatString arguments:args];
     va_end(args);
-    
-    if(_parsingErrors==nil)
+
+    PSErrorLog(errorString);
+
+    if(_currentPrinter && _parsingErrors==nil) // Gather the errors only when a currentPrinter is present (i.e. in Pleasant3D but not the QL plugins)
         _parsingErrors = [NSMutableArray array];
     [_parsingErrors addObject:errorString];
 }
