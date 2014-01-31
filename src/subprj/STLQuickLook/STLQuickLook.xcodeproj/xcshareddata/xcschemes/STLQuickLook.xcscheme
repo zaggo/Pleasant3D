@@ -80,7 +80,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/zaggo/Downloads/blue-1-rotated-1.STL"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "${PROJECT_DIR}/etc/sampleObject.stl"
@@ -88,7 +88,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/zaggo/Downloads/bunny.stl"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/zaggo/Documents/Konstruktion/Notensta&#776;nder/schraube.stl"

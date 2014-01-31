@@ -100,12 +100,15 @@
 			searchRange.location = NSMaxRange(foundKeyword);
 			searchRange.length = dataLength-searchRange.location;
 			foundKeyword = [stlData rangeOfData:vertexKeyWord options:0 range:searchRange];
+            
+            if(numberOfVertexStrings>20)
+                break;
 		}		
         
 //        NSLog(@"foundKeyword.location = %lx", foundKeyword.location);
 //        NSLog(@"NSNotFound = %lx", NSNotFound);
         
-        NSUInteger requiredVertexStringsForText = MAX( 2, dataLength/8000);
+        NSUInteger requiredVertexStringsForText = 20;//MAX( 2, dataLength/8000);
 		if(numberOfVertexStrings > requiredVertexStringsForText)
 		{
 			NSString* asciiSTL = [[NSString alloc] initWithBytesNoCopy:(char*)[stlData bytes] length:[stlData length] encoding:NSUTF8StringEncoding freeWhenDone:NO];
