@@ -304,6 +304,7 @@
 		2CA3261F0896AD4900168862 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -320,6 +321,7 @@
 		2CA326200896AD4900168862 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -327,7 +329,6 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
 				PRODUCT_NAME = STLQuickLook;
-				PROVISIONING_PROFILE = "40E9DDCF-9681-4A9B-BB9B-94A6096E3F8F";
 				WRAPPER_EXTENSION = qlgenerator;
 			};
 			name = Release;

@@ -258,7 +258,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -266,7 +266,6 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
 				PRODUCT_NAME = STLImport;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
