@@ -30,14 +30,7 @@
 
 @class P3DMachiningQueue;
 @protocol P3DMachinableDocument;
-@interface P3DMachineJob : NSObject {
-	P3DMachineDriverBase* __strong driver;
-	P3DMachiningQueue* __strong queue;
-    P3DMachinableDocument* __strong document;
-    
-	float progress;
-	BOOL  jobAbort;
-}
+@interface P3DMachineJob : NSObject
 
 @property (strong) P3DMachineDriverBase* driver;
 @property (strong) P3DMachiningQueue* queue;
@@ -46,6 +39,6 @@
 @property (assign) BOOL jobAbort;
 
 - (void)processJob;
-- (void)implProcessJob;
+- (void)implProcessJobWithCompletionHandler:(dispatch_block_t)completionHandler;
 - (void)handleDeviceResponse:(NSString*)response;
 @end

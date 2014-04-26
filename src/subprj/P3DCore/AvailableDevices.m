@@ -180,47 +180,42 @@ extern "C" {
     NSMutableArray* newDevices = [[NSMutableArray alloc] initWithCapacity:1];
     dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
-        BOOL alreadyValidated=NO;
-        for(P3DSerialDevice* device in availableSerialDevices)
-        {
-        if([[port path] isEqualToString:[device.port path]])
-            {
-                alreadyValidated=YES;
-                break;
-            }
+    BOOL alreadyValidated=NO;
+    for(P3DSerialDevice* device in availableSerialDevices) {
+        if([[port path] isEqualToString:[device.port path]]) {
+            alreadyValidated=YES;
+            break;
         }
-        if(!alreadyValidated)
-        {
+    }
+    if(!alreadyValidated)  {
         dispatch_async(globalQueue, ^{
-                for(Class driverClass in availableDrivers)
-                {
-                    Class deviceDriverClass = [driverClass deviceDriverClass];
-                    if(deviceDriverClass)
-                    {
-                        P3DSerialDevice* device = [[deviceDriverClass alloc] initWithPort:port];
-                        device.quiet=YES;
-                        if([device registerDeviceIfValid])
-                        {
-                            device.quiet=NO;
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                PSLog(@"devices", PSPrioNormal, @"Discovered Valid Serial Service %@. Checking for known drivers", [port name]);
-                                [newDevices addObject:device];
-                                [self willChangeValueForKey:@"availableDevices"];
-                                [availableSerialDevices addObject:device];
-                                [self didChangeValueForKey:@"availableDevices"];
-                            });
-                            break;
-                        }
+            for(Class driverClass in availableDrivers) {
+                Class deviceDriverClass = [driverClass deviceDriverClass];
+                if(deviceDriverClass) {
+                    P3DSerialDevice* device = [[deviceDriverClass alloc] initWithPort:port];
+                    device.quiet=YES;
+                    PSLog(@"devices", PSPrioNormal, @"Checking Serial Service %@…", [port name]);
+                    if([device registerDeviceIfValid]) {
+                        device.quiet=NO;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            PSLog(@"devices", PSPrioNormal, @"Discovered Valid Serial Service %@. Checking for known drivers", [port name]);
+                            [newDevices addObject:device];
+                            [self willChangeValueForKey:@"availableDevices"];
+                            [availableSerialDevices addObject:device];
+                            [self didChangeValueForKey:@"availableDevices"];
+                        });
+                        break;
                     }
                 }
-    
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[ConfiguredMachines sharedInstance] reconnectDevices:newDevices];
-            self.discovering = NO;
-            PSLog(@"Machining",PSPrioNormal,@"End of port discovery");
-       });
-    });
-}
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[ConfiguredMachines sharedInstance] reconnectDevices:newDevices];
+                self.discovering = NO;
+                PSLog(@"Machining",PSPrioNormal,@"End of port discovery");
+            });
+        });
+    }
 }
 
 - (void)didRemovePorts:(NSNotification *)theNotification
@@ -247,8 +242,7 @@ extern "C" {
     [self startup];
 	NSMutableArray* undiscoveredDrivers = [NSMutableArray arrayWithArray:availableDrivers];
 	NSMutableArray* availableMachines = [NSMutableArray array];
-	for(P3DSerialDevice* device in availableSerialDevices)
-	{
+	for(P3DSerialDevice* device in availableSerialDevices) {
 		NSDictionary* machineDict = [NSDictionary dictionaryWithObjectsAndKeys:
 									 device.deviceName, @"deviceName",
 									 [device.driverClass driverName], @"driverName",
@@ -268,11 +262,10 @@ extern "C" {
 		return [(NSString*)[obj1 defaultMachineName] compare:[obj2 defaultMachineName] options:NSCaseInsensitiveSearch];
 	}];
 	
-	for(Class driverClass in undiscoveredDrivers)
-	{
+	for(Class driverClass in undiscoveredDrivers) {
         NSString* status = NSLocalizedStringFromTableInBundle(@"Offline", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Connection Status");
         if(discovering)
-            status = NSLocalizedStringFromTableInBundle(@"Searching\\U2026", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Connection Status");
+            status = NSLocalizedStringFromTableInBundle(@"Searching…", nil, [NSBundle bundleForClass:[self class]], @"Localized Machine Connection Status");
 		NSDictionary* machineDict = [NSDictionary dictionaryWithObjectsAndKeys:
 									 [driverClass defaultMachineName], @"deviceName",
 									 [driverClass driverName], @"driverName",
@@ -325,13 +318,7 @@ extern "C" {
                 }
             }
         }
-        if(foundDevice==nil) // Nothing found yet
-        {
-//            for(ORSSerialPort* port in ports)
-//            {
-//            }
-            }
-        }
+    }
     return foundDevice;
 }
 

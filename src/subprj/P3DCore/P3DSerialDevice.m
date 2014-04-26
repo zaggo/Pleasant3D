@@ -35,6 +35,7 @@
 
 
 @implementation P3DSerialDevice
+
 @synthesize port, deviceName, deviceIsValid, quiet, errorMessage, activeMachineJob;
 @dynamic driverClass, baudRate, deviceIsBusy;
 
@@ -75,8 +76,7 @@
 - (NSError*)sendStringAsynchron:(NSString*)string
 {
     NSError* error=nil;
-	if ([string length]>0)
-	{
+	if ([string length]>0) {
         if([port isOpen]) {
             if(![port sendData:[string dataUsingEncoding:NSUTF8StringEncoding]] && ! quiet)
                 PSErrorLog(@"Error writing to device - %@.", [error description]);
@@ -125,20 +125,42 @@
 
 - (void)serialPort:(ORSSerialPort *)serialPort didReceiveData:(NSData *)data
 {
-	if ([data length] > 0) {
-		
-		NSString *receivedText = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-		PSLog(@"devices", PSPrioNormal, @"Serial Port Data Received: %@",receivedText);
-        
-        [activeMachineJob handleDeviceResponse:receivedText];		
-	} else {
-		// port closed
-		PSErrorLog(@"Port was closed on a readData operation...not good!");
-	}
+    if(serialPort == port) {
+        while([data length] > 0) {
+            if(_dataBuffer==nil)
+                _dataBuffer = [NSMutableData data];
+            NSRange crRange = [data rangeOfData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding] options:0 range:NSMakeRange(0, data.length)];
+            if(crRange.location != NSNotFound) {
+                [_dataBuffer appendData:[data subdataWithRange:NSMakeRange(0, crRange.location+crRange.length)]];
+                 
+                NSString *receivedText = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                PSLog(@"devices", PSPrioNormal, @"Serial Port [%@] Data Received: %@", [port name], receivedText);
+                
+                _dataBuffer = nil;
+            
+                [activeMachineJob handleDeviceResponse:receivedText];
+                if(crRange.location+crRange.length<data.length)
+                    data = [data subdataWithRange:NSMakeRange(crRange.location+crRange.length, data.length-crRange.location-crRange.length)];
+                else
+                    data = nil;
+            } else {
+                [_dataBuffer appendData:data];
+                data = nil;
+            }
+        }
+    }
 }
+
+
+- (void)serialPort:(ORSSerialPort *)serialPort didEncounterError:(NSError *)error {
+    PSErrorLog(@"Port [%@] did encountrt Error: %@", [port name], [error description]);
+}
+
 
 - (void)serialPortWasRemovedFromSystem:(ORSSerialPort *)serialPort
 {
-     // TODO: Handle this
+    // TODO: Handle this
+    if(serialPort == port)
+        PSErrorLog(@"Port [%@] serialPortWasRemovedFromSystem. Not Handled!", [port name]);
 }
 @end

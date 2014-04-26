@@ -22,7 +22,7 @@
 	return self;
 }
 
-- (void)implProcessJob
+- (void)implProcessJobWithCompletionHandler:(dispatch_block_t)completionHandler
 {
 	float totalLength = 0.f;
 	for(NSData* bytecodeBuffer in bytecodeBuffers)
@@ -84,6 +84,8 @@
 		if(self.jobAbort)
 			break;
 	}
+    
+    completionHandler();
 }
 
 @end

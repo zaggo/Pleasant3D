@@ -29,11 +29,9 @@
 #import <Cocoa/Cocoa.h>
 #import <P3DCore/P3DCore.h>
 
-@interface PleasantMill : P3DMillDriverBase <MachineOptionsDelegate> {
-	IBOutlet NSView* printerDialogView;
-	NSMutableDictionary* driverOptions;
-}
+@interface PleasantMill : P3DMillDriverBase <MachineOptionsDelegate>
 
+@property (strong) IBOutlet NSView* printerDialogView;
 @property (readonly) NSMutableDictionary* driverOptions;
 
 @end

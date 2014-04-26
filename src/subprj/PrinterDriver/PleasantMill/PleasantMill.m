@@ -31,8 +31,23 @@
 #import "PleasantMillMachineOptionsController.h"
 #import "PleasantMillMachiningJob.h"
 
+enum {
+    kMinXMaxY = 0,
+    kMidXMaxY,
+    kMaxXMaxY,
+    kMinXMidY,
+    kMidXMidY,
+    kMaxXMidY,
+    kMinXMinY,
+    kMidXMinY,
+    kMaxXMinY
+};
+
 @implementation PleasantMill
-@synthesize driverOptions;
+{
+    Vector3* _dimBuildPlatform;
+    Vector3* _zeroBuildPlattform;
+}
 
 - (id) init
 {
@@ -42,14 +57,16 @@
 - (id)initWithOptionPropertyList:(NSDictionary*)options
 {
 	self = [super init];
-	if(self)
-	{
-		if(options)
-			driverOptions = [[NSMutableDictionary alloc] initWithDictionary:options copyItems:YES];
-		else
-		{
-			driverOptions = [[NSMutableDictionary alloc] init];
-		}
+	if(self) {
+        _fastXYFeedrate = 1100.f; // mm/min
+        _fastZFeedrate = 1100.f; // mm/min
+        _slowFeedrate = 150.f; // mm/min
+        
+		if(options) {
+			_driverOptions = [[NSMutableDictionary alloc] initWithDictionary:options copyItems:YES];
+        } else {
+			_driverOptions = [@{@"machinableAreaX": @200., @"machinableAreaY": @120., @"machinableAreaZ": @50., @"horizontalOrigin":@(kMidXMidY)} mutableCopy];
+        }
 	}
 	
 	return self;
@@ -93,7 +110,7 @@
 - (NSView*)printDialogView
 {
 	[NSBundle loadNibNamed:@"FabDialog" owner:self];
-	return printerDialogView;
+	return _printerDialogView;
 }
 
 - (P3DMachineJob*)createMachineJob:(P3DMachinableDocument*)doc
@@ -107,7 +124,7 @@
 {
 	PleasantMillMachineOptionsController* optionController = [[PleasantMillMachineOptionsController alloc] initWithNibName:@"PleasantMillMachineOptions" bundle:[NSBundle bundleForClass:[PleasantMill class]]];
 	
-	NSMutableDictionary* options = [[NSMutableDictionary alloc] initWithDictionary:driverOptions copyItems:YES];
+	NSMutableDictionary* options = [[NSMutableDictionary alloc] initWithDictionary:_driverOptions copyItems:YES];
 	
 	NSString* value;
 	if((value = [self.currentDevice.deviceName copy])!=nil)
@@ -120,37 +137,82 @@
 
 - (BOOL)validateAndSaveChanges:(NSDictionary*)changedValues
 {
-//	[driverOptions setObject:[changedValues objectForKey:@"xAxis"] forKey:@"xAxis"];
-//	[driverOptions setObject:[changedValues objectForKey:@"yAxis"] forKey:@"yAxis"];
-//	[driverOptions setObject:[changedValues objectForKey:@"zAxis"] forKey:@"zAxis"];
-//	[driverOptions setObject:[changedValues objectForKey:@"toolheads"] forKey:@"toolheads"];
-	
-	if(![self.currentDevice.deviceName isEqualToString:[changedValues objectForKey:@"deviceName"]])
-	{
+    BOOL changesValid=YES;
+    
+    if([changedValues[@"machinableAreaX"] floatValue]<=0.f)
+        changesValid=NO;
+    if([changedValues[@"machinableAreaY"] floatValue]<=0.f)
+        changesValid=NO;
+    if([changedValues[@"machinableAreaZ"] floatValue]<0.f)
+        changesValid=NO;
+    if([changedValues[@"horizontalOrigin"] integerValue]<0 || [changedValues[@"horizontalOrigin"] integerValue]>8)
+        changesValid=NO;
+    
+    if(changesValid) {
+        _driverOptions[@"machinableAreaX"] = changedValues[@"machinableAreaX"];
+        _driverOptions[@"machinableAreaY"] = changedValues[@"machinableAreaY"];
+        _driverOptions[@"machinableAreaZ"] = changedValues[@"machinableAreaZ"];
+        
+        _dimBuildPlatform=nil;
+        
+        _driverOptions[@"horizontalOrigin"] = changedValues[@"horizontalOrigin"];
+        _zeroBuildPlattform=nil;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:P3DCurrentMachineSettingsChangedNotifiaction object:self];
+    }
+
+    if(![self.currentDevice.deviceName isEqualToString:[changedValues objectForKey:@"deviceName"]]) {
 		[(PleasantMillDevice*)self.currentDevice changeMachineName:[changedValues objectForKey:@"deviceName"]];
 	}
-	
-	return YES;
+
+	return changesValid;
 }
 
 - (NSDictionary*)driverOptionsAsPropertyList
 {
-	return driverOptions;
+	return _driverOptions;
 }
 
 - (Vector3*)dimBuildPlattform
 {
-    static Vector3* _dimBuildPlatform=nil;
     if(_dimBuildPlatform==nil)
-        _dimBuildPlatform = [[Vector3 alloc] initVectorWithX:300. Y:150. Z:0.];
+        _dimBuildPlatform = [[Vector3 alloc] initVectorWithX:[_driverOptions[@"machinableAreaX"] floatValue]  Y:[_driverOptions[@"machinableAreaY"] floatValue] Z:[_driverOptions[@"machinableAreaZ"] floatValue]];
     return _dimBuildPlatform;
 }
 
 - (Vector3*)zeroBuildPlattform
 {
-    static Vector3* _zeroBuildPlattform=nil;
-    if(_zeroBuildPlattform==nil)
-        _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:0. Y:0. Z:0.];
+    if(_zeroBuildPlattform==nil) {
+        Vector3* dim = self.dimBuildPlattform;
+        switch([_driverOptions[@"horizontalOrigin"] integerValue]) {
+            case kMinXMidY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:0.f Y:dim.y/2.f Z:0.f];
+                break;
+            case kMinXMaxY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:0.f Y:dim.y Z:0.f];
+                break;
+            case kMidXMinY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:dim.x/2.f Y:0.f Z:0.f];
+                break;
+            case kMidXMidY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:dim.x/2.f Y:dim.y/2.f Z:0.f];
+                break;
+            case kMidXMaxY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:dim.x/2.f Y:dim.y Z:0.f];
+                break;
+            case kMaxXMinY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:dim.x Y:0.f Z:0.f];
+                break;
+            case kMaxXMidY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:dim.x Y:dim.y/2.f Z:0.f];
+                break;
+            case kMaxXMaxY:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:dim.x Y:dim.y Z:0.f];
+                break;
+            default:
+                _zeroBuildPlattform = [[Vector3 alloc] initVectorWithX:0.f Y:0.f Z:0.f];
+        }
+    }
     return _zeroBuildPlattform;
 }
 

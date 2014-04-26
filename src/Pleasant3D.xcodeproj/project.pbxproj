@@ -10,6 +10,7 @@
 		8D15AC310486D014006FF6A4 /* STLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* STLDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		E209DB4D18C201B700B534B2 /* Machine.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E209DB4C18C201B700B534B2 /* Machine.pdf */; };
 		E21DBC01113AD81F0009875E /* PSToolboxPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DBC00113AD81F0009875E /* PSToolboxPanel.m */; };
 		E21E14F114FDAE9200A4FC02 /* GCodeImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */; };
 		E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264292108B7D7F002FCAD8 /* OpenGL.framework */; };
@@ -28,7 +29,6 @@
 		E24338B6138FB970007B347E /* ForwardTool.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B5138FB970007B347E /* ForwardTool.bundle */; };
 		E24338B8138FB978007B347E /* FileSaver.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B7138FB978007B347E /* FileSaver.bundle */; };
 		E24D8A3C116F481B0046B8BA /* MachineOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D8A3B116F481B0046B8BA /* MachineOptionsController.m */; };
-		E24F6D74116FA2A800285948 /* Machine.png in Resources */ = {isa = PBXBuildFile; fileRef = E24F6D73116FA2A800285948 /* Machine.png */; };
 		E24F70A41172285E00285948 /* P3DMachiningQueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F70A31172285E00285948 /* P3DMachiningQueueManager.m */; };
 		E24FAE0810FB61700081C559 /* dataFlowButton_No_Forward.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFB10FB61700081C559 /* dataFlowButton_No_Forward.pdf */; };
 		E24FAE0910FB61700081C559 /* dataFlowButton_No_Intermed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFC10FB61700081C559 /* dataFlowButton_No_Intermed.pdf */; };
@@ -362,6 +362,7 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Pleasant3D-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pleasant3D-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Pleasant3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pleasant3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E209DB4C18C201B700B534B2 /* Machine.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Machine.pdf; sourceTree = "<group>"; };
 		E21DBBFF113AD81F0009875E /* PSToolboxPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSToolboxPanel.h; sourceTree = "<group>"; };
 		E21DBC00113AD81F0009875E /* PSToolboxPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSToolboxPanel.m; sourceTree = "<group>"; };
 		E21E14D514FD67AD00A4FC02 /* GCodeImport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCodeImport.xcodeproj; path = subprj/ToolPlugins/GCodeImport/GCodeImport.xcodeproj; sourceTree = "<group>"; };
@@ -394,7 +395,6 @@
 		E24338B9138FB988007B347E /* Sanguino3G.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = Sanguino3G.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24D8A3A116F481B0046B8BA /* MachineOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineOptionsController.h; sourceTree = "<group>"; };
 		E24D8A3B116F481B0046B8BA /* MachineOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineOptionsController.m; sourceTree = "<group>"; };
-		E24F6D73116FA2A800285948 /* Machine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Machine.png; sourceTree = "<group>"; };
 		E24F70A21172285E00285948 /* P3DMachiningQueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DMachiningQueueManager.h; sourceTree = "<group>"; };
 		E24F70A31172285E00285948 /* P3DMachiningQueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DMachiningQueueManager.m; sourceTree = "<group>"; };
 		E24FADFB10FB61700081C559 /* dataFlowButton_No_Forward.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dataFlowButton_No_Forward.pdf; sourceTree = "<group>"; };
@@ -784,7 +784,7 @@
 		E254217510FB5700005D08F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E24F6D73116FA2A800285948 /* Machine.png */,
+				E209DB4C18C201B700B534B2 /* Machine.pdf */,
 				E2FC67CE11650B1400DC2E16 /* Lights */,
 				E2D7B4B810FD056600927AE4 /* Tool.png */,
 				E254217C10FB57FA005D08F7 /* Toolbox.pdf */,
@@ -1235,6 +1235,7 @@
 				E25A6D7A1852542B00CBB9D1 /* PreferencesMachines.xib in Resources */,
 				E25A6D7E1852542B00CBB9D1 /* Toolbox.xib in Resources */,
 				E22646E9108BE0FD002FCAD8 /* AppIcon.icns in Resources */,
+				E209DB4D18C201B700B534B2 /* Machine.pdf in Resources */,
 				E25A6D7D1852542B00CBB9D1 /* STLImportPreviewGUI.xib in Resources */,
 				E22646F8108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns in Resources */,
 				E22646F9108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns in Resources */,
@@ -1265,7 +1266,6 @@
 				E25A6CAA1852458900CBB9D1 /* Credits.rtf in Resources */,
 				E2FC67D411650B1400DC2E16 /* YellowLight.png in Resources */,
 				E25A6D751852542B00CBB9D1 /* MachiningSheet.xib in Resources */,
-				E24F6D74116FA2A800285948 /* Machine.png in Resources */,
 				E25A6D791852542B00CBB9D1 /* PreferencesGeneral.xib in Resources */,
 				E25A6D711852542B00CBB9D1 /* GCodeDocument.xib in Resources */,
 				E25A6D721852542B00CBB9D1 /* MachineOptionSheet.xib in Resources */,

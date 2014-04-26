@@ -30,28 +30,28 @@
 #import "P3DSerialDevice.h"
 
 @implementation P3DMachineJob
-@synthesize driver, queue, progress, jobAbort, document;
 
 - (void)processJob
 {
-	if(driver.currentDevice && driver.currentDevice.activeMachineJob==nil)
+	if(_driver.currentDevice && _driver.currentDevice.activeMachineJob==nil)
 	{
 		self.progress = 0.;
-        driver.currentDevice.activeMachineJob = self;
-		driver.machining = YES;
+        _driver.currentDevice.activeMachineJob = self;
+		_driver.machining = YES;
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			[self implProcessJob];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				driver.machining = NO;
-                driver.currentDevice.activeMachineJob = nil;
-				[self.queue machiningComplete:self];
+			[self implProcessJobWithCompletionHandler:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _driver.machining = NO;
+                    _driver.currentDevice.activeMachineJob = nil;
+                    [self.queue machiningComplete:self];
 				});
+            }];
 		});
 	}
 }
 
 // Abstract
-- (void)implProcessJob
+- (void)implProcessJobWithCompletionHandler:(dispatch_block_t)completionHandler
 {
 }
 

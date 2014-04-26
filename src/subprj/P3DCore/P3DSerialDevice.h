@@ -52,6 +52,8 @@
 @property (copy) NSString* errorMessage;
 @property (readonly) NSInteger baudRate;
 
+@property (strong) NSMutableData* dataBuffer;
+
 - (id)initWithPort:(ORSSerialPort*)port;
 - (BOOL)registerDeviceIfValid;
 
