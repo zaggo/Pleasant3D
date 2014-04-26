@@ -179,7 +179,7 @@
 
 - (NSAttributedString*)formattedGCode
 {
-    return [[NSAttributedString alloc] initWithString:_rawGCode];
+    return [[NSAttributedString alloc] initWithString:_rawGCode attributes:@{NSFontAttributeName: [NSFont fontWithName:@"Courier" size:13.]}];
 }
 
 - (void)setFormattedGCode:(NSAttributedString*)value

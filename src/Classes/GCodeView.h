@@ -34,4 +34,8 @@
 
 @property (strong, nonatomic) P3DParsedGCodeBase* parsedGCode;
 @property (assign, nonatomic) BOOL renderAllLayers;
+
+@property (assign, nonatomic) CGFloat offsetDisplayOriginX;
+@property (assign, nonatomic) CGFloat offsetDisplayOriginY;
+
 @end

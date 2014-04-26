@@ -7,7 +7,7 @@
 	<key>enabledScopes</key>
 	<dict>
 		<key>Machining</key>
-		<false/>
+		<true/>
 		<key>*</key>
 		<false/>
 		<key>EdgeIndex</key>
@@ -17,8 +17,10 @@
 		<key>Timer</key>
 		<false/>
 		<key>OpenGL</key>
-		<true/>
+		<false/>
 		<key>parseGCode</key>
+		<false/>
+		<key>devices</key>
 		<true/>
 	</dict>
 	<key>verbosity</key>

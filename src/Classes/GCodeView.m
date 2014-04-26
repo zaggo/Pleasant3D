@@ -55,6 +55,8 @@ enum {
     [self addObserver:self forKeyPath:@"showArrows" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"threeD" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"renderAllLayers" options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:@"offsetDisplayOriginX" options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:@"offsetDisplayOriginY" options:NSKeyValueObservingOptionNew context:NULL];
     
     self.currentLayer = NSUIntegerMax;
     
@@ -80,6 +82,8 @@ enum {
     [self removeObserver:self forKeyPath:@"showArrows"];
     [self removeObserver:self forKeyPath:@"threeD"];
     [self removeObserver:self forKeyPath:@"renderAllLayers"];
+    [self removeObserver:self forKeyPath:@"offsetDisplayOriginX"];
+    [self removeObserver:self forKeyPath:@"offsetDisplayOriginY"];
 }
 
 #pragma mark - Observers
@@ -90,6 +94,15 @@ enum {
         _objectVBONeedsRefresh=YES;
     else if([keyPath isEqualToString:@"showArrows"] || [keyPath isEqualToString:@"renderAllLayers"])
         [self setNeedsDisplay:YES];
+    else if([keyPath isEqualToString:@"offsetDisplayOriginX"] || [keyPath isEqualToString:@"offsetDisplayOriginY"])
+        [self setNeedsDisplay:YES];
+}
+
+- (void)setCurrentMachine:(P3DMachineDriverBase*)value
+{
+    self.offsetDisplayOriginX = 0.;
+    self.offsetDisplayOriginY = 0.;
+    [super setCurrentMachine: value];
 }
 
 
@@ -349,6 +362,11 @@ enum {
         }
         
         if(vboVerticesCount>0) {
+            if(self.offsetDisplayOriginX!=0.f || self.offsetDisplayOriginX!=0.f) {
+                glPushMatrix();
+                glTranslatef(self.offsetDisplayOriginX, self.offsetDisplayOriginY, 0);
+            }
+            
             glEnableClientState(GL_COLOR_ARRAY);
             glDisableClientState(GL_NORMAL_ARRAY);
             
@@ -476,6 +494,9 @@ enum {
             }
             
             glBindBuffer(GL_ARRAY_BUFFER, 0);
+            if(self.offsetDisplayOriginX!=0.f || self.offsetDisplayOriginX!=0.f) {
+                glPopMatrix();
+            }
         }
     }
 }

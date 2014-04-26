@@ -85,7 +85,7 @@ enum {
 	[self resetGraphics];
 	
 	self.autorotate=[[NSUserDefaults standardUserDefaults] boolForKey:@"gCodeAutorotate"];
-    [self addObserver:self forKeyPath:@"currentMachine" options:NSKeyValueObservingOptionNew context:NULL];
+    //[self addObserver:self forKeyPath:@"currentMachine" options:NSKeyValueObservingOptionNew context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentMachineSettingsChanged:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
 }
 
@@ -103,7 +103,7 @@ enum {
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self removeObserver:self forKeyPath:@"currentMachine"];
+    //[self removeObserver:self forKeyPath:@"currentMachine"];
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -113,12 +113,12 @@ enum {
 
 #pragma mark - Observers
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if([keyPath isEqualToString:@"currentMachine"]) {
-        _platformVBONeedsRefresh=YES;
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//	if([keyPath isEqualToString:@"currentMachine"]) {
+//        _platformVBONeedsRefresh=YES;
+//    }
+//}
 
 #pragma mark - Model Getters & Setters
 
@@ -224,6 +224,7 @@ enum {
 - (void)setCurrentMachine:(P3DMachineDriverBase*)value
 {
     _currentMachine=value;
+    _platformVBONeedsRefresh=YES;
     [self setNeedsDisplay:YES];
 }
 
