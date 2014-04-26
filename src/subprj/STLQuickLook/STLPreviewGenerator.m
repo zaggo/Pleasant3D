@@ -113,9 +113,9 @@ const CGFloat kRenderUpsizeFaktor=3.;
 
 	CGLPixelFormatAttribute attribs[] =
 	{
-		kCGLPFAOpenGLProfile, kCGLOGLPVersion_Legacy,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
+        kCGLPFANoRecovery,
 		kCGLPFASupersample,
 		kCGLPFASampleAlpha,
         kCGLPFARemotePBuffer,

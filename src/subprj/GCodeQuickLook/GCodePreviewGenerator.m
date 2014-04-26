@@ -181,17 +181,17 @@ const CGFloat kRenderUpsizeFaktor=3.;
     CGLContextObj contextObj=NULL;
 	GLint numPixelFormats=0;
 
-	CGLPixelFormatAttribute attribs[] =
+
+    CGLPixelFormatAttribute attribs[] =
 	{
-        kCGLPFAOpenGLProfile, kCGLOGLPVersion_Legacy,
-        kCGLPFAMinimumPolicy,
 		kCGLPFAColorSize, (CGLPixelFormatAttribute)32,
 		kCGLPFADepthSize, (CGLPixelFormatAttribute)32,
+        kCGLPFANoRecovery,
 		kCGLPFASupersample,
 		kCGLPFASampleAlpha,
         kCGLPFARemotePBuffer,
 		(CGLPixelFormatAttribute)0
-	} ;
+	};
     
 	glError = CGLChoosePixelFormat (attribs, &pixelFormatObj, &numPixelFormats);
 	
