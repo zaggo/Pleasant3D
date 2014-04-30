@@ -154,8 +154,8 @@
 	if(![value isEqualToString:self.selectedMachineUUID])
 	{
 		[[[self undoManager] prepareWithInvocationTarget:self] setSelectedMachineUUID:self.selectedMachineUUID];
-		self.selectedMachineUUID = value;
-		[_toolBin reprocessProject]; // TODO: Necessary?
+		super.selectedMachineUUID = value;
+        [_toolBin reprocessProject]; // TODO: Necessary?
 	}
 }
 

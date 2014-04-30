@@ -33,7 +33,7 @@
 
 - (BOOL)validateAndSaveChanges
 {
-	BOOL validated = NO;
+	BOOL validated = NO;    
 	
 	if([(NSObject*)machineOptionsDelegate respondsToSelector:@selector(validateAndSaveChanges:)])
 	{

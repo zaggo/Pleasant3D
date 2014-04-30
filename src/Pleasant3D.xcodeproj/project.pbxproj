@@ -1052,6 +1052,11 @@
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						DevelopmentTeam = 6Y56WGKJZR;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -1557,9 +1562,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 12;
-				APPLICATION_VERSION = 2.6;
-				CODE_SIGN_IDENTITY = "";
+				APPLICATION_BUILD_NUMBER = 14;
+				APPLICATION_VERSION = 2.6.1;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1576,9 +1580,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 12;
-				APPLICATION_VERSION = 2.6;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				APPLICATION_BUILD_NUMBER = 14;
+				APPLICATION_VERSION = 2.6.1;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
