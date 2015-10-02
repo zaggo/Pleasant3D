@@ -44,6 +44,8 @@
 	Vector2d* _scaleCornerLow;
     
     NSTimer* _changesCommitTimer;
+    
+    BOOL selectedMachineUUIDObserved;
 }
 
 #pragma mark - Document Life Cycle
@@ -58,20 +60,25 @@
     [_openGL3DPrinterView bind:@"currentMachine" toObject:self withKeyPath:@"currentMachine" options:nil];
     [self setupParameterView];
     [self addObserver:self forKeyPath:@"selectedMachineUUID" options:NSKeyValueObservingOptionNew context:nil];
+    selectedMachineUUIDObserved=YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentMachineSettingsChanged:) name:P3DCurrentMachineSettingsChangedNotifiaction object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self removeObserver:self forKeyPath:@"selectedMachineUUID"];
+    if(selectedMachineUUIDObserved)
+        [self removeObserver:self forKeyPath:@"selectedMachineUUID"];
+    selectedMachineUUIDObserved=NO;
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
 	self.rawGCode = nil;
-	if([typeName isEqualToString:@"com.pleasantsoftware.uti.gcode"])
-		self.rawGCode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if([typeName isEqualToString:@"com.pleasantsoftware.uti.gcode"]) {
+        self.rawGCode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if(_rawGCode == nil) self.rawGCode = [[NSString alloc] initWithData:data encoding:NSWindowsCP1250StringEncoding];
+    }
     
     if (_rawGCode==nil && outError != nil )
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];

@@ -456,6 +456,7 @@
 		E25A6D8B1852546900CBB9D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/STLDocument.xib; sourceTree = "<group>"; };
 		E25A6D8C1852546D00CBB9D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/STLImportPreviewGUI.xib; sourceTree = "<group>"; };
 		E25A6D8D1852547100CBB9D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/Toolbox.xib; sourceTree = "<group>"; };
+		E26DCA4C191165B400921C3D /* Pleasant3D.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pleasant3D.entitlements; sourceTree = "<group>"; };
 		E270B3FF1859FBFB0013EF19 /* Generic3DPrinter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Generic3DPrinter.xcodeproj; path = subprj/PrinterDriver/Generic3DPrinter/Generic3DPrinter.xcodeproj; sourceTree = "<group>"; };
 		E270B40C185B66660013EF19 /* GenericMill.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GenericMill.xcodeproj; path = subprj/PrinterDriver/GenericMill/GenericMill.xcodeproj; sourceTree = "<group>"; };
 		E27435AD138FD7530062643A /* P3DCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = P3DCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -544,6 +545,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* PleasantSTL */ = {
 			isa = PBXGroup;
 			children = (
+				E26DCA4C191165B400921C3D /* Pleasant3D.entitlements */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				E24337D1138FB27D007B347E /* Subprojects */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,

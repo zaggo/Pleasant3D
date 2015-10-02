@@ -20,6 +20,7 @@
 		E2076D3E18620AAC00F51D2F /* GCodeStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E2076D3B18620AAC00F51D2F /* GCodeStatistics.m */; };
 		E2076D4918620BA400F51D2F /* P3DPrinterDriverBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E2076D4818620BA400F51D2F /* P3DPrinterDriverBase.m */; };
 		E2076D4C1862571D00F51D2F /* P3DParsedGCodePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = E2076D4B1862571D00F51D2F /* P3DParsedGCodePrinter.m */; };
+		E26DCA4B1911658100921C3D /* GCodeQuickLook.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = E26DCA4A1911658100921C3D /* GCodeQuickLook.entitlements */; };
 		E2ABC1E31100B6A0004CE17C /* Vector3.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABC1E01100B6A0004CE17C /* Vector3.m */; };
 		E2ABC1E41100B6A0004CE17C /* Vector2.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABC1E21100B6A0004CE17C /* Vector2.m */; };
 		E2ABC1E71100B6B6004CE17C /* NSArray+GCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ABC1E61100B6B6004CE17C /* NSArray+GCode.m */; };
@@ -54,6 +55,7 @@
 		E2076D4818620BA400F51D2F /* P3DPrinterDriverBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DPrinterDriverBase.m; sourceTree = "<group>"; };
 		E2076D4A1862571D00F51D2F /* P3DParsedGCodePrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P3DParsedGCodePrinter.h; path = ../P3DCore/P3DParsedGCodePrinter.h; sourceTree = "<group>"; };
 		E2076D4B1862571D00F51D2F /* P3DParsedGCodePrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P3DParsedGCodePrinter.m; path = ../P3DCore/P3DParsedGCodePrinter.m; sourceTree = "<group>"; };
+		E26DCA4A1911658100921C3D /* GCodeQuickLook.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GCodeQuickLook.entitlements; sourceTree = "<group>"; };
 		E2ABC1DF1100B6A0004CE17C /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector3.h; path = ../P3DCore/Vector3.h; sourceTree = SOURCE_ROOT; };
 		E2ABC1E01100B6A0004CE17C /* Vector3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vector3.m; path = ../P3DCore/Vector3.m; sourceTree = SOURCE_ROOT; };
 		E2ABC1E11100B6A0004CE17C /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector2.h; path = ../P3DCore/Vector2.h; sourceTree = SOURCE_ROOT; };
@@ -92,6 +94,7 @@
 		089C166AFE841209C02AAC07 /* GCodeQuickLook */ = {
 			isa = PBXGroup;
 			children = (
+				E26DCA4A1911658100921C3D /* GCodeQuickLook.entitlements */,
 				E2ABC1F11100B716004CE17C /* From P3DCore */,
 				08FB77AFFE84173DC02AAC07 /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -223,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E26DCA4B1911658100921C3D /* GCodeQuickLook.entitlements in Resources */,
 				8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */,
 				E2076D341862081600F51D2F /* debugScopes.plist in Resources */,
 			);
@@ -278,6 +282,8 @@
 		2CA3261F0896AD4900168862 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = /Users/zaggo/Develop/Pleasant3D/src/subprj/GCodeQuickLook/GCodeQuickLook.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -293,6 +299,7 @@
 		2CA326200896AD4900168862 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = /Users/zaggo/Develop/Pleasant3D/src/subprj/GCodeQuickLook/GCodeQuickLook.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
