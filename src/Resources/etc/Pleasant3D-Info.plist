@@ -47,9 +47,12 @@
 			<string>Stereolitography Object</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.pleasantsoftware.uti.stl</string>
+				<string>public.standard-tesselated-geometry-format</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>STLDocument</string>
@@ -90,11 +93,11 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>$(APPLICATION_VERSION) ($(APPLICATION_BUILD_NUMBER)) © 2005-2013 Pleasant Software, Offenburg/Germany</string>
+	<string>$(APPLICATION_VERSION) ($(APPLICATION_BUILD_NUMBER)) © 2005-2015 Pleasant Software, Offenburg/Germany</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.pleasantsoftware.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -105,10 +108,19 @@
 	<string>$(APPLICATION_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(APPLICATION_BUILD_NUMBER)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -122,6 +134,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.standard-tesselated-geometry-format</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>

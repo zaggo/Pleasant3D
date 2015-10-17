@@ -40,8 +40,6 @@
 		E24FAE2D10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE2C10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns */; };
 		E24FAE3510FB64620081C559 /* ToolPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3210FB64620081C559 /* ToolPanel.xib */; };
 		E24FAE3610FB64620081C559 /* ToolItemPrototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3310FB64620081C559 /* ToolItemPrototype.xib */; };
-		E24FAF9310FB8E540081C559 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; };
-		E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E25420B610FA0E3B005D08F7 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = E25420B510FA0E3B005D08F7 /* dsa_pub.pem */; };
 		E254217D10FB57FA005D08F7 /* Toolbox.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E254217C10FB57FA005D08F7 /* Toolbox.pdf */; };
 		E254218810FB5904005D08F7 /* SliceNDiceDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E254218710FB5904005D08F7 /* SliceNDiceDocument.m */; };
@@ -80,6 +78,8 @@
 		E2A43EC21103365E003F5907 /* debugScopes.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2A43EC11103365E003F5907 /* debugScopes.plist */; };
 		E2A43FBC11034EA9003F5907 /* P3DLoopsPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */; };
 		E2A43FC011034EFB003F5907 /* P3DLoopsPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A43FBF11034EFB003F5907 /* P3DLoopsPreviewController.m */; };
+		E2BA7C4D1BD25A8A002E2BA2 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BA7C4C1BD25A8A002E2BA2 /* Sparkle.framework */; };
+		E2BA7C4E1BD25A8A002E2BA2 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E2BA7C4C1BD25A8A002E2BA2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E2C183AB10FE80C900396141 /* ToolPool.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C183AA10FE80C900396141 /* ToolPool.m */; };
 		E2C1879310FF478300396141 /* STLPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E226424C108B78EB002FCAD8 /* STLPreviewView.m */; };
 		E2C1879A10FF48BD00396141 /* STLPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C1879710FF47B200396141 /* STLPreviewController.m */; };
@@ -304,8 +304,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */,
 				E2FB7E1B13A1658800637786 /* P3DCore.framework in Copy Frameworks */,
+				E2BA7C4E1BD25A8A002E2BA2 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,7 +407,6 @@
 		E24FAE2C10FB63BB0081C559 /* com.pleasantsoftware.p3dIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = com.pleasantsoftware.p3dIcon.icns; sourceTree = "<group>"; };
 		E24FAE3210FB64620081C559 /* ToolPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolPanel.xib; sourceTree = "<group>"; };
 		E24FAE3310FB64620081C559 /* ToolItemPrototype.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolItemPrototype.xib; sourceTree = "<group>"; };
-		E24FAF9210FB8E540081C559 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		E25420B510FA0E3B005D08F7 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		E254217C10FB57FA005D08F7 /* Toolbox.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Toolbox.pdf; sourceTree = "<group>"; };
 		E254218610FB5904005D08F7 /* SliceNDiceDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceNDiceDocument.h; sourceTree = "<group>"; };
@@ -476,6 +475,7 @@
 		E2A43FBB11034EA9003F5907 /* P3DLoopsPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DLoopsPreviewView.m; sourceTree = "<group>"; };
 		E2A43FBE11034EFB003F5907 /* P3DLoopsPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P3DLoopsPreviewController.h; sourceTree = "<group>"; };
 		E2A43FBF11034EFB003F5907 /* P3DLoopsPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P3DLoopsPreviewController.m; sourceTree = "<group>"; };
+		E2BA7C4C1BD25A8A002E2BA2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		E2C183A910FE80C900396141 /* ToolPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolPool.h; sourceTree = "<group>"; };
 		E2C183AA10FE80C900396141 /* ToolPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPool.m; sourceTree = "<group>"; };
 		E2C1879610FF47B200396141 /* STLPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLPreviewController.h; sourceTree = "<group>"; };
@@ -504,9 +504,9 @@
 			files = (
 				E27435AE138FD7530062643A /* P3DCore.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				E2BA7C4D1BD25A8A002E2BA2 /* Sparkle.framework in Frameworks */,
 				E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */,
 				E2264295108B7D9F002FCAD8 /* QuartzCore.framework in Frameworks */,
-				E24FAF9310FB8E540081C559 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,7 +516,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E24FAF9210FB8E540081C559 /* Sparkle.framework */,
+				E2BA7C4C1BD25A8A002E2BA2 /* Sparkle.framework */,
 				E2264292108B7D7F002FCAD8 /* OpenGL.framework */,
 				E2264294108B7D9F002FCAD8 /* QuartzCore.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
@@ -1564,17 +1564,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 16;
-				APPLICATION_VERSION = 2.6.2;
+				APPLICATION_BUILD_NUMBER = 19;
+				APPLICATION_VERSION = 2.6.3;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pleasant3D;
@@ -1585,15 +1590,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 16;
-				APPLICATION_VERSION = 2.6.2;
+				APPLICATION_BUILD_NUMBER = 19;
+				APPLICATION_VERSION = 2.6.3;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pleasant3D;
