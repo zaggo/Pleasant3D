@@ -562,7 +562,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pleasant Software";
 				TargetAttributes = {
 					8DC2EF4F0486A6940098B216 = {
@@ -677,6 +677,7 @@
 				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.${PRODUCT_NAME:rfc1034Identifier}";
 				PRODUCT_NAME = P3DCore;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -697,6 +698,7 @@
 				GCC_PREFIX_HEADER = P3DCore_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.${PRODUCT_NAME:rfc1034Identifier}";
 				PRODUCT_NAME = P3DCore;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -711,6 +713,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = __DEBUG__;

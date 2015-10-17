@@ -173,8 +173,8 @@ static NSShadow* _nonLayeredUnShadow = nil;
 			ToolSettingsViewController* cntrl = [tool settingsViewController];
 			if(cntrl)
 			{
-				NSRect panelRectInScreenCoordinates = [self convertRectToBase:[self convertRect:[self bounds] toView:nil]];
-				panelRectInScreenCoordinates.origin = [self.window convertBaseToScreen:panelRectInScreenCoordinates.origin];
+                NSRect panelRectInScreenCoordinates = [self convertRect:[self bounds] toView:nil];
+				panelRectInScreenCoordinates = [self.window convertRectToScreen:panelRectInScreenCoordinates];
 				panelRectInScreenCoordinates.origin.y-=NSHeight([self bounds])/3.-3.;
 				[cntrl editToolLocatedAtScreenRect:panelRectInScreenCoordinates];
 			}

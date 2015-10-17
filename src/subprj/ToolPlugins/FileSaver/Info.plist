@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>FileSaver</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.pleasantsoftware.pleasant3d.tool.${PRODUCT_NAME:rfc1034Identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,5 +24,9 @@
 	<string>1</string>
 	<key>NSPrincipalClass</key>
 	<string>FileSaver</string>
+    <key>CFBundleSupportedPlatforms</key>
+    <array>
+        <string>MacOSX</string>
+    </array>
 </dict>
 </plist>

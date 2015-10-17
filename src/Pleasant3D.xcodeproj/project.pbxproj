@@ -12,7 +12,7 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		E209DB4D18C201B700B534B2 /* Machine.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E209DB4C18C201B700B534B2 /* Machine.pdf */; };
 		E21DBC01113AD81F0009875E /* PSToolboxPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DBC00113AD81F0009875E /* PSToolboxPanel.m */; };
-		E21E14F114FDAE9200A4FC02 /* GCodeImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */; };
+		E21E14F114FDAE9200A4FC02 /* GCodeImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E21E14DD14FD67AD00A4FC02 /* GCodeImport.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2264293108B7D7F002FCAD8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264292108B7D7F002FCAD8 /* OpenGL.framework */; };
 		E2264295108B7D9F002FCAD8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2264294108B7D9F002FCAD8 /* QuartzCore.framework */; };
 		E22644B4108B98A0002FCAD8 /* P3DDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22644B3108B98A0002FCAD8 /* P3DDocumentController.m */; };
@@ -21,13 +21,13 @@
 		E22646E9108BE0FD002FCAD8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E22646E8108BE0FD002FCAD8 /* AppIcon.icns */; };
 		E22646F8108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E22646F6108BE5EE002FCAD8 /* com.pleasantsoftware.gcodeIcon.icns */; };
 		E22646F9108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E22646F7108BE5EE002FCAD8 /* com.pleasantsoftware.stlIcon.icns */; };
-		E24338A7138FB65A007B347E /* GCodeQuickLook.qlgenerator in Copy QuickLook Plugins */ = {isa = PBXBuildFile; fileRef = E24338A6138FB65A007B347E /* GCodeQuickLook.qlgenerator */; };
-		E24338A9138FB662007B347E /* STLQuickLook.qlgenerator in Copy QuickLook Plugins */ = {isa = PBXBuildFile; fileRef = E24338A8138FB662007B347E /* STLQuickLook.qlgenerator */; };
-		E24338B0138FB956007B347E /* Slice.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338AF138FB955007B347E /* Slice.bundle */; };
-		E24338B2138FB95F007B347E /* STLImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B1138FB95F007B347E /* STLImport.bundle */; };
-		E24338B4138FB967007B347E /* GCodeGenerator.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B3138FB967007B347E /* GCodeGenerator.bundle */; };
-		E24338B6138FB970007B347E /* ForwardTool.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B5138FB970007B347E /* ForwardTool.bundle */; };
-		E24338B8138FB978007B347E /* FileSaver.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B7138FB978007B347E /* FileSaver.bundle */; };
+		E24338A7138FB65A007B347E /* GCodeQuickLook.qlgenerator in Copy QuickLook Plugins */ = {isa = PBXBuildFile; fileRef = E24338A6138FB65A007B347E /* GCodeQuickLook.qlgenerator */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E24338A9138FB662007B347E /* STLQuickLook.qlgenerator in Copy QuickLook Plugins */ = {isa = PBXBuildFile; fileRef = E24338A8138FB662007B347E /* STLQuickLook.qlgenerator */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E24338B0138FB956007B347E /* Slice.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338AF138FB955007B347E /* Slice.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E24338B2138FB95F007B347E /* STLImport.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B1138FB95F007B347E /* STLImport.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E24338B4138FB967007B347E /* GCodeGenerator.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B3138FB967007B347E /* GCodeGenerator.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E24338B6138FB970007B347E /* ForwardTool.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B5138FB970007B347E /* ForwardTool.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E24338B8138FB978007B347E /* FileSaver.bundle in Copy Plugins */ = {isa = PBXBuildFile; fileRef = E24338B7138FB978007B347E /* FileSaver.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E24D8A3C116F481B0046B8BA /* MachineOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D8A3B116F481B0046B8BA /* MachineOptionsController.m */; };
 		E24F70A41172285E00285948 /* P3DMachiningQueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E24F70A31172285E00285948 /* P3DMachiningQueueManager.m */; };
 		E24FAE0810FB61700081C559 /* dataFlowButton_No_Forward.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E24FADFB10FB61700081C559 /* dataFlowButton_No_Forward.pdf */; };
@@ -41,7 +41,7 @@
 		E24FAE3510FB64620081C559 /* ToolPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3210FB64620081C559 /* ToolPanel.xib */; };
 		E24FAE3610FB64620081C559 /* ToolItemPrototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FAE3310FB64620081C559 /* ToolItemPrototype.xib */; };
 		E24FAF9310FB8E540081C559 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; };
-		E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; };
+		E24FAF9410FB8E660081C559 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E24FAF9210FB8E540081C559 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E25420B610FA0E3B005D08F7 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = E25420B510FA0E3B005D08F7 /* dsa_pub.pem */; };
 		E254217D10FB57FA005D08F7 /* Toolbox.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E254217C10FB57FA005D08F7 /* Toolbox.pdf */; };
 		E254218810FB5904005D08F7 /* SliceNDiceDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = E254218710FB5904005D08F7 /* SliceNDiceDocument.m */; };
@@ -67,11 +67,11 @@
 		E25A6D7C1852542B00CBB9D1 /* STLDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25A6D6A1852542B00CBB9D1 /* STLDocument.xib */; };
 		E25A6D7D1852542B00CBB9D1 /* STLImportPreviewGUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25A6D6C1852542B00CBB9D1 /* STLImportPreviewGUI.xib */; };
 		E25A6D7E1852542B00CBB9D1 /* Toolbox.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25A6D6E1852542B00CBB9D1 /* Toolbox.xib */; };
-		E270B4051859FD8A0013EF19 /* Generic3DPrinter.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E270B4041859FBFC0013EF19 /* Generic3DPrinter.bundle */; };
-		E270B414185B66950013EF19 /* GenericMill.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E270B411185B66670013EF19 /* GenericMill.bundle */; };
+		E270B4051859FD8A0013EF19 /* Generic3DPrinter.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E270B4041859FBFC0013EF19 /* Generic3DPrinter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E270B414185B66950013EF19 /* GenericMill.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E270B411185B66670013EF19 /* GenericMill.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E27435AE138FD7530062643A /* P3DCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27435AD138FD7530062643A /* P3DCore.framework */; };
-		E27435FA138FEC6A0062643A /* PleasantMill.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E27435F6138FE6270062643A /* PleasantMill.bundle */; };
-		E27435FB138FEC6F0062643A /* Sanguino3G.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E24338B9138FB988007B347E /* Sanguino3G.bundle */; };
+		E27435FA138FEC6A0062643A /* PleasantMill.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E27435F6138FE6270062643A /* PleasantMill.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E27435FB138FEC6F0062643A /* Sanguino3G.bundle in CopyMachineDrivers */ = {isa = PBXBuildFile; fileRef = E24338B9138FB988007B347E /* Sanguino3G.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2743622139281160062643A /* GrayLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2743621139281160062643A /* GrayLight.png */; };
 		E2970FD811247D230060FA0C /* ThreeDPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2970FD711247D230060FA0C /* ThreeDPreviewView.m */; };
 		E29710A11124E9EB0060FA0C /* trackball.c in Sources */ = {isa = PBXBuildFile; fileRef = E297109F1124E9EB0060FA0C /* trackball.c */; };
@@ -87,7 +87,7 @@
 		E2D4788B14FED86800FC7833 /* InstallDevSupport.command in CopyDevSupport */ = {isa = PBXBuildFile; fileRef = E2D4788514FED6FA00FC7833 /* InstallDevSupport.command */; };
 		E2D4E326112D680500F67528 /* P3DMachiningController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D4E325112D680500F67528 /* P3DMachiningController.m */; };
 		E2D7B4B910FD056600927AE4 /* Tool.png in Resources */ = {isa = PBXBuildFile; fileRef = E2D7B4B810FD056600927AE4 /* Tool.png */; };
-		E2FB7E1B13A1658800637786 /* P3DCore.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E27435AD138FD7530062643A /* P3DCore.framework */; };
+		E2FB7E1B13A1658800637786 /* P3DCore.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E27435AD138FD7530062643A /* P3DCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2FC67D211650B1400DC2E16 /* GreenLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67CF11650B1400DC2E16 /* GreenLight.png */; };
 		E2FC67D311650B1400DC2E16 /* RedLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67D011650B1400DC2E16 /* RedLight.png */; };
 		E2FC67D411650B1400DC2E16 /* YellowLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FC67D111650B1400DC2E16 /* YellowLight.png */; };
@@ -1049,7 +1049,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pleasant Software";
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
@@ -1564,8 +1564,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 14;
-				APPLICATION_VERSION = 2.6.1;
+				APPLICATION_BUILD_NUMBER = 16;
+				APPLICATION_VERSION = 2.6.2;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1574,6 +1575,8 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pleasant3D;
 			};
 			name = Debug;
@@ -1582,14 +1585,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 14;
-				APPLICATION_VERSION = 2.6.1;
+				APPLICATION_BUILD_NUMBER = 16;
+				APPLICATION_VERSION = 2.6.2;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Classes/Pleasant3D_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/etc/Pleasant3D-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pleasant3D;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
@@ -1606,10 +1612,14 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = __DEBUG__;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1637,10 +1647,13 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks/";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

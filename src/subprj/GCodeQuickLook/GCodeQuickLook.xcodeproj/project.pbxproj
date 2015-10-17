@@ -202,7 +202,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pleasant Software";
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "GCodeQuickLook" */;
@@ -283,7 +283,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = /Users/zaggo/Develop/Pleasant3D/src/subprj/GCodeQuickLook/GCodeQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -291,6 +291,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.qlgenerator.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = GCodeQuickLook;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -300,12 +301,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = /Users/zaggo/Develop/Pleasant3D/src/subprj/GCodeQuickLook/GCodeQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.qlgenerator.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = GCodeQuickLook;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = qlgenerator;
@@ -318,6 +320,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = __NO_VECTOR2D__;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

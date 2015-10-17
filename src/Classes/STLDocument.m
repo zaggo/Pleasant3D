@@ -55,7 +55,7 @@
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
 	NSData* dataToSave=nil;
-	if([typeName isEqualToString:@"com.pleasantsoftware.uti.stl"] && self.loadedSTLModel)
+	if(([typeName isEqualToString:@"com.pleasantsoftware.uti.stl"] || [typeName isEqualToString:@"public.standard-tesselated-geometry-format"]) && self.loadedSTLModel)
 	{
 		STLModel* processedModel = self.stlShapeShifter.processedSTLModel;
 		self.loadedSTLModel = processedModel;
@@ -76,7 +76,7 @@
 	if(outError != NULL)
 		*outError=nil;
 	self.loadedSTLModel = nil;
-	if([typeName isEqualToString:@"com.pleasantsoftware.uti.stl"])
+	if([typeName isEqualToString:@"com.pleasantsoftware.uti.stl"] || [typeName isEqualToString:@"public.standard-tesselated-geometry-format"])
 	{
 		STLImportPlugin* plugin = [[STLImportPlugin alloc] init];
 		self.loadedSTLModel = [plugin readSTLModel:data];

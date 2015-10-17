@@ -172,8 +172,9 @@ const CGFloat kCornerRadius = 10.0;
 {
 	if(!isUnanchoredView && unanchorPending)
 	{
-		NSPoint hit = [theEvent locationInWindow];
-		hit=[self.window convertBaseToScreen:[self convertPoint:hit fromView:nil]];
+        NSRect hitRect = NSZeroRect;
+		hitRect.origin = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+		NSPoint hit=[self.window convertRectToScreen:hitRect].origin;
 		NSPoint newOrigin = NSMakePoint(hit.x-hitOffset.x, hit.y-hitOffset.y);
 		[[self window] setFrameOrigin:newOrigin];
 	}

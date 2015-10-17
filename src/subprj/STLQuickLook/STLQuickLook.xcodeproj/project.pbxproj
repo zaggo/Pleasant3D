@@ -224,7 +224,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pleasant Software";
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "STLQuickLook" */;
@@ -313,6 +313,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.qlgenerator.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = STLQuickLook;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -328,6 +329,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pleasantsoftware.qlgenerator.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = STLQuickLook;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -338,6 +340,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = __NO_VECTOR2D__;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
