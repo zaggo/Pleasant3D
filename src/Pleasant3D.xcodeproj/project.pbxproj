@@ -1564,8 +1564,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 19;
-				APPLICATION_VERSION = 2.6.3;
+				APPLICATION_BUILD_NUMBER = 20;
+				APPLICATION_VERSION = 2.6.4;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1590,8 +1590,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_BUILD_NUMBER = 19;
-				APPLICATION_VERSION = 2.6.3;
+				APPLICATION_BUILD_NUMBER = 20;
+				APPLICATION_VERSION = 2.6.4;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
