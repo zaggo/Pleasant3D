@@ -456,6 +456,8 @@ enum {
 			glRotatef (_trackBallRotation[0], _trackBallRotation[1], _trackBallRotation[2], _trackBallRotation[3]);
 		// accumlated world rotation via trackball
 		glRotatef (_worldRotation[0], _worldRotation[1], _worldRotation[2], _worldRotation[3]);
+        glTranslatef(-self.currentMachine.dimBuildPlattform.x/2, -self.currentMachine.dimBuildPlattform.y/2, 0);
+        glTranslatef(self.currentMachine.zeroBuildPlattform.x, self.currentMachine.zeroBuildPlattform.y, 0);
 	} else {
 		glTranslatef((GLfloat)_cameraTranslateX, (GLfloat)_cameraTranslateY, 0.f);
 		glScalef(-200.f/(GLfloat)_cameraOffset, -200.f/(GLfloat)_cameraOffset, 1.f);
